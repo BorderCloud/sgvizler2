@@ -20,6 +20,7 @@ assets
 
 build/main/__test__
 build/module/__test__
+src/__test__
 
 coverage
 .nyc_output
