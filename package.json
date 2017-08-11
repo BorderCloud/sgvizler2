@@ -1,6 +1,6 @@
 {
   "name": "sgvizler2",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin).",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
@@ -42,7 +42,7 @@
     "docs:publish": "yarn docs:html && gh-pages -d build/docs",
     "changelog": "standard-version",
     "release_old": "yarn r_e_s_e_t && yarn test && yarn docs:publish && yarn changelog",
-    "release": "yarn test && yarn build:all && yarn docs:publish && yarn changelog",
+    "release": "yarn test && yarn buildall && yarn docs:publish && yarn changelog",
     "reset": "git clean -dfx && git reset --hard && yarn",
     "tt": "yarn build && node config/exports/build-tests.ts && ava test/**/Container.*.js"
   },
