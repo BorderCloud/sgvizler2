@@ -1,0 +1,11 @@
+node_modules/
+build/
+test/
+src/**.js
+examples/
+oldjs/
+
+
+coverage
+.nyc_output
+*.log

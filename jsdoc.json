@@ -1,0 +1,47 @@
+{
+  "sourceType": "module",
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc","closure"]
+  },
+  "opts": {
+    "template": "./jsdoc_template/template",
+    "destination": "./build/docs",
+    "encoding": "utf8",
+    "recurse": true,
+    "tutorials": "./tutorials"
+  },
+  "plugins": [
+    "plugins/markdown",
+    "node_modules/jsdoc-memberof-namespace"
+  ],
+  "templates": {
+    "theme":"readable",
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "default": {
+      "outputSourceFiles": true,
+      "includeDate": false,
+      "useLongnameInNav": true
+    },
+    "path": "ink-docstrap",
+    "navType": "vertical",
+    "linenums": true,
+    "dateFormat": "MMMM Do YYYY, h:mm:ss a",
+    "systemName":
+    "<div style='position: relative;top: -20px;font:bold;color: black;font-size: 31pt;font-weight: bolder;'><img style='vertical-align: sub;' src='img/mr.sgvizler.png' width='55px'/>Sgvizler 2</div>",
+    "systemTitle":  "Sgvizler 2"
+    /*"logoFile":"img/mr.sgvizler.png"*/
+  },
+  "source": {
+    "include": "build/main",
+    "exclude":  "build/main/__test__",
+    "includePattern": ".+\\.js(doc|x)?$",
+// TODO : resolve : Error token with Jsdoc
+//    "include": "./src",
+//    "exclude":  "./src/__test__",
+//    "includePattern": ".+\\.ts(doc|x)?$",
+
+    "excludePattern": "(^|\\/|\\\\)_"
+  }
+}

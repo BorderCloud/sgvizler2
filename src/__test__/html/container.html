@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sgvizler</title>
+    <script type="text/javascript" src="lib/JQuery/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<div id="test1_1"
+     data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+     data-sgvizler-query="SELECT ?o ?p ?v WHERE { ?o ?p ?v } LIMIT 10"
+     data-sgvizler-chart="sgvizler.visualization.Table"
+     data-sgvizler-chart-options= "Width:100%"
+     data-sgvizler-log="2"
+></div>
+<div id="test2_1"  style="width:150px;height: 160px"
+     data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+     data-sgvizler-query="SELECT ?o ?p ?v WHERE { ?o ?p ?v } LIMIT 10"
+     data-sgvizler-chart="sgvizler.visualization.Table"
+     data-sgvizler-log="2"
+></div>
+<div id="test2_2"  style="width:150px;height: 160px"
+     data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+     data-sgvizler-query="SELECT ?o ?p ?v WHERE { ?o ?p ?v } LIMIT 10"
+     data-sgvizler-chart="sgvizler.visualization.Table"
+     data-sgvizler-chart-options= "200px"
+     data-sgvizler-log="2"
+></div>
+
+<div id="test_log_0"
+     data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+     data-sgvizler-query="SELECT ?o ?p ?v WHERE { ?o ?p ?v } LIMIT 10"
+     data-sgvizler-chart="sgvizler.visualization.IMPOSSIBLE"
+     data-sgvizler-chart-options= "Width:100%"
+     data-sgvizler-log="0"
+></div>
+<div id="test_log_1"
+     data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+     data-sgvizler-query="SELECT ?o ?p ?v WHERE { ?o ?p ?v } LIMIT 10"
+     data-sgvizler-chart="sgvizler.visualization.IMPOSSIBLE"
+     data-sgvizler-chart-options= "Width:100%"
+     data-sgvizler-log="1"
+></div>
+<div id="test_log_2"
+     data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+     data-sgvizler-query="SELECT ?o ?p ?v WHERE { ?o ?p ?v } LIMIT 10"
+     data-sgvizler-chart="sgvizler.visualization.IMPOSSIBLE"
+     data-sgvizler-chart-options= "Width:100%"
+     data-sgvizler-log="2"
+></div>
+
+</body>
+</html>

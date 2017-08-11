@@ -1,0 +1,23 @@
+{
+  "extends": "tslint-config-standard",
+  "rules": {
+    "ter-indent": [
+      false,
+      4,
+      {
+        "FunctionExpression": {
+          "parameters": 1,
+          "body": 1
+        }
+      }
+    ],
+    "require-jsdoc": ["error", {
+      "require": {
+        "FunctionDeclaration": true,
+        "MethodDefinition": true,
+        "ClassDeclaration": true,
+        "ArrowFunctionExpression": true
+      }
+    }]
+  }
+}
