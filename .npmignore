@@ -18,7 +18,6 @@ yarn.lock
 tutorials
 jsdoc_template
 assets
-build
 
 build/main/__test__
 build/module/__test__
