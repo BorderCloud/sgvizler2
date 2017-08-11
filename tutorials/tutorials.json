@@ -1,0 +1,11 @@
+{
+  "A_Editor": {
+    "title": "A SPARQL editor"
+  },
+  "bordercloud_visualization_DataTable": {
+    "title": "bordercloud.visualization.DataTable"
+  },
+  "sgvizler_visualization_Table": {
+    "title": "sgvizler.visualization.Table"
+  }
+}

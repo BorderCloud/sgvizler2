@@ -5,7 +5,7 @@
 [![dependencies Status](https://david-dm.org/bordercloud/sgvizler2/status.svg)](https://david-dm.org/bordercloud/sgvizler2)
 [![devDependencies Status](https://david-dm.org/bordercloud/sgvizler2/dev-status.svg)](https://david-dm.org/bordercloud/sgvizler2?type=dev)
 
-# sgvizler2
+# sgvizler2 => UNDER CONSTRUCTION
 
 Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin).
 

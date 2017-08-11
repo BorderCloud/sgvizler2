@@ -1,0 +1,177 @@
+<div class="container">
+    <form>
+
+        <div class="form-group row">
+            <label for="endpoint" class="col-2 col-form-label">Endpoint</label>
+            <div class="col-10">
+                <input class="form-control" type="url" value="https://query.wikidata.org/sparql" id="endpoint">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="query" class="col-2 col-form-label">Example textarea</label>
+            <div class="col-10">
+        <textarea class="form-control" id="query"  rows="8"  lang="sparql">
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT  *
+WHERE {
+        ?object ?property ?valueOrObject .
+}
+LIMIT 10</textarea>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="options" class="col-2 col-form-label">Options</label>
+            <div class="col-10">
+                <input class="form-control" type="input" id="options">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="logsLevel" class="col-2 col-form-label">Logs level</label>
+            <div class="col-10">
+                <select class="custom-select" id="logsLevel">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </div>
+        </div>
+        <div style="height: 50px;">
+                <div class="pull-right" >
+                    <select class="selectpicker selectchart" id="chart"></select>
+                    <button id="execQuery" type="button" class="btn btn-primary">Execute the query</button>
+                    <button id="seeDoc" type="button" class="btn btn-secondary secondary">See the doc</button>
+                </div>
+        </div>
+    </form>
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab">Result</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#htmlTab" role="tab">HTML</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#scriptTab" role="tab">Javascript</a>
+    </li>
+</ul>
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane active" id="resultTab" role="tabpanel">
+        <div id="example" style="padding: 25px;"><div id="result"></div></div>
+    </div>
+    <div class="tab-pane" id="htmlTab" role="tabpanel">
+        <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml"></pre></div>
+    </div>
+    <div class="tab-pane" id="scriptTab" role="tabpanel">
+        <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript"></pre></div>
+    </div>
+</div>
+<script>
+    function htmlDecode(value) {
+        return $("<textarea/>").html(value).text();
+    }
+
+    function htmlEncode(value) {
+        return $('<textarea/>').text(value).html();
+    }
+
+
+$(document).ready(function () {
+
+    //Option 1
+    //$('.selectchart').selectchart('render'});
+
+    //Option 2
+    //$('.selectchart').selectchart('render'});
+
+    //Option 3
+//    $('.selectchart').selectchart({
+//        action: "render",
+//        subtext:"classFullName"
+//    });
+
+    //Option 4
+    $('.selectchart').selectchart({
+        action: "render",
+        subtext:"classFullName",
+        selected:"bordercloud.visualization.Table"
+    });
+
+    $('.selectpicker').selectpicker('refresh');
+
+  //  $("#console").text($("#chart").html().replace(/"( |>)/gi, "\"\n$1"));
+
+   // $("#console").text($("#example").html().replace(/"( |>)/gi, "\"\n$1"));
+
+    $("#execQuery").click(function() {
+        $("#result").html("")
+        $("#console").html("")
+
+        sgvizler2.create(
+            'result',
+            $('#endpoint').val(),
+            $('#query').val(),
+            $('.selectpicker').selectpicker('val'),
+            $('#options').val(),
+            $('#logsLevel').val()
+        )
+
+        var html =  "<div id=\"result\" \n" +
+            "data-sgvizler-query=\"" + htmlEncode($('#query').val()) + "\" \n" +
+            "data-sgvizler-endpoint=\"" + $('#endpoint').val() + "\" \n" +
+            "data-sgvizler-chart=\"" + $('.selectpicker').selectpicker('val') + "\" \n" ;
+
+        if($('#options').val() != ""){
+            html += "data-sgvizler-chart-options=\"" +  $('#options').val() + "\" \n";
+        }
+        if($('#logsLevel').val() != "0"){
+            html += "data-sgvizler-log=\"" +  $('#options').val() + "\" \n";
+        }
+        html +=  "></div>";
+        $("#consoleHtml").text(
+            html
+        )
+
+        $("#consoleScript").text(
+            "<script src=\"../browser/sgvizler2.js\">\<\/script>\n" +
+            "<script>\n" +
+            "   //Draw a chart \n"+
+            "   //sgvizler2.containerDraw('result'); \n"+
+            "   //or \n"+
+            "   //$(\"#result\").containerchart(); \n"+
+            "    \n"+
+            "   //Draw all Chart \n"+
+            "   sgvizler2.containerDrawAll(); \n"+
+            "\<\/script>"
+        )
+
+        //$("#console").text($("#example").html())
+       //$("#console").text($("#example").text().replace(/"( |>)/gi, "\"\n$1"));
+
+        //Draw a chart
+        //sgvizler2.containerDraw('result');
+        //or
+       // $("#result").containerchart();
+
+        //Draw all Chart
+        sgvizler2.containerDrawAll();
+    });
+    $("#seeDoc").click(function() {
+        //Option 1 :
+        var url = sgvizler2.getChartDoc($('.selectpicker').selectpicker('val'))
+        //Option 2 : change the path
+//        var url = sgvizler2.getChartDoc(
+//            $('.selectpicker').selectpicker('val'),
+//            "http://mypath/" //relative path of docs
+//        )
+        window.open(url, '_blank');
+    });
+
+
+})
+
+</script>
