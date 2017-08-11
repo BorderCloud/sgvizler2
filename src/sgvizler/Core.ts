@@ -11,7 +11,7 @@ export class Core {
      * @readonly
      * @type {string} VERSION
      */
-    public static readonly VERSION: string = '0.0.0'
+    public static readonly VERSION: string = '0.0'
 
     /**
      * sgvizler2's homepage.
@@ -19,7 +19,7 @@ export class Core {
      * @readonly
      * @type {string} HOMEPAGE
      */
-    public static readonly HOMEPAGE: string = 'file:///home/karima/git/bordercloud/sgvizler2/build/docs/index.html'
+    public static readonly HOMEPAGE: string = 'https://bordercloud.github.io/sgvizler2/index.html'
 
     /**
      * sgvizler2's docs path
@@ -27,6 +27,6 @@ export class Core {
      * @readonly
      * @type {string} DOCPATH
      */
-    public static readonly DOCPATH: string = 'file:///home/karima/git/bordercloud/sgvizler2/build/docs/'
+    public static readonly DOCPATH: string = 'https://bordercloud.github.io/sgvizler2/'
 
 }

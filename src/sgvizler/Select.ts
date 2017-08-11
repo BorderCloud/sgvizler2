@@ -82,7 +82,16 @@ export class Select {
      */
     public static getChartDoc (classFullName: string,pathDoc?: string) {
         let chartClass = Tools.getObjectByPath(classFullName) as Chart
-        return typeof chartClass === 'object' ? pathDoc + chartClass.tutorialFilename : Core.HOMEPAGE // tslint:disable-line
+
+        let path: string = ''
+
+        if (pathDoc !== undefined) {
+            path = pathDoc
+        }else {
+            path = Core.DOCPATH
+        }
+
+        return path + chartClass.tutorialFilename
     }
 
     private static getSelectOptions (options?: any) {

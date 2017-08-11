@@ -162,12 +162,12 @@ $(document).ready(function () {
     });
     $("#seeDoc").click(function() {
         //Option 1 :
-        var url = sgvizler2.getChartDoc($('.selectpicker').selectpicker('val'))
+        // var url = sgvizler2.getChartDoc($('.selectpicker').selectpicker('val'))
         //Option 2 : change the path
-//        var url = sgvizler2.getChartDoc(
-//            $('.selectpicker').selectpicker('val'),
-//            "http://mypath/" //relative path of docs
-//        )
+        var url = sgvizler2.getChartDoc(
+            $('.selectpicker').selectpicker('val'),
+            "" //relative path of docs
+        )
         window.open(url, '_blank');
     });
 

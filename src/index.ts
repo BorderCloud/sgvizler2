@@ -68,14 +68,7 @@ export function selectDrawAll () {
  * @returns {string}
  */
 export function getChartDoc (className: string,pathDoc?: string) {
-    let path: string = ''
-
-    if (pathDoc) {
-        path = pathDoc
-    }else {
-        path = S.Core.DOCPATH
-    }
-    return S.Select.getChartDoc(className,path)
+    return S.Select.getChartDoc(className,pathDoc)
 }
 
 /**
