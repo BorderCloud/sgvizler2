@@ -6,9 +6,28 @@ tsconfig.json
 tslint.json
 .travis.yml
 .github
+.git
+.gitignore
+.npmignore
 build/temp
 build/docs
+jsdoc.json
+yarn.lock
+.tslintignore
+
+tutorials
+jsdoc_template
+assets
+build
+
+build/main/__test__
+build/module/__test__
 
 coverage
 .nyc_output
 *.log
+
+
+#editor settings
+.idea
+.editorconfig

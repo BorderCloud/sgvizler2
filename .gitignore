@@ -9,3 +9,5 @@ oldjs/
 coverage
 .nyc_output
 *.log
+
+.idea
