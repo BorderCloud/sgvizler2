@@ -153,61 +153,66 @@ export class DataTable extends Chart {
                 return
             }
 
-            let cols = result.head.vars
-            let rows = result.results.bindings
-            let row
-            let datasetRow
-            let noCols = cols.length
-            let noRows = rows.length
-            let idChart = currentChart.container.id + '-datatable'
-            let datasetColumns = []
-            let datasetColumnsDefs
-            let dataset = []
-            let tableElement = document.createElement('table')
-            let tableId = document.createAttribute('id')
-            let tableClass = document.createAttribute('class')
-            let tableCellSpacing = document.createAttribute('cellspacing')
-            let tableWidth = document.createAttribute('width')
-            let opt = Object.assign({
+            try{
+
+                let cols = result.head.vars
+                let rows = result.results.bindings
+                let row
+                let datasetRow
+                let noCols = cols.length
+                let noRows = rows.length
+                let idChart = currentChart.container.id + '-datatable'
+                let datasetColumns = []
+                let datasetColumnsDefs
+                let dataset = []
+                let tableElement = document.createElement('table')
+                let tableId = document.createAttribute('id')
+                let tableClass = document.createAttribute('class')
+                let tableCellSpacing = document.createAttribute('cellspacing')
+                let tableWidth = document.createAttribute('width')
+                let opt = Object.assign({
                     'class'         : 'table table-striped table-bordered' ,
                     'cellspacing'   : '0' ,
                     'width'         : '100%' ,
                     'colstyle'      : undefined
                 }, currentChart.options )
 
-            for (let c = 0; c < noCols; c++) {
-                datasetColumns[c] = { title: cols[c] }
-            }
-
-            if (opt.colstyle !== undefined ) {
-                datasetColumnsDefs = DataTable.buildColumnDefs(opt.colstyle,noCols)
-            }
-
-            for (let r = 0; r < noRows; r++) {
-                row = rows[r]
-                datasetRow = []
-                // loop cells
-                for (let c = 0; c < noCols; c += 1) {
-                    datasetRow[c] = row[cols[c]].value
+                for (let c = 0; c < noCols; c++) {
+                    datasetColumns[c] = { title: cols[c] }
                 }
-                dataset[r] = datasetRow
+
+                if (opt.colstyle !== undefined ) {
+                    datasetColumnsDefs = DataTable.buildColumnDefs(opt.colstyle,noCols)
+                }
+
+                for (let r = 0; r < noRows; r++) {
+                    row = rows[r]
+                    datasetRow = []
+                    // loop cells
+                    for (let c = 0; c < noCols; c += 1) {
+                        datasetRow[c] = row[cols[c]].value
+                    }
+                    dataset[r] = datasetRow
+                }
+                tableId.value = idChart
+                tableClass.value = opt.class
+                tableCellSpacing.value = opt.cellspacing
+                tableWidth.value = opt.width
+                tableElement.setAttributeNode(tableId)
+                tableElement.setAttributeNode(tableClass)
+                tableElement.setAttributeNode(tableCellSpacing)
+                tableElement.setAttributeNode(tableWidth)
+
+                obj.appendChild(tableElement)
+
+                $( '#' + idChart).DataTable( {
+                    data: dataset ,
+                    columns: datasetColumns,
+                    columnDefs: datasetColumnsDefs
+                } )
+            }catch(e){
+                reject(e)
             }
-            tableId.value = idChart
-            tableClass.value = opt.class
-            tableCellSpacing.value = opt.cellspacing
-            tableWidth.value = opt.width
-            tableElement.setAttributeNode(tableId)
-            tableElement.setAttributeNode(tableClass)
-            tableElement.setAttributeNode(tableCellSpacing)
-            tableElement.setAttributeNode(tableWidth)
-
-            obj.appendChild(tableElement)
-
-            $( '#' + idChart).DataTable( {
-                data: dataset ,
-                columns: datasetColumns,
-                columnDefs: datasetColumnsDefs
-            } )
         })
      }
 }

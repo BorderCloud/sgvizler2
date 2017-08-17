@@ -11,6 +11,9 @@ export const sgvizler = S
 import * as bordercloudNS from './bordercloud'
 export const bordercloud = bordercloudNS
 
+import * as googleNS from './google'
+export const google = googleNS
+
 /**
  * Todo
  * @const

@@ -73,6 +73,14 @@ export class Loader {
         }
     }
 
+    private static getAbsoluteURL(url: string){
+        if(url.match(/^(\/\/|https?)/)){
+            return url
+        }else{
+            return Loader._pathScripts + url
+        }
+    }
+
     private static loadScript (dep: CssDependency): Promise<any> {
         let url = dep.url
         return new Promise(function (resolve, reject) {
@@ -94,7 +102,7 @@ export class Loader {
             let head = document.getElementsByTagName('head')[0]
             let script = document.createElement('script')
             script.type = 'text/javascript'
-            script.src = Loader._pathScripts + url
+            script.src = Loader.getAbsoluteURL(url)
 
             // Then bind the event to the callback function.
             // There are several events for cross browser compatibility.
@@ -130,7 +138,7 @@ export class Loader {
             let head = document.getElementsByTagName('head')[0]
             let link = document.createElement('link')
             link.rel = 'stylesheet'
-            link.href = Loader._pathScripts + url
+            link.href = Loader.getAbsoluteURL(url)
 
             // Then bind the event to the callback function.
             // There are several events for cross browser compatibility.

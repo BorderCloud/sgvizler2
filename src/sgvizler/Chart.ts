@@ -42,7 +42,7 @@ export abstract class Chart {
     public options: any = {}
 
     private _tabDependences: Array<Dependency> = []
-    private _resultSparql: SparqlResultInterface
+    protected _resultSparql: SparqlResultInterface
     private _isDone: boolean
     private _patternOptions: CHART_PATTERN_OPTIONS = CHART_PATTERN_OPTIONS.EMPTY
     private _container: Container
@@ -328,7 +328,8 @@ export abstract class Chart {
         let matchArray
         let raw = this._optionsRaw
         while ((matchArray = patternOption.exec(raw)) !== null) { // tslint:disable-line
-            this.options[matchArray[1].toLowerCase()] = matchArray[2].trim()
+            //this.options[matchArray[1].toLowerCase()] = matchArray[2].trim()
+            this.options[matchArray[1]] = matchArray[2].trim()
             this._patternOptions = typePattern
         }
     }

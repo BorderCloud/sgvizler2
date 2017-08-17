@@ -8,6 +8,7 @@ export abstract class Dependency {
     public loadBefore: Dependency|null
     public endDownload: boolean
     public startDownload: boolean
+
     constructor (url: string,loadBefore?: Dependency) {
         this.url = url
         this.loadBefore = loadBefore ? loadBefore : null

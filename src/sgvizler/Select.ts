@@ -26,6 +26,13 @@ export class Select {
         },
         {
             // optgroup
+            label: 'google.visualization',
+            charts: [
+                'google.visualization.Table'
+            ]
+        },
+        {
+            // optgroup
             label: 'sgvizler.visualization',
             charts:
                 [
