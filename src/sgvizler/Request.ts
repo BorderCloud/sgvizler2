@@ -47,9 +47,8 @@ export class Request {
     private _method = 'GET'
     private _container: Container
     // private _endpointResultsUrlPart: string
-
-    // private _chartPathFunction: string
-    private _endpointURL: string
+    // // private _chartPathFunction: string
+    // private _endpointURL: string
 
     /**
      *

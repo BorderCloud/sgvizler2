@@ -12,8 +12,9 @@
   "scripts": {
     "info": "npm-scripts-info",
     "buildall": "yarn lint && yarn build && yarn build:browser-minify",
-    "build": "trash build && yarn build:main && yarn build:module && yarn build:browser-deps && yarn build:browser && yarn build:browser-cjs && yarn build:resolve-sourcemaps",
-    "build:main": "tsc -p tsconfig.json",
+    "build": "trash build && yarn build:main && yarn build:module && yarn build:browser-deps && yarn build:browser && yarn build:browser-cjs && yarn build:resolve-sourcemaps && yarn build:copy-lib",
+    "build:main": "tsc -p tsconfig.json  ",
+    "build:copy-lib": "cp -r ./lib ./build/browser/lib",
     "build:module": "tsc -p config/exports/tsconfig.module.json",
     "comment": "mkdirp build/temp && browserify node_modules/hash.js/lib/hash.js --standalone hash -o build/temp/hash.js",
     "build:browser-deps": "mkdirp build/temp",
@@ -34,7 +35,7 @@
     "docs:html": "yarn jsdoc:core && yarn jsdoc:copy-asset && yarn jsdoc:deploy-lib",
     "jsdoc:core": "jsdoc --verbose --debug -c jsdoc.json -R ./README.md",
     "jsdoc:debug": "jsdoc --debug -c jsdoc.json -R ./README.md",
-    "jsdoc:copy-asset": "cp ./assets/mr.sgvizler.png ./build/docs/img/mr.sgvizler.png && cp ./assets/font-awesome.min.css  ./build/docs/styles/.",
+    "jsdoc:copy-asset": "cp ./assets/mr.sgvizler.png ./build/docs/img/mr.sgvizler.png ",
     "jsdoc:deploy-lib": "cp -r ./build/browser ./build/docs/sgvizler2",
     "obsolete_docs": "yarn docs:html && opn build/docs/index.html",
     "obsolete_docs:html": "typedoc src/index.ts --excludePrivate --mode file  --out build/docsTypeDoc",
@@ -44,7 +45,7 @@
     "release_old": "yarn r_e_s_e_t && yarn test && yarn docs:publish && yarn changelog",
     "release": "yarn test && yarn buildall && yarn docs:publish && yarn changelog",
     "reset": "git clean -dfx && git reset --hard && yarn",
-    "tt": "yarn build && node config/exports/build-tests.ts && ava test/**/Container.*.js"
+    "tt": "yarn build && node config/exports/build-tests.ts && ava test/**/Chart.*.js"
   },
   "scripts-info": {
     "info": "Display information about the scripts",
@@ -66,6 +67,7 @@
   },
   "devDependencies": {
     "@types/jquery": "^3.2.11",
+    "@types/jquery.datatables": "^1.10.36",
     "@types/node": "^8.0.20",
     "ava": "^0.21.0",
     "ava-browser-fixture": "^2.0.2",
@@ -127,5 +129,7 @@
     ],
     "babel": "inherit"
   },
-  "dependencies": {}
+  "dependencies": {
+    "tslib": "^1.7.1"
+  }
 }

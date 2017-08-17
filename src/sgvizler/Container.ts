@@ -116,6 +116,10 @@ export class Container {
 
         if (elmAttrs[self.ENDPOINT_ATTRIBUTE_NAME as any]) {
             request.endpoint = elmAttrs[self.ENDPOINT_ATTRIBUTE_NAME as any].value
+        } else {
+            this._state = CONTAINER_STATE.FAILED
+            Logger.displayFeedback(this, MESSAGES.ERROR_ENDPOINT_FORGOT)
+            return
         }
 
         // TODO : IMPORTANT FORMAT
@@ -138,14 +142,15 @@ export class Container {
             chart.container = this
             // read with and height of container before chart options
             try {
-                let widthCss = $('#' + elementID).css('width')
-                let heightCss = $('#' + elementID).css('height')
-                // if (widthCss !== null) {
+                let element = $('#' + elementID)
+                let widthCss = element.css('width')
+                let heightCss = element.css('height')
+                if (widthCss !== null) {
                     chart.width = widthCss[1]
-                // }
-                // if (heightCss !== null) {
+                }
+                if (heightCss !== null) {
                     chart.height = heightCss[1]
-                // }
+                }
             }catch (e) {
                 // do nothing, unit test not support jquery
             }
@@ -153,7 +158,6 @@ export class Container {
             chart.optionsRaw = this._chartOptions
 
             this._chart = chart
-            // console.log(chart)
         }
     }
 
@@ -164,7 +168,7 @@ export class Container {
      * @param options
      * @returns {Promise<void>}
      */
-    public static async drawWithElementId (elementID: string,options?: any) {
+    public static async drawWithElementId (elementID: string, options?: any) {
         let container = new Container(elementID)
         // console.log(container)
         Logger.log('drawing id: ' + elementID)
@@ -191,6 +195,32 @@ export class Container {
 
         for (let id of ids) {
             promisesArray.push(Container.drawWithElementId(id))
+        }
+        return Promise.all(promisesArray)
+    }
+
+    public static async loadDependenciesId (elementID: string, options?: any) {
+        let container = new Container(elementID)
+        // console.log(container)
+        Logger.log('Load dependencies id: ' + elementID)
+        await container.loadDependencies()
+    }
+
+    public static loadAllDependencies (): Promise<any> {
+        let promisesArray: Array<any> = []
+        let ids: Array<string> = []
+
+        let iterator = document.evaluate('//div[@' + Container.PREFIX + 'query]/@id',
+            document, null, XPathResult.ANY_TYPE, null )
+        let thisNode = iterator.iterateNext() as Attr
+
+        while (thisNode) {
+            ids.push(thisNode.value)
+            thisNode = iterator.iterateNext() as Attr
+        }
+
+        for (let id of ids) {
+            promisesArray.push(Container.loadDependenciesId(id))
         }
         return Promise.all(promisesArray)
     }
@@ -326,7 +356,7 @@ export class Container {
         }
 
         try {
-            await this._chart.draw(sparqlResult as SparqlResultInterface)
+            this._chart.loadDependenciesAndDraw(sparqlResult as SparqlResultInterface)
         } catch (error) {
             console.log(error)
             Logger.displayFeedback(this, MESSAGES.ERROR_CHART, [error])
@@ -334,4 +364,13 @@ export class Container {
         }
     }
 
+    public async loadDependencies () {
+        try {
+            await this._chart.loadDependencies()
+        } catch (error) {
+            console.log(error)
+            Logger.displayFeedback(this, MESSAGES.ERROR_DEPENDENCIES, [error])
+            this._state = CONTAINER_STATE.FAILED
+        }
+    }
 }

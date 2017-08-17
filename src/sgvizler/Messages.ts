@@ -7,7 +7,9 @@ export enum MESSAGES {
     ERROR_CHART_UNKNOWN,
     ERROR_CHART_PATTERN_OPTION_UNKNOWN,
     ERROR_REQUEST,
-    ERROR_CHART
+    ERROR_CHART,
+    ERROR_DEPENDENCIES,
+    ERROR_ENDPOINT_FORGOT
 }
 
 /**
@@ -27,12 +29,16 @@ export class Messages {
                     "Use 'variable1=value1|variable1=value1' or for style 'width:100%;font:red;' or 'class1 class2'"
                 break
             case MESSAGES.ERROR_REQUEST :
-                message = 'Sorry, the sparql server sent an error. <\br> $0' +
-                    " <br\>'$0'"
+                message = 'Sorry, the sparql server sent an error. </br> $0'
                 break
             case MESSAGES.ERROR_CHART :
-                message = 'Sorry, the chart sent an error. <\br> $0' +
-                    " <br\>'$0'"
+                message = 'Sorry, the chart sent an error. </br> $0'
+                break
+            case MESSAGES.ERROR_DEPENDENCIES :
+                message = 'The chart dependencies sent an error. </br> $0'
+                break
+            case MESSAGES.ERROR_ENDPOINT_FORGOT :
+                message = 'The endpoint of Sparql service is forgotten (data-sgvizler-endpoint).'
                 break
         }
 

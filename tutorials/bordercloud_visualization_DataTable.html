@@ -15,12 +15,14 @@
         </div-->
 
         <p>
-            TODO doc...
+            This table uses <a href="https://datatables.net/">DataTables.net</a>. You can adapt each column with the
+            option colstyle.
         </p>
 
         <h4>
             Table options:
         </h4>
+        Options separated by a pipe '|'.
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -40,12 +42,79 @@
             </thead>
             <tbody>
             <tr>
-                <td class="left"><code>headings</code></td>
-                <td class="left">true</td>
-                <td class="left">true/false Print headers.</td>
+                <td class="left"><code>class</code></td>
+                <td class="left">table table-striped table-bordered</td>
+                <td class="left">css class</td>
+            </tr>
+            <tr>
+                <td class="left"><code>cellspacing</code></td>
+                <td class="left">0</td>
+                <td class="left">cellspacing of table</td>
+            </tr>
+            <tr>
+                <td class="left"><code>width</code></td>
+                <td class="left">100%</td>
+                <td class="left">width of table</td>
+            </tr>
+            <tr>
+                <td class="left"><code>colstyle</code></td>
+                <td class="left"></td>
+                <td class="left">This parameter can replace the pattern of columns. You can define the tag img and
+                    span and its style.</td>
             </tr>
             </tbody>
         </table>
+
+        <h4>Examples for colstyle</h4>
+
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+            <thead>
+            <tr>
+                <th scope="col" class="left">Example</th>
+                <th scope="col" class="left">data-sgvizler-chart-options</th>
+                <th scope="col" class="left">column</th>
+                <th scope="col" class="left">Result in html</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td class="left">Example 1</td>
+                <td class="left">(example without options)</td>
+                <td class="left"></td>
+                <td class="left"></td>
+            </tr>
+            <tr>
+                <td class="left">Example 2</td>
+                <td class="left"><code>cellspacing=3 | colstyle=col2_img_display:block; col2_img_max-width:250px;
+                    col2_img_border-radius:50%; col2_img_margin:auto
+                    ;col2_img_opacity:0.5</code></td>
+                <td class="left">2</td>
+                <td
+                        class="left">Column 2 : <code>&lt;img
+                    url="data"
+                    style="display:block;max-width:300px;border-radius:50%;margin:auto; opacity:0.5"/&gt;<code></td>
+            </tr>
+            <tr>
+                <td class="left">Example 3</td>
+                <td class="left"><code>colstyle=col1_span_color:#F00; col1_span_font-weight: bold; col2_img_max-width:75px; col2_img_border-radius:50%; col2_img_display:block; col2_img_margin:auto; col3_img_max-width:100px; col3_img_max-height:300px; col2_img_opacity:0.8"</code></td>
+                <td class="left">1, 2 and 3</td>
+                <td class="left">
+                    Column 1 : <code>&lt;span
+                    style="color:#F00;font-weight: bold"/&gt;data&lt;/span&gt;</code></br>
+                    Column 2 : <code>&lt;img
+                    style="display:block;border-radius:50%; max-width:75px;margin:auto;"/&gt;</code></br>
+                    Column 3 : <code>&lt;img
+                    style="width:100px; max-height:300px;opacity:0.8"/&gt;</code></br>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
+
 
     <h3>
         Examples
@@ -54,6 +123,7 @@
         <h4>
             Table example 1 :
         </h4>
+        <p></p>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
@@ -74,8 +144,11 @@ WHERE {
 ?object ?property ?valueOrObject .
 }
 LIMIT 4
-" data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-                                                              data-sgvizler-chart="bordercloud.visualization.DataTable"></div></div>
+"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="bordercloud.visualization.DataTable"
+data-sgvizler-log="2"
+                ></div></div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
@@ -106,9 +179,9 @@ data-sgvizler-chart="bordercloud.visualization.DataTable"
         </div>
 
         <h4>
-            Table example 2
+            Table example 2 :
         </h4>
-<p>With option "headings=false"</p>
+        <p></p>
         <ul class="nav nav-tabs" role="tablist" id="tab_2">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#resultTab_2" role="tab" aria-expanded="true">
@@ -124,26 +197,41 @@ data-sgvizler-chart="bordercloud.visualization.DataTable"
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">
                 <div id="example_2" style="padding: 25px;"><div id="result_2" data-sgvizler-query="
-SELECT  *
-WHERE {
-        ?object ?property ?valueOrObject .
-}
-LIMIT 4" data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+SELECT  ?itemLabel ?image
+WHERE
+{
+  ?item wdt:P161 wd:Q221074.
+  ?item wdt:P18 ?image .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language &quot;en&quot;. }.
+}LIMIT 5"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="bordercloud.visualization.DataTable"
-data-sgvizler-chart-options="headings=false"
-data-sgvizler-log="0"></div></div>
+data-sgvizler-chart-options="cellspacing=3 | colstyle=col2_img_max-width:250px; col2_img_border-radius:50%; col2_img_display:block; col2_img_margin:auto; col2_img_opacity:0.5"
+data-sgvizler-log="2"></div></div>
             </div>
             <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
 data-sgvizler-query="
-SELECT  *
-WHERE {
-        ?object ?property ?valueOrObject .
-}
-LIMIT 4"
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+SELECT  ?itemLabel ?image
+WHERE
+{
+  ?item wdt:P161 wd:Q221074.
+  ?item wdt:P18 ?image .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language &quot;en&quot;. }.
+}LIMIT 5"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="bordercloud.visualization.DataTable"
-data-sgvizler-chart-options="headings=false"
+data-sgvizler-chart-options="cellspacing=3 | colstyle=col2_img_max-width:250px; col2_img_border-radius:50%; col2_img_display:block; col2_img_margin:auto;col2_img_opacity:0.5"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_2" role="tabpanel">
@@ -159,6 +247,83 @@ data-sgvizler-chart-options="headings=false"
 &lt;/script&gt;</pre></div>
             </div>
         </div>
+
+        <h4>
+            Table example 3
+        </h4>
+        <p></p>
+        <ul class="nav nav-tabs" role="tablist" id="tab_3">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#resultTab_3" role="tab" aria-expanded="true">
+                    Result</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#htmlTab_3" role="tab" aria-expanded="false">HTML</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#scriptTab_3" role="tab" aria-expanded="false">Javascript</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="resultTab_3" role="tabpanel" aria-expanded="false">
+                <div id="example_3" style="padding: 25px;"><div id="result_3" data-sgvizler-query="
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+SELECT  ?objLabel  ?image ?sameImage
+WHERE {
+  ?obj wdt:P485 wd:Q964035 .
+  ?obj wdt:P18 ?image .
+  ?obj wdt:P18 ?sameImage .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language 'en' .
+  }
+}
+LIMIT 5"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="bordercloud.visualization.DataTable"
+data-sgvizler-chart-options="colstyle=col1_span_color:#F00; col1_span_font-weight: bold; col2_img_max-width:75px; col2_img_border-radius:50%; col2_img_display:block; col2_img_margin:auto; col3_img_max-width:100px; col3_img_max-height:300px; col2_img_opacity:0.8"
+data-sgvizler-log="2"
+                ></div></div>
+            </div>
+            <div class="tab-pane" id="htmlTab_3" role="tabpanel" aria-expanded="true">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_3">&lt;div id="result"
+data-sgvizler-query="
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+SELECT  ?objLabel  ?image ?sameImage
+WHERE {
+  ?obj wdt:P485 wd:Q964035 .
+  ?obj wdt:P18 ?image .
+  ?obj wdt:P18 ?sameImage .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language 'en' .
+  }
+}
+LIMIT 5"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="bordercloud.visualization.DataTable"
+data-sgvizler-chart-options="colstyle=col1_span_color:#F00; col1_span_font-weight: bold; col2_img_max-width:75px; col2_img_border-radius:50%; col2_img_display:block; col2_img_margin:auto; col3_img_max-width:100px; col3_img_max-height:300px; col2_img_opacity:0.8"
+&gt;&lt;/div&gt;</pre></div>
+            </div>
+            <div class="tab-pane" id="scriptTab_3" role="tabpanel">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_3">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+   //Draw a chart
+   //sgvizler2.containerDraw('result');
+   //or
+   //$("#result").containerchart();
+
+   //Draw all Chart
+   sgvizler2.containerDrawAll();
+&lt;/script&gt;</pre></div>
+            </div>
+        </div>
+
+
 
         <!--SCRIPT-->
         <script>

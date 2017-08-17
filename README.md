@@ -78,8 +78,7 @@ Commands :
 ```
 yarn build
 yarn test
-yarn deploy
-yarn docs:html
+yarn docs:publish
 ```
 
 ## Docs

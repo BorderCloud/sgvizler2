@@ -5,6 +5,9 @@ import * as visualizationNS from './sgvizler/visualization'
 export const visualization = visualizationNS
 
 // Class
+
+export * from './sgvizler/Loader'
+export * from './sgvizler/Dependency'
 export * from './sgvizler/SparqlResultInterface.d'
 export * from './sgvizler/Select'
 export * from './sgvizler/Messages'

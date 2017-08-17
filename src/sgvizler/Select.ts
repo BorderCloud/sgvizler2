@@ -141,13 +141,6 @@ export class Select {
             }
             nodes.push(nodeOptgroup)
         }
-
-        // let test = document.getElementById("exampleTextarea")
-        // if (test == null)
-        //     throw new Error("elementID unknown : " + "exampleTextarea")
-        //
-        // test.innerText="coucou exampleTextarea"
-
         return nodes
     }
 }

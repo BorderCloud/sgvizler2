@@ -2,7 +2,11 @@ import {
     SparqlResultInterface,
     Container,
     Logger,
-    MESSAGES
+    MESSAGES,
+    Dependency,
+    CssDependency,
+    ScriptDependency,
+    Loader
 } from '../sgvizler'
 
 /**
@@ -28,7 +32,6 @@ export enum CHART_PATTERN_OPTIONS {
  * @memberof sgvizler
  */
 export abstract class Chart {
-
     /**
      * Give the options of chart
      * @property options
@@ -38,6 +41,9 @@ export abstract class Chart {
      */
     public options: any = {}
 
+    private _tabDependences: Array<Dependency> = []
+    private _resultSparql: SparqlResultInterface
+    private _isDone: boolean
     private _patternOptions: CHART_PATTERN_OPTIONS = CHART_PATTERN_OPTIONS.EMPTY
     private _container: Container
     private _width: string = ''
@@ -54,8 +60,38 @@ export abstract class Chart {
      */
     constructor () {
         this._width = '100%'
+        this._isDone = false
+
+        let currentThis = this
+        Loader.on('loaded',() => {
+            if (currentThis.container != null &&
+                ! currentThis._isDone &&
+                currentThis.isLoadedAllDependencies() &&
+                currentThis._resultSparql !== null ) {
+                currentThis.doDraw()
+            }
+        })
     }
 
+    public async loadDependenciesAndDraw (result: SparqlResultInterface) {
+        Logger.log('Chart loaded dependencies : ' + this.container.id)
+        // let promisesArray: Array<any> = []
+        this._resultSparql = result
+
+        if (this.isLoadedAllDependencies()) {
+            await this.doDraw()
+        }else {
+            await this.loadDependencies()
+        }
+    }
+
+    public async loadDependencies (): Promise<any> {
+        let promisesArray: Array<any> = []
+        for (let dep of this._tabDependences) {
+            promisesArray.push(dep.load())
+        }
+        return Promise.all(promisesArray)
+    }
     /**
      * Todo
      * @member draw
@@ -250,6 +286,36 @@ export abstract class Chart {
         return html
     }
 
+    protected addScript (url: string,loadBefore?: Dependency) {
+        let dep = new ScriptDependency(url,loadBefore)
+        this._tabDependences.push(dep)
+        return dep
+    }
+
+    protected addCss (url: string,loadBefore?: Dependency) {
+        let dep = new CssDependency(url,loadBefore)
+        this._tabDependences.push(dep)
+        return dep
+    }
+
+    private isLoadedAllDependencies (): boolean {
+        for (let dep of this._tabDependences) {
+            if (! Loader.isLoaded(dep)) {
+                return false
+            }
+        }
+        return true
+    }
+
+    private doDraw () {
+        Logger.log('Chart started : ' + this._container.id)
+        if ( this._resultSparql !== null) {
+            this.draw(this._resultSparql)
+            this._isDone = true
+        }
+        Logger.log('Chart finished : ' + this._container.id)
+    }
+
     // noinspection JSValidateJSDoc
     // noinspection tslint
     /**
@@ -262,7 +328,7 @@ export abstract class Chart {
         let matchArray
         let raw = this._optionsRaw
         while ((matchArray = patternOption.exec(raw)) !== null) { // tslint:disable-line
-            this.options[matchArray[1].toLowerCase()] = matchArray[2]
+            this.options[matchArray[1].toLowerCase()] = matchArray[2].trim()
             this._patternOptions = typePattern
         }
     }
@@ -278,7 +344,7 @@ export abstract class Chart {
         // pattern class : words separate by space
 
         // noinspection TsLint
-        let patternOption = /([^ =]+)=([^=|]+) *\|?/iy // tslint:disable-line
+        let patternOption = /\|? *([^=]*) *= *([^=|]*)/iy // tslint:disable-line
         let patternStyle = /([^:]+):([^:;]+) *;?/iy // tslint:disable-line
         let patternClass = /([^ |;]+) ?/iy // tslint:disable-line
 

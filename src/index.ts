@@ -28,15 +28,16 @@ export const HOMEPAGE: string = S.Core.HOMEPAGE
  * Draws the sgvizler-containers with the given element id.
  *
  */
-// export function containerLoadAll () {
-//     S.Container.loadDependenciesAll()
-// }
+export function containerLoadAll () {
+      S.Container.loadAllDependencies()
+}
 
 /**
  * Draws the sgvizler-containers with the given element id.
  * @param {string} elementID
  */
 export function containerDraw (elementID: string): void {
+   // S.Container.loadDependenciesId(elementID)
     S.Container.drawWithElementId(elementID)
 }
 
@@ -44,6 +45,7 @@ export function containerDraw (elementID: string): void {
  * Todo.
  */
 export function containerDrawAll () {
+   // S.Container.loadAllDependencies()
     S.Container.drawAll()
 }
 
@@ -51,6 +53,7 @@ export function containerDrawAll () {
  * Todo.
  */
 export function selectDraw (elementID: string) {
+    //S.Select.loadDependencies()
     S.Select.drawWithElementId(elementID)
 }
 
@@ -58,6 +61,7 @@ export function selectDraw (elementID: string) {
  * Todo.
  */
 export function selectDrawAll () {
+   // S.Select.loadDependencies()
     S.Select.drawAll()
 }
 
@@ -169,3 +173,5 @@ jqueryProxy.prototype.extend(
         }
     }
 )
+
+S.Loader.detectRoot()

@@ -81,4 +81,8 @@ export class Table extends Chart {
             }
         })
     }
+
+    public loadDependencies(): Promise<any> {
+        return new Promise(function (resolve, reject) {})
+    }
 }
