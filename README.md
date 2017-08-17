@@ -25,7 +25,7 @@ Add visualisations directly into your webpages like this:
      style="width:800px; height:400px;"></div>
 ```
 
-Generate your chart with [our SPARQL editor](tutorial-A_Editor.html) and to
+Generate your chart with [our SPARQL editor](https://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html) and to
 read their docs.
 
 ## Why reboot the project ?
