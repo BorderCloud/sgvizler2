@@ -13,9 +13,9 @@ declare let google: any
  * @tutorial google_visualization_Table
  * @memberof google.visualization
  */
-export class DataTable {
+export class Data {
 
-    private _dataTableOfGoogle: any
+    private _dataTable: any
 
     constructor(result: SparqlResultInterface){
         let data = new google.visualization.DataTable();
@@ -43,10 +43,10 @@ export class DataTable {
             i++
         }
         data.addRows(arrayData)
-        this._dataTableOfGoogle = data
+        this._dataTable = data
     }
 
-    getGoogleObject(){
-        return this._dataTableOfGoogle
+    getDataTable(){
+        return this._dataTable
     }
 }

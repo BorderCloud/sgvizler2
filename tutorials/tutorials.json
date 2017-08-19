@@ -7,5 +7,11 @@
   },
   "sgvizler_visualization_Table": {
     "title": "sgvizler.visualization.Table"
+  },
+  "google_visualization_Table": {
+    "title": "google.visualization.Table"
+  },
+  "d3_visualization_Pie": {
+    "title": "d3.visualization.Pie (Example)"
   }
 }

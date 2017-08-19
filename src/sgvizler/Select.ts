@@ -26,6 +26,13 @@ export class Select {
         },
         {
             // optgroup
+            label: 'd3.visualization',
+            charts: [
+                'd3.visualization.Pie'
+            ]
+        },
+        {
+            // optgroup
             label: 'google.visualization',
             charts: [
                 'google.visualization.Table'

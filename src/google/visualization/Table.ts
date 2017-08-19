@@ -1,15 +1,11 @@
 import {
     Chart,
-    SparqlResultInterface,
-    MESSAGES,
-    Logger
+    SparqlResultInterface
 } from '../../sgvizler'
 
-import {DataTable} from "./DataTable";
-
+import {Data} from "./Data";
 
 declare let google: any
-
 
 /**
  * Todo Table
@@ -65,7 +61,7 @@ export class Table extends Chart {
             // console.log(noCols + " x " + noRows)
 
             let height = '100%'
-            if(currentChart.height === ''){
+            if(currentChart.height !== ''){
                 height = currentChart.height
             }
 
@@ -81,11 +77,11 @@ export class Table extends Chart {
 
             google.charts.setOnLoadCallback(
                 ()=>{
-                    let data = new DataTable(result)
+                    let data = new Data(result)
 
                     var table = new google.visualization.Table(document.getElementById(currentChart.container.id));
 
-                    table.draw(data.getGoogleObject(), currentChart.options);
+                    table.draw(data.getDataTable(), currentChart.options);
                 }
             );
         })

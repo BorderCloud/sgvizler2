@@ -66,6 +66,7 @@
     "node": ">=4.5"
   },
   "devDependencies": {
+    "@types/d3": "^4.10.0",
     "@types/jquery": "^3.2.11",
     "@types/jquery.datatables": "^1.10.36",
     "@types/node": "^8.0.20",
@@ -89,7 +90,7 @@
     "npm-scripts-info": "^0.3.6",
     "nyc": "^11.1.0",
     "opn-cli": "^3.1.0",
-    "rollup": "^0.45.2",
+    "rollup": "^0.47.6",
     "rollup-plugin-alias": "^1.3.1",
     "rollup-plugin-commonjs": "^8.1.0",
     "rollup-plugin-node-resolve": "^3.0.0",

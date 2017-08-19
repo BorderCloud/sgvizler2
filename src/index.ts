@@ -14,6 +14,9 @@ export const bordercloud = bordercloudNS
 import * as googleNS from './google'
 export const google = googleNS
 
+import * as d3NS from './d3'
+export const d3 = d3NS
+
 /**
  * Todo
  * @const
