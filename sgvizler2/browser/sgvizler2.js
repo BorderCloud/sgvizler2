@@ -590,6 +590,17 @@ class ScriptDependency extends Dependency {
 class CssDependency extends Dependency {
 }
 
+class SparqlError {
+    static getErrorMessage(xhr) {
+        let patternWikidata = /MalformedQueryException: *(.*)/m; // tslint:disable-line
+        let errorWikidata = patternWikidata.exec(xhr.response);
+        if (errorWikidata !== null) {
+            return errorWikidata[1];
+        }
+        return xhr.response;
+    }
+}
+
 /**
  *
  * @memberof gvizler
@@ -722,7 +733,8 @@ Select.charts = [
         // optgroup
         label: 'google.visualization',
         charts: [
-            'google.visualization.Table'
+            'google.visualization.Table',
+            'google.visualization.Map'
         ]
     },
     {
@@ -1152,7 +1164,7 @@ class Request {
             }
             xhr.open(myRequest.method, url, true);
             xhr.setRequestHeader('Accept', SparqlTools.getHeaderAccept(myRequest.endpointOutputFormat));
-            xhr.responseType = SparqlTools.getXMLHttpRequestResponseType(myRequest.endpointOutputFormat);
+            //xhr.responseType = SparqlTools.getXMLHttpRequestResponseType(myRequest.endpointOutputFormat)
             // TODO check progress
             xhr.onprogress = function (oEvent) {
                 if (oEvent.lengthComputable) {
@@ -1164,25 +1176,25 @@ class Request {
                 }
             };
             // When the request loads, check whether it was successful
-            xhr.onload = function () {
+            xhr.onload = function (options) {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         // If successful, resolve the promise by passing back the request response
-                        resolve(xhr.response);
+                        resolve(JSON.parse(xhr.response));
                     }
                     else {
                         // If it fails, reject the promise with a error message
-                        reject(Error(xhr.statusText));
+                        reject(SparqlError.getErrorMessage(xhr));
                     }
                 }
             };
-            xhr.onerror = function () {
+            xhr.onerror = function (options) {
                 // Also deal with the case when the entire request fails to begin with
                 // This is probably a network error, so reject the promise with an appropriate message
-                reject(Error(xhr.statusText));
+                reject(SparqlError.getErrorMessage(xhr));
             };
             xhr.onabort = function () {
-                reject(Error(xhr.statusText));
+                reject(SparqlError.getErrorMessage(xhr));
             };
             // Send the request
             if (data) {
@@ -1533,6 +1545,7 @@ var S = Object.freeze({
 	Dependency: Dependency,
 	ScriptDependency: ScriptDependency,
 	CssDependency: CssDependency,
+	SparqlError: SparqlError,
 	Select: Select,
 	get MESSAGES () { return MESSAGES; },
 	Messages: Messages,
@@ -1769,24 +1782,87 @@ class Data {
         let data = new google.visualization.DataTable();
         let cols = result.head.vars;
         let rows = result.results.bindings;
-        //let noCols = cols.length
-        //let noRows = rows.length
-        // console.log(opt)
+        let noCols = cols.length;
+        let noRows = rows.length;
         for (let col of cols) {
-            data.addColumn('string', col);
-            //data.addColumn('number', 'Salary');
-            //data.addColumn('boolean', 'Full Time Employee');
-        }
-        let arrayData = [];
-        let i = 0;
-        for (let row of rows) {
-            arrayData[i] = [];
-            for (let col of cols) {
-                arrayData[i].push(row[col].value);
+            // RDF Term	JSON form
+            // IRI I	{"type": "uri", "value": "I"}
+            // Literal S	{"type": "literal","value": "S"}
+            // Literal S with language tag L	{ "type": "literal", "value": "S", "xml:lang": "L"}
+            // Literal S with datatype IRI D	{ "type": "literal", "value": "S", "datatype": "D"}
+            // Blank node, label B	{"type": "bnode", "value": "B"}
+            if (noRows > 0) {
+                let type = rows[0][col].datatype;
+                if (type === "http://www.w3.org/2001/XMLSchema#decimal" ||
+                    type === "http://www.w3.org/2001/XMLSchema#integer") {
+                    data.addColumn('number', col);
+                }
+                else if (type === "http://www.w3.org/2001/XMLSchema#boolean") {
+                    data.addColumn('boolean', col);
+                }
+                else if (type === "http://www.w3.org/2001/XMLSchema#date") {
+                    data.addColumn('date', col);
+                }
+                else if (type === "http://www.w3.org/2001/XMLSchema#dateTime") {
+                    data.addColumn('datetime', col);
+                }
+                else if (type === "http://www.w3.org/2001/XMLSchema#time") {
+                    data.addColumn('timeofday', col);
+                }
+                else {
+                    data.addColumn('string', col);
+                }
             }
-            i++;
+            else {
+                data.addColumn('string', col);
+            }
         }
-        data.addRows(arrayData);
+        data.addRows(noRows);
+        let i = 0;
+        for (let x = 0; x < noRows; x++) {
+            for (let y = 0; y < noCols; y++) {
+                //arrayData[i].push(<never> row[col].value)
+                data.setCell(x, y, rows[x][cols[y]].value);
+                let type = rows[0][cols[y]].datatype;
+                if (type === "http://www.w3.org/2001/XMLSchema#decimal") {
+                    // 'number' - JavaScript number value. Example values: v:7 , v:3.14, v:-55
+                    data.setCell(x, y, parseFloat(rows[x][cols[y]].value));
+                    // todo... ?
+                    //data.setCell(0, 1, 10000, '$10,000');
+                }
+                else if (type === "http://www.w3.org/2001/XMLSchema#integer") {
+                    // todo test
+                    // 'number' - JavaScript number value. Example values: v:7 , v:3.14, v:-55
+                    data.setCell(x, y, parseInt(rows[x][cols[y]].value, 10));
+                }
+                else if (type === "http://www.w3.org/2001/XMLSchema#boolean") {
+                    // todo test
+                    // 'boolean' - JavaScript boolean value ('true' or 'false'). Example value: v:'true'
+                    data.setCell(x, y, rows[x][cols[y]].value == 'true' ? true : false);
+                }
+                else if (type === "http://www.w3.org/2001/XMLSchema#date") {
+                    // todo test
+                    // 'date' - JavaScript Date object (zero-based month), with the time truncated. Example value: v:new Date(2008, 0, 15)
+                    data.setCell(x, y, Date.parse(rows[x][cols[y]].value));
+                }
+                else if (type === "http://www.w3.org/2001/XMLSchema#dateTime") {
+                    // todo test
+                    // 'datetime' - JavaScript Date object including the time. Example value: v:new Date(2008, 0, 15, 14, 30, 45)
+                    data.setCell(x, y, Date.parse(rows[x][cols[y]].value));
+                }
+                else if (type === "http://www.w3.org/2001/XMLSchema#time") {
+                    // todo test
+                    // 'timeofday' - Array of three numbers and an optional fourth, representing hour (0 indicates midnight), minute, second, and optional millisecond. Example values: v:[8, 15, 0], v: [6, 12, 1, 144]
+                    let time = Date.parse(rows[x][cols[y]].value);
+                    data.setCell(x, y, [time.getHours(), time.getHours(), time.getSeconds(), time.getMilliseconds()]);
+                }
+                else {
+                    // 'string' - JavaScript string value. Example value: v:'hello'
+                    data.setCell(x, y, rows[x][cols[y]].value);
+                }
+                console.log('rows[' + x + '][cols[' + y + ']].value = ' + rows[x][cols[y]].value + ' ' + rows[x][cols[y]].datatype);
+            }
+        }
         this._dataTable = data;
     }
     getDataTable() {
@@ -1860,6 +1936,109 @@ class Table$1 extends Chart {
 Table$1._isInit = false;
 
 /**
+ * Todo API
+ * @class google.API
+ * @memberof google
+ */
+class API {
+    /**
+     * todo
+     * @returns {string}
+     */
+    static get key() {
+        return this._key;
+    }
+    /**
+     * todo
+     * @param {string} value
+     */
+    static set key(value) {
+        this._key = value;
+    }
+}
+/**
+ * todo
+ * @type {string}
+ * @private
+ */
+API._key = "";
+
+/**
+ * Todo Table
+ * @class google.visualization.Map
+ * @tutorial google_visualization_Map
+ * @memberof google.visualization
+ */
+class Map extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['map'], mapsApiKey: API.key });
+        Map._isInit = true;
+    }
+    get icon() {
+        return 'fa-map';
+    }
+    get label() {
+        return 'Map';
+    }
+    get subtext() {
+        return 'Map';
+    }
+    get classFullName() {
+        return 'google.visualization.Map';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_Map.html';
+    }
+    /**
+     * Make a Google map
+     * todo
+     * @memberOf Map
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            let height = '100%';
+            if (currentChart.height !== '') {
+                height = currentChart.height;
+            }
+            let opt = Object.assign({
+                width: currentChart.width,
+                height: height,
+                showTooltip: true,
+                showInfoWindow: true
+            }, currentChart.options);
+            //fix bug in local
+            if (location.origin.startsWith("file:")) {
+                opt = Object.assign({
+                    icons: {
+                        default: {
+                            normal: 'https://maps.google.com/mapfiles/ms/micons/red-dot.png',
+                            selected: 'https://maps.google.com/mapfiles/ms/micons/blue-dot.png'
+                        }
+                    }
+                }, opt);
+            }
+            //init only one time
+            if (!Map._isInit) {
+                Map.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                let data = new Data(result);
+                var table = new google.visualization.Map(document.getElementById(currentChart.container.id));
+                table.draw(data.getDataTable(), opt);
+            });
+        });
+    }
+}
+Map._isInit = false;
+
+/**
  * @namespace google.visualization
  */
 
@@ -1867,7 +2046,8 @@ Table$1._isInit = false;
 
 var visualizationNS$2 = Object.freeze({
 	Data: Data,
-	Table: Table$1
+	Table: Table$1,
+	Map: Map
 });
 
 /**
@@ -1876,8 +2056,10 @@ var visualizationNS$2 = Object.freeze({
 const visualization$2 = visualizationNS$2;
 
 
+
 var googleNS = Object.freeze({
-	visualization: visualization$2
+	visualization: visualization$2,
+	API: API
 });
 
 /**
@@ -1888,7 +2070,7 @@ var googleNS = Object.freeze({
  */
 class Pie extends Chart {
     get icon() {
-        return 'fa-table';
+        return 'fa-pie-chart';
     }
     get label() {
         return 'Pie';
@@ -2053,15 +2235,25 @@ function containerLoadAll() {
  * Draws the sgvizler-containers with the given element id.
  * @param {string} elementID
  */
-function containerDraw(elementID) {
+function containerDraw(elementID, options) {
     // S.Container.loadDependenciesId(elementID)
+    if (options) {
+        if (typeof options === 'object') {
+            google$1.API.key = options.googleApiKey ? options.googleApiKey : "";
+        }
+    }
     Container.drawWithElementId(elementID);
 }
 /**
  * Todo.
  */
-function containerDrawAll() {
+function containerDrawAll(options) {
     // S.Container.loadAllDependencies()
+    if (options) {
+        if (typeof options === 'object') {
+            google$1.API.key = options.googleApiKey ? options.googleApiKey : "";
+        }
+    }
     Container.drawAll();
 }
 /**
