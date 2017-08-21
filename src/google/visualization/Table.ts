@@ -4,6 +4,7 @@ import {
 } from '../../sgvizler'
 
 import {Data} from "./Data";
+import {API} from "../API";
 
 declare let google: any
 
@@ -43,7 +44,6 @@ export class Table extends Chart {
 
     public constructor () {
         super()
-
         let dep = this.addScript('https://www.gstatic.com/charts/loader.js')
     }
     /**

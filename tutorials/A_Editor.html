@@ -32,7 +32,7 @@ LIMIT 10</textarea>
                 <select class="custom-select" id="logsLevel">
                     <option value="0">0</option>
                     <option value="1">1</option>
-                    <option value="2">2</option>
+                    <option value="2" selected>2</option>
                 </select>
             </div>
         </div>
@@ -158,7 +158,9 @@ $(document).ready(function () {
        // $("#result").containerchart();
 
         //Draw all Chart
-        sgvizler2.containerDrawAll();
+        sgvizler2.containerDrawAll({
+            googleApiKey : "AIzaSyBro_IlWgOb5o4C80IWZhq0YHhemlRta3Q"
+        });
     });
     $("#seeDoc").click(function() {
         //Option 1 :

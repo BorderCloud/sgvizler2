@@ -3,6 +3,7 @@ import {
     SPARQL_RESULT,
     SparqlTools
 } from '../sgvizler'
+import {SparqlError} from "./SparqlError";
 
 /**
  * Important class. Runs SPARQL query against SPARQL
@@ -176,7 +177,7 @@ export class Request {
 
             xhr.open(myRequest.method,url,true)
             xhr.setRequestHeader('Accept', SparqlTools.getHeaderAccept(myRequest.endpointOutputFormat))
-            xhr.responseType = SparqlTools.getXMLHttpRequestResponseType(myRequest.endpointOutputFormat)
+            //xhr.responseType = SparqlTools.getXMLHttpRequestResponseType(myRequest.endpointOutputFormat)
 
             // TODO check progress
             xhr.onprogress = function (oEvent) {
@@ -189,25 +190,25 @@ export class Request {
             }
 
             // When the request loads, check whether it was successful
-            xhr.onload = function () {
+            xhr.onload = function (options:any) {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         // If successful, resolve the promise by passing back the request response
-                        resolve(xhr.response)
+                        resolve(JSON.parse(xhr.response))
                     } else {
                         // If it fails, reject the promise with a error message
-                        reject(Error(xhr.statusText))
+                        reject(SparqlError.getErrorMessage(xhr))
                     }
                 }
             }
 
-            xhr.onerror = function () {
+            xhr.onerror = function (options:any) {
                 // Also deal with the case when the entire request fails to begin with
                 // This is probably a network error, so reject the promise with an appropriate message
-                reject(Error(xhr.statusText))
+                reject(SparqlError.getErrorMessage(xhr))
             }
             xhr.onabort = function () {
-                reject(Error(xhr.statusText))
+                reject(SparqlError.getErrorMessage(xhr))
             }
 
             // Send the request

@@ -35,7 +35,8 @@ export class Select {
             // optgroup
             label: 'google.visualization',
             charts: [
-                'google.visualization.Table'
+                'google.visualization.Table',
+                'google.visualization.Map'
             ]
         },
         {

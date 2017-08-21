@@ -42,16 +42,26 @@ export function containerLoadAll () {
  * Draws the sgvizler-containers with the given element id.
  * @param {string} elementID
  */
-export function containerDraw (elementID: string): void {
+export function containerDraw (elementID: string,options:any): void {
    // S.Container.loadDependenciesId(elementID)
+    if (options) {
+        if (typeof options === 'object') {
+            google.API.key = options.googleApiKey ? options.googleApiKey : ""
+        }
+    }
     S.Container.drawWithElementId(elementID)
 }
 
 /**
  * Todo.
  */
-export function containerDrawAll () {
+export function containerDrawAll (options?:any) {
    // S.Container.loadAllDependencies()
+    if (options) {
+        if (typeof options === 'object') {
+            google.API.key = options.googleApiKey ? options.googleApiKey : ""
+        }
+    }
     S.Container.drawAll()
 }
 
