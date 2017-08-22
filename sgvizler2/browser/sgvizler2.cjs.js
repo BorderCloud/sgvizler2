@@ -264,11 +264,21 @@ class Chart {
     }
     doDraw() {
         Logger.log('Chart started : ' + this._container.id);
+        let currentThis = this;
         if (this._resultSparql !== null) {
-            this.draw(this._resultSparql);
-            this._isDone = true;
+            this.draw(this._resultSparql).then(function (valeur) {
+                currentThis._isDone = true;
+                Logger.log('Chart finished : ' + currentThis._container.id);
+            }, function (error) {
+                console.log(error);
+                Logger.displayFeedback(currentThis._container, MESSAGES.ERROR_CHART, [error]);
+                Logger.log('Chart finished with error : ' + currentThis._container.id);
+            });
         }
-        Logger.log('Chart finished : ' + this._container.id);
+        else {
+            Logger.displayFeedback(currentThis._container, MESSAGES.ERROR_DATA_EMPTY);
+            Logger.log('Chart finished with error : ' + currentThis._container.id);
+        }
     }
     // noinspection JSValidateJSDoc
     // noinspection tslint
@@ -282,7 +292,7 @@ class Chart {
         let matchArray;
         let raw = this._optionsRaw;
         while ((matchArray = patternOption.exec(raw)) !== null) {
-            //this.options[matchArray[1].toLowerCase()] = matchArray[2].trim()
+            // this.options[matchArray[1].toLowerCase()] = matchArray[2].trim()
             this.options[matchArray[1]] = matchArray[2].trim();
             this._patternOptions = typePattern;
         }
@@ -403,10 +413,9 @@ class Table extends Chart {
             if (obj) {
                 obj.innerHTML = html;
             }
+            // finish
+            resolve();
         });
-    }
-    loadDependencies() {
-        return new Promise(function (resolve, reject) { });
     }
 }
 
@@ -589,6 +598,11 @@ class ScriptDependency extends Dependency {
 class CssDependency extends Dependency {
 }
 
+/**
+ * todo
+ * @class sgvizler.SparqlError
+ * @memberof sgvizler
+ */
 class SparqlError {
     static getErrorMessage(xhr) {
         let patternWikidata = /MalformedQueryException: *(.*)/m; // tslint:disable-line
@@ -693,7 +707,7 @@ class Select {
                 }
                 attrValue = document.createAttribute('value');
                 attrValue.value = chartClass.classFullName;
-                if (classSelected) {
+                if (classSelected === chart) {
                     attrSelected = document.createAttribute('selected');
                     nodeOption.setAttributeNode(attrSelected);
                 }
@@ -709,7 +723,7 @@ class Select {
     }
 }
 Select.CLASS_NAME = 'sgvizler-select';
-Select.classOfChartSelectedByDefault = 'sgvizler.visualization.Table';
+Select.classOfChartSelectedByDefault = 'bordercloud.visualization.DataTable';
 /**
  * Stores the charts
  */
@@ -726,6 +740,13 @@ Select.charts = [
         label: 'd3.visualization',
         charts: [
             'd3.visualization.Pie'
+        ]
+    },
+    {
+        // optgroup
+        label: 'leaflet.visualization',
+        charts: [
+            'leaflet.visualization.Map'
         ]
     },
     {
@@ -758,6 +779,7 @@ var MESSAGES;
     MESSAGES[MESSAGES["ERROR_CHART"] = 3] = "ERROR_CHART";
     MESSAGES[MESSAGES["ERROR_DEPENDENCIES"] = 4] = "ERROR_DEPENDENCIES";
     MESSAGES[MESSAGES["ERROR_ENDPOINT_FORGOT"] = 5] = "ERROR_ENDPOINT_FORGOT";
+    MESSAGES[MESSAGES["ERROR_DATA_EMPTY"] = 6] = "ERROR_DATA_EMPTY";
 })(MESSAGES || (MESSAGES = {}));
 /**
  *
@@ -786,6 +808,9 @@ class Messages {
                 break;
             case MESSAGES.ERROR_ENDPOINT_FORGOT:
                 message = 'The endpoint of Sparql service is forgotten (data-sgvizler-endpoint).';
+                break;
+            case MESSAGES.ERROR_DATA_EMPTY:
+                message = 'The resquest sent null.';
                 break;
         }
         if (args) {
@@ -1163,7 +1188,7 @@ class Request {
             }
             xhr.open(myRequest.method, url, true);
             xhr.setRequestHeader('Accept', SparqlTools.getHeaderAccept(myRequest.endpointOutputFormat));
-            //xhr.responseType = SparqlTools.getXMLHttpRequestResponseType(myRequest.endpointOutputFormat)
+            // hide errors xhr.responseType = SparqlTools.getXMLHttpRequestResponseType(myRequest.endpointOutputFormat)
             // TODO check progress
             xhr.onprogress = function (oEvent) {
                 if (oEvent.lengthComputable) {
@@ -1315,14 +1340,14 @@ class Container {
             chart.container = this;
             // read with and height of container before chart options
             try {
-                let element = jqueryProxy__default('#' + elementID);
+                let element = $('#' + elementID);
                 let widthCss = element.css('width');
                 let heightCss = element.css('height');
                 if (widthCss !== null) {
-                    chart.width = widthCss[1];
+                    chart.width = widthCss;
                 }
-                if (heightCss !== null) {
-                    chart.height = heightCss[1];
+                if (heightCss !== null && heightCss !== '0px') {
+                    chart.height = heightCss;
                 }
             }
             catch (e) {
@@ -1584,6 +1609,7 @@ class DataTable extends Chart {
         this.addCss('lib/DataTables/DataTables-1.10.15/css/dataTables.bootstrap4.min.css');
         let depDatatables = this.addScript('lib/DataTables/datatables.min.js');
         this.addScript('lib/DataTables/DataTables-1.10.15/js/dataTables.bootstrap4.js', depDatatables);
+        this.addScript('lib/DataTables/Buttons-1.4.0/js/dataTables.buttons.js', depDatatables);
     }
     /**
      * This function parses colStyle option and build the parameter ColumnDef of DataTable
@@ -1595,6 +1621,7 @@ class DataTable extends Chart {
      * @returns {Array<any>}
      */
     static buildColumnDefs(codeStyle, noCols) {
+        // noinspection Annotator
         let regex = / *col([1-9]+)\_([a-zA-Z]+)\_([^=;\n]*) */ig;
         let m;
         let datasetColumnsDefs = [];
@@ -1723,7 +1750,7 @@ class DataTable extends Chart {
                     datasetRow = [];
                     // loop cells
                     for (let c = 0; c < noCols; c += 1) {
-                        datasetRow[c] = row[cols[c]].value;
+                        datasetRow[c] = row[cols[c]] !== undefined ? row[cols[c]].value : '';
                     }
                     dataset[r] = datasetRow;
                 }
@@ -1739,12 +1766,20 @@ class DataTable extends Chart {
                 $('#' + idChart).DataTable({
                     data: dataset,
                     columns: datasetColumns,
-                    columnDefs: datasetColumnsDefs
+                    columnDefs: datasetColumnsDefs,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'csv',
+                        'pdf',
+                        'print'
+                    ]
                 });
             }
             catch (e) {
                 reject(e);
             }
+            // finish
+            resolve();
         });
     }
 }
@@ -1753,7 +1788,6 @@ class DataTable extends Chart {
  * @namespace bordercloud.visualization
  */
 
-//export * from './visualization/DataTable.d'
 
 
 var visualizationNS$1 = Object.freeze({
@@ -1792,20 +1826,20 @@ class Data {
             // Blank node, label B	{"type": "bnode", "value": "B"}
             if (noRows > 0) {
                 let type = rows[0][col].datatype;
-                if (type === "http://www.w3.org/2001/XMLSchema#decimal" ||
-                    type === "http://www.w3.org/2001/XMLSchema#integer") {
+                if (type === 'http://www.w3.org/2001/XMLSchema#decimal' ||
+                    type === 'http://www.w3.org/2001/XMLSchema#integer') {
                     data.addColumn('number', col);
                 }
-                else if (type === "http://www.w3.org/2001/XMLSchema#boolean") {
+                else if (type === 'http://www.w3.org/2001/XMLSchema#boolean') {
                     data.addColumn('boolean', col);
                 }
-                else if (type === "http://www.w3.org/2001/XMLSchema#date") {
+                else if (type === 'http://www.w3.org/2001/XMLSchema#date') {
                     data.addColumn('date', col);
                 }
-                else if (type === "http://www.w3.org/2001/XMLSchema#dateTime") {
+                else if (type === 'http://www.w3.org/2001/XMLSchema#dateTime') {
                     data.addColumn('datetime', col);
                 }
-                else if (type === "http://www.w3.org/2001/XMLSchema#time") {
+                else if (type === 'http://www.w3.org/2001/XMLSchema#time') {
                     data.addColumn('timeofday', col);
                 }
                 else {
@@ -1820,36 +1854,35 @@ class Data {
         let i = 0;
         for (let x = 0; x < noRows; x++) {
             for (let y = 0; y < noCols; y++) {
-                //arrayData[i].push(<never> row[col].value)
                 data.setCell(x, y, rows[x][cols[y]].value);
                 let type = rows[0][cols[y]].datatype;
-                if (type === "http://www.w3.org/2001/XMLSchema#decimal") {
+                if (type === 'http://www.w3.org/2001/XMLSchema#decimal') {
                     // 'number' - JavaScript number value. Example values: v:7 , v:3.14, v:-55
                     data.setCell(x, y, parseFloat(rows[x][cols[y]].value));
                     // todo... ?
-                    //data.setCell(0, 1, 10000, '$10,000');
+                    // data.setCell(0, 1, 10000, '$10,000');
                 }
-                else if (type === "http://www.w3.org/2001/XMLSchema#integer") {
+                else if (type === 'http://www.w3.org/2001/XMLSchema#integer') {
                     // todo test
                     // 'number' - JavaScript number value. Example values: v:7 , v:3.14, v:-55
                     data.setCell(x, y, parseInt(rows[x][cols[y]].value, 10));
                 }
-                else if (type === "http://www.w3.org/2001/XMLSchema#boolean") {
+                else if (type === 'http://www.w3.org/2001/XMLSchema#boolean') {
                     // todo test
                     // 'boolean' - JavaScript boolean value ('true' or 'false'). Example value: v:'true'
-                    data.setCell(x, y, rows[x][cols[y]].value == 'true' ? true : false);
+                    data.setCell(x, y, rows[x][cols[y]].value === 'true' ? true : false);
                 }
-                else if (type === "http://www.w3.org/2001/XMLSchema#date") {
+                else if (type === 'http://www.w3.org/2001/XMLSchema#date') {
                     // todo test
                     // 'date' - JavaScript Date object (zero-based month), with the time truncated. Example value: v:new Date(2008, 0, 15)
                     data.setCell(x, y, Date.parse(rows[x][cols[y]].value));
                 }
-                else if (type === "http://www.w3.org/2001/XMLSchema#dateTime") {
+                else if (type === 'http://www.w3.org/2001/XMLSchema#dateTime') {
                     // todo test
                     // 'datetime' - JavaScript Date object including the time. Example value: v:new Date(2008, 0, 15, 14, 30, 45)
                     data.setCell(x, y, Date.parse(rows[x][cols[y]].value));
                 }
-                else if (type === "http://www.w3.org/2001/XMLSchema#time") {
+                else if (type === 'http://www.w3.org/2001/XMLSchema#time') {
                     // todo test
                     // 'timeofday' - Array of three numbers and an optional fourth, representing hour (0 indicates midnight), minute, second, and optional millisecond. Example values: v:[8, 15, 0], v: [6, 12, 1, 144]
                     let time = Date.parse(rows[x][cols[y]].value);
@@ -1859,7 +1892,8 @@ class Data {
                     // 'string' - JavaScript string value. Example value: v:'hello'
                     data.setCell(x, y, rows[x][cols[y]].value);
                 }
-                console.log('rows[' + x + '][cols[' + y + ']].value = ' + rows[x][cols[y]].value + ' ' + rows[x][cols[y]].datatype);
+                // console.log('rows['+x+'][cols['+y+']].value = ' + rows[x][cols[y]].value + ' ' +
+                // rows[x][cols[y]].datatype)
             }
         }
         this._dataTable = data;
@@ -1926,9 +1960,11 @@ class Table$1 extends Chart {
             }
             google.charts.setOnLoadCallback(() => {
                 let data = new Data(result);
-                var table = new google.visualization.Table(document.getElementById(currentChart.container.id));
+                let table = new google.visualization.Table(document.getElementById(currentChart.container.id));
                 table.draw(data.getDataTable(), currentChart.options);
             });
+            // finish
+            resolve();
         });
     }
 }
@@ -1960,7 +1996,7 @@ class API {
  * @type {string}
  * @private
  */
-API._key = "";
+API._key = '';
 
 /**
  * Todo Table
@@ -2012,8 +2048,8 @@ class Map extends Chart {
                 showTooltip: true,
                 showInfoWindow: true
             }, currentChart.options);
-            //fix bug in local
-            if (location.origin.startsWith("file:")) {
+            // fix bug in local
+            if (location.origin.startsWith('file:')) {
                 opt = Object.assign({
                     icons: {
                         default: {
@@ -2023,15 +2059,17 @@ class Map extends Chart {
                     }
                 }, opt);
             }
-            //init only one time
+            // init only one time
             if (!Map._isInit) {
                 Map.init();
             }
             google.charts.setOnLoadCallback(() => {
                 let data = new Data(result);
-                var table = new google.visualization.Map(document.getElementById(currentChart.container.id));
+                let table = new google.visualization.Map(document.getElementById(currentChart.container.id));
                 table.draw(data.getDataTable(), opt);
             });
+            // finish
+            resolve();
         });
     }
 }
@@ -2122,36 +2160,36 @@ class Pie extends Chart {
                 label = row[cols[0]].value;
                 counter = Number(row[cols[1]].value);
                 if (label === undefined || counter === undefined) {
-                    Logger.log("Erreur ? D3JS:pie label " + label + " count " + counter);
+                    Logger.log('Erreur ? D3JS:pie label ' + label + ' count ' + counter);
                 }
                 else {
                     dataset.push({ label: label, count: counter });
                 }
             }
             // console.log(data)
-            let containerElement = d3.select("#" + currentChart.container.id);
+            let containerElement = d3.select('#' + currentChart.container.id);
             let containerElementNode = containerElement.node();
             if (containerElementNode) {
                 let width = containerElementNode.clientWidth !== 0 ? containerElementNode.clientWidth : 300;
                 let height = containerElementNode.clientHeight !== 0 ? containerElementNode.clientHeight : 150;
-                let svg = containerElement.append("svg") //associate our data with the document
-                    .attr("width", width)
-                    .attr("height", height)
-                    .attr("id", "idtest");
+                let svg = containerElement.append('svg') // associate our data with the document
+                    .attr('width', width)
+                    .attr('height', height)
+                    .attr('id', 'idtest');
                 let radius = Math.min(width, height) / 2;
-                svg = svg.append("g") //make a group to hold our pie chart
-                    .attr("transform", "translate(" + (width / 2) + "," + (height / 2) + ")"); //move the
-                //var donutWidth = 75;
-                var legendRectSize = 18;
-                var legendSpacing = 4;
-                var color = d3.scaleOrdinal(d3.schemeCategory10);
-                var arc = d3.arc()
+                svg = svg.append('g') // make a group to hold our pie chart
+                    .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
+                // var donutWidth = 75;
+                let legendRectSize = 18;
+                let legendSpacing = 4;
+                let color = d3.scaleOrdinal(d3.schemeCategory10);
+                let arc = d3.arc()
                     .innerRadius(0)
                     .outerRadius(radius);
-                var pie = d3.pie()
+                let pie = d3.pie()
                     .value(function (d) { return d.count; })
                     .sort(null);
-                var path = svg.selectAll('path')
+                let path = svg.selectAll('path')
                     .data(pie(dataset))
                     .enter()
                     .append('path')
@@ -2160,16 +2198,16 @@ class Pie extends Chart {
                     return color(d.data.label);
                 });
                 // Todo limit nb (look pie chart of Google)
-                var legend = svg.selectAll('.legend')
+                let legend = svg.selectAll('.legend')
                     .data(color.domain())
                     .enter()
                     .append('g')
                     .attr('class', 'legend')
                     .attr('transform', function (d, i) {
-                    var height = legendRectSize + legendSpacing;
-                    var offset = height * color.domain().length / 2;
-                    var horz = -2 * legendRectSize;
-                    var vert = i * height - offset;
+                    let height = legendRectSize + legendSpacing;
+                    let offset = height * color.domain().length / 2;
+                    let horz = -2 * legendRectSize;
+                    let vert = i * height - offset;
                     return 'translate(' + (horz + radius * 2 + 20) + ',' + vert + ')';
                 });
                 legend.append('rect')
@@ -2182,6 +2220,8 @@ class Pie extends Chart {
                     .attr('y', legendRectSize - legendSpacing)
                     .text(function (d) { return d; });
             }
+            // finish
+            resolve();
         });
     }
 }
@@ -2206,12 +2246,202 @@ var d3NS = Object.freeze({
 	visualization: visualization$3
 });
 
+/**
+ * Todo API
+ * @class leaflet.API
+ * @memberof google
+ */
+class API$1 {
+    static get osmAccessToken() {
+        return this._osmAccessToken;
+    }
+    static set osmAccessToken(value) {
+        this._osmAccessToken = value;
+    }
+}
+/**
+ * todo
+ * @type {string}
+ * @private
+ */
+API$1._osmAccessToken = '';
+
+/**
+ * Todo Table
+ * @class leaflet.visualization.Map
+ * @tutorial leaflet_visualization_Map
+ * @memberof leaflet.visualization
+ */
+class Map$1 extends Chart {
+    get icon() {
+        return 'fa-map';
+    }
+    get label() {
+        return 'Map';
+    }
+    get subtext() {
+        return 'Map';
+    }
+    get classFullName() {
+        return 'leaflet.visualization.Map';
+    }
+    get tutorialFilename() {
+        return 'tutorial-leaflet_visualization_Map.html';
+    }
+    constructor() {
+        super();
+        this.addCss('lib/leaflet/leaflet.css');
+        this.addCss('lib/leaflet/MarkerCluster.Default.css');
+        let dep = this.addScript('lib/leaflet/leaflet-src.js');
+        this.addScript('lib/leaflet/leaflet.markercluster-src.js', dep);
+    }
+    /**
+     * Make a Google map
+     * todo
+     * @memberOf Map
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            let messageError = '';
+            let cols = result.head.vars;
+            let rows = result.results.bindings;
+            let noCols = cols.length;
+            let noRows = rows.length;
+            let map;
+            let height = '180px';
+            let idChart = currentChart.container.id + '-leaflet';
+            let element = document.getElementById(currentChart.container.id);
+            let markerArray = []; // create new markers array
+            let group;
+            let markers;
+            let marker;
+            let lat;
+            let long;
+            if (currentChart.height !== '') {
+                height = currentChart.height;
+            }
+            let opt = Object.assign({
+                width: currentChart.width,
+                height: height,
+                showTooltip: true,
+                showInfoWindow: true
+            }, currentChart.options);
+            if (element) {
+                element.innerHTML = "<div id='" + idChart + "' style='width: " + opt.width + '; height: ' + opt.height + ";'></div>";
+                let osmLayer = new L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                    maxZoom: 18,
+                    id: 'mapbox.streets',
+                    accessToken: API$1.osmAccessToken
+                });
+                map = L.map(idChart, { zoom: 13, layers: [osmLayer] });
+                // todo insert option
+                markers = L.markerClusterGroup({
+                    chunkedLoading: true,
+                    spiderfyOnMaxZoom: true,
+                    showCoverageOnHover: true,
+                    zoomToBoundsOnClick: true
+                });
+                if (noCols <= 2) {
+                    messageError = 'Parameters : latitude(xsd:Decimal) longitude(xsd:Decimal) title(xsd:string' +
+                        ' optional) introduction(xsd:string optional) link(IRI optional)';
+                }
+                else {
+                    for (let row of rows) {
+                        lat = parseFloat(row[cols[0]].value);
+                        long = parseFloat(row[cols[1]].value);
+                        if (isNaN(lat) || isNaN(long)) {
+                            messageError = 'Latitude or longitude is not a decimal. Parameters of chart :' +
+                                ' latitude(xsd:Decimal)' +
+                                ' longitude(xsd:Decimal) title(xsd:string' +
+                                ' optional) introduction(xsd:string optional) link(IRI optional). ';
+                            break;
+                        }
+                        if (noCols >= 6) {
+                            // latitude longitude title text link
+                            let title = row[cols[2]] !== undefined ? row[cols[2]].value : '';
+                            let text = row[cols[3]] !== undefined ? row[cols[3]].value : '';
+                            let link = row[cols[4]] !== undefined ? "<a href='" + row[cols[4]].value + "' target='_blank'>" + title + '</a>' : title;
+                            let img = row[cols[5]] !== undefined ? "<img src='" + row[cols[5]].value + "' style='max-width:150px;height:150px;float:right;'/>" : '';
+                            marker = L.marker([parseFloat(row[cols[0]].value), parseFloat(row[cols[1]].value)]);
+                            marker.bindPopup('<div style="display: flow-root;"><b>' + link + '</b>' + img + '<br/>' + text + '</div>');
+                        }
+                        else if (noCols === 5) {
+                            // latitude longitude title introduction link
+                            let title = row[cols[2]] !== undefined ? row[cols[2]].value : '';
+                            let text = row[cols[3]] !== undefined ? row[cols[3]].value : '';
+                            let link = row[cols[4]] !== undefined ? "<a href='" + row[cols[4]].value + "'>" + title + '</a>' : title;
+                            marker = L.marker([parseFloat(row[cols[0]].value), parseFloat(row[cols[1]].value)]);
+                            marker.bindPopup('<b>' + link + '</b><br/>' + text);
+                        }
+                        else if (noCols === 4) {
+                            // latitude longitude title introduction
+                            let title = row[cols[2]] !== undefined ? row[cols[2]].value : '';
+                            let text = row[cols[3]] !== undefined ? row[cols[3]].value : '';
+                            marker = L.marker([parseFloat(row[cols[0]].value), parseFloat(row[cols[1]].value)]);
+                            marker.bindPopup('<b>' + title + '</b><br/>' + text);
+                        }
+                        else if (noCols === 3) {
+                            // latitude longitude title
+                            let title = row[cols[2]] !== undefined ? row[cols[2]].value : '';
+                            marker = L.marker([parseFloat(row[cols[0]].value), parseFloat(row[cols[1]].value)]);
+                            marker.bindPopup('<b>' + title + '</b>');
+                        }
+                        else if (noCols === 2) {
+                            // latitude longitude
+                            marker = L.marker([parseFloat(row[cols[0]].value), parseFloat(row[cols[1]].value)]);
+                            marker.addTo(map);
+                        }
+                        markers.addLayer(marker);
+                        markerArray.push(marker);
+                    }
+                }
+                if (messageError !== '') {
+                    reject(Error(messageError));
+                }
+                map.addLayer(markers);
+                // zoom on the markers
+                group = L.featureGroup(markerArray);
+                map.fitBounds(group.getBounds());
+                // finish
+                resolve();
+            }
+        });
+    }
+}
+
+/**
+ * @namespace leaflet.visualization
+ */
+
+
+
+var visualizationNS$4 = Object.freeze({
+	Map: Map$1
+});
+
+/**
+ * @namespace leaflet
+ */
+const visualization$4 = visualizationNS$4;
+
+
+
+var leafletNS = Object.freeze({
+	visualization: visualization$4,
+	API: API$1
+});
+
 /** @module example */
-//Namespace
+// Namespace
 const sgvizler = S;
 const bordercloud = bordercloudNS;
 const google$1 = googleNS;
 const d3$1 = d3NS;
+const leaflet = leafletNS;
 /**
  * Todo
  * @const
@@ -2230,17 +2460,21 @@ const HOMEPAGE = Core.HOMEPAGE;
 function containerLoadAll() {
     Container.loadAllDependencies();
 }
+function readOptions(options) {
+    if (options) {
+        if (typeof options === 'object') {
+            google$1.API.key = options.googleApiKey ? options.googleApiKey : '';
+            leaflet.API.osmAccessToken = options.osmAccessToken ? options.osmAccessToken : '';
+        }
+    }
+}
 /**
  * Draws the sgvizler-containers with the given element id.
  * @param {string} elementID
  */
 function containerDraw(elementID, options) {
     // S.Container.loadDependenciesId(elementID)
-    if (options) {
-        if (typeof options === 'object') {
-            google$1.API.key = options.googleApiKey ? options.googleApiKey : "";
-        }
-    }
+    readOptions(options);
     Container.drawWithElementId(elementID);
 }
 /**
@@ -2248,18 +2482,14 @@ function containerDraw(elementID, options) {
  */
 function containerDrawAll(options) {
     // S.Container.loadAllDependencies()
-    if (options) {
-        if (typeof options === 'object') {
-            google$1.API.key = options.googleApiKey ? options.googleApiKey : "";
-        }
-    }
+    readOptions(options);
     Container.drawAll();
 }
 /**
  * Todo.
  */
 function selectDraw(elementID) {
-    //S.Select.loadDependencies()
+    // S.Select.loadDependencies()
     Select.drawWithElementId(elementID);
 }
 /**
@@ -2348,6 +2578,7 @@ var sgvizler2 = Object.freeze({
 	bordercloud: bordercloud,
 	google: google$1,
 	d3: d3$1,
+	leaflet: leaflet,
 	VERSION: VERSION,
 	HOMEPAGE: HOMEPAGE,
 	containerLoadAll: containerLoadAll,
@@ -2363,6 +2594,7 @@ exports.sgvizler = sgvizler;
 exports.bordercloud = bordercloud;
 exports.google = google$1;
 exports.d3 = d3$1;
+exports.leaflet = leaflet;
 exports.VERSION = VERSION;
 exports.HOMEPAGE = HOMEPAGE;
 exports.containerLoadAll = containerLoadAll;
