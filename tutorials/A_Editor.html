@@ -98,7 +98,7 @@ $(document).ready(function () {
     $('.selectchart').selectchart({
         action: "render",
         subtext:"classFullName",
-        selected:"bordercloud.visualization.Table"
+        selected:"bordercloud.visualization.DataTable"
     });
 
     $('.selectpicker').selectpicker('refresh');
@@ -159,7 +159,13 @@ $(document).ready(function () {
 
         //Draw all Chart
         sgvizler2.containerDrawAll({
-            googleApiKey : "AIzaSyBro_IlWgOb5o4C80IWZhq0YHhemlRta3Q"
+            // Google Api key
+            // Todo put the link of tutorial to create a new key
+            googleApiKey : "AIzaSyBro_IlWgOb5o4C80IWZhq0YHhemlRta3Q",
+
+            // OpenStreetMap Access Token
+            // Todo put the link of tutorial to create a new token
+            osmAccessToken: "pk.eyJ1Ijoia3JhZmVzIiwiYSI6ImNqNm02eDduaDF2aG0ycW5oZzhxbzUwZmEifQ.SE1YXz0mqTkafrwd_YXn1A"
         });
     });
     $("#seeDoc").click(function() {

@@ -33,6 +33,9 @@ export class DataTable extends Chart {
         this.addCss('lib/DataTables/DataTables-1.10.15/css/dataTables.bootstrap4.min.css')
         let depDatatables = this.addScript('lib/DataTables/datatables.min.js')
         this.addScript('lib/DataTables/DataTables-1.10.15/js/dataTables.bootstrap4.js',depDatatables)
+
+        this.addScript('lib/DataTables/Buttons-1.4.0/js/dataTables.buttons.js',depDatatables)
+
     }
 
     /**
@@ -45,6 +48,7 @@ export class DataTable extends Chart {
      * @returns {Array<any>}
      */
     private static buildColumnDefs (codeStyle: string,noCols: number): Array<any> {
+        // noinspection Annotator
         let regex = / *col([1-9]+)\_([a-zA-Z]+)\_([^=;\n]*) */ig
         let m
         let datasetColumnsDefs = [] as Array<any>
@@ -153,7 +157,7 @@ export class DataTable extends Chart {
                 return
             }
 
-            try{
+            try {
 
                 let cols = result.head.vars
                 let rows = result.results.bindings
@@ -190,7 +194,7 @@ export class DataTable extends Chart {
                     datasetRow = []
                     // loop cells
                     for (let c = 0; c < noCols; c += 1) {
-                        datasetRow[c] = row[cols[c]].value
+                        datasetRow[c] = row[cols[c]] !== undefined ? row[cols[c]].value : ''
                     }
                     dataset[r] = datasetRow
                 }
@@ -208,11 +212,20 @@ export class DataTable extends Chart {
                 $( '#' + idChart).DataTable( {
                     data: dataset ,
                     columns: datasetColumns,
-                    columnDefs: datasetColumnsDefs
+                    columnDefs: datasetColumnsDefs,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'csv',
+                        'pdf',
+                        'print'
+                    ]
+
                 } )
-            }catch(e){
+            }catch (e) {
                 reject(e)
             }
+            // finish
+            resolve()
         })
      }
 }

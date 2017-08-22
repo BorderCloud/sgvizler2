@@ -73,10 +73,10 @@ export class Loader {
         }
     }
 
-    private static getAbsoluteURL(url: string){
-        if(url.match(/^(\/\/|https?)/)){
+    private static getAbsoluteURL (url: string) {
+        if (url.match(/^(\/\/|https?)/)) {
             return url
-        }else{
+        } else {
             return Loader._pathScripts + url
         }
     }

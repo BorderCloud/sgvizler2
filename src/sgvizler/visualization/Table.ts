@@ -1,6 +1,6 @@
-import {Chart} from '../Chart'
-import {SparqlTools} from '../SparqlTools'
-import {SparqlResultInterface} from '../SparqlResultInterface'
+import { Chart } from '../Chart'
+import { SparqlTools } from '../SparqlTools'
+import { SparqlResultInterface } from '../SparqlResultInterface'
 
 /**
  * Todo Table
@@ -79,10 +79,8 @@ export class Table extends Chart {
             if (obj) {
                 obj.innerHTML = html
             }
+            // finish
+            resolve()
         })
-    }
-
-    public loadDependencies(): Promise<any> {
-        return new Promise(function (resolve, reject) {})
     }
 }

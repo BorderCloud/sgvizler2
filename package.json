@@ -45,7 +45,7 @@
     "release_old": "yarn r_e_s_e_t && yarn test && yarn docs:publish && yarn changelog",
     "release": "yarn test && yarn buildall && yarn docs:publish && yarn changelog",
     "reset": "git clean -dfx && git reset --hard && yarn",
-    "tt": "yarn build && node config/exports/build-tests.ts && ava test/**/google.visualization.Table.*.js"
+    "tt": "yarn build && node config/exports/build-tests.ts && ava test/**/Container.*.js"
   },
   "scripts-info": {
     "info": "Display information about the scripts",

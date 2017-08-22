@@ -1,10 +1,10 @@
-'use strict';
+'use strict'
 
 /** @module example */
 import * as jqueryProxy from 'jquery'
 const jquery: JQueryStatic = (jqueryProxy as any).default || jqueryProxy
 
-//Namespace
+// Namespace
 import * as S from './sgvizler'
 export const sgvizler = S
 
@@ -16,6 +16,9 @@ export const google = googleNS
 
 import * as d3NS from './d3'
 export const d3 = d3NS
+
+import * as leafletNS from './leaflet'
+export const leaflet = leafletNS
 
 /**
  * Todo
@@ -38,30 +41,31 @@ export function containerLoadAll () {
       S.Container.loadAllDependencies()
 }
 
+function readOptions (options: any) {
+    if (options) {
+        if (typeof options === 'object') {
+            google.API.key = options.googleApiKey ? options.googleApiKey : ''
+            leaflet.API.osmAccessToken = options.osmAccessToken ? options.osmAccessToken : ''
+        }
+    }
+}
+
 /**
  * Draws the sgvizler-containers with the given element id.
  * @param {string} elementID
  */
-export function containerDraw (elementID: string,options:any): void {
+export function containerDraw (elementID: string,options: any): void {
    // S.Container.loadDependenciesId(elementID)
-    if (options) {
-        if (typeof options === 'object') {
-            google.API.key = options.googleApiKey ? options.googleApiKey : ""
-        }
-    }
+    readOptions(options)
     S.Container.drawWithElementId(elementID)
 }
 
 /**
  * Todo.
  */
-export function containerDrawAll (options?:any) {
+export function containerDrawAll (options?: any) {
    // S.Container.loadAllDependencies()
-    if (options) {
-        if (typeof options === 'object') {
-            google.API.key = options.googleApiKey ? options.googleApiKey : ""
-        }
-    }
+    readOptions(options)
     S.Container.drawAll()
 }
 
@@ -69,7 +73,7 @@ export function containerDrawAll (options?:any) {
  * Todo.
  */
 export function selectDraw (elementID: string) {
-    //S.Select.loadDependencies()
+    // S.Select.loadDependencies()
     S.Select.drawWithElementId(elementID)
 }
 

@@ -11,7 +11,7 @@ import {
 export class Select {
     private static readonly CLASS_NAME: string = 'sgvizler-select'
 
-    private static classOfChartSelectedByDefault: string = 'sgvizler.visualization.Table'
+    private static classOfChartSelectedByDefault: string = 'bordercloud.visualization.DataTable'
 
     /**
      * Stores the charts
@@ -29,6 +29,13 @@ export class Select {
             label: 'd3.visualization',
             charts: [
                 'd3.visualization.Pie'
+            ]
+        },
+        {
+            // optgroup
+            label: 'leaflet.visualization',
+            charts: [
+                'leaflet.visualization.Map'
             ]
         },
         {
@@ -144,7 +151,7 @@ export class Select {
                 attrValue = document.createAttribute('value')
                 attrValue.value = chartClass.classFullName
 
-                if (classSelected) {
+                if (classSelected === chart) {
                     attrSelected = document.createAttribute('selected')
                     nodeOption.setAttributeNode(attrSelected)
                 }

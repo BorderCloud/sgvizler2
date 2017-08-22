@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import {
     Chart,
     Request,
@@ -8,6 +7,8 @@ import {
     SparqlTools,
     SparqlResultInterface
 } from '../sgvizler'
+
+declare let $: any
 
 /**
  *
@@ -146,10 +147,10 @@ export class Container {
                 let widthCss = element.css('width')
                 let heightCss = element.css('height')
                 if (widthCss !== null) {
-                    chart.width = widthCss[1]
+                    chart.width = widthCss
                 }
-                if (heightCss !== null) {
-                    chart.height = heightCss[1]
+                if (heightCss !== null && heightCss !== '0px') {
+                    chart.height = heightCss
                 }
             }catch (e) {
                 // do nothing, unit test not support jquery

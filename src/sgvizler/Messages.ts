@@ -9,7 +9,8 @@ export enum MESSAGES {
     ERROR_REQUEST,
     ERROR_CHART,
     ERROR_DEPENDENCIES,
-    ERROR_ENDPOINT_FORGOT
+    ERROR_ENDPOINT_FORGOT,
+    ERROR_DATA_EMPTY
 }
 
 /**
@@ -39,6 +40,9 @@ export class Messages {
                 break
             case MESSAGES.ERROR_ENDPOINT_FORGOT :
                 message = 'The endpoint of Sparql service is forgotten (data-sgvizler-endpoint).'
+                break
+            case MESSAGES.ERROR_DATA_EMPTY :
+                message = 'The resquest sent null.'
                 break
         }
 

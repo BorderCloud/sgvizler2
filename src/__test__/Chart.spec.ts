@@ -1,5 +1,5 @@
 import { test } from 'ava'
-import {sgvizler} from 'sgvizler2'
+import { sgvizler } from 'sgvizler2'
 
 // test('Chart is an object' , t => {
 //     let c = new sgvizler.visualization.Table()
@@ -17,25 +17,25 @@ test('Chart : function doParseOptionsRaw : without option' , t => {
 
 test('Chart : function doParseOptionsRaw : style pattern' , t => {
     let c = new sgvizler.visualization.Table()
-    c.optionsRaw = "width:200%"
+    c.optionsRaw = 'width:200%'
     t.is(c.width, '200%')
     t.is(c.height, '')
     t.is(c.optionsRaw, 'width:200%')
     t.is(c.patternOptions, sgvizler.CHART_PATTERN_OPTIONS.STYLE)
 
-    c.optionsRaw = "width:100%"
+    c.optionsRaw = 'width:100%'
     t.is(c.width, '100%')
     t.is(c.height, '')
     t.is(c.optionsRaw, 'width:100%')
     t.is(c.patternOptions, sgvizler.CHART_PATTERN_OPTIONS.STYLE)
 
-    c.optionsRaw = "width:100%;height:150px"
+    c.optionsRaw = 'width:100%;height:150px'
     t.is(c.width, '100%')
     t.is(c.height, '150px')
-    t.is(c.optionsRaw,  "width:100%;height:150px")
+    t.is(c.optionsRaw, 'width:100%;height:150px')
     t.is(c.patternOptions, sgvizler.CHART_PATTERN_OPTIONS.STYLE)
 
-    c.optionsRaw =  "height:160px;width:100%;"
+    c.optionsRaw = 'height:160px;width:100%;'
     t.is(c.width, '100%')
     t.is(c.height, '160px')
     t.is(c.optionsRaw, 'height:160px;width:100%;')
@@ -45,15 +45,14 @@ test('Chart : function doParseOptionsRaw : style pattern' , t => {
 
 test('Chart : function doParseOptionsRaw with the variable pattern' , t => {
     let c = new sgvizler.visualization.Table()
-    c.optionsRaw =  "height=160px|width=100%"
+    c.optionsRaw = 'height=160px|width=100%'
     t.is(c.width, '100%')
     t.is(c.height, '160px')
     t.is(c.optionsRaw, 'height=160px|width=100%')
     t.is(c.patternOptions, sgvizler.CHART_PATTERN_OPTIONS.VARIABLE)
 
-
-    c.optionsRaw =  "cellspacing=3 | colstyle=col2_img_display:block; col2_img_max-width:250px;" +
-        " col2_img_border-radius:50%; col2_img_margin:auto ;col2_img_opacity:0.5"
+    c.optionsRaw = 'cellspacing=3 | colstyle=col2_img_display:block; col2_img_max-width:250px;' +
+        ' col2_img_border-radius:50%; col2_img_margin:auto ;col2_img_opacity:0.5'
     t.is(c.width, '100%')
     t.is(c.height, '160px')
     t.is(c.optionsRaw, 'cellspacing=3 | colstyle=col2_img_display:block; col2_img_max-width:250px; col2_img_border-radius:50%; col2_img_margin:auto ;col2_img_opacity:0.5')

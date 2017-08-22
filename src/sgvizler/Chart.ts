@@ -41,8 +41,8 @@ export abstract class Chart {
      */
     public options: any = {}
 
-    private _tabDependences: Array<Dependency> = []
     protected _resultSparql: SparqlResultInterface
+    private _tabDependences: Array<Dependency> = []
     private _isDone: boolean
     private _patternOptions: CHART_PATTERN_OPTIONS = CHART_PATTERN_OPTIONS.EMPTY
     private _container: Container
@@ -309,11 +309,23 @@ export abstract class Chart {
 
     private doDraw () {
         Logger.log('Chart started : ' + this._container.id)
+        let currentThis = this
         if ( this._resultSparql !== null) {
-            this.draw(this._resultSparql)
-            this._isDone = true
+            this.draw(this._resultSparql).then(
+                function (valeur) {
+                    currentThis._isDone = true
+                    Logger.log('Chart finished : ' + currentThis._container.id)
+                }
+               , function (error) {
+                    console.log(error)
+                    Logger.displayFeedback(currentThis._container, MESSAGES.ERROR_CHART, [error])
+                        Logger.log('Chart finished with error : ' + currentThis._container.id)
+                    }
+            )
+        } else {
+            Logger.displayFeedback(currentThis._container, MESSAGES.ERROR_DATA_EMPTY)
+            Logger.log('Chart finished with error : ' + currentThis._container.id)
         }
-        Logger.log('Chart finished : ' + this._container.id)
     }
 
     // noinspection JSValidateJSDoc
@@ -328,7 +340,7 @@ export abstract class Chart {
         let matchArray
         let raw = this._optionsRaw
         while ((matchArray = patternOption.exec(raw)) !== null) { // tslint:disable-line
-            //this.options[matchArray[1].toLowerCase()] = matchArray[2].trim()
+            // this.options[matchArray[1].toLowerCase()] = matchArray[2].trim()
             this.options[matchArray[1]] = matchArray[2].trim()
             this._patternOptions = typePattern
         }

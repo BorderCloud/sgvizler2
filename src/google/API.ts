@@ -8,16 +8,16 @@ export class API {
      * todo
      * @returns {string}
      */
-    static get key(): string {
-        return this._key;
+    static get key (): string {
+        return this._key
     }
 
     /**
      * todo
      * @param {string} value
      */
-    static set key(value: string) {
-        this._key = value;
+    static set key (value: string) {
+        this._key = value
     }
 
     /**
@@ -25,5 +25,5 @@ export class API {
      * @type {string}
      * @private
      */
-    private static _key:string = ""
+    private static _key: string = ''
 }

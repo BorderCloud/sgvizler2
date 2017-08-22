@@ -8,6 +8,9 @@
   "sgvizler_visualization_Table": {
     "title": "sgvizler.visualization.Table"
   },
+  "leaflet_visualization_Map": {
+    "title": "leaflet.visualization.Map"
+  },
   "google_visualization_Table": {
     "title": "google.visualization.Table"
   },

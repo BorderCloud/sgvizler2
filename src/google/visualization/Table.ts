@@ -3,8 +3,8 @@ import {
     SparqlResultInterface
 } from '../../sgvizler'
 
-import {Data} from "./Data";
-import {API} from "../API";
+import { Data } from './Data'
+import { API } from '../API'
 
 declare let google: any
 
@@ -15,10 +15,15 @@ declare let google: any
  * @memberof google.visualization
  */
 export class Table extends Chart {
-    private static _isInit:boolean = false
+    private static _isInit: boolean = false
 
-    private static init(){
-        google.charts.load('current', {'packages':['table']});
+    public constructor () {
+        super()
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js')
+    }
+
+    private static init () {
+        google.charts.load('current', {'packages': ['table']})
         Table._isInit = true
     }
 
@@ -42,10 +47,6 @@ export class Table extends Chart {
         return 'tutorial-google_visualization_Table.html'
     }
 
-    public constructor () {
-        super()
-        let dep = this.addScript('https://www.gstatic.com/charts/loader.js')
-    }
     /**
      * Make a standard simple html table.
      * Available options:
@@ -61,7 +62,7 @@ export class Table extends Chart {
             // console.log(noCols + " x " + noRows)
 
             let height = '100%'
-            if(currentChart.height !== ''){
+            if (currentChart.height !== '') {
                 height = currentChart.height
             }
 
@@ -71,19 +72,21 @@ export class Table extends Chart {
                 height: height
             }, currentChart.options)
 
-            if(! Table._isInit){
+            if (! Table._isInit) {
                 Table.init()
             }
 
             google.charts.setOnLoadCallback(
-                ()=>{
+                () => {
                     let data = new Data(result)
 
-                    var table = new google.visualization.Table(document.getElementById(currentChart.container.id));
+                    let table = new google.visualization.Table(document.getElementById(currentChart.container.id))
 
-                    table.draw(data.getDataTable(), currentChart.options);
+                    table.draw(data.getDataTable(), currentChart.options)
                 }
-            );
+            )
+            // finish
+            resolve()
         })
     }
 }
