@@ -8,7 +8,7 @@
 # sgvizler2
 
 Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin). The project is
-under construction. The first release will available at the end of 2017.
+under construction. The first release will available at the end of 2017. [See the demo of Sgvizler2](http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html)
 
 This project is the reboot in Typescript of project [Sgvizler](https://github.com/mgskjaeveland/sgvizler) of Martin G.
 Skjæveland.
@@ -37,10 +37,10 @@ yarn add sgvizler2
 npm install sgvizler2
 ```
 
-## Docs
+## Get started
 
-In the website of this project, you can find a Sparql editor and examples for each chart, map or table available in the
-last version.
+You can use the [SPARQL editor](http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html) to generate an example
+with your SPARQL query and see examples for each charts, maps and tables in this project.
 
 ## Why reboot the project ?
 The project could not be easily extensible and the docs was not automatically generate in the packages for composer,
@@ -54,3 +54,4 @@ It's possible to generate a compatible lib in Javascript with unit test and cove
 There are only a problem with JSDoc that not support several token of Typescript. I try TypeDoc but it do not generate
 tutorials like JSDoc :( The JSDoc of project generates only tutorials for the moment.
 
+If you want to participate at this project, [read this doc](https://github.com/BorderCloud/sgvizler2/blob/master/DEVELOPMENT.md).

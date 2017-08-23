@@ -33,10 +33,6 @@ To check namespace :
  yarn docs:all
  ```
 
-## Get started
-
-You can use the [SPARQL editor](Todo put url...) to generate an example with Sgvizler2.
-
 ## Development zen
 
 Read the doc of [start project typescript](https://www.typescriptlang.org/)
