@@ -103,7 +103,8 @@
 <a href="https://github.com/conventional-changelog/standard-version"><img src="https://img.shields.io/badge/release-standard%20version-brightgreen.svg" alt="Standard Version"></a>
 <a href="https://david-dm.org/bordercloud/sgvizler2"><img src="https://david-dm.org/bordercloud/sgvizler2/status.svg" alt="dependencies Status"></a>
 <a href="https://david-dm.org/bordercloud/sgvizler2?type=dev"><img src="https://david-dm.org/bordercloud/sgvizler2/dev-status.svg" alt="devDependencies Status"></a></p>
-<h1>sgvizler2</h1><h1>UNDER CONSTRUCTION</h1><p>Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin).</p>
+<h1>sgvizler2</h1><p>Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin). The project is
+under construction. The first release will available at the end of 2017. <a href="http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">See the demo of Sgvizler2</a></p>
 <p>This project is the reboot in Typescript of project <a href="https://github.com/mgskjaeveland/sgvizler">Sgvizler</a> of Martin G.
 Skjæveland.</p>
 <p>Add visualisations directly into your webpages like this:</p>
@@ -116,44 +117,21 @@ Skjæveland.</p>
      data-sgvizler-chart=&quot;google.visualization.PieChart&quot;
      style=&quot;width:800px; height:400px;&quot;>&lt;/div></code></pre><p>Generate your chart with <a href="https://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">our SPARQL editor</a> and to
 read their docs.</p>
+<h2>Install</h2><p>With yarn or npm</p>
+<pre class="prettyprint source"><code>yarn add sgvizler2
+# or
+npm install sgvizler2</code></pre><h2>Get started</h2><p>You can use the <a href="http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">SPARQL editor</a> to generate an example
+with your SPARQL query and see examples for each charts, maps and tables in this project.</p>
 <h2>Why reboot the project ?</h2><p>The project could not be easily extensible and the docs was not automatically generate in the packages for composer,
 yarn, npm, etc.
 The project can exist without Google and new libs of charts exist. For example with D3JS,...</p>
 <p>And why with Typescript ? The project is now too complex and there are hard problems to debug with
- several charts of Google. I search solutions... but finally, I have to reboot with
- the <a href="https://github.com/bitjson/typescript-starter">start project typescript</a>.
- It's possible to generate a compatible lib in Javascript with unit test and coverage of code. So...
- There are only a problem with JSDoc that not support several token of Typescript. I try TypeDoc but it do not generate
- tutorials like JSDoc :( The JSDoc of project generates only tutorials for the moment.</p>
-<h2>Create a new chart</h2><p>The class Table is a example of &quot;chart&quot;.</p>
-<p>When you create a new class of chart, you have to add it in :</p>
-<ul>
-<li>the namespace file</li>
-<li>the class sgvizler.Select</li>
-<li>Check it, if your chart exists and works via the SPARQL editor of tutorial.</li>
-</ul>
-<p>Finally, you can create a new tutorial in the folder tutorial(duplicate the example of class Table) and change the file
-tutorials.json.</p>
-<h2>Create a new namespace</h2><p>The project simulate the concept of namespace because there are again problems in typescript.</p>
-<p>if you want create a new namespace, you can create a new folder with the same name and in the root add a file where you
-export your new classes. See example :  file sgvizler.ts and sgvizler/namespace.ts</p>
-<p>NB : need to precise in the classes their namespace with the tag jsdoc @memberof sgvizler.visualization</p>
-<p>To check namespace :</p>
-<pre class="prettyprint source"><code> yarn docs:all</code></pre><h2>Get started</h2><p>You can use the <a href="Todo put url...">SPARQL editor</a> to generate an example with Sgvizler2.</p>
-<h2>Development zen</h2><p>Read the doc of <a href="https://www.typescriptlang.org/">start project typescript</a></p>
-<p>Commands :</p>
-<pre class="prettyprint source"><code>yarn build
-yarn test
-yarn docs:publish</code></pre><h2>Docs</h2><p>The project generate only tutorials because JSdoc3 cannot parse correctly Typescript, for the moment...</p>
-<p>You can generate all the docs but you need to :</p>
-<ul>
-<li>delete the file jsdoc_template/template/tmpl/layout.tmpl</li>
-<li>rename layout.old by layout.tmpl</li>
-<li>change jsdoc.json</li>
-<li>build the docs</li>
-</ul>
-<p>Command :</p>
-<pre class="prettyprint source"><code>yarn docs:html</code></pre></article>
+several charts of Google. I search solutions... but finally, I have to reboot with
+the <a href="https://github.com/bitjson/typescript-starter">start project typescript</a>.
+It's possible to generate a compatible lib in Javascript with unit test and coverage of code. So...
+There are only a problem with JSDoc that not support several token of Typescript. I try TypeDoc but it do not generate
+tutorials like JSDoc :( The JSDoc of project generates only tutorials for the moment.</p>
+<p>If you want to participate at this project, <a href="https://github.com/BorderCloud/sgvizler2/blob/master/DEVELOPMENT.md">read this doc</a>.</p></article>
     </section>
 
 
@@ -206,7 +184,7 @@ yarn docs:publish</code></pre><h2>Docs</h2><p>The project generate only tutorial
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.4</a>
 	
-		on August 23rd 2017, 4:20:37 am
+		on August 23rd 2017, 4:15:51 pm
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
