@@ -68,3 +68,11 @@ yarn buildall
 yarn docs:publish
 yarn changelog
 ```
+
+## Remove (before the first release and )
+
+npm unpublish sgvizler@0.0.XXX
+
+## Deprecate
+
+npm deprecate my-thing@"< 0.2.3" "critical bug fixed in v0.2.3"

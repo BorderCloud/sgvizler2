@@ -8,21 +8,35 @@
 # sgvizler2
 
 Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin). The project is
-under construction. The first release will available at the end of 2017. [See the demo of Sgvizler2](http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html)
+under construction. The first release will available at the end of 2017. [See the demo](http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html)
 
 This project is the reboot in Typescript of project [Sgvizler](https://github.com/mgskjaeveland/sgvizler) of Martin G.
 Skjæveland.
 
 Add visualisations directly into your webpages like this:
 ```html
-<div id="example"
-     data-sgvizler-endpoint="http://sws.ifi.uio.no/sparql/npd"
-     data-sgvizler-query="SELECT ?class (count(?instance) AS ?noOfInstances)
-                          WHERE{ ?instance a ?class }
-                          GROUP BY ?class
-                          ORDER BY ?class"
-     data-sgvizler-chart="google.visualization.PieChart"
-     style="width:800px; height:400px;"></div>
+<div id="result"
+     data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+     data-sgvizler-chart="bordercloud.visualization.DataTable"
+     data-sgvizler-query="
+     PREFIX rdfs: &amp;lt;http://www.w3.org/2000/01/rdf-schema#&amp;gt;
+     SELECT  *
+     WHERE {
+             ?object ?property ?valueOrObject .
+     }
+     LIMIT 4
+     "
+     ></div>
+ <script src="node_modules/sgvizler2/build/browser/sgvizler2.js"></script>
+ <script>
+    //Draw a chart
+    //sgvizler2.containerDraw('result');
+    //or
+    //$("#result").containerchart();
+
+    //Draw all Chart
+    sgvizler2.containerDrawAll();
+ </script>
 ```
 
 Generate your chart with [our SPARQL editor](https://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html) and to

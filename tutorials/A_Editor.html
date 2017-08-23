@@ -129,7 +129,7 @@ $(document).ready(function () {
             html += "data-sgvizler-chart-options=\"" +  $('#options').val() + "\" \n";
         }
         if($('#logsLevel').val() != "0"){
-            html += "data-sgvizler-log=\"" +  $('#options').val() + "\" \n";
+            html += "data-sgvizler-log=\"" +  $('#logsLevel').val() + "\" \n";
         }
         html +=  "></div>";
         $("#consoleHtml").text(
