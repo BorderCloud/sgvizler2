@@ -191,9 +191,6 @@ data-sgvizler-chart="google.visualization.Map"
             </div>
         </div>
 
-
-
-
         <!--<h4>-->
             <!--Map example 2-->
         <!--</h4>-->
@@ -213,20 +210,66 @@ data-sgvizler-chart="google.visualization.Map"
         <!--<div class="tab-content">-->
             <!--<div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">-->
                 <!--<div id="example_2" style="padding: 25px;"><div id="result_2" data-sgvizler-query="-->
-<!--SELECT  *-->
-<!--WHERE {-->
-        <!--?object ?property ?valueOrObject .-->
+<!--PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#>-->
+<!--PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/>-->
+<!--PREFIX p: &lt;http://www.wikidata.org/prop/>-->
+<!--PREFIX bd: &lt;http://www.bigdata.com/rdf#>-->
+<!--PREFIX wikibase: &lt;http://wikiba.se/ontology#>-->
+<!--PREFIX wd: &lt;http://www.wikidata.org/entity/>-->
+<!--PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>-->
+
+<!--select distinct-->
+<!--?lat ?long ?siteLabel ?siteDescription-->
+<!--?site-->
+<!--(concat(xsd:string(?image),'?width=200') as ?newimage)-->
+<!--where {-->
+<!--?site wdt:P31/wdt:P279* wd:Q839954 .-->
+<!--?site wdt:P17 wd:Q142 .-->
+<!--?site wdt:P18 ?image .-->
+<!--?site p:P625 ?coord .-->
+
+<!--?coord   psv:P625 ?coordValue .-->
+
+<!--?coordValue a wikibase:GlobecoordinateValue ;-->
+<!--wikibase:geoLatitude ?lat ;-->
+<!--wikibase:geoLongitude ?long .-->
+
+<!--SERVICE wikibase:label {-->
+<!--bd:serviceParam wikibase:language 'en,fr' .-->
 <!--}-->
-<!--LIMIT 4" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Table" data-sgvizler-chart-options="showRowNumber=true" data-sgvizler-log="0"></div></div>-->
+<!--}" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="leaflet.visualization.Table" data-sgvizler-chart-options="showRowNumber=true" data-sgvizler-log="0"></div></div>-->
             <!--</div>-->
             <!--<div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">-->
                 <!--<div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"-->
 <!--data-sgvizler-query="-->
-<!--SELECT  *-->
-<!--WHERE {-->
-        <!--?object ?property ?valueOrObject .-->
+<!--PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#>-->
+<!--PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/>-->
+<!--PREFIX p: &lt;http://www.wikidata.org/prop/>-->
+<!--PREFIX bd: &lt;http://www.bigdata.com/rdf#>-->
+<!--PREFIX wikibase: &lt;http://wikiba.se/ontology#>-->
+<!--PREFIX wd: &lt;http://www.wikidata.org/entity/>-->
+<!--PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>-->
+
+<!--select distinct-->
+<!--?lat ?long ?siteLabel ?siteDescription-->
+<!--?site-->
+<!--(concat(xsd:string(?image),'?width=200') as ?newimage)-->
+<!--where {-->
+<!--?site wdt:P31/wdt:P279* wd:Q839954 .-->
+<!--?site wdt:P17 wd:Q142 .-->
+<!--?site wdt:P18 ?image .-->
+<!--?site p:P625 ?coord .-->
+
+<!--?coord   psv:P625 ?coordValue .-->
+
+<!--?coordValue a wikibase:GlobecoordinateValue ;-->
+<!--wikibase:geoLatitude ?lat ;-->
+<!--wikibase:geoLongitude ?long .-->
+
+<!--SERVICE wikibase:label {-->
+<!--bd:serviceParam wikibase:language 'en,fr' .-->
 <!--}-->
-<!--LIMIT 4"-->
+<!--}"-->
 <!--data-sgvizler-endpoint="https://query.wikidata.org/sparql"-->
 <!--data-sgvizler-chart="google.visualization.Table"-->
 <!--data-sgvizler-chart-options="showRowNumber=true"-->
