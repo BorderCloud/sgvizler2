@@ -21,7 +21,13 @@ export class Logger {
      * @protected
      * @param {string} message The message to log.
      */
-    public static log (message: string) {
+    public static log (container: S.Container, message: string) {
+        if (container.loglevel === 2) {
+            console.log(this.elapsedTime() + 's: ' + message)
+        }
+    }
+
+    public static logSimple (message: string) {
         console.log(this.elapsedTime() + 's: ' + message)
     }
 

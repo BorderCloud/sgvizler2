@@ -61,6 +61,7 @@ export class Container {
     private static readonly QUERY_ATTRIBUTE_NAME: string = Container.PREFIX + 'query'
     private static readonly ENDPOINT_ATTRIBUTE_NAME: string = Container.PREFIX + 'endpoint'
     private static readonly OUTPUT_FORMAT_ATTRIBUTE_NAME: string = Container.PREFIX + 'endpoint-output-format'
+    private static readonly QUERY_PARAMETER_ATTRIBUTE_NAME: string = Container.PREFIX + 'endpoint-query-parameter'
     private static readonly OUTPUT_METHOD_ATTRIBUTE_NAME: string = Container.PREFIX + 'endpoint-method'
     private static readonly CHART_ATTRIBUTE_NAME: string = Container.PREFIX + 'chart'
     private static readonly CHART_OPTION_ATTRIBUTE_NAME: string = Container.PREFIX + 'chart-options'
@@ -102,7 +103,8 @@ export class Container {
         }
 
         if (elmAttrs[self.CHART_OPTION_ATTRIBUTE_NAME as any]) {
-            this._chartOptions = elmAttrs[self.CHART_OPTION_ATTRIBUTE_NAME as any].value
+            this._chartOptions =
+                Tools.decodeHtml(elmAttrs[self.CHART_OPTION_ATTRIBUTE_NAME as any].value)
         }
 
         // build request object
@@ -112,24 +114,27 @@ export class Container {
         this._id = elementID
 
         if (elmAttrs[self.QUERY_ATTRIBUTE_NAME as any]) {
-            request.query = elmAttrs[self.QUERY_ATTRIBUTE_NAME as any].value
+            request.query = Tools.decodeHtml(elmAttrs[self.QUERY_ATTRIBUTE_NAME as any].value)
         }
 
         if (elmAttrs[self.ENDPOINT_ATTRIBUTE_NAME as any]) {
-            request.endpoint = elmAttrs[self.ENDPOINT_ATTRIBUTE_NAME as any].value
+            request.endpoint = Tools.decodeHtml(elmAttrs[self.ENDPOINT_ATTRIBUTE_NAME as any].value)
         } else {
             this._state = CONTAINER_STATE.FAILED
             Logger.displayFeedback(this, MESSAGES.ERROR_ENDPOINT_FORGOT)
             return
         }
 
-        // TODO : IMPORTANT FORMAT
         if (elmAttrs[self.OUTPUT_FORMAT_ATTRIBUTE_NAME as any]) {
             request.endpointOutputFormat = SparqlTools.convertString(elmAttrs[self.OUTPUT_FORMAT_ATTRIBUTE_NAME as any].value)
         }
 
         if (elmAttrs[self.OUTPUT_METHOD_ATTRIBUTE_NAME as any]) {
             request.method = elmAttrs[self.OUTPUT_METHOD_ATTRIBUTE_NAME as any].value
+        }
+
+        if (elmAttrs[self.QUERY_PARAMETER_ATTRIBUTE_NAME as any]) {
+            request.queryParameter = elmAttrs[self.QUERY_PARAMETER_ATTRIBUTE_NAME as any].value
         }
 
         this._request = request
@@ -172,7 +177,7 @@ export class Container {
     public static async drawWithElementId (elementID: string, options?: any) {
         let container = new Container(elementID)
         // console.log(container)
-        Logger.log('drawing id: ' + elementID)
+        Logger.log(container,'drawing id: ' + elementID)
         await container.draw()
     }
 
@@ -203,7 +208,7 @@ export class Container {
     public static async loadDependenciesId (elementID: string, options?: any) {
         let container = new Container(elementID)
         // console.log(container)
-        Logger.log('Load dependencies id: ' + elementID)
+        Logger.log(container,'Load dependencies id: ' + elementID)
         await container.loadDependencies()
     }
 
@@ -242,8 +247,10 @@ export class Container {
         query: string,
         chartName: string,
         options?: string,
-        loglevel?: string
-        // ,  output:string="json"
+        loglevel?: string,
+        output?: string,
+        method?: string,
+        parameter?: string,
     ) {
         let element = document.getElementById(elementID)
         if (element === null) {
@@ -253,20 +260,15 @@ export class Container {
         let self = Container
         let attrQuery = document.createAttribute(self.QUERY_ATTRIBUTE_NAME)
         let attrEndpoint = document.createAttribute(self.ENDPOINT_ATTRIBUTE_NAME)
-        // let attrOutput = document.createAttribute(self.OUTPUT_FORMAT_ATTRIBUTE_NAME)
-        // let attrMethod = document.createAttribute(self.OUTPUT_METHOD_ATTRIBUTE_NAME)
         let attrChart = document.createAttribute(self.CHART_ATTRIBUTE_NAME)
 
         // attrQuery.value = Tools.escapeHtml(query)
         attrQuery.value = query
         attrEndpoint.value = endpoint
         attrChart.value = chartName
-        // attrOutput.value = output
 
         element.setAttributeNode(attrQuery)
         element.setAttributeNode(attrEndpoint)
-        // element.setAttributeNode(attrOutput)
-        // element.setAttributeNode(attrMethod)
         element.setAttributeNode(attrChart)
 
         if (options) {
@@ -279,6 +281,22 @@ export class Container {
             attrLevel.value = loglevel
             element.setAttributeNode(attrLevel)
         }
+        if (output) {
+            let attrOutput = document.createAttribute(self.OUTPUT_FORMAT_ATTRIBUTE_NAME)
+            attrOutput.value = output
+            element.setAttributeNode(attrOutput)
+        }
+        if (method) {
+            let attrMethod = document.createAttribute(self.OUTPUT_METHOD_ATTRIBUTE_NAME)
+            attrMethod.value = method
+            element.setAttributeNode(attrMethod)
+        }
+        if (parameter) {
+            let attrQueryAttribut = document.createAttribute(self.QUERY_PARAMETER_ATTRIBUTE_NAME)
+            attrQueryAttribut.value = parameter
+            element.setAttributeNode(attrQueryAttribut)
+        }
+
         return element.innerHTML
     }
 

@@ -19,7 +19,7 @@ export abstract class Dependency {
     public load (): void {
         if (! this.isLoaded()) {
             this.startDownload = true
-            Logger.log('Load started :' + this.url)
+            Logger.logSimple('Load started :' + this.url)
             Loader.load(this)
         }
     }
@@ -34,7 +34,7 @@ export abstract class Dependency {
 
     public callBack () {
         this.endDownload = true
-        Logger.log('Load ended :' + this.url)
+        Logger.logSimple('Load ended :' + this.url)
     }
 }
 

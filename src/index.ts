@@ -46,6 +46,7 @@ function readOptions (options: any) {
         if (typeof options === 'object') {
             google.API.key = options.googleApiKey ? options.googleApiKey : ''
             leaflet.API.osmAccessToken = options.osmAccessToken ? options.osmAccessToken : ''
+            S.Core.path = options.path ? options.path : ''
         }
     }
 }
@@ -111,7 +112,10 @@ export function create (
     query: string,
     chartName: string,
     options?: string,
-    loglevel?: string
+    loglevel?: string,
+    output?: string,
+    method?: string,
+    parameter?: string
 ) {
     return S.Container.create(
         elementID,
@@ -119,7 +123,10 @@ export function create (
         query,
         chartName,
         options,
-        loglevel
+        loglevel,
+        output,
+        method,
+        parameter
     )
 }
 

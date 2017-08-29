@@ -27,6 +27,28 @@ LIMIT 10</textarea>
             </div>
         </div>
         <div class="form-group row">
+            <label for="options" class="col-2 col-form-label">Format</label>
+            <div class="col-10">
+                <input class="form-control" type="input" id="format">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="options" class="col-2 col-form-label">Parameter</label>
+            <div class="col-10">
+                <input class="form-control" type="input" id="parameter" value="query">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="options" class="col-2 col-form-label">Method</label>
+            <div class="col-10">
+                <select class="custom-select" id="method">
+                    <option value="" selected></option>
+                    <option value="GET">GET</option>
+                    <option value="POST">POST</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
             <label for="logsLevel" class="col-2 col-form-label">Logs level</label>
             <div class="col-10">
                 <select class="custom-select" id="logsLevel">
@@ -117,7 +139,10 @@ $(document).ready(function () {
             $('#query').val(),
             $('.selectpicker').selectpicker('val'),
             $('#options').val(),
-            $('#logsLevel').val()
+            $('#logsLevel').val(),
+            $('#format').val(),
+            $('#method').val(),
+            $('#parameter').val()
         )
 
         var html =  "<div id=\"result\" \n" +
@@ -130,6 +155,15 @@ $(document).ready(function () {
         }
         if($('#logsLevel').val() != "0"){
             html += "data-sgvizler-log=\"" +  $('#logsLevel').val() + "\" \n";
+        }
+        if($('#format').val() != ""){
+            html += "data-sgvizler-output-format=\"" +  $('#format').val() + "\" \n";
+        }
+        if($('#method').val() == "GET" || $('#method').val() == "POST" ){
+            html += "data-sgvizler-method=\"" +  $('#method').val() + "\" \n";
+        }
+        if($('#parameter').val() != "query" ){
+            html += "data-sgvizler-endpoint-query-parameter=\"" +  $('#parameter').val() + "\" \n";
         }
         html +=  "></div>";
         $("#consoleHtml").text(
@@ -165,7 +199,10 @@ $(document).ready(function () {
 
             // OpenStreetMap Access Token
             // Todo put the link of tutorial to create a new token
-            osmAccessToken: "pk.eyJ1Ijoia3JhZmVzIiwiYSI6ImNqNm02eDduaDF2aG0ycW5oZzhxbzUwZmEifQ.SE1YXz0mqTkafrwd_YXn1A"
+            osmAccessToken: "pk.eyJ1Ijoia3JhZmVzIiwiYSI6ImNqNm02eDduaDF2aG0ycW5oZzhxbzUwZmEifQ.SE1YXz0mqTkafrwd_YXn1A",
+
+            //path of lib
+            path: ""
         });
     });
     $("#seeDoc").click(function() {

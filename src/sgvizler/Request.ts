@@ -47,6 +47,7 @@ export class Request {
     private _endpointOutputFormat: SPARQL_RESULT = SPARQL_RESULT.json
     private _method = 'GET'
     private _container: Container
+    private _queryParameter: string = 'query'
     // private _endpointResultsUrlPart: string
     // // private _chartPathFunction: string
     // private _endpointURL: string
@@ -150,6 +151,22 @@ export class Request {
         this._endpointOutputFormat = value
     }
 
+    /**
+     * todo
+     * @returns {string}
+     */
+    get queryParameter (): string {
+        return this._queryParameter
+    }
+
+    /**
+     * todo
+     * @param {string} value
+     */
+    set queryParameter (value: string) {
+        this._queryParameter = value
+    }
+
     public constructor () {
         this.listeners = {}
     }
@@ -166,7 +183,7 @@ export class Request {
             let url = myRequest.endpoint
 
             if (myRequest.method.toLowerCase() === 'get') {
-                url += '?query=' + encodeURIComponent(myRequest.query) +
+                url += '?' + myRequest.queryParameter + '=' + encodeURIComponent(myRequest.query) +
                         '&output=' + SparqlTools.getOutputLabel(myRequest.endpointOutputFormat)
             }else {
                 data = {
@@ -220,5 +237,4 @@ export class Request {
             // console.log(myRequest.query)
         })
     }
-
 }

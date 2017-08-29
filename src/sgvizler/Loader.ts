@@ -85,19 +85,20 @@ export class Loader {
         let url = dep.url
         return new Promise(function (resolve, reject) {
             if (dep.loadBefore && ! dep.loadBefore.endDownload) {
-                Logger.log('Waiting : ' + dep.loadBefore.url + ' before ' + dep.url)
+                //Logger.logSimple('Waiting : ' + dep.loadBefore.url + ' before ' + dep.url)
                 Loader._dependenciesToLoad.push(dep)
-                return Loader.load(dep.loadBefore)
+                Loader.load(dep.loadBefore)
+                return resolve()
             }
 
             // include script only once
             if (Loader.isLoad(dep)) {
-                return // false;
+                return resolve() // false;
             }else {
                 Loader._load.push(url)
             }
 
-            Logger.log('Loading : ' + dep.url)
+            Logger.logSimple('Loading : ' + dep.url)
             // Adding the script tag to the head as suggested before
             let head = document.getElementsByTagName('head')[0]
             let script = document.createElement('script')
@@ -144,7 +145,7 @@ export class Loader {
             // There are several events for cross browser compatibility.
             link.onload = function () {
                 Loader._loaded.push(url)
-                Logger.log('Loaded : ' + url )
+                Logger.logSimple('Loaded : ' + url )
                 dep.callBack()
                 Loader.checkDependenciesToLoad()
                 // remember included script

@@ -1,7 +1,8 @@
 import {
     Chart,
     SparqlResultInterface,
-    Logger
+    Logger,
+    Core
 } from '../../sgvizler'
 
 declare let d3: any
@@ -36,9 +37,8 @@ export class Pie extends Chart {
 
     public constructor () {
         super()
-
-        this.addCss('lib/d3/d3.css')
-        let dep = this.addScript('lib/d3/d3.js')
+        this.addCss(Core.path + '/lib/d3/d3.css')
+        let dep = this.addScript(Core.path + '/lib/d3/d3.js')
     }
 
     /**
@@ -78,7 +78,7 @@ export class Pie extends Chart {
                 label = row[cols[0]].value
                 counter = Number(row[cols[1]].value)
                 if ( label === undefined || counter === undefined) {
-                    Logger.log('Erreur ? D3JS:pie label ' + label + ' count ' + counter)
+                    Logger.logSimple('Erreur ? D3JS:pie label ' + label + ' count ' + counter)
                 }else {
                     dataset.push({ label: label , count: counter })
                 }

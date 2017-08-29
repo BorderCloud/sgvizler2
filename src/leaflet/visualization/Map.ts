@@ -1,6 +1,7 @@
 import {
     Chart,
-    SparqlResultInterface
+    SparqlResultInterface,
+    Core
 } from '../../sgvizler'
 
 import { API } from '../API'
@@ -44,11 +45,11 @@ export class Map extends Chart {
 
     public constructor () {
         super()
-        this.addCss('lib/leaflet/leaflet.css')
-        this.addCss('lib/leaflet/MarkerCluster.Default.css')
+        this.addCss(Core.path + '/lib/leaflet/leaflet.css')
+        this.addCss(Core.path + '/lib/leaflet/MarkerCluster.Default.css')
 
-        let dep = this.addScript('lib/leaflet/leaflet-src.js')
-        this.addScript('lib/leaflet/leaflet.markercluster-src.js',dep)
+        let dep = this.addScript(Core.path + '/lib/leaflet/leaflet-src.js')
+        this.addScript(Core.path + '/lib/leaflet/leaflet.markercluster-src.js',dep)
     }
     /**
      * Make a Google map

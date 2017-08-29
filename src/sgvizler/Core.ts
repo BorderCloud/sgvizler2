@@ -6,6 +6,22 @@
 export class Core {
 
     /**
+     * todo
+     * @returns {string}
+     */
+    static get path (): string {
+        return this._path
+    }
+
+    /**
+     * todo
+     * @param {string} value
+     */
+    static set path (value: string) {
+        this._path = value
+    }
+
+    /**
      * The version number of this sgvizler2.
      * @static
      * @readonly
@@ -28,5 +44,7 @@ export class Core {
      * @type {string} DOCPATH
      */
     public static readonly DOCPATH: string = 'https://bordercloud.github.io/sgvizler2/'
+
+    private static _path: string = ''
 
 }

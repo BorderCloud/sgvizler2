@@ -45,16 +45,36 @@ export class Tools {
         return cursor
     }
 
-    public static escapeHtml (str: string): string {
-        let text = document.createTextNode(str)
-        let div = document.createElement('div')
-        div.appendChild(text)
-        return div.innerHTML
+    // public static escapeHtml (str: string): string {
+    //     let text = document.createTextNode(str)
+    //     let div = document.createElement('div')
+    //     div.appendChild(text)
+    //     return div.innerHTML
+    // }
+
+    // public static decodeHtml (html: string): any {
+    // //     let element = document.createElement('div')
+    // //     element.innerHTML = html
+    // //     return element.textContent
+    // // }
+    // // function decodeHTMLEntities(text) {
+    // }
+
+    public static encodeHtml (str: string) {
+        let buf = []
+        for (let i = str.length - 1 ;i >= 0 ; i-- ) {
+            buf.unshift(['&#', str.charCodeAt(i) , ';'].join(''))
+        }
+        return buf.join('')
     }
 
-    public static decodeHtml (html: string): any {
-        let element = document.createElement('div')
-        element.innerHTML = html
-        return element.textContent
+    public static decodeHtml (str: string) {
+        let text = str.replace(/&#(\d+);/g, function ( match, dec) {
+            return String.fromCharCode(dec)
+        })
+        return text.replace(/\s/g, function ( match, dec) {
+            return ' '
+        })
     }
+
 }

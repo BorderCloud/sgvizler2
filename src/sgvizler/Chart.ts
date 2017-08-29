@@ -20,7 +20,8 @@ export enum CHART_PATTERN_OPTIONS {
     UNKNOWN,
     VARIABLE,
     STYLE,
-    CLASS
+    CLASS,
+    WIKI
 }
 
 /**
@@ -74,7 +75,7 @@ export abstract class Chart {
     }
 
     public async loadDependenciesAndDraw (result: SparqlResultInterface) {
-        Logger.log('Chart loaded dependencies : ' + this.container.id)
+        Logger.log(this.container,'Chart loaded dependencies : ' + this.container.id)
         // let promisesArray: Array<any> = []
         this._resultSparql = result
 
@@ -308,23 +309,23 @@ export abstract class Chart {
     }
 
     private doDraw () {
-        Logger.log('Chart started : ' + this._container.id)
+        Logger.log(this.container,'Chart started : ' + this._container.id)
         let currentThis = this
-        if ( this._resultSparql !== null) {
-            this.draw(this._resultSparql).then(
+        if ( currentThis._resultSparql !== null) {
+            currentThis.draw(currentThis._resultSparql).then(
                 function (valeur) {
                     currentThis._isDone = true
-                    Logger.log('Chart finished : ' + currentThis._container.id)
+                    Logger.log(currentThis.container,'Chart finished : ' + currentThis._container.id)
                 }
                , function (error) {
                     console.log(error)
                     Logger.displayFeedback(currentThis._container, MESSAGES.ERROR_CHART, [error])
-                        Logger.log('Chart finished with error : ' + currentThis._container.id)
+                        Logger.log(currentThis.container,'Chart finished with error : ' + currentThis._container.id)
                     }
             )
         } else {
             Logger.displayFeedback(currentThis._container, MESSAGES.ERROR_DATA_EMPTY)
-            Logger.log('Chart finished with error : ' + currentThis._container.id)
+            Logger.log(currentThis.container,'Chart finished with error : ' + currentThis._container.id)
         }
     }
 
@@ -360,13 +361,17 @@ export abstract class Chart {
         let patternOption = /\|? *([^=]*) *= *([^=|]*)/iy // tslint:disable-line
         let patternStyle = /([^:]+):([^:;]+) *;?/iy // tslint:disable-line
         let patternClass = /([^ |;]+) ?/iy // tslint:disable-line
+        let patternWiki =  /\!? *([^=]*) *= *([^=!]*)/iy // tslint:disable-line
 
         let raw = this._optionsRaw
-
         if (raw === '') {
             this._patternOptions = CHART_PATTERN_OPTIONS.EMPTY
         }else {
             this._patternOptions = CHART_PATTERN_OPTIONS.UNKNOWN
+        }
+
+        if (this._optionsRaw.indexOf('|') === -1 && this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN) {
+            this.execPattern(patternWiki,CHART_PATTERN_OPTIONS.WIKI)
         }
 
         if ( this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN) {
@@ -391,6 +396,7 @@ export abstract class Chart {
         if ( this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN ) {
             Logger.displayFeedback(this.container, MESSAGES.ERROR_CHART_PATTERN_OPTION_UNKNOWN,[this._optionsRaw])
         }else if (
+            this.patternOptions === CHART_PATTERN_OPTIONS.WIKI ||
             this.patternOptions === CHART_PATTERN_OPTIONS.VARIABLE ||
             this.patternOptions === CHART_PATTERN_OPTIONS.STYLE
         ) {

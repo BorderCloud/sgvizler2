@@ -1,4 +1,5 @@
 import {
+    Core,
     Chart,
     SparqlResultInterface,
     MESSAGES,
@@ -29,12 +30,12 @@ export class DataTable extends Chart {
     public constructor () {
         super()
 
-        this.addCss('lib/DataTables/datatables.min.css')
-        this.addCss('lib/DataTables/DataTables-1.10.15/css/dataTables.bootstrap4.min.css')
-        let depDatatables = this.addScript('lib/DataTables/datatables.min.js')
-        this.addScript('lib/DataTables/DataTables-1.10.15/js/dataTables.bootstrap4.js',depDatatables)
+        this.addCss(Core.path + '/lib/DataTables/datatables.min.css')
+        this.addCss(Core.path + '/lib/DataTables/DataTables-1.10.15/css/dataTables.bootstrap4.min.css')
+        let depDatatables = this.addScript(Core.path + '/lib/DataTables/datatables.min.js')
+        this.addScript(Core.path + '/lib/DataTables/DataTables-1.10.15/js/dataTables.bootstrap4.js',depDatatables)
 
-        this.addScript('lib/DataTables/Buttons-1.4.0/js/dataTables.buttons.js',depDatatables)
+        this.addScript(Core.path + '/lib/DataTables/Buttons-1.4.0/js/dataTables.buttons.js',depDatatables)
 
     }
 
