@@ -56,6 +56,7 @@ var CHART_PATTERN_OPTIONS;
     CHART_PATTERN_OPTIONS[CHART_PATTERN_OPTIONS["VARIABLE"] = 2] = "VARIABLE";
     CHART_PATTERN_OPTIONS[CHART_PATTERN_OPTIONS["STYLE"] = 3] = "STYLE";
     CHART_PATTERN_OPTIONS[CHART_PATTERN_OPTIONS["CLASS"] = 4] = "CLASS";
+    CHART_PATTERN_OPTIONS[CHART_PATTERN_OPTIONS["WIKI"] = 5] = "WIKI";
 })(CHART_PATTERN_OPTIONS || (CHART_PATTERN_OPTIONS = {}));
 /**
  * Abstract class for all the charts. Ensures that chart types
@@ -102,7 +103,7 @@ class Chart {
     }
     loadDependenciesAndDraw(result) {
         return __awaiter(this, void 0, void 0, function* () {
-            Logger.log('Chart loaded dependencies : ' + this.container.id);
+            Logger.log(this.container, 'Chart loaded dependencies : ' + this.container.id);
             // let promisesArray: Array<any> = []
             this._resultSparql = result;
             if (this.isLoadedAllDependencies()) {
@@ -264,21 +265,21 @@ class Chart {
         return true;
     }
     doDraw() {
-        Logger.log('Chart started : ' + this._container.id);
+        Logger.log(this.container, 'Chart started : ' + this._container.id);
         let currentThis = this;
-        if (this._resultSparql !== null) {
-            this.draw(this._resultSparql).then(function (valeur) {
+        if (currentThis._resultSparql !== null) {
+            currentThis.draw(currentThis._resultSparql).then(function (valeur) {
                 currentThis._isDone = true;
-                Logger.log('Chart finished : ' + currentThis._container.id);
+                Logger.log(currentThis.container, 'Chart finished : ' + currentThis._container.id);
             }, function (error) {
                 console.log(error);
                 Logger.displayFeedback(currentThis._container, MESSAGES.ERROR_CHART, [error]);
-                Logger.log('Chart finished with error : ' + currentThis._container.id);
+                Logger.log(currentThis.container, 'Chart finished with error : ' + currentThis._container.id);
             });
         }
         else {
             Logger.displayFeedback(currentThis._container, MESSAGES.ERROR_DATA_EMPTY);
-            Logger.log('Chart finished with error : ' + currentThis._container.id);
+            Logger.log(currentThis.container, 'Chart finished with error : ' + currentThis._container.id);
         }
     }
     // noinspection JSValidateJSDoc
@@ -311,12 +312,16 @@ class Chart {
         let patternOption = /\|? *([^=]*) *= *([^=|]*)/iy; // tslint:disable-line
         let patternStyle = /([^:]+):([^:;]+) *;?/iy; // tslint:disable-line
         let patternClass = /([^ |;]+) ?/iy; // tslint:disable-line
+        let patternWiki = /\!? *([^=]*) *= *([^=!]*)/iy; // tslint:disable-line
         let raw = this._optionsRaw;
         if (raw === '') {
             this._patternOptions = CHART_PATTERN_OPTIONS.EMPTY;
         }
         else {
             this._patternOptions = CHART_PATTERN_OPTIONS.UNKNOWN;
+        }
+        if (this._optionsRaw.indexOf('|') === -1 && this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN) {
+            this.execPattern(patternWiki, CHART_PATTERN_OPTIONS.WIKI);
         }
         if (this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN) {
             this.execPattern(patternOption, CHART_PATTERN_OPTIONS.VARIABLE);
@@ -337,7 +342,8 @@ class Chart {
         if (this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN) {
             Logger.displayFeedback(this.container, MESSAGES.ERROR_CHART_PATTERN_OPTION_UNKNOWN, [this._optionsRaw]);
         }
-        else if (this.patternOptions === CHART_PATTERN_OPTIONS.VARIABLE ||
+        else if (this.patternOptions === CHART_PATTERN_OPTIONS.WIKI ||
+            this.patternOptions === CHART_PATTERN_OPTIONS.VARIABLE ||
             this.patternOptions === CHART_PATTERN_OPTIONS.STYLE) {
             if (this.options['width'] !== undefined) {
                 this.width = this.options['width'];
@@ -498,18 +504,19 @@ class Loader {
         let url = dep.url;
         return new Promise(function (resolve, reject) {
             if (dep.loadBefore && !dep.loadBefore.endDownload) {
-                Logger.log('Waiting : ' + dep.loadBefore.url + ' before ' + dep.url);
+                //Logger.logSimple('Waiting : ' + dep.loadBefore.url + ' before ' + dep.url)
                 Loader._dependenciesToLoad.push(dep);
-                return Loader.load(dep.loadBefore);
+                Loader.load(dep.loadBefore);
+                return resolve();
             }
             // include script only once
             if (Loader.isLoad(dep)) {
-                return; // false;
+                return resolve(); // false;
             }
             else {
                 Loader._load.push(url);
             }
-            Logger.log('Loading : ' + dep.url);
+            Logger.logSimple('Loading : ' + dep.url);
             // Adding the script tag to the head as suggested before
             let head = document.getElementsByTagName('head')[0];
             let script = document.createElement('script');
@@ -551,7 +558,7 @@ class Loader {
             // There are several events for cross browser compatibility.
             link.onload = function () {
                 Loader._loaded.push(url);
-                Logger.log('Loaded : ' + url);
+                Logger.logSimple('Loaded : ' + url);
                 dep.callBack();
                 Loader.checkDependenciesToLoad();
                 // remember included script
@@ -578,7 +585,7 @@ class Dependency {
     load() {
         if (!this.isLoaded()) {
             this.startDownload = true;
-            Logger.log('Load started :' + this.url);
+            Logger.logSimple('Load started :' + this.url);
             Loader.load(this);
         }
     }
@@ -591,7 +598,7 @@ class Dependency {
     }
     callBack() {
         this.endDownload = true;
-        Logger.log('Load ended :' + this.url);
+        Logger.logSimple('Load ended :' + this.url);
     }
 }
 class ScriptDependency extends Dependency {
@@ -866,16 +873,33 @@ class Tools {
         }
         return cursor;
     }
-    static escapeHtml(str) {
-        let text = document.createTextNode(str);
-        let div = document.createElement('div');
-        div.appendChild(text);
-        return div.innerHTML;
+    // public static escapeHtml (str: string): string {
+    //     let text = document.createTextNode(str)
+    //     let div = document.createElement('div')
+    //     div.appendChild(text)
+    //     return div.innerHTML
+    // }
+    // public static decodeHtml (html: string): any {
+    // //     let element = document.createElement('div')
+    // //     element.innerHTML = html
+    // //     return element.textContent
+    // // }
+    // // function decodeHTMLEntities(text) {
+    // }
+    static encodeHtml(str) {
+        let buf = [];
+        for (let i = str.length - 1; i >= 0; i--) {
+            buf.unshift(['&#', str.charCodeAt(i), ';'].join(''));
+        }
+        return buf.join('');
     }
-    static decodeHtml(html) {
-        let element = document.createElement('div');
-        element.innerHTML = html;
-        return element.textContent;
+    static decodeHtml(str) {
+        let text = str.replace(/&#(\d+);/g, function (match, dec) {
+            return String.fromCharCode(dec);
+        });
+        return text.replace(/\s/g, function (match, dec) {
+            return ' ';
+        });
     }
 }
 
@@ -893,7 +917,12 @@ class Logger {
      * @protected
      * @param {string} message The message to log.
      */
-    static log(message) {
+    static log(container, message) {
+        if (container.loglevel === 2) {
+            console.log(this.elapsedTime() + 's: ' + message);
+        }
+    }
+    static logSimple(message) {
         console.log(this.elapsedTime() + 's: ' + message);
     }
     /**
@@ -936,6 +965,20 @@ Logger._startTime = Date.now();
  * @memberof sgvizler
  */
 class Core {
+    /**
+     * todo
+     * @returns {string}
+     */
+    static get path() {
+        return this._path;
+    }
+    /**
+     * todo
+     * @param {string} value
+     */
+    static set path(value) {
+        this._path = value;
+    }
 }
 /**
  * The version number of this sgvizler2.
@@ -958,6 +1001,7 @@ Core.HOMEPAGE = 'https://bordercloud.github.io/sgvizler2/index.html';
  * @type {string} DOCPATH
  */
 Core.DOCPATH = 'https://bordercloud.github.io/sgvizler2/';
+Core._path = '';
 
 /**
  *
@@ -1073,6 +1117,7 @@ class Request {
         this._endpoint = '';
         this._endpointOutputFormat = SPARQL_RESULT.json;
         this._method = 'GET';
+        this._queryParameter = 'query';
         this.listeners = {};
     }
     // private _endpointResultsUrlPart: string
@@ -1167,6 +1212,20 @@ class Request {
     set endpointOutputFormat(value) {
         this._endpointOutputFormat = value;
     }
+    /**
+     * todo
+     * @returns {string}
+     */
+    get queryParameter() {
+        return this._queryParameter;
+    }
+    /**
+     * todo
+     * @param {string} value
+     */
+    set queryParameter(value) {
+        this._queryParameter = value;
+    }
     sendRequest() {
         let myRequest = this;
         // Create new promise with the Promise() constructor;
@@ -1178,7 +1237,7 @@ class Request {
             let data;
             let url = myRequest.endpoint;
             if (myRequest.method.toLowerCase() === 'get') {
-                url += '?query=' + encodeURIComponent(myRequest.query) +
+                url += '?' + myRequest.queryParameter + '=' + encodeURIComponent(myRequest.query) +
                     '&output=' + SparqlTools.getOutputLabel(myRequest.endpointOutputFormat);
             }
             else {
@@ -1306,29 +1365,32 @@ class Container {
             this._chartName = elmAttrs[self.CHART_ATTRIBUTE_NAME].value;
         }
         if (elmAttrs[self.CHART_OPTION_ATTRIBUTE_NAME]) {
-            this._chartOptions = elmAttrs[self.CHART_OPTION_ATTRIBUTE_NAME].value;
+            this._chartOptions =
+                Tools.decodeHtml(elmAttrs[self.CHART_OPTION_ATTRIBUTE_NAME].value);
         }
         // build request object
         let request = new Request();
         request.container = this;
         this._id = elementID;
         if (elmAttrs[self.QUERY_ATTRIBUTE_NAME]) {
-            request.query = elmAttrs[self.QUERY_ATTRIBUTE_NAME].value;
+            request.query = Tools.decodeHtml(elmAttrs[self.QUERY_ATTRIBUTE_NAME].value);
         }
         if (elmAttrs[self.ENDPOINT_ATTRIBUTE_NAME]) {
-            request.endpoint = elmAttrs[self.ENDPOINT_ATTRIBUTE_NAME].value;
+            request.endpoint = Tools.decodeHtml(elmAttrs[self.ENDPOINT_ATTRIBUTE_NAME].value);
         }
         else {
             this._state = CONTAINER_STATE.FAILED;
             Logger.displayFeedback(this, MESSAGES.ERROR_ENDPOINT_FORGOT);
             return;
         }
-        // TODO : IMPORTANT FORMAT
         if (elmAttrs[self.OUTPUT_FORMAT_ATTRIBUTE_NAME]) {
             request.endpointOutputFormat = SparqlTools.convertString(elmAttrs[self.OUTPUT_FORMAT_ATTRIBUTE_NAME].value);
         }
         if (elmAttrs[self.OUTPUT_METHOD_ATTRIBUTE_NAME]) {
             request.method = elmAttrs[self.OUTPUT_METHOD_ATTRIBUTE_NAME].value;
+        }
+        if (elmAttrs[self.QUERY_PARAMETER_ATTRIBUTE_NAME]) {
+            request.queryParameter = elmAttrs[self.QUERY_PARAMETER_ATTRIBUTE_NAME].value;
         }
         this._request = request;
         // build the chart object
@@ -1370,7 +1432,7 @@ class Container {
         return __awaiter(this, void 0, void 0, function* () {
             let container = new Container(elementID);
             // console.log(container)
-            Logger.log('drawing id: ' + elementID);
+            Logger.log(container, 'drawing id: ' + elementID);
             yield container.draw();
         });
     }
@@ -1397,7 +1459,7 @@ class Container {
         return __awaiter(this, void 0, void 0, function* () {
             let container = new Container(elementID);
             // console.log(container)
-            Logger.log('Load dependencies id: ' + elementID);
+            Logger.log(container, 'Load dependencies id: ' + elementID);
             yield container.loadDependencies();
         });
     }
@@ -1425,9 +1487,7 @@ class Container {
      * @param {string} loglevel
      * @returns {string}
      */
-    static create(elementID, endpoint, query, chartName, options, loglevel
-        // ,  output:string="json"
-    ) {
+    static create(elementID, endpoint, query, chartName, options, loglevel, output, method, parameter) {
         let element = document.getElementById(elementID);
         if (element === null) {
             throw new Error('elementID unknown : ' + elementID);
@@ -1435,18 +1495,13 @@ class Container {
         let self = Container;
         let attrQuery = document.createAttribute(self.QUERY_ATTRIBUTE_NAME);
         let attrEndpoint = document.createAttribute(self.ENDPOINT_ATTRIBUTE_NAME);
-        // let attrOutput = document.createAttribute(self.OUTPUT_FORMAT_ATTRIBUTE_NAME)
-        // let attrMethod = document.createAttribute(self.OUTPUT_METHOD_ATTRIBUTE_NAME)
         let attrChart = document.createAttribute(self.CHART_ATTRIBUTE_NAME);
         // attrQuery.value = Tools.escapeHtml(query)
         attrQuery.value = query;
         attrEndpoint.value = endpoint;
         attrChart.value = chartName;
-        // attrOutput.value = output
         element.setAttributeNode(attrQuery);
         element.setAttributeNode(attrEndpoint);
-        // element.setAttributeNode(attrOutput)
-        // element.setAttributeNode(attrMethod)
         element.setAttributeNode(attrChart);
         if (options) {
             let attrOptions = document.createAttribute(self.CHART_OPTION_ATTRIBUTE_NAME);
@@ -1457,6 +1512,21 @@ class Container {
             let attrLevel = document.createAttribute(self.LOG_LEVEL_ATTRIBUTE_NAME);
             attrLevel.value = loglevel;
             element.setAttributeNode(attrLevel);
+        }
+        if (output) {
+            let attrOutput = document.createAttribute(self.OUTPUT_FORMAT_ATTRIBUTE_NAME);
+            attrOutput.value = output;
+            element.setAttributeNode(attrOutput);
+        }
+        if (method) {
+            let attrMethod = document.createAttribute(self.OUTPUT_METHOD_ATTRIBUTE_NAME);
+            attrMethod.value = method;
+            element.setAttributeNode(attrMethod);
+        }
+        if (parameter) {
+            let attrQueryAttribut = document.createAttribute(self.QUERY_PARAMETER_ATTRIBUTE_NAME);
+            attrQueryAttribut.value = parameter;
+            element.setAttributeNode(attrQueryAttribut);
         }
         return element.innerHTML;
     }
@@ -1552,6 +1622,7 @@ Container.PREFIX = 'data-sgvizler-';
 Container.QUERY_ATTRIBUTE_NAME = Container.PREFIX + 'query';
 Container.ENDPOINT_ATTRIBUTE_NAME = Container.PREFIX + 'endpoint';
 Container.OUTPUT_FORMAT_ATTRIBUTE_NAME = Container.PREFIX + 'endpoint-output-format';
+Container.QUERY_PARAMETER_ATTRIBUTE_NAME = Container.PREFIX + 'endpoint-query-parameter';
 Container.OUTPUT_METHOD_ATTRIBUTE_NAME = Container.PREFIX + 'endpoint-method';
 Container.CHART_ATTRIBUTE_NAME = Container.PREFIX + 'chart';
 Container.CHART_OPTION_ATTRIBUTE_NAME = Container.PREFIX + 'chart-options';
@@ -1606,11 +1677,11 @@ var DATATABLE_COL_OPTIONS;
 class DataTable extends Chart {
     constructor() {
         super();
-        this.addCss('lib/DataTables/datatables.min.css');
-        this.addCss('lib/DataTables/DataTables-1.10.15/css/dataTables.bootstrap4.min.css');
-        let depDatatables = this.addScript('lib/DataTables/datatables.min.js');
-        this.addScript('lib/DataTables/DataTables-1.10.15/js/dataTables.bootstrap4.js', depDatatables);
-        this.addScript('lib/DataTables/Buttons-1.4.0/js/dataTables.buttons.js', depDatatables);
+        this.addCss(Core.path + '/lib/DataTables/datatables.min.css');
+        this.addCss(Core.path + '/lib/DataTables/DataTables-1.10.15/css/dataTables.bootstrap4.min.css');
+        let depDatatables = this.addScript(Core.path + '/lib/DataTables/datatables.min.js');
+        this.addScript(Core.path + '/lib/DataTables/DataTables-1.10.15/js/dataTables.bootstrap4.js', depDatatables);
+        this.addScript(Core.path + '/lib/DataTables/Buttons-1.4.0/js/dataTables.buttons.js', depDatatables);
     }
     /**
      * This function parses colStyle option and build the parameter ColumnDef of DataTable
@@ -2124,8 +2195,8 @@ class Pie extends Chart {
     }
     constructor() {
         super();
-        this.addCss('lib/d3/d3.css');
-        let dep = this.addScript('lib/d3/d3.js');
+        this.addCss(Core.path + '/lib/d3/d3.css');
+        let dep = this.addScript(Core.path + '/lib/d3/d3.js');
     }
     /**
      * Make a simple pie.
@@ -2161,7 +2232,7 @@ class Pie extends Chart {
                 label = row[cols[0]].value;
                 counter = Number(row[cols[1]].value);
                 if (label === undefined || counter === undefined) {
-                    Logger.log('Erreur ? D3JS:pie label ' + label + ' count ' + counter);
+                    Logger.logSimple('Erreur ? D3JS:pie label ' + label + ' count ' + counter);
                 }
                 else {
                     dataset.push({ label: label, count: counter });
@@ -2291,10 +2362,10 @@ class Map$1 extends Chart {
     }
     constructor() {
         super();
-        this.addCss('lib/leaflet/leaflet.css');
-        this.addCss('lib/leaflet/MarkerCluster.Default.css');
-        let dep = this.addScript('lib/leaflet/leaflet-src.js');
-        this.addScript('lib/leaflet/leaflet.markercluster-src.js', dep);
+        this.addCss(Core.path + '/lib/leaflet/leaflet.css');
+        this.addCss(Core.path + '/lib/leaflet/MarkerCluster.Default.css');
+        let dep = this.addScript(Core.path + '/lib/leaflet/leaflet-src.js');
+        this.addScript(Core.path + '/lib/leaflet/leaflet.markercluster-src.js', dep);
     }
     /**
      * Make a Google map
@@ -2466,6 +2537,7 @@ function readOptions(options) {
         if (typeof options === 'object') {
             google$1.API.key = options.googleApiKey ? options.googleApiKey : '';
             leaflet.API.osmAccessToken = options.osmAccessToken ? options.osmAccessToken : '';
+            Core.path = options.path ? options.path : '';
         }
     }
 }
@@ -2519,8 +2591,8 @@ function getChartDoc(className, pathDoc) {
  * @param {string} loglevel
  * @returns {string}
  */
-function create(elementID, endpoint, query, chartName, options, loglevel) {
-    return Container.create(elementID, endpoint, query, chartName, options, loglevel);
+function create(elementID, endpoint, query, chartName, options, loglevel, output, method, parameter) {
+    return Container.create(elementID, endpoint, query, chartName, options, loglevel, output, method, parameter);
 }
 // noinspection JSPotentiallyInvalidConstructorUsage
 jqueryProxy.prototype.extend({
