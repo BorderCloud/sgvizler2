@@ -1,6 +1,6 @@
 {
   "name": "sgvizler2",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin).",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
@@ -134,7 +134,7 @@
   "dependencies": {
     "tslib": "^1.7.1"
   },
-  "files":[
+  "files": [
     "build/browser"
   ]
 }
