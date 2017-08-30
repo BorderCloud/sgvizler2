@@ -164,7 +164,7 @@ export class Map extends Chart {
                 }
 
                 if (messageError !== '') {
-                    reject(Error(messageError))
+                    return reject(Error(messageError))
                 }
 
                 map.addLayer(markers)
@@ -173,7 +173,7 @@ export class Map extends Chart {
                 group = L.featureGroup(markerArray)
                 map.fitBounds(group.getBounds())
                 // finish
-                resolve()
+                return resolve()
             }
         })
     }

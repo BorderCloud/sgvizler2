@@ -86,7 +86,7 @@ export class Table extends Chart {
                 }
             )
             // finish
-            resolve()
+            return resolve()
         })
     }
 }

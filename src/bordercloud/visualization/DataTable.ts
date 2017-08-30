@@ -155,7 +155,7 @@ export class DataTable extends Chart {
             let obj = document.getElementById(currentChart.container.id)
             if (! obj) {
                 Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART_UNKNOWN, [currentChart.container.id])
-                return
+                return resolve()
             }
 
             try {
@@ -223,10 +223,10 @@ export class DataTable extends Chart {
 
                 } )
             }catch (e) {
-                reject(e)
+                return reject(e)
             }
             // finish
-            resolve()
+            return resolve()
         })
      }
 }

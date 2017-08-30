@@ -94,7 +94,7 @@ export class Map extends Chart {
                 }
             )
             // finish
-            resolve()
+            return resolve()
         })
     }
 }

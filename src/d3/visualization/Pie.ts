@@ -145,7 +145,7 @@ export class Pie extends Chart {
                     .text(function (d: any) { return d })
             }
             // finish
-            resolve()
+            return resolve()
         })
     }
 
