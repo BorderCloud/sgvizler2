@@ -133,5 +133,8 @@
   },
   "dependencies": {
     "tslib": "^1.7.1"
-  }
+  },
+  "files":[
+    "build/browser"
+  ]
 }
