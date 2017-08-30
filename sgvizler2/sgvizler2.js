@@ -1787,7 +1787,7 @@ class DataTable extends Chart {
             let obj = document.getElementById(currentChart.container.id);
             if (!obj) {
                 Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART_UNKNOWN, [currentChart.container.id]);
-                return;
+                return resolve();
             }
             try {
                 let cols = result.head.vars;
@@ -1848,10 +1848,10 @@ class DataTable extends Chart {
                 });
             }
             catch (e) {
-                reject(e);
+                return reject(e);
             }
             // finish
-            resolve();
+            return resolve();
         });
     }
 }
@@ -2036,7 +2036,7 @@ class Table$1 extends Chart {
                 table.draw(data.getDataTable(), currentChart.options);
             });
             // finish
-            resolve();
+            return resolve();
         });
     }
 }
@@ -2141,7 +2141,7 @@ class Map extends Chart {
                 table.draw(data.getDataTable(), opt);
             });
             // finish
-            resolve();
+            return resolve();
         });
     }
 }
@@ -2293,7 +2293,7 @@ class Pie extends Chart {
                     .text(function (d) { return d; });
             }
             // finish
-            resolve();
+            return resolve();
         });
     }
 }
@@ -2472,14 +2472,14 @@ class Map$1 extends Chart {
                     }
                 }
                 if (messageError !== '') {
-                    reject(Error(messageError));
+                    return reject(Error(messageError));
                 }
                 map.addLayer(markers);
                 // zoom on the markers
                 group = L.featureGroup(markerArray);
                 map.fitBounds(group.getBounds());
                 // finish
-                resolve();
+                return resolve();
             }
         });
     }
