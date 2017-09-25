@@ -132,6 +132,8 @@
     "babel": "inherit"
   },
   "dependencies": {
+    "react": "^15.6.1",
+    "trash": "^4.1.0",
     "tslib": "^1.7.1"
   },
   "files": [
