@@ -82,7 +82,7 @@ export class ColumnChart extends Chart {
 
                     let ColumnChart = new google.visualization.ColumnChart(document.getElementById(currentChart.container.id))
 
-                    ColumnChart.draw(data.getDataColumnChart(), currentChart.options)
+                    ColumnChart.draw(data.getDataTable(), currentChart.options)
                 }
             )
             // finish
