@@ -17,6 +17,12 @@
   "google_visualization_Map": {
     "title": "google.visualization.Map"
   },
+  "google_visualization_Bubble": {
+    "title": "google.visualization.Bubble"
+  },
+  "d3_visualization_Bubble": {
+    "title": "d3.visualization.Bubble"
+  },
   "d3_visualization_Pie": {
     "title": "d3.visualization.Pie (Example)"
   }
