@@ -9,12 +9,12 @@ import { API } from '../API'
 declare let google: any
 
 /**
- * Todo Table
- * @class google.visualization.Table
- * @tutorial google_visualization_Table
+ * Todo ColumnChart
+ * @class google.visualization.ColumnChart
+ * @tutorial google_visualization_ColumnChart
  * @memberof google.visualization
  */
-export class Table extends Chart {
+export class ColumnChart extends Chart {
     private static _isInit: boolean = false
 
     public constructor () {
@@ -23,35 +23,35 @@ export class Table extends Chart {
     }
 
     private static init () {
-        google.charts.load('current', {'packages': ['table']})
-        Table._isInit = true
+        google.charts.load('current', {'packages': ['ColumnChart']})
+        ColumnChart._isInit = true
     }
 
     public get icon (): string {
-        return 'fa-table'
+        return 'fa-ColumnChart'
     }
 
     public get label (): string {
-        return 'Table'
+        return 'ColumnChart'
     }
 
     public get subtext (): string {
-        return 'Table'
+        return 'ColumnChart'
     }
 
     public get classFullName (): string {
-        return 'google.visualization.Table'
+        return 'google.visualization.ColumnChart'
     }
 
     public get tutorialFilename (): string {
-        return 'tutorial-google_visualization_Table.html'
+        return 'tutorial-google_visualization_ColumnChart.html'
     }
 
     /**
-     * Make a standard simple html table.
+     * Make a standard simple html ColumnChart.
      * Available options:
      * - 'headings'   :  "true" / "false"  (default: "true")
-     * @memberOf Table
+     * @memberOf ColumnChart
      * @returns {Promise<void>}
      * @param result
      */
@@ -72,17 +72,17 @@ export class Table extends Chart {
                 height: height
             }, currentChart.options)
 
-            if (! Table._isInit) {
-                Table.init()
+            if (! ColumnChart._isInit) {
+                ColumnChart.init()
             }
 
             google.charts.setOnLoadCallback(
                 () => {
                     let data = new Data(result)
 
-                    let table = new google.visualization.Table(document.getElementById(currentChart.container.id))
+                    let ColumnChart = new google.visualization.ColumnChart(document.getElementById(currentChart.container.id))
 
-                    table.draw(data.getDataTable(), currentChart.options)
+                    ColumnChart.draw(data.getDataColumnChart(), currentChart.options)
                 }
             )
             // finish
