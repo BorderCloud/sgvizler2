@@ -8,12 +8,12 @@ import {
 declare let d3: any
 
 /**
- * Todo Bubble
- * @class d3.visualization.Bubble
- * @tutorial d3_visualization_Bubble
+ * Todo BubbleChart
+ * @class d3.visualization.BubbleChart
+ * @tutorial d3_visualization_BubbleChart
  * @memberof d3.visualization
  */
-export class Bubble extends Chart {
+export class BubbleChart extends Chart {
 
     public get icon (): string {
         return 'fa-pie-chart'

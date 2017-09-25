@@ -9,12 +9,12 @@ import { API } from '../API'
 declare let google: any
 
 /**
- * Todo Bubble
- * @class google.visualization.Bubble
- * @tutorial google_visualization_Bubble
+ * Todo BubbleChart
+ * @class google.visualization.BubbleChart
+ * @tutorial google_visualization_BubbleChart
  * @memberof google.visualization
  */
-export class Bubble extends Chart {
+export class BubbleChart extends Chart {
     private static _isInit: boolean = false
 
     public constructor () {
@@ -24,7 +24,7 @@ export class Bubble extends Chart {
 
     private static init () {
         google.charts.load('current', {'packages': ['table']})
-        Bubble._isInit = true
+        BubbleChart._isInit = true
     }
 
     public get icon (): string {
@@ -72,8 +72,8 @@ export class Bubble extends Chart {
                 height: height
             }, currentChart.options)
 
-            if (! Bubble._isInit) {
-                Bubble.init()
+            if (! BubbleChart._isInit) {
+                BubbleChart.init()
             }
 
             google.charts.setOnLoadCallback(

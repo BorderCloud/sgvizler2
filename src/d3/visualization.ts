@@ -3,4 +3,4 @@
  */
 
 export * from './visualization/Pie'
-export * from './visualization/Bubble'
+export * from './visualization/BubbleChart'

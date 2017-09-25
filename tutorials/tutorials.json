@@ -17,11 +17,11 @@
   "google_visualization_Map": {
     "title": "google.visualization.Map"
   },
-  "google_visualization_Bubble": {
-    "title": "google.visualization.Bubble"
+  "google_visualization_BubbleChart": {
+    "title": "google.visualization.BubbleChart"
   },
-  "d3_visualization_Bubble": {
-    "title": "d3.visualization.Bubble"
+  "d3_visualization_BubbleChart": {
+    "title": "d3.visualization.BubbleChart"
   },
   "d3_visualization_Pie": {
     "title": "d3.visualization.Pie (Example)"
