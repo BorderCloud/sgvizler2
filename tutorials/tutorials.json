@@ -22,5 +22,8 @@
   },
   "google_visualization_ColumnChart": {
     "title": "google.visualization.ColumnChart"
+  },
+  "d3_visualization_ColumnChart": {
+    "title": "d3.visualization.ColumnChart"
   }
 }
