@@ -74,21 +74,25 @@
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
                 <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query="
-                    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#> 
-                    PREFIX bd: <http://www.bigdata.com/rdf#> 
-                    PREFIX wikibase: <http://wikiba.se/ontology#> 
-                    PREFIX wd: <http://www.wikidata.org/entity/> 
-                    PREFIX wdt: <http://www.wikidata.org/prop/direct/> 
+                    PREFIX bd: <http://www.bigdata.com/rdf#>
+                    PREFIX wikibase: <http://wikiba.se/ontology#>
+                    PREFIX wd: <http://www.wikidata.org/entity/>
+                    PREFIX wdt: <http://www.wikidata.org/prop/direct/>
                     
-                    select   ?objectLabel ?pib
+                    select   ?countryLabel (COUNT(?asteroid) as ?nb)
                     where {
-                            ?object wdt:P31 wd:Q6256 .
-                      ?object wdt:P2131 ?pib .
-                            SERVICE wikibase:label {
-                         bd:serviceParam wikibase:language "fr, en" .
-                        }   
-                    } 
-                    " data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="d3.visualization.Pie"
+                    ?asteroid wdt:P31 wd:Q3863 ;
+                    wdt:P61 ?discoverer .
+                    ?discoverer wdt:P27 ?country .
+                    
+                    SERVICE wikibase:label {
+                    bd:serviceParam wikibase:language 'en' .
+                    } .
+                    
+                    }
+                    GROUP BY  ?countryLabel
+                    ORDER BY DESC(?nb)
+                    limit 7"data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="d3.visualization.Pie"
                                                               data-sgvizler-log="0"></div>
 
                 </div>
