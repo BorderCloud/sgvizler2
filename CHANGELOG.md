@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.16"></a>
+## [0.0.16](https://github.com/BorderCloud/sgvizler2/compare/v0.0.15...v0.0.16) (2017-11-20)
+
+
+
 <a name="0.0.15"></a>
 ## [0.0.15](https://github.com/BorderCloud/sgvizler2/compare/v0.0.14...v0.0.15) (2017-08-30)
 
