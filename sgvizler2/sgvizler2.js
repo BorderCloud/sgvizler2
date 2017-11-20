@@ -37,7 +37,7 @@ and limitations under the License.
 function __awaiter(thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator.throw(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
@@ -895,11 +895,11 @@ class Tools {
     }
     static decodeHtml(str) {
         let text = str.replace(/&#(\d+);/g, function (match, dec) {
-            return String.fromCharCode(dec);
+            return String.fromCharCode(dec).replace(/\s/g, function (match, dec) {
+                return ' ';
+            });
         });
-        return text.replace(/\s/g, function (match, dec) {
-            return ' ';
-        });
+        return text;
     }
 }
 
@@ -1241,10 +1241,7 @@ class Request {
                     '&output=' + SparqlTools.getOutputLabel(myRequest.endpointOutputFormat);
             }
             else {
-                data = {
-                    query: myRequest.query,
-                    output: SparqlTools.getOutputLabel(myRequest.endpointOutputFormat)
-                };
+                data = myRequest.queryParameter + '=' + encodeURIComponent(myRequest.query);
             }
             xhr.open(myRequest.method, url, true);
             xhr.setRequestHeader('Accept', SparqlTools.getHeaderAccept(myRequest.endpointOutputFormat));
@@ -1282,6 +1279,7 @@ class Request {
             };
             // Send the request
             if (data) {
+                xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
                 xhr.send(data);
             }
             else {
