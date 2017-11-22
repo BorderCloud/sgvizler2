@@ -11,6 +11,7 @@ declare let google: any
  * @memberof google.visualization
  */
 export class Data {
+    getDataPie: any
 
     private _dataTable: any
 
