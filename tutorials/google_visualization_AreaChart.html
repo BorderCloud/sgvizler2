@@ -15,11 +15,11 @@
         </div-->
 
         <p>
-            Table of results.
+            AreaChart of results.
         </p>
 
         <h4>
-            Table options:
+            AreaChart options:
         </h4>
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -62,7 +62,7 @@
     </h3>
 
         <h4>
-            Table example 1 :
+            AreaChart example 1 :
         </h4>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
             <li class="nav-item">
@@ -78,11 +78,11 @@
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
                 <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query="
-SELECT  *
-WHERE {
-        ?object ?property ?valueOrObject .
-}
-LIMIT 4" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Table"  data-sgvizler-log="0"></div>
+                    SELECT  *
+                    WHERE {
+                            ?object ?property ?valueOrObject .
+                        }
+LIMIT 4" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.AreaChart"  data-sgvizler-log="0"></div>
 
                 </div>
             </div>
@@ -97,7 +97,7 @@ WHERE {
 LIMIT 4
 "
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Table"
+data-sgvizler-chart="google.visualization.AreaChart"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
@@ -118,7 +118,7 @@ data-sgvizler-chart="google.visualization.Table"
 
 
         <h4>
-            Table example 2
+            AreaChart example 2
         </h4>
         <p>With option "showRowNumber=true"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_2">
@@ -135,12 +135,17 @@ data-sgvizler-chart="google.visualization.Table"
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">
-                <div id="example_2" style="padding: 25px;"><div id="result_2" data-sgvizler-query="
-SELECT  *
-WHERE {
-        ?object ?property ?valueOrObject .
-}
-LIMIT 4" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Table" data-sgvizler-chart-options="showRowNumber=true" data-sgvizler-log="0"></div></div>
+                <div id="example_2" style="padding: 25px;"><div id="result_2" data-sgvizler-query="  
+                    SELECT  *
+                    WHERE {
+                            ?object ?property ?valueOrObject .
+                    }
+                    LIMIT 4
+                    "
+   data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
+   data-sgvizler-chart="google.visualization.AreaChart" 
+   data-sgvizler-chart-options=''  
+   data-sgvizler-log="0"></div></div>
             </div>
             <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
@@ -151,7 +156,7 @@ WHERE {
 }
 LIMIT 4"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Table"
+data-sgvizler-chart="google.visualization.AreaChart"
 data-sgvizler-chart-options="showRowNumber=true"
 &gt;&lt;/div&gt;</pre></div>
             </div>
