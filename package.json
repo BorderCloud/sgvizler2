@@ -19,8 +19,8 @@
     "build:module": "tsc -p config/exports/tsconfig.module.json",
     "comment": "mkdirp build/temp && browserify node_modules/hash.js/lib/hash.js --standalone hash -o build/temp/hash.js",
     "build:browser-deps": "mkdirp build/temp",
-    "build:browser": "rollup -c config/exports/rollup.config.ts -f umd --name 'sgvizler2' -o build/browser/sgvizler2.js",
-    "build:browser-minify": "rollup -c config/exports/minify.config.ts -f umd --name 'sgvizler2' -o build/browser/sgvizler2.min.js",
+    "build:browser": "rollup -c config/exports/rollup.config.ts -f umd --name sgvizler2 -o build/browser/sgvizler2.js",
+    "build:browser-minify": "rollup -c config/exports/minify.config.ts -f umd --name sgvizler2 -o build/browser/sgvizler2.min.js",
     "build:browser-cjs": "rollup -c config/exports/rollup.config.ts -f cjs -o build/browser/sgvizler2.cjs.js",
     "build:resolve-sourcemaps": "sorcery -i build/browser/sgvizler2.js && sorcery -i build/browser/sgvizler2.cjs.js",
     "build:tests": "trash test && node config/exports/build-tests.ts",
@@ -132,6 +132,8 @@
     "babel": "inherit"
   },
   "dependencies": {
+    "build": "^0.1.4",
+    "trash": "^4.2.0",
     "tslib": "^1.7.1"
   },
   "files": [
