@@ -4556,6 +4556,12 @@ set-immediate-shim@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/set-immediate-shim/-/set-immediate-shim-1.0.1.tgz#4b2b1b27eb808a9f8dcc481a58e5e56f599f3f61"
 
+sgvizler2@^0.0.17:
+  version "0.0.17"
+  resolved "https://registry.yarnpkg.com/sgvizler2/-/sgvizler2-0.0.17.tgz#a34c4106e6855b84a6d81261dc9dcd7160211011"
+  dependencies:
+    tslib "^1.7.1"
+
 sha.js@^2.4.0, sha.js@^2.4.8, sha.js@~2.4.4:
   version "2.4.8"
   resolved "https://registry.yarnpkg.com/sha.js/-/sha.js-2.4.8.tgz#37068c2c476b6baf402d14a49c67f597921f634f"

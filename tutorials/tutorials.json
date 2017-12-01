@@ -5,22 +5,25 @@
   "bordercloud_visualization_DataTable": {
     "title": "bordercloud.visualization.DataTable"
   },
-  "sgvizler_visualization_Table": {
-    "title": "sgvizler.visualization.Table"
+  "sgvizler_visualization_AreaChart": {
+    "title": "sgvizler.visualization.AreaChart"
   },
   "leaflet_visualization_Map": {
     "title": "leaflet.visualization.Map"
   },
-  "google_visualization_Table": {
-    "title": "google.visualization.Table"
+  "google_visualization_AreaChart": {
+    "title": "google.visualization.AreaChart"
   },
+  "google_visualization_Pie": {
+    "title": "google.visualization.Pie"
+  },  
   "google_visualization_Map": {
     "title": "google.visualization.Map"
   },
   "d3_visualization_Pie": {
     "title": "d3.visualization.Pie (Example)"
   },
-    "google_visualization_AreaChart": {
-      "title": "google.visualization.AreaChart"
+  "test": {
+    "title": "test"
   }
 }

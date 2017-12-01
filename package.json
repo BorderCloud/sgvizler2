@@ -132,6 +132,7 @@
     "babel": "inherit"
   },
   "dependencies": {
+    "sgvizler2": "^0.0.17",
     "tslib": "^1.7.1"
   },
   "files": [

@@ -96,43 +96,31 @@ LIMIT 10</textarea>
     function htmlDecode(value) {
         return $("<textarea/>").html(value).text();
     }
-
     function htmlEncode(value) {
         return $('<textarea/>').text(value).html();
     }
-
-
 $(document).ready(function () {
-
     //Option 1
     //$('.selectchart').selectchart('render'});
-
     //Option 2
     //$('.selectchart').selectchart('render'});
-
     //Option 3
 //    $('.selectchart').selectchart({
 //        action: "render",
 //        subtext:"classFullName"
 //    });
-
     //Option 4
     $('.selectchart').selectchart({
         action: "render",
         subtext:"classFullName",
         selected:"bordercloud.visualization.DataTable"
     });
-
     $('.selectpicker').selectpicker('refresh');
-
   //  $("#console").text($("#chart").html().replace(/"( |>)/gi, "\"\n$1"));
-
    // $("#console").text($("#example").html().replace(/"( |>)/gi, "\"\n$1"));
-
     $("#execQuery").click(function() {
         $("#result").html("")
         $("#console").html("")
-
         sgvizler2.create(
             'result',
             $('#endpoint').val(),
@@ -144,12 +132,10 @@ $(document).ready(function () {
             $('#method').val(),
             $('#parameter').val()
         )
-
         var html =  "<div id=\"result\" \n" +
             "data-sgvizler-query=\"" + htmlEncode($('#query').val()) + "\" \n" +
             "data-sgvizler-endpoint=\"" + $('#endpoint').val() + "\" \n" +
             "data-sgvizler-chart=\"" + $('.selectpicker').selectpicker('val') + "\" \n" ;
-
         if($('#options').val() != ""){
             html += "data-sgvizler-chart-options=\"" +  $('#options').val() + "\" \n";
         }
@@ -169,7 +155,6 @@ $(document).ready(function () {
         $("#consoleHtml").text(
             html
         )
-
         $("#consoleScript").text(
             "<script src=\"../browser/sgvizler2.js\">\<\/script>\n" +
             "<script>\n" +
@@ -182,25 +167,20 @@ $(document).ready(function () {
             "   sgvizler2.containerDrawAll(); \n"+
             "\<\/script>"
         )
-
         //$("#console").text($("#example").html())
        //$("#console").text($("#example").text().replace(/"( |>)/gi, "\"\n$1"));
-
         //Draw a chart
         //sgvizler2.containerDraw('result');
         //or
        // $("#result").containerchart();
-
         //Draw all Chart
         sgvizler2.containerDrawAll({
             // Google Api key
             // Todo put the link of tutorial to create a new key
             googleApiKey : "AIzaSyBro_IlWgOb5o4C80IWZhq0YHhemlRta3Q",
-
             // OpenStreetMap Access Token
             // Todo put the link of tutorial to create a new token
             osmAccessToken: "pk.eyJ1Ijoia3JhZmVzIiwiYSI6ImNqNm02eDduaDF2aG0ycW5oZzhxbzUwZmEifQ.SE1YXz0mqTkafrwd_YXn1A",
-
             //path of lib
             path: ""
         });
@@ -215,8 +195,5 @@ $(document).ready(function () {
         )
         window.open(url, '_blank');
     });
-
-
 })
-
 </script>
