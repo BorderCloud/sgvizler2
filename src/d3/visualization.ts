@@ -3,3 +3,4 @@
  */
 
 export * from './visualization/Pie'
+export * from './visualization/Line'
