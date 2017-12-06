@@ -15,7 +15,7 @@
         </div-->
 
         <p>
-            AreaChart of results.
+            Table of results.
         </p>
 
         <h4>
@@ -96,7 +96,8 @@
                           ?company dbo:industry :Aerospace_manufacturer .
                           FILTER (LANG(?name) = &#039;en&#039;) . 
                           
-                    } ORDER BY ?name" 
+                    } ORDER BY ?name
+                    limit 40" 
 data-sgvizler-endpoint= "http://dbpedia-live.openlinksw.com/sparql/"
 data-sgvizler-chart-options=''  
 data-sgvizler-endpoint_output_format='json'
@@ -126,7 +127,8 @@ WHERE {
       ?company dbo:industry :Aerospace_manufacturer .
       FILTER (LANG(?name) = &#039;en&#039;) . 
       
-} ORDER BY ?name" 
+} ORDER BY ?name
+limit 40" 
 data-sgvizler-endpoint="http://dbpedia-live.openlinksw.com/sparql/"
 data-sgvizler-chart-options=''  
 data-sgvizler-endpoint_output_format='json'
@@ -222,10 +224,7 @@ data-sgvizler-chart-options=''
 
         <!--SCRIPT-->
         <script>
-            $(document).ready(function() { 
-    sgvizler2.containerDrawAll();   
-    
-});
+            sgvizler2.containerDrawAll();
         </script>
     </div>
 </div>
