@@ -250,7 +250,7 @@ export class Container {
         loglevel?: string,
         output?: string,
         method?: string,
-        parameter?: string,
+        parameter?: string
     ) {
         let element = document.getElementById(elementID)
         if (element === null) {
