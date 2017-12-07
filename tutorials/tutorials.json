@@ -25,6 +25,9 @@
   },
   "TestAreaChart": {
     "title": "TestAreaChart"
+  },
+  "AreaChart": {
+    "title": "AreaChart"
     
   }
 }
