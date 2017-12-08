@@ -23,7 +23,7 @@ export class AreaChart extends Chart {
     }
 
     private static init () {
-        google.charts.load('current', {'packages': ['AreaChart']})
+        google.charts.load('current', {'packages': ['corechart']})
         AreaChart._isInit = true
     }
 
