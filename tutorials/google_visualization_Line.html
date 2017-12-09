@@ -62,7 +62,7 @@
     </h3>
 
         <h4>
-            Table example 1 :
+            Line example 1 :
         </h4>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
             <li class="nav-item">
@@ -77,25 +77,52 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query="
-SELECT  *
-WHERE {
-        ?object ?property ?valueOrObject .
-}
-LIMIT 4" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Table"  data-sgvizler-log="0"></div>
+                <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query='
+                    PREFIX bd: <http://www.bigdata.com/rdf#> 
+                    PREFIX wikibase: <http://wikiba.se/ontology#>
+                    PREFIX wd: <http://www.wikidata.org/entity/> 
+                    PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+                    PREFIX p: <http://www.wikidata.org/prop/>
+                    PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+                    PREFIX v: <http://www.wikidata.org/prop/statement/>
+                    
+                    SELECT DISTINCT  ?cityLabel ?population (CONCAT("Mayor of ",?cityLabel," : ",?mayorLabel) as ?description)  ?mayorLabel WHERE {
+                      ?city wdt:P31/wdt:P279* wd:Q515 .
+                      ?city p:P6 ?statement . 
+                      ?statement v:P6 ?mayor .          
+                      ?mayor wdt:P21 wd:Q6581072 .      
+                      FILTER NOT EXISTS { ?statement q:P582 ?x }  
+                      ?city wdt:P1082 ?population .
+                      SERVICE wikibase:label {
+                        bd:serviceParam wikibase:language "en" .
+                      }
+                     } ORDER BY DESC(?population) LIMIT 15' data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Line"  data-sgvizler-log="0"></div>
 
                 </div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
-data-sgvizler-query="
-PREFIX rdfs: &amp;lt;http://www.w3.org/2000/01/rdf-schema#&amp;gt;
-SELECT  *
-WHERE {
-        ?object ?property ?valueOrObject .
-}
-LIMIT 4
-"
+data-sgvizler-query='
+PREFIX bd: <http://www.bigdata.com/rdf#> 
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+
+SELECT DISTINCT  ?cityLabel ?population (CONCAT("Mayor of ",?cityLabel," : ",?mayorLabel) as ?description)  ?mayorLabel WHERE {
+  ?city wdt:P31/wdt:P279* wd:Q515 .
+  ?city p:P6 ?statement . 
+  ?statement v:P6 ?mayor .          
+  ?mayor wdt:P21 wd:Q6581072 .      
+  FILTER NOT EXISTS { ?statement q:P582 ?x }  
+  ?city wdt:P1082 ?population .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+ } ORDER BY DESC(?population) LIMIT 15
+'
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="google.visualization.Table"
 &gt;&lt;/div&gt;</pre></div>
@@ -169,11 +196,6 @@ data-sgvizler-chart-options="showRowNumber=true"
             </div>
         </div>
 
-        <script
-        src="https://code.jquery.com/jquery-3.2.1.min.js"
-        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-        crossorigin="anonymous"></script>
-        <script src="../node_modules/sgvizler2/build/browser/sgvizler2.js"></script>
         <!--SCRIPT-->
         <script>
             sgvizler2.containerDrawAll();

@@ -19,6 +19,7 @@ export class Table extends Chart {
 
     public constructor () {
         super()
+        console.log('constructor Table')
         let dep = this.addScript('https://www.gstatic.com/charts/loader.js')
     }
 

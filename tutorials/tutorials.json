@@ -19,5 +19,11 @@
   },
   "d3_visualization_Pie": {
     "title": "d3.visualization.Pie (Example)"
+  },
+  "google_visualization_Line": {
+    "title": "google.visualization.Line"
+  },
+  "d3_visualization_Line": {
+    "title": "d3.visualization.Line"
   }
 }

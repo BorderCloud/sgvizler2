@@ -10,8 +10,8 @@ declare let google: any
 
 /**
  * Todo Table
- * @class google.visualization.Table
- * @tutorial google_visualization_Table
+ * @class google.visualization.Line
+ * @tutorial google_visualization_Line
  * @memberof google.visualization
  */
 export class Line extends Chart {
@@ -23,28 +23,29 @@ export class Line extends Chart {
     }
 
     private static init () {
-        google.charts.load('current', {'packages': ['table']})
+        console.log('init Line')
+        google.charts.load('current', {'packages': ['corechart','line']})
         Line._isInit = true
     }
 
     public get icon (): string {
-        return 'fa-table'
+        return 'fa-line'
     }
 
     public get label (): string {
-        return 'Table'
+        return 'Line'
     }
 
     public get subtext (): string {
-        return 'Table'
+        return 'Line'
     }
 
     public get classFullName (): string {
-        return 'google.visualization.Table'
+        return 'google.visualization.Line'
     }
 
     public get tutorialFilename (): string {
-        return 'tutorial-google_visualization_Table.html'
+        return 'tutorial-google_visualization_Line.html'
     }
 
     /**
@@ -80,7 +81,7 @@ export class Line extends Chart {
                 () => {
                     let data = new Data(result)
 
-                    let table = new google.visualization.Table(document.getElementById(currentChart.container.id))
+                    let table = new google.visualization.LineChart(document.getElementById(currentChart.container.id))
 
                     table.draw(data.getDataTable(), currentChart.options)
                 }
