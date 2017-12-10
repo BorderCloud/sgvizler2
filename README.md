@@ -69,3 +69,5 @@ There are only a problem with JSDoc that not support several token of Typescript
 tutorials like JSDoc :( The JSDoc of project generates only tutorials for the moment.
 
 If you want to participate at this project, [read this doc](https://github.com/BorderCloud/sgvizler2/blob/master/DEVELOPMENT.md).
+## Lien vers travis
+https://travis-ci.org/leylidiallo/sgvizler2
