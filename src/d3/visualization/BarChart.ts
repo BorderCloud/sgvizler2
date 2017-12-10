@@ -101,28 +101,39 @@ export class BarChart extends Chart {
                     .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')')
 
                 // var donutWidth = 75;
-                let legendRectSize = 18
+                /*let legendRectSize = 18
                 let legendSpacing = 4
-                let color = d3.scaleOrdinal(d3.schemeCategory10)
+                let color = d3.scaleOrdinal(d3.schemeCategory10)*/
 
-                let arc = d3.arc()
+                /*let arc = d3.arc()
                    // .innerRadius(radius - donutWidth)
                     .innerRadius(0)
                     .outerRadius(radius)
                 let pie = d3.pie()
                     .value(function (d: any) { return d.count })
-                    .sort(null)
-                let path = svg.selectAll('path')
-                    .data(pie(dataset))
+                    .sort(null)*/
+                /*let path = svg.selectAll('path')
+                    .data(pie(dataset)
                     .enter()
                     .append('path')
                     .attr('d', arc)
                     .attr('fill', function (d: any, i: any) {
                         return color(d.data.label)
-                    })
+                    })*/
+
+                let bars = svg.selectAll('rect')
+                    .data(dataset)
+                    .enter()
+                    .append('rect')
+                    .attr('width', function (i: any) { return i.count / 10000 })
+                    .attr('height', 50)
+                    .attr('y', function (i: any, j: any) { return j * 50 })
+                    .attr('fill', '#3399FF')
+                console.log('dataset : ' + dataset)
+
 
                 // Todo limit nb (look pie chart of Google)
-                let legend = svg.selectAll('.legend')
+                /*let legend = svg.selectAll('.legend')
                     .data(color.domain())
                     .enter()
                     .append('g')
@@ -142,7 +153,7 @@ export class BarChart extends Chart {
                 legend.append('text')
                     .attr('x', legendRectSize + legendSpacing)
                     .attr('y', legendRectSize - legendSpacing)
-                    .text(function (d: any) { return d })
+                    .text(function (d: any) { return d })*/
             }
             // finish
             return resolve()

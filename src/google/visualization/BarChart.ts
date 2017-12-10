@@ -62,14 +62,14 @@ export class BarChart extends Chart {
             // transform query
             // console.log(noCols + " x " + noRows)
 
-            let height = '100'
+            let height = '100%'
             if (currentChart.height !== '') {
                 height = currentChart.height
             }
 
             let opt = Object.assign({
-                showRowNumber: false,
-                width: currentChart.width,
+                showRowNumber: true,
+                width: '100%',
                 height: height
             }, currentChart.options)
 
@@ -77,15 +77,31 @@ export class BarChart extends Chart {
                 BarChart.init()
             }
 
-            google.charts.setOnLoadCallback(
+            /*google.charts.setOnLoadCallback(
                 () => {
                     let data = new Data(result)
-
                     let table = new google.visualization.BarChart(document.getElementById(currentChart.container.id))
-
                     table.draw(data.getDataTable(), currentChart.options)
                 }
-            )
+            )*/
+
+            google.charts.setOnLoadCallback(drawSeriesChart)
+
+            function drawSeriesChart() {
+                let data = new Data(result)
+                console.log(data.getDataTable())
+                console.log(data.getDataTable()["hc"])
+                console.log(data.getDataTable().showRowNumber)
+                let options = {
+                    width: '100%',
+                    height: 'auto',
+                    title: 'Population de Paris par année'
+                }
+        
+                let chart = new google.visualization.BarChart(document.getElementById(currentChart.container.id))
+                chart.draw(data.getDataTable(), options)
+            }
+            
             // finish
             return resolve()
         })
