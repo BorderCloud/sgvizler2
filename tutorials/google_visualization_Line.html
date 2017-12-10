@@ -15,11 +15,11 @@
         </div-->
 
         <p>
-            Table of results.
+            Line of results.
         </p>
 
         <h4>
-            Table options:
+            Line options:
         </h4>
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -40,19 +40,19 @@
             </thead>
             <tbody>
             <tr>
-                <td class="left"><code>width</code></td>
-                <td class="left">100%</td>
-                <td class="left">Chart width</td>
+                <td class="left"><code>title</code></td>
+                <td class="left">Largest cities with female mayor</td>
+                <td class="left">Chart title</td>
             </tr>
             <tr>
-                <td class="left"><code>height</code></td>
-                <td class="left"></td>
-                <td class="left">Chart height</td>
+                <td class="left"><code>curveType</code></td>
+                <td class="left">function</td>
+                <td class="left">Controls the curve of the lines when the line width is not zero.</td>
             </tr>
             <tr>
-                <td class="left"><code>showRowNumber</code></td>
-                <td class="left">false</td>
-                <td class="left">true/false Print number.</td>
+                <td class="left"><code>legend</code></td>
+                <td class="left">bottom</td>
+                <td class="left">Chart legend position</td>
             </tr>
             </tbody>
         </table>
@@ -77,7 +77,8 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query='
+                <div id="example" style="padding: 25px;"><div id="result"
+                    data-sgvizler-query='
                     PREFIX bd: <http://www.bigdata.com/rdf#> 
                     PREFIX wikibase: <http://wikiba.se/ontology#>
                     PREFIX wd: <http://www.wikidata.org/entity/> 
@@ -86,7 +87,7 @@
                     PREFIX q: <http://www.wikidata.org/prop/qualifier/>
                     PREFIX v: <http://www.wikidata.org/prop/statement/>
                     
-                    SELECT DISTINCT  ?cityLabel ?population (CONCAT("Mayor of ",?cityLabel," : ",?mayorLabel) as ?description)  ?mayorLabel WHERE {
+                    SELECT DISTINCT  ?cityLabel ?population WHERE {
                       ?city wdt:P31/wdt:P279* wd:Q515 .
                       ?city p:P6 ?statement . 
                       ?statement v:P6 ?mayor .          
@@ -96,7 +97,10 @@
                       SERVICE wikibase:label {
                         bd:serviceParam wikibase:language "en" .
                       }
-                     } ORDER BY DESC(?population) LIMIT 15' data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Line"  data-sgvizler-log="0"></div>
+                     } ORDER BY DESC(?population) LIMIT 15'
+                     data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                     data-sgvizler-chart="google.visualization.Line"
+                     data-sgvizler-log="0"></div>
 
                 </div>
             </div>
@@ -111,7 +115,7 @@ PREFIX p: <http://www.wikidata.org/prop/>
 PREFIX q: <http://www.wikidata.org/prop/qualifier/>
 PREFIX v: <http://www.wikidata.org/prop/statement/>
 
-SELECT DISTINCT  ?cityLabel ?population (CONCAT("Mayor of ",?cityLabel," : ",?mayorLabel) as ?description)  ?mayorLabel WHERE {
+SELECT DISTINCT  ?cityLabel ?population WHERE {
   ?city wdt:P31/wdt:P279* wd:Q515 .
   ?city p:P6 ?statement . 
   ?statement v:P6 ?mayor .          
@@ -145,9 +149,9 @@ data-sgvizler-chart="google.visualization.Table"
 
 
         <h4>
-            Table example 2
+            Line example 2
         </h4>
-        <p>With option "showRowNumber=true"</p>
+        <p>With options "legend:top;curveType:None"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_2">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#resultTab_2" role="tab" aria-expanded="true">
@@ -162,24 +166,59 @@ data-sgvizler-chart="google.visualization.Table"
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">
-                <div id="example_2" style="padding: 25px;"><div id="result_2" data-sgvizler-query="
-SELECT  *
-WHERE {
-        ?object ?property ?valueOrObject .
-}
-LIMIT 4" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Table" data-sgvizler-chart-options="showRowNumber=true" data-sgvizler-log="0"></div></div>
+                <div id="example_2" style="padding: 25px;">
+                    <div id="result_2" data-sgvizler-query='
+                        PREFIX bd: <http://www.bigdata.com/rdf#> 
+                        PREFIX wikibase: <http://wikiba.se/ontology#>
+                        PREFIX wd: <http://www.wikidata.org/entity/> 
+                        PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+                        PREFIX p: <http://www.wikidata.org/prop/>
+                        PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+                        PREFIX v: <http://www.wikidata.org/prop/statement/>
+                        
+                        SELECT DISTINCT  ?cityLabel ?population WHERE {
+                        ?city wdt:P31/wdt:P279* wd:Q515 .
+                        ?city p:P6 ?statement . 
+                        ?statement v:P6 ?mayor .          
+                        ?mayor wdt:P21 wd:Q6581072 .      
+                        FILTER NOT EXISTS { ?statement q:P582 ?x }  
+                        ?city wdt:P1082 ?population .
+                        SERVICE wikibase:label {
+                            bd:serviceParam wikibase:language "en" .
+                        }
+                        } ORDER BY DESC(?population) LIMIT 15'
+                        data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                        data-sgvizler-chart="google.visualization.Line" 
+                        data-sgvizler-chart-options="legend:top;curveType:None"
+                        data-sgvizler-log="0">
+                    </div>
+               </div>
             </div>
             <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
-data-sgvizler-query="
-SELECT  *
-WHERE {
-        ?object ?property ?valueOrObject .
-}
-LIMIT 4"
+data-sgvizler-query='
+REFIX bd: <http://www.bigdata.com/rdf#> 
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/> 
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX p: <http://www.wikidata.org/prop/>
+PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+PREFIX v: <http://www.wikidata.org/prop/statement/>
+
+SELECT DISTINCT  ?cityLabel ?population WHERE {
+  ?city wdt:P31/wdt:P279* wd:Q515 .
+  ?city p:P6 ?statement . 
+  ?statement v:P6 ?mayor .          
+  ?mayor wdt:P21 wd:Q6581072 .      
+  FILTER NOT EXISTS { ?statement q:P582 ?x }  
+  ?city wdt:P1082 ?population .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "en" .
+  }
+ } ORDER BY DESC(?population) LIMIT 15'
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="google.visualization.Table"
-data-sgvizler-chart-options="showRowNumber=true"
+data-sgvizler-chart-options="legend:top"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_2" role="tabpanel">
@@ -198,6 +237,8 @@ data-sgvizler-chart-options="showRowNumber=true"
 
         <!--SCRIPT-->
         <script>
+            //sgvizler2.containerDraw('result');
+            //sgvizler2.containerDraw('result_2');
             sgvizler2.containerDrawAll();
         </script>
     </div>

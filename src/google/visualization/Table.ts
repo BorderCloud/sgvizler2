@@ -83,6 +83,7 @@ export class Table extends Chart {
 
                     let table = new google.visualization.Table(document.getElementById(currentChart.container.id))
 
+                    console.log('table options are:',currentChart.options)
                     table.draw(data.getDataTable(), currentChart.options)
                 }
             )

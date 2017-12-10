@@ -9,7 +9,7 @@ import { API } from '../API'
 declare let google: any
 
 /**
- * Todo Table
+ * Todo Line
  * @class google.visualization.Line
  * @tutorial google_visualization_Line
  * @memberof google.visualization
@@ -23,7 +23,6 @@ export class Line extends Chart {
     }
 
     private static init () {
-        console.log('init Line')
         google.charts.load('current', {'packages': ['corechart','line']})
         Line._isInit = true
     }
@@ -49,28 +48,20 @@ export class Line extends Chart {
     }
 
     /**
-     * Make a standard simple html table.
-     * Available options:
-     * - 'headings'   :  "true" / "false"  (default: "true")
-     * @memberOf Table
+     * Draw a line
+     * @memberOf Line
      * @returns {Promise<void>}
      * @param result
      */
     public draw (result: SparqlResultInterface): Promise<any> {
         let currentChart = this
         return new Promise(function (resolve, reject) {
-            // transform query
-            // console.log(noCols + " x " + noRows)
-
-            let height = '100%'
-            if (currentChart.height !== '') {
-                height = currentChart.height
-            }
 
             let opt = Object.assign({
-                showRowNumber: false,
-                width: currentChart.width,
-                height: height
+                title: 'Largest cities with female mayor',
+                curveType: 'function',
+                legend: { position: 'bottom' },
+                height: '400'
             }, currentChart.options)
 
             if (! Line._isInit) {
@@ -82,8 +73,8 @@ export class Line extends Chart {
                     let data = new Data(result)
 
                     let table = new google.visualization.LineChart(document.getElementById(currentChart.container.id))
-
-                    table.draw(data.getDataTable(), currentChart.options)
+                    let dataTable = data.getDataTable()
+                    table.draw(dataTable, opt)
                 }
             )
             // finish
