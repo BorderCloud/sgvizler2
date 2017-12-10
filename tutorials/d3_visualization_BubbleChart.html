@@ -58,11 +58,11 @@
         </table>
 
     <h3>
-        Examples
+        Example
     </h3>
 
         <h4>
-            Table example 1 :
+            BubbleChart :
         </h4>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
             <li class="nav-item">
@@ -77,28 +77,50 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query="
-SELECT  *
-WHERE {
-        ?object ?property ?valueOrObject .
-}
-LIMIT 4" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Table"  data-sgvizler-log="0"></div>
+                <div id="example" style="padding: 25px;width: 1100px; height: 400px;"><div id="result" data-sgvizler-query="
+                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
+                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
+                    WHERE {
+                              ?pays wdt:P31 wd:Q6256.
+                              ?pays wdt:P2132 ?pib .
+                              ?pays wdt:P1082 ?population .
+                              ?pays wdt:P30 ?continent .
+                    SERVICE wikibase:label {
+                         bd:serviceParam wikibase:language 'en' .
+                    }
+                    
+                          }
+                    LIMIT 10000" 
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
+                data-sgvizler-chart="google.visualization.BubbleChart"  
+                data-sgvizler-log="0"></div>
 
                 </div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
-data-sgvizler-query="
-PREFIX rdfs: &amp;lt;http://www.w3.org/2000/01/rdf-schema#&amp;gt;
-SELECT  *
-WHERE {
-        ?object ?property ?valueOrObject .
-}
-LIMIT 4
-"
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Table"
-&gt;&lt;/div&gt;</pre></div>
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
+                    data-sgvizler-query="
+                    SPREFIX bd: &lt;http://www.bigdata.com/rdf#>  
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
+                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
+                    WHERE {
+                              ?pays wdt:P31 wd:Q6256.
+                              ?pays wdt:P2132 ?pib .
+                              ?pays wdt:P1082 ?population .
+                              ?pays wdt:P30 ?continent .
+                    SERVICE wikibase:label {
+                         bd:serviceParam wikibase:language 'en' .
+                    }
+                    
+                          }
+                    LIMIT 10000
+                    "
+                    &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
@@ -113,60 +135,6 @@ data-sgvizler-chart="google.visualization.Table"
 &lt;/script&gt;</pre></div>
             </div>
         </div>
-
-
-
-
-        <h4>
-            Table example 2
-        </h4>
-        <p>With option "showRowNumber=true"</p>
-        <ul class="nav nav-tabs" role="tablist" id="tab_2">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#resultTab_2" role="tab" aria-expanded="true">
-                    Result</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#htmlTab_2" role="tab" aria-expanded="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#scriptTab_2" role="tab" aria-expanded="false">Javascript</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">
-                <div id="example_2" style="padding: 25px;"><div id="result_2" data-sgvizler-query="
-SELECT  *
-WHERE {
-        ?object ?property ?valueOrObject .
-}
-LIMIT 4" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Table" data-sgvizler-chart-options="showRowNumber=true" data-sgvizler-log="0"></div></div>
-            </div>
-            <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
-data-sgvizler-query="
-SELECT  *
-WHERE {
-        ?object ?property ?valueOrObject .
-}
-LIMIT 4"
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Table"
-data-sgvizler-chart-options="showRowNumber=true"
-&gt;&lt;/div&gt;</pre></div>
-            </div>
-            <div class="tab-pane" id="scriptTab_2" role="tabpanel">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_2">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-   //Draw a chart
-   //sgvizler2.containerDraw('result');
-   //or
-   //$("#result").containerchart();
-
-   //Draw all Chart
-   sgvizler2.containerDrawAll();
-&lt;/script&gt;</pre></div>
-            </div>
         </div>
 
         <!--SCRIPT-->

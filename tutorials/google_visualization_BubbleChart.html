@@ -34,7 +34,7 @@
             <thead>
             <tr>
                 <th scope="col" class="left">Name</th>
-                <th scope="col" class="left">Default</th>
+                <th scope="col" class="left">Value</th>
                 <th scope="col" class="left">Description</th>
             </tr>
             </thead>
@@ -46,13 +46,28 @@
             </tr>
             <tr>
                 <td class="left"><code>height</code></td>
-                <td class="left"></td>
+                <td class="left">500</td>
                 <td class="left">Chart height</td>
             </tr>
             <tr>
-                <td class="left"><code>showRowNumber</code></td>
-                <td class="left">false</td>
-                <td class="left">true/false Print number.</td>
+                <td class="left"><code>Title</code></td>
+                <td class="left">PIB en fonction de la population et les pays</td>
+                <td class="left">Chart title</td>
+            </tr>
+            <tr>
+                <td class="left"><code>hAxis</code></td>
+                <td class="left">PIB</td>
+                <td class="left">Chart hAxis</td>
+            </tr>
+            <tr>
+                <td class="left"><code>vAxis</code></td>
+                <td class="left">Population</td>
+                <td class="left">Chart vAxis</td>
+            </tr>
+            <tr>
+                <td class="left"><code>bubble</code></td>
+                <td class="left">fontSize: 11</td>
+                <td class="left">Bubble size</td>
             </tr>
             </tbody>
         </table>
@@ -101,9 +116,8 @@
                 </div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
-                    data-sgvizler-query="
-                    SPREFIX bd: &lt;http://www.bigdata.com/rdf#>  
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;<div id="example" style="padding: 25px;width: 1100px; height: 400px;">div id="result" data-sgvizler-query="
+                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
                     PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
                     PREFIX wd: &lt;http://www.wikidata.org/entity/> 
                     PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
@@ -118,9 +132,12 @@
                     }
                     
                           }
-                    LIMIT 10000
-                    "
-                    &gt;&lt;/div&gt;</pre></div>
+                    LIMIT 10000" 
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
+                data-sgvizler-chart="google.visualization.BubbleChart"  
+                data-sgvizler-log="0"></div>
+
+                /div>&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;

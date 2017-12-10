@@ -85,8 +85,8 @@ export class BubbleChart extends Chart {
                         width: '100%',
                         height: '500',
                         title: 'PIB en fonction de la population et les pays ',
-                        hAxis: {title: 'Esperance de vie'},
-                        vAxis: {title: 'Taux de fértilité'},
+                        hAxis: {title: 'PIB'},
+                        vAxis: {title: 'Population'},
                         bubble: {textStyle: {fontSize: 11}}
                       };
                       var chart = new google.visualization.BubbleChart(document.getElementById(currentChart.container.id));
