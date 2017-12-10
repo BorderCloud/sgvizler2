@@ -23,7 +23,7 @@ export class BubbleChart extends Chart {
     }
 
     private static init () {
-        google.charts.load('current', {'packages': ['table']})
+        google.charts.load('current', {'packages': ['corechart']})
         BubbleChart._isInit = true
     }
 
@@ -32,26 +32,26 @@ export class BubbleChart extends Chart {
     }
 
     public get label (): string {
-        return 'Table'
+        return 'BubbleChart'
     }
 
     public get subtext (): string {
-        return 'Table'
+        return 'BubbleChart'
     }
 
     public get classFullName (): string {
-        return 'google.visualization.Table'
+        return 'google.visualization.BubbleChart'
     }
 
     public get tutorialFilename (): string {
-        return 'tutorial-google_visualization_Table.html'
+        return 'tutorial-google_visualization_BubbleChart.html'
     }
 
     /**
-     * Make a standard simple html table.
+     * Make a standard simple html bubbleChart.
      * Available options:
      * - 'headings'   :  "true" / "false"  (default: "true")
-     * @memberOf Table
+     * @memberOf BubbleChart
      * @returns {Promise<void>}
      * @param result
      */
@@ -61,14 +61,14 @@ export class BubbleChart extends Chart {
             // transform query
             // console.log(noCols + " x " + noRows)
 
-            let height = '100%'
+            let height = '1100'
             if (currentChart.height !== '') {
                 height = currentChart.height
             }
 
             let opt = Object.assign({
                 showRowNumber: false,
-                width: currentChart.width,
+                width: '400',
                 height: height
             }, currentChart.options)
 
@@ -76,15 +76,22 @@ export class BubbleChart extends Chart {
                 BubbleChart.init()
             }
 
-            google.charts.setOnLoadCallback(
-                () => {
-                    let data = new Data(result)
+            google.charts.setOnLoadCallback(drawSeriesChart);
 
-                    let table = new google.visualization.Table(document.getElementById(currentChart.container.id))
-
-                    table.draw(data.getDataTable(), currentChart.options)
-                }
-            )
+            function drawSeriesChart() {
+                let data = new Data(result)
+                
+                      var options = {
+                        width: '100%',
+                        height: '500',
+                        title: 'PIB en fonction de la population et les pays ',
+                        hAxis: {title: 'Esperance de vie'},
+                        vAxis: {title: 'Taux de fértilité'},
+                        bubble: {textStyle: {fontSize: 11}}
+                      };
+                      var chart = new google.visualization.BubbleChart(document.getElementById(currentChart.container.id));
+                      chart.draw(data.getDataTable(), options);
+                    }
             // finish
             return resolve()
         })
