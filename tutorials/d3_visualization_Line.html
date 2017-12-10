@@ -73,26 +73,26 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query="
-PREFIX bd: <http://www.bigdata.com/rdf#>
-PREFIX wikibase: <http://wikiba.se/ontology#>
-PREFIX wd: <http://www.wikidata.org/entity/>
-PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-
-select   ?countryLabel (COUNT(?asteroid) as ?nb)
-where {
-?asteroid wdt:P31 wd:Q3863 ;
-wdt:P61 ?discoverer .
-?discoverer wdt:P27 ?country .
-
-SERVICE wikibase:label {
-bd:serviceParam wikibase:language 'en' .
-} .
-
-}
-GROUP BY  ?countryLabel
-ORDER BY DESC(?nb)
-limit 7" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="d3.visualization.Pie"
+                <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query='
+                    PREFIX bd: <http://www.bigdata.com/rdf#> 
+                    PREFIX wikibase: <http://wikiba.se/ontology#>
+                    PREFIX wd: <http://www.wikidata.org/entity/> 
+                    PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+                    PREFIX p: <http://www.wikidata.org/prop/>
+                    PREFIX q: <http://www.wikidata.org/prop/qualifier/>
+                    PREFIX v: <http://www.wikidata.org/prop/statement/>
+                    
+                    SELECT DISTINCT  ?cityLabel ?population WHERE {
+                      ?city wdt:P31/wdt:P279* wd:Q515 .
+                      ?city p:P6 ?statement . 
+                      ?statement v:P6 ?mayor .          
+                      ?mayor wdt:P21 wd:Q6581072 .      
+                      FILTER NOT EXISTS { ?statement q:P582 ?x }  
+                      ?city wdt:P1082 ?population .
+                      SERVICE wikibase:label {
+                        bd:serviceParam wikibase:language "en" .
+                      }
+                     } ORDER BY DESC(?population) LIMIT 15' data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="d3.visualization.Line"
                                                              data-sgvizler-options="height:1000" data-sgvizler-log="0"></div>
 
                 </div>

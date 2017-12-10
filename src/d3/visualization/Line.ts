@@ -8,31 +8,31 @@ import {
 declare let d3: any
 
 /**
- * Todo Pie
- * @class d3.visualization.Pie
- * @tutorial d3_visualization_Pie
+ * Todo Line
+ * @class d3.visualization.Line
+ * @tutorial d3_visualization_Line
  * @memberof d3.visualization
  */
 export class Line extends Chart {
 
     public get icon (): string {
-        return 'fa-pie-chart'
+        return 'fa-line-chart'
     }
 
     public get label (): string {
-        return 'Pie'
+        return 'Line'
     }
 
     public get subtext (): string {
-        return 'Pie'
+        return 'Line'
     }
 
     public get classFullName (): string {
-        return 'd3.visualization.Pie'
+        return 'd3.visualization.Line'
     }
 
     public get tutorialFilename (): string {
-        return 'tutorial-d3_visualization_Pie.html'
+        return 'tutorial-d3_visualization_Line.html'
     }
 
     public constructor () {
@@ -42,10 +42,10 @@ export class Line extends Chart {
     }
 
     /**
-     * Make a simple pie.
+     * Make a simple line.
      * Available options:
      * -
-     * @memberOf Pie
+     * @memberOf Line
      * @returns {Promise<void>}
      * @param result
      */
@@ -54,7 +54,7 @@ export class Line extends Chart {
         return new Promise(function (resolve, reject) {
             // transform query
             // console.log(noCols + " x " + noRows)
-
+console.log('test')
             let heightOpt = '100%'
             if (currentChart.height !== '') {
                 heightOpt = currentChart.height
@@ -73,77 +73,64 @@ export class Line extends Chart {
             let noRows = rows.length
             let dataset: Array<any> = []
             let label
-            let counter
+            let count
             for (let row of rows) {
                 label = row[cols[0]].value
-                counter = Number(row[cols[1]].value)
-                if ( label === undefined || counter === undefined) {
-                    Logger.logSimple('Erreur ? D3JS:pie label ' + label + ' count ' + counter)
-                }else {
-                    dataset.push({ label: label , count: counter })
+                count = Number(row[cols[1]].value)
+                if ( label === undefined || count === undefined) {
+                    Logger.logSimple('Erreur ? D3JS:pie label ' + label + ' count ' + count)
+                } else {
+                    dataset.push({ label: label , count: count })
                 }
             }
 
-            // console.log(data)
-            let containerElement = d3.select('#' + currentChart.container.id)
-            let containerElementNode = containerElement.node() as any
-            if (containerElementNode) {
-                let width = containerElementNode.clientWidth !== 0 ? containerElementNode.clientWidth : 300
-                let height = containerElementNode.clientHeight !== 0 ? containerElementNode.clientHeight : 150
-                let svg = containerElement.append('svg') // associate our data with the document
-                    .attr('width', width)
-                    .attr('height', height)
-                    .attr('id', 'idtest')
-
-                let radius = Math.min(width, height) / 2
-
-                svg = svg.append('g') // make a group to hold our pie chart
-                    .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')')
-
-                // var donutWidth = 75;
-                let legendRectSize = 18
-                let legendSpacing = 4
-                let color = d3.scaleOrdinal(d3.schemeCategory10)
-
-                let arc = d3.arc()
-                   // .innerRadius(radius - donutWidth)
-                    .innerRadius(0)
-                    .outerRadius(radius)
-                let pie = d3.pie()
-                    .value(function (d: any) { return d.count })
-                    .sort(null)
-                let path = svg.selectAll('path')
-                    .data(pie(dataset))
-                    .enter()
-                    .append('path')
-                    .attr('d', arc)
-                    .attr('fill', function (d: any, i: any) {
-                        return color(d.data.label)
-                    })
-
-                // Todo limit nb (look pie chart of Google)
-                let legend = svg.selectAll('.legend')
-                    .data(color.domain())
-                    .enter()
-                    .append('g')
-                    .attr('class', 'legend')
-                    .attr('transform', function (d: any, i: any) {
-                        let height = legendRectSize + legendSpacing
-                        let offset = height * color.domain().length / 2
-                        let horz = -2 * legendRectSize
-                        let vert = i * height - offset
-                        return 'translate(' + (horz + radius * 2 + 20 ) + ',' + vert + ')'
-                    })
-                legend.append('rect')
-                    .attr('width', legendRectSize)
-                    .attr('height', legendRectSize)
-                    .style('fill', color)
-                    .style('stroke', color)
-                legend.append('text')
-                    .attr('x', legendRectSize + legendSpacing)
-                    .attr('y', legendRectSize - legendSpacing)
-                    .text(function (d: any) { return d })
+            console.log(dataset)
+            let margin = {
+                top: 30,
+                right: 20 * 3,
+                bottom: 30,
+                left: 50
             }
+            let width = 800 - margin.left - margin.right
+            let height = 570 - margin.top - margin.bottom
+            // x axis
+            let x = d3.scalePoint()
+            .domain(dataset.map(function (entry) {
+                return entry.label
+            }))
+            .rangeRound([0, 800])
+            .padding(0.5)
+            let xAxis = d3.axisBottom().scale(x).ticks(15)
+            // y axis
+            let y = d3.scaleLinear().range([height, 0])
+            y.domain([0, d3.max(dataset, function (d: any) {
+            return d.count
+            })])
+            let yAxis = d3.axisRight().scale(y).ticks(15)
+
+            let valueline = d3.line()
+                .x(function (d: any) {
+                  return x(d.label)
+                })
+                .y(function (d: any) {
+                  return y(d.count)
+                })
+            let svg = d3.select( '#' + currentChart.container.id)
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+
+            svg.append('path') // Add the valueline path.
+            .attr('d', valueline(dataset))
+            svg.append('g') // Add the X Axis
+            .attr('class', 'x axis')
+                .attr('transform', 'translate(0,' + height + ')')
+                .call(xAxis)
+            svg.append('g') // Add the Y Axis
+                .attr('class', 'y axis')
+                .call(yAxis)
             // finish
             return resolve()
         })
