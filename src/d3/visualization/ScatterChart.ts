@@ -67,10 +67,10 @@ export class ScatterChart extends Chart {
             }, currentChart.options)
 
             // build the datatable
-            let cols = result.head.vars
+            let cols = result.head.lets
             let rows = result.results.bindings
-            let noCols = cols.length
-            let noRows = rows.length
+            let noCols = cols.size
+            let noRows = rows.size
             let dataset: Array<any> = []
             let label
             let counter
@@ -87,7 +87,7 @@ export class ScatterChart extends Chart {
             // console.log(data)
             let containerElement = d3.select('#' + currentChart.container.id)
             let containerElementNode = containerElement.node() as any
-            if (containerElementNode) {
+            /*if (containerElementNode) {
                 let width = containerElementNode.clientWidth !== 0 ? containerElementNode.clientWidth : 300
                 let height = containerElementNode.clientHeight !== 0 ? containerElementNode.clientHeight : 150
                 let svg = containerElement.append('svg') // associate our data with the document
@@ -100,7 +100,7 @@ export class ScatterChart extends Chart {
                 svg = svg.append('g') // make a group to hold our ScatterChart chart
                     .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')')
 
-                // var donutWidth = 75;
+                // let donutWidth = 75;
                 let legendRectSize = 18
                 let legendSpacing = 4
                 let color = d3.scaleOrdinal(d3.schemeCategory10)
@@ -142,8 +142,94 @@ export class ScatterChart extends Chart {
                 legend.append('text')
                     .attr('x', legendRectSize + legendSpacing)
                     .attr('y', legendRectSize - legendSpacing)
-                    .text(function (d: any) { return d })
-            }
+                    .text(function (d: any) { return d })*/
+
+                    let width = 500
+                    let height = 300
+                    let padding = 30
+                    let numDataPoints = 50
+                    let xRange = Math.random() * 1000
+                    let yRange = Math.random() * 1000
+                for (let i = 0; i < numDataPoints; i++) {
+                  let newNumber1 = Math.floor(Math.random() * xRange)
+                  let newNumber2 = Math.floor(Math.random() * yRange)
+                   dataset.push([newNumber1, newNumber2])
+                }
+                // Create scale functions
+                let xScale = d3.scale.linear()
+                               .domain([0, d3.max(dataset, function (d: any) {
+                                 return d[0]
+                               }) ])
+                               .range([padding, width - padding * 2])
+                let yScale = d3.scale.linear()
+                               .domain([0, d3.max(dataset, function (d: any) {
+                                 return d[1]
+                               })])
+                               .range([height - padding, padding])
+                let rScale = d3.scale.linear()
+                                             .domain([0, d3.max(dataset, function (d: any) {
+                                 return d[1]
+                               })])
+                                            .range([2, 5])
+                let formatAsPercentage = d3.format('.1%')
+               // Define X axis
+                let xAxis = d3.svg.axis()
+                              .scale(xScale)
+                              .orient('bottom')
+                              .ticks(5)
+                              .tickFormat(formatAsPercentage)
+                // Define Y axis
+                let yAxis = d3.svg.axis()
+                              .scale(yScale)
+                                            .orient('left')
+                                            .ticks(5)
+                                            .tickFormat(formatAsPercentage)
+                // Create SVG element
+                let svg = d3.select('.container')
+                                        .append('svg')
+                                        .attr('width', width)
+                                        .attr('height', height)
+                // Create circles
+                svg.selectAll('circle')
+                     .data(dataset)
+                   .enter()
+                     .append('circle')
+                     .attr('cx', function (d: any) {
+                       return xScale(d[0])
+                     })
+                     .attr('cy', function (d: any) {
+                       return yScale(d[1])
+                     })
+                     .attr('r', function (d: any) {
+                       return rScale(d[1])
+                     })
+                // Create labels
+                svg.selectAll('text')
+                   .data(dataset)
+                   .enter()
+                   .append('text')
+                   .text(function (d: any) {
+                           return d[0] + ',' + d[1]
+                   })
+                   .attr('x', function (d: any) {
+                           return xScale(d[0])
+                   })
+                   .attr('y', function (d: any) {
+                           return yScale(d[1])
+                   })
+                   .attr('font-family', 'sans-serif')
+                   .attr('font-size', '11px')
+                   .attr('fill', 'red')
+                // Create X axis
+                svg.append('g')
+                   .attr('class', 'axis')
+                   .attr('transform', 'translate(0,' + (height - padding) + ')')
+                   .call(xAxis)
+                // Create Y axis
+                svg.append('g')
+                   .attr('class', 'axis')
+                   .attr('transform', 'translate(' + padding + ',0)')
+                   .call(yAxis)
             // finish
             return resolve()
         })
