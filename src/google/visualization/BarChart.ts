@@ -94,7 +94,7 @@ export class BarChart extends Chart {
                 console.log(data.getDataTable().showRowNumber)
                 let options = {
                     width: '100%',
-                    height: 'auto',
+                    height: '400',
                     title: 'Population de Paris par année'
                 }
         
