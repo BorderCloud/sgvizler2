@@ -69,8 +69,8 @@ export class ScatterChart extends Chart {
             // build the datatable
             let cols = result.head.lets
             let rows = result.results.bindings
-            let noCols = cols.size
-            let noRows = rows.size
+            let noCols = cols.length
+            let noRows = rows.length
             let dataset: Array<any> = []
             let label
             let counter
@@ -84,9 +84,9 @@ export class ScatterChart extends Chart {
                 }
             }
 
-            // console.log(data)
-            let containerElement = d3.select('#' + currentChart.container.id)
-            let containerElementNode = containerElement.node() as any
+            console.log(dataset)
+            // let containerElement = d3.select('#' + currentChart.container.id)
+          //  let containerElementNode = containerElement.node() as any
             /*if (containerElementNode) {
                 let width = containerElementNode.clientWidth !== 0 ? containerElementNode.clientWidth : 300
                 let height = containerElementNode.clientHeight !== 0 ? containerElementNode.clientHeight : 150
@@ -171,7 +171,7 @@ export class ScatterChart extends Chart {
                                  return d[1]
                                })])
                                             .range([2, 5])
-                let formatAsPercentage = d3.format('.1%')
+                let formatAsPercentage = d3.tickFormat('.1%')
                // Define X axis
                 let xAxis = d3.svg.axis()
                               .scale(xScale)
@@ -185,10 +185,11 @@ export class ScatterChart extends Chart {
                                             .ticks(5)
                                             .tickFormat(formatAsPercentage)
                 // Create SVG element
-                let svg = d3.select('.container')
+                let svg = d3.select('#' + currentChart.container.id)
                                         .append('svg')
                                         .attr('width', width)
                                         .attr('height', height)
+                                        .append('g')
                 // Create circles
                 svg.selectAll('circle')
                      .data(dataset)

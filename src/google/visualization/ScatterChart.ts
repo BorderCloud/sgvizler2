@@ -61,24 +61,19 @@ export class ScatterChart extends Chart {
             // transform query
             // console.log(noCols + " x " + noRows)
 
-            /*let height = '100%'
+            let height = '400'
             if (currentChart.height !== '') {
                 height = currentChart.height
             }
-            let data = google.visualization.arrayToDataTable([
-                ['Age', 'Weight'],
-                [ 8,12],
-                [ 4,5.5],
-                [ 11,14],
-                [ 4,5],
-                [ 3,3.5],
-                [ 6.5,7]
-              ])
+
             let opt = Object.assign({
-                hAxis: {title: 'Age', minValue: 0, maxValue: 15},
-                vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
-                height: height
-            }, currentChart.options)*/
+                hAxis: {title: 'uuu', minValue: 0, maxValue: 15},
+                vAxis: {title: 'ggg', minValue: 0, maxValue: 15},
+                height: height,
+                width: '100%',
+                backgroundColor : 'green',
+                title: 'PIB PAR POPULATION'
+            }, currentChart.options)
 
             if (! ScatterChart._isInit) {
                 ScatterChart.init()
@@ -95,18 +90,12 @@ export class ScatterChart extends Chart {
             )*/
 
             google.charts.setOnLoadCallback(drawSeriesChart)
-            
-                function drawSeriesChart() {
+
+                function drawSeriesChart () {
                     let data = new Data(result)
                     console.log(data.getDataTable())
-                    let options = {
-                        width: '100%',
-                        height: '400',
-                        title: 'PIB PAR POPULATION'
-                    }
-            
                     let chart = new google.visualization.ScatterChart(document.getElementById(currentChart.container.id))
-                    chart.draw(data.getDataTable(), options)
+                    chart.draw(data.getDataTable(), opt)
                 }
             // finish
             return resolve()
