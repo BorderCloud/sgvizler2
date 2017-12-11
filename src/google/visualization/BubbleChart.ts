@@ -61,16 +61,31 @@ export class BubbleChart extends Chart {
             // transform query
             // console.log(noCols + " x " + noRows)
 
-            let height = '1100'
+            let height = '500'
             if (currentChart.height !== '') {
                 height = currentChart.height
             }
 
             let opt = Object.assign({
-                showRowNumber: false,
-                width: '400',
-                height: height
+                width: '100%',
+                height: height,
+                title: 'PIB en fonction de la population et les pays ',
+                hAxis: {title: 'PIB'},
+                vAxis: {title: 'Population'},
+                bubble: {
+                    textStyle: {
+                      fontSize: 15,
+                      fontName: 'Times-Roman',
+                      color: 'green',
+                      bold: true,
+                      italic: true
+                    }
+                }
             }, currentChart.options)
+
+            if(opt.textStyle_color != 'undefined'){
+                opt.bubble.textStyle.color = opt.textStyle_color
+            }
 
             if (! BubbleChart._isInit) {
                 BubbleChart.init()
@@ -80,17 +95,8 @@ export class BubbleChart extends Chart {
 
             function drawSeriesChart() {
                 let data = new Data(result)
-                
-                      var options = {
-                        width: '100%',
-                        height: '500',
-                        title: 'PIB en fonction de la population et les pays ',
-                        hAxis: {title: 'PIB'},
-                        vAxis: {title: 'Population'},
-                        bubble: {textStyle: {fontSize: 11}}
-                      };
                       var chart = new google.visualization.BubbleChart(document.getElementById(currentChart.container.id));
-                      chart.draw(data.getDataTable(), options);
+                      chart.draw(data.getDataTable(), opt);
                     }
             // finish
             return resolve()

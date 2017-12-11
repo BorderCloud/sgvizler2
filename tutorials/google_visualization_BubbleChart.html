@@ -15,11 +15,11 @@
         </div-->
 
         <p>
-            Table of results.
+            Line of results.
         </p>
 
         <h4>
-            Table options:
+            Line options:
         </h4>
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -34,51 +34,27 @@
             <thead>
             <tr>
                 <th scope="col" class="left">Name</th>
-                <th scope="col" class="left">Value</th>
+                <th scope="col" class="left">Default</th>
                 <th scope="col" class="left">Description</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td class="left"><code>width</code></td>
-                <td class="left">100%</td>
-                <td class="left">Chart width</td>
-            </tr>
-            <tr>
-                <td class="left"><code>height</code></td>
-                <td class="left">500</td>
-                <td class="left">Chart height</td>
-            </tr>
-            <tr>
-                <td class="left"><code>Title</code></td>
-                <td class="left">PIB en fonction de la population et les pays</td>
-                <td class="left">Chart title</td>
-            </tr>
-            <tr>
-                <td class="left"><code>hAxis</code></td>
-                <td class="left">PIB</td>
-                <td class="left">Chart hAxis</td>
-            </tr>
-            <tr>
-                <td class="left"><code>vAxis</code></td>
-                <td class="left">Population</td>
-                <td class="left">Chart vAxis</td>
-            </tr>
-            <tr>
-                <td class="left"><code>bubble</code></td>
-                <td class="left">fontSize: 11</td>
-                <td class="left">Bubble size</td>
+                <td class="left"><code>textStyle</code></td>
+                <td class="left">Black</td>
+                <td class="left">Controls the color of the bubble's color</td>
             </tr>
             </tbody>
         </table>
 
     <h3>
-        Example
+        Examples
     </h3>
 
         <h4>
-            BubbleChart :
+            BubbleChart 1 :
         </h4>
+        <p>With options "textStyle.Color=green"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
@@ -92,7 +68,120 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="example" style="padding: 25px;width: 1100px; height: 400px;"><div id="result" data-sgvizler-query="
+                <div id="example" style="padding: 25px;"><div id="result"
+                    data-sgvizler-query="
+                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
+                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
+                    WHERE {
+                              ?pays wdt:P31 wd:Q6256.
+                              ?pays wdt:P2132 ?pib .
+                              ?pays wdt:P1082 ?population .
+                              ?pays wdt:P30 ?continent .
+                    SERVICE wikibase:label {
+                         bd:serviceParam wikibase:language 'en' .
+                    }
+                    
+                          }
+                    LIMIT 200" 
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
+                data-sgvizler-chart="google.visualization.BubbleChart" 
+                data-sgvizler-chart-options="textStyle_color=green"
+                data-sgvizler-log="0"></div>
+
+                </div>
+            </div>
+            <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
+                    data-sgvizler-query="
+                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
+                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
+                    WHERE {
+                              ?pays wdt:P31 wd:Q6256.
+                              ?pays wdt:P2132 ?pib .
+                              ?pays wdt:P1082 ?population .
+                              ?pays wdt:P30 ?continent .
+                    SERVICE wikibase:label {
+                         bd:serviceParam wikibase:language 'en' .
+                    }
+                    
+                          }
+                    LIMIT 200" 
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
+                data-sgvizler-chart="google.visualization.BubbleChart" 
+                data-sgvizler-option="sortBubblesBySize:true" 
+                data-sgvizler-log="0">
+    
+&gt;&lt;/div&gt;</pre></div>
+            </div>
+            <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+   //Draw a chart
+   //sgvizler2.containerDraw('result');
+   //or
+   //$("#result").containerchart();
+
+   //Draw all Chart
+   sgvizler2.containerDrawAll();
+&lt;/script&gt;</pre></div>
+            </div>
+        </div>
+
+
+
+
+        <h4>
+            BubbleChart 2
+        </h4>
+        <p>With options "textStyle.Color=red"</p>
+        <ul class="nav nav-tabs" role="tablist" id="tab_2">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#resultTab_2" role="tab" aria-expanded="true">
+                    Result</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#htmlTab_2" role="tab" aria-expanded="false">HTML</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#scriptTab_2" role="tab" aria-expanded="false">Javascript</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">
+                <div id="example_2" style="padding: 25px;">
+                    <div id="result_2" data-sgvizler-query="
+                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
+                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
+                    WHERE {
+                              ?pays wdt:P31 wd:Q6256.
+                              ?pays wdt:P2132 ?pib .
+                              ?pays wdt:P1082 ?population .
+                              ?pays wdt:P30 ?continent .
+                    SERVICE wikibase:label {
+                         bd:serviceParam wikibase:language 'en' .
+                    }
+                    
+                          }
+                    LIMIT 200" 
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
+                data-sgvizler-chart="google.visualization.BubbleChart" 
+                data-sgvizler-chart-options="textStyle_color=red"
+                data-sgvizler-log="0">
+                    </div>
+               </div>
+            </div>
+            <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
+                    data-sgvizler-query="
                     PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
                     PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
                     PREFIX wd: &lt;http://www.wikidata.org/entity/> 
@@ -111,36 +200,13 @@
                     LIMIT 200" 
                 data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
                 data-sgvizler-chart="google.visualization.BubbleChart"  
-                data-sgvizler-log="0"></div>
-
-                </div>
+                data-sgvizler-option="sortBubblesBySize:false"
+                data-sgvizler-log="0">
+    
+&gt;&lt;/div&gt;</pre></div>
             </div>
-            <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;<div id="example" style="padding: 25px;width: 1100px; height: 400px;">div id="result" data-sgvizler-query="
-                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
-                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
-                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
-                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
-                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
-                    WHERE {
-                              ?pays wdt:P31 wd:Q6256.
-                              ?pays wdt:P2132 ?pib .
-                              ?pays wdt:P1082 ?population .
-                              ?pays wdt:P30 ?continent .
-                    SERVICE wikibase:label {
-                         bd:serviceParam wikibase:language 'en' .
-                    }
-                    
-                          }
-                    LIMIT 10000" 
-                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
-                data-sgvizler-chart="google.visualization.BubbleChart"  
-                data-sgvizler-log="0"></div>
-
-                /div>&gt;</pre></div>
-            </div>
-            <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+            <div class="tab-pane" id="scriptTab_2" role="tabpanel">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_2">&lt;script src="../build/browser/sgvizler2.js"&gt;&lt;/script&gt;
 &lt;script&gt;
    //Draw a chart
    //sgvizler2.containerDraw('result');
@@ -152,10 +218,11 @@
 &lt;/script&gt;</pre></div>
             </div>
         </div>
-        </div>
 
         <!--SCRIPT-->
         <script>
+            //sgvizler2.containerDraw('result');
+            //sgvizler2.containerDraw('result_2');
             sgvizler2.containerDrawAll();
         </script>
     </div>
