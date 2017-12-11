@@ -61,7 +61,7 @@ console.log('test')
             }
 
             let opt = Object.assign({
-                showRowNumber: false,
+                showRowNumber: true,
                 width: currentChart.width,
                 height: heightOpt
             }, currentChart.options)
