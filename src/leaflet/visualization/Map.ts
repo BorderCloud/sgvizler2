@@ -127,11 +127,12 @@ export class Map extends Chart {
                             // latitude longitude title text link
                             let title = row[cols[2]] !== undefined ? row[cols[2]].value : ''
                             let text = row[cols[3]] !== undefined ? row[cols[3]].value : ''
-                            let link = row[cols[4]] !== undefined ? "<a href='" + row[cols[4]].value + "' target='_blank'>" + title + '</a>' : title
-                            let img = row[cols[5]] !== undefined ? "<div ' style='width:150px;height:150px;float:right;' ><img src='" + row[cols[5]].value + "' style='max-width:150px;height:150px;float:right;'/></div>" : ''
+                            //let text = 'tfyedhjgcby uaebf uyrezbyu crzb evuo rébuvrbyuvzqesrtvyhbjdtyhjffyhvcftghbgyughbfgyg'
+                            let link = row[cols[4]] !== undefined ? "<a href='" + row[cols[4]].value + "' target='_blank'>" + title + '</a><br/>' : title
+                            let img = row[cols[5]] !== undefined ? "<div ' style='width:150px;height:150px;float:left<br/>;' ><img src='" + row[cols[5]].value + "' style='max-width:150px;height:150px;float:right;'/></div>" : ''
 
                             marker = L.marker([parseFloat(row[cols[0]].value), parseFloat(row[cols[1]].value)])
-                            marker.bindPopup('<div style="display: flow-root;"><b>' + link + '</b>' + img + '<br/>' + text + '</div>')
+                            marker.bindPopup('<div style="display: flow-root;"><b>' + link + '</b>' + img + '<br/>' + text + '<br></div>')
                         } else if (noCols === 5) {
                             // latitude longitude title introduction link
                             let title = row[cols[2]] !== undefined ? row[cols[2]].value : ''
@@ -152,7 +153,7 @@ export class Map extends Chart {
                             let title = row[cols[2]] !== undefined ? row[cols[2]].value : ''
 
                             marker = L.marker([parseFloat(row[cols[0]].value), parseFloat(row[cols[1]].value)])
-                            marker.bindPopup('<b>' + title + '</b>')
+                            marker.bindPopup('<b>' + title + '</br>')
                         } else if (noCols === 2) {
                             // latitude longitude
                             marker = L.marker([parseFloat(row[cols[0]].value), parseFloat(row[cols[1]].value)])
