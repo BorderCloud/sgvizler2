@@ -26,8 +26,8 @@
   "TestAreaChart": {
     "title": "TestAreaChart"
   },
-  "AreaChart": {
-    "title": "AreaChart"
+  "d3_visualization_AreaChart": {
+    "title": "d3.visualization.AreaChart (Example)"
     
   }
 }
