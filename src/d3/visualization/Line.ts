@@ -106,7 +106,7 @@ console.log('test')
             y.domain([0, d3.max(dataset, function (d: any) {
             return d.count
             })])
-            let yAxis = d3.axisRight().scale(y).ticks(15)
+            let yAxis = d3.axisRight().scale(y).ticks(17)
 
             let valueline = d3.line()
                 .x(function (d: any) {
@@ -123,6 +123,11 @@ console.log('test')
                 .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 
             svg.append('path') // Add the valueline path.
+            .attr('fill', 'none')
+            .attr('stroke', 'steelblue')
+            .attr('stroke-linejoin', 'round')
+            .attr('stroke-linecap', 'round')
+            .attr('stroke-width', 1.5)
             .attr('d', valueline(dataset))
             svg.append('g') // Add the X Axis
             .attr('class', 'x axis')
