@@ -1,0 +1,17 @@
+<div id="sgvizler_div_map"
+data-sgvizler-endpoint="http://dbpedia.org/sparql"
+data-sgvizler-query="SELECT ?lat ?long ?name ?text ?url ?image
+WHERE {
+?url a yago:PrefecturesOfJapan ;
+  dct:subject <http://dbpedia.org/resource/Category:Prefectures_of_Japan> ;
+  rdfs:label ?name;
+  geo:lat ?lat;
+  geo:long ?long .
+OPTIONAL{ ?url rdfs:comment ?text }
+OPTIONAL{ ?url dbpo:thumbnail ?image }
+FILTER(lang(?text)='en')
+FILTER(lang(?name)='en')
+}"
+data-sgvizler-chart="sMap"
+data-sgvizler-loglevel="2"
+style="width:800px; height:800px;"></div>
