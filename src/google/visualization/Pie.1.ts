@@ -61,7 +61,7 @@ export class Pie extends Chart {
             // transform query
             // console.log(noCols + " x " + noRows)
 
-            let height = '500'
+            let height = '300'
             if (currentChart.height !== '') {
                 height = currentChart.height
             }
