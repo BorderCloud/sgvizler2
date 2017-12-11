@@ -63,8 +63,8 @@ console.log('test')
             let opt = Object.assign({
                 showRowNumber: true,
                 width: currentChart.width,
-                height: heightOpt,
-                hAxisscaleType: true
+                height: heightOpt
+               // hAxisscaleType: true
             }, currentChart.options)
 
             // build the datatable
