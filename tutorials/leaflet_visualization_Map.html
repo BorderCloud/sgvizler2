@@ -1,0 +1,304 @@
+<style>
+    h3, h4 {
+       margin-top: 25px !important;
+    }
+</style>
+<div class="container" >
+    <h3 id="DefinitionList"><a id="sec-4-1-20" name="sec-4-1-20"></a>Definition</h3>
+    <div class="outline-text-4" id="text-DefinitionList">
+
+
+        <!--div class="figure">
+            <p><img src="./image/sDefList.png" alt="sDefList.png">
+            </p>
+            <p><span class="figure-number">Figure 16:</span> Definition list</p>
+        </div-->
+
+        <p>
+            Map of OpenStreetMap with Leaflet(with cluster). You can use 5 columns.
+
+            <ol>
+                <li>Latitude. Datatype: xsd:Decimal</li>
+                <li>Longitude. Datatype: xsd:Decimal</li>
+                <li>Optional - title. Datatype: xsd:string</li>
+                <li>Optional - introduction. Datatype: xsd:string</li>
+                <li>Optional - link. Datatype: IRI</li>
+                <li>Optional - image. Datatype: IRI</li>
+            </ol>
+        </p>
+        <h4>
+            Map options: <a
+                href="https://developers.google.com/maps/documentation/javascript/controls#ControlOptions">See all
+            options
+            </a>
+        </h4>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+            <colgroup>
+                <col class="left">
+
+                <col class="left">
+
+                <col class="left">
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col" class="left">Name</th>
+                <th scope="col" class="left">Default</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left"><code>width</code></td>
+                <td class="left">100%</td>
+                <td class="left">Chart width</td>
+            </tr>
+            <tr>
+                <td class="left"><code>height</code></td>
+                <td class="left"></td>
+                <td class="left">Chart height</td>
+            </tr>
+            </tbody>
+        </table>
+
+    <h3>
+        Examples
+    </h3>
+
+        <h4>
+            Map example 1 :
+        </h4>
+        <ul class="nav nav-tabs" role="tablist" id="tab_1">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#htmlTab" role="tab" aria-expanded="false">HTML</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#scriptTab" role="tab" aria-expanded="false">Javascript</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
+                <div id="example"
+                     data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                     data-sgvizler-query="
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
+PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/&gt;
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+select distinct ?lat ?long  ?presidentLabel
+where {
+        ?president wdt:P39 wd:Q191954 ;
+                    wdt:P19  ?villeNaissance ;
+                     p:P39 ?s .
+
+        ?villeNaissance  p:P625 ?coord .
+        ?coord   psv:P625 ?coordValue .
+        ?coordValue a wikibase:GlobecoordinateValue ;
+                        wikibase:geoLatitude ?lat ;
+                        wikibase:geoLongitude ?long .
+
+        SERVICE wikibase:label {
+             bd:serviceParam wikibase:language &quot;fr&quot; .
+        }
+}"
+                     data-sgvizler-chart='leaflet.visualization.Map'
+                     data-sgvizler-chart-options=''
+                     data-sgvizler-endpoint_output_format='json'
+                     data-sgvizler-loglevel='2'
+                     style='width:100%; height:500px;'  />
+
+                </div>
+            </div>
+            <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
+data-sgvizler-query="
+
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
+PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/&gt;
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+select distinct ?lat ?long  ?presidentLabel
+where {
+        ?president wdt:P39 wd:Q191954 ;
+                    wdt:P19  ?villeNaissance ;
+                     p:P39 ?s .
+
+        ?villeNaissance  p:P625 ?coord .
+        ?coord   psv:P625 ?coordValue .
+        ?coordValue a wikibase:GlobecoordinateValue ;
+                        wikibase:geoLatitude ?lat ;
+                        wikibase:geoLongitude ?long .
+
+        SERVICE wikibase:label {
+             bd:serviceParam wikibase:language &quot;fr&quot; .
+        }
+}
+"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="leaflet.visualization.Map"
+                    style='width:100%; height:500px;'
+&gt;&lt;/div&gt;</pre></div>
+            </div>
+            <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+   //Draw a chart
+   //sgvizler2.containerDraw('result',{
+       // osmAccessToken:  "YOUR_OSM_ACCESS_TOKEN"
+   //         });
+   //or
+   //$("#result").containerchart({
+       // osmAccessToken:  "YOUR_OSM_ACCESS_TOKEN"
+   //         });
+
+   //Draw all Chart
+   sgvizler2.containerDrawAll({
+        // OpenStreetMap Access Token
+        // Todo put the link of tutorial to create a new token
+        osmAccessToken:  "YOUR_OSM_ACCESS_TOKEN"
+   });
+&lt;/script&gt;</pre></div>
+            </div>
+        </div>
+
+
+    <h4>
+        Graph example 2
+    </h4>
+    <p>With 6 columns</p>
+    <ul class="nav nav-tabs" role="tablist" id="tab_2">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#resultTab_2" role="tab" aria-expanded="true">
+                Result</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#htmlTab_2" role="tab" aria-expanded="false">HTML</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#scriptTab_2" role="tab" aria-expanded="false">Javascript</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">
+            <div id="example_2" ><div id="result_2"
+                                      style='width:100%; height:500px;'
+                                      data-sgvizler-query="
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/&gt;
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+select distinct
+?lat ?long ?siteLabel ?siteDescription
+?site
+(concat(xsd:string(?image),'?width=200') as ?newimage)
+where {
+        ?site wdt:P31/wdt:P279* wd:Q839954 .
+        ?site wdt:P17 wd:Q142 .
+        ?site wdt:P18 ?image .
+   ?site p:P625 ?coord .
+
+          ?coord   psv:P625 ?coordValue .
+
+          ?coordValue a wikibase:GlobecoordinateValue ;
+                        wikibase:geoLatitude ?lat ;
+                        wikibase:geoLongitude ?long .
+
+        SERVICE wikibase:label {
+             bd:serviceParam wikibase:language 'en,fr' .
+                }
+                }"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="leaflet.visualization.Map"
+data-sgvizler-chart-options="headings=false" data-sgvizler-log="0"></div></div>
+        </div>
+        <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
+            <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
+data-sgvizler-query="
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/&gt;
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+select distinct
+?lat ?long ?siteLabel ?siteDescription
+?site
+(concat(xsd:string(?image),'?width=200') as ?newimage)
+where {
+        ?site wdt:P31/wdt:P279* wd:Q839954 .
+        ?site wdt:P17 wd:Q142 .
+        ?site wdt:P18 ?image .
+   ?site p:P625 ?coord .
+
+          ?coord   psv:P625 ?coordValue .
+
+          ?coordValue a wikibase:GlobecoordinateValue ;
+                        wikibase:geoLatitude ?lat ;
+                        wikibase:geoLongitude ?long .
+
+        SERVICE wikibase:label {
+             bd:serviceParam wikibase:language 'en,fr' .
+        }
+      }
+                "
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="leaflet.visualization.Map"
+data-sgvizler-chart-options="headings=false"
+&gt;&lt;/div&gt;</pre></div>
+        </div>
+        <div class="tab-pane" id="scriptTab_2" role="tabpanel">
+            <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_2">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+   //Draw a chart
+   //sgvizler2.containerDraw('result',{
+       // osmAccessToken:  "YOUR_OSM_ACCESS_TOKEN"
+   //         });
+   //or
+   //$("#result").containerchart({
+       // osmAccessToken:  "YOUR_OSM_ACCESS_TOKEN"
+   //         });
+
+   //Draw all Chart
+   sgvizler2.containerDrawAll({
+        // OpenStreetMap Access Token
+        // Todo put the link of tutorial to create a new token
+        osmAccessToken:  "YOUR_OSM_ACCESS_TOKEN"
+   });
+&lt;/script&gt;</pre></div>
+        </div>
+    </div>
+
+
+        <!--SCRIPT-->
+        <script>
+            sgvizler2.containerDrawAll({
+
+                googleApiKey : "AIzaSyBro_IlWgOb5o4C80IWZhq0YHhemlRta3Q",
+                // OpenStreetMap Access Token
+                // Todo put the link of tutorial to create a new token
+                osmAccessToken: "pk.eyJ1Ijoia3JhZmVzIiwiYSI6ImNqNm02eDduaDF2aG0ycW5oZzhxbzUwZmEifQ.SE1YXz0mqTkafrwd_YXn1A"
+            });
+        </script>
+    </div>
+</div>
