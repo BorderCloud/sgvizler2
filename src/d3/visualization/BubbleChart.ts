@@ -7,79 +7,82 @@ import {
 
 declare let d3: any
 
+
+
 /**
  * Todo BubbleChart
  * @class d3.visualization.BubbleChart
  * @tutorial d3_visualization_BubbleChart
  * @memberof d3.visualization
  */
-export class BubbleChart {
-    /**
-     * Make a simple Bubble.
-     * Available options:
-     * -
-     * @memberOf Bubble
-     * @returns {Promise<void>}
-     * @param result
-     */
-    public draw (result: SparqlResultInterface){
-        var svg = d3.select("svg"),
-        width = +svg.attr("width"),
-        height = +svg.attr("height");
+export class BubbleChart extends Chart {
     
-    var format = d3.format(",d");
+        public get icon (): string {
+            return 'fa-pie-chart'
+        }
     
-    var color = d3.scaleOrdinal(d3.schemeCategory20c);
+        public get label (): string {
+            return 'BubbleChart'
+        }
     
-    var pack = d3.pack()
-        .size([width, height])
-        .padding(1.5);
+        public get subtext (): string {
+            return 'BubbleChart'
+        }
     
-    d3.csv("flare.csv", function(d :any) {
-      d.value = +d.value;
-      if (d.value) return d;
-    }, function(error:any , classes:any) {
-      if (error) throw error;
+        public get classFullName (): string {
+            return 'd3.visualization.BubbleChart'
+        }
     
-      var root = d3.hierarchy({children: classes})
-          .sum(function(d : any) { return d.value; })
-          .each(function(d : any) {
-            if (id = d.data.id) {
-              var id, i = id.lastIndexOf(".");
-              d.id = id;
-              d.package = id.slice(0, i);
-              d.class = id.slice(i + 1);
-            }
-          });
+        public get tutorialFilename (): string {
+            return 'tutorial-d3_visualization_BubbleChart.html'
+        }
     
-      var node = svg.selectAll(".node")
-        .data(pack(root).leaves())
-        .enter().append("g")
-          .attr("class", "node")
-          .attr("transform", function(d : any) { return "translate(" + d.x + "," + d.y + ")"; });
+        public constructor () {
+            super()
+            this.addCss(Core.path + '/lib/d3/d3.css')
+            let dep = this.addScript(Core.path + '/lib/d3/d3.js')
+        }
     
-      node.append("circle")
-          .attr("id", function(d : any) { return d.id; })
-          .attr("r", function(d : any) { return d.r; })
-          .style("fill", function(d : any) { return color(d.package); });
-    
-      node.append("clipPath")
-          .attr("id", function(d : any) { return "clip-" + d.id; })
-        .append("use")
-          .attr("xlink:href", function(d : any) { return "#" + d.id; });
-    
-      node.append("text")
-          .attr("clip-path", function(d : any) { return "url(#clip-" + d.id + ")"; })
-        .selectAll("tspan")
-        .data(function(d : any) { return d.class.split(/(?=[A-Z][^A-Z])/g); })
-        .enter().append("tspan")
-          .attr("x", 0)
-          .attr("y", function(d : any, i : any, nodes : any) { return 13 + (i - nodes.length / 2 - 0.5) * 10; })
-          .text(function(d : any) { return d; });
-    
-      node.append("title")
-          .text(function(d : any) { return d.id + "\n" + format(d.value); });
-    });    
-    }
+        /**
+         * Make a simple pie.
+         * Available options:
+         * -
+         * @memberOf Pie
+         * @returns {Promise<void>}
+         * @param result
+         */
+        public draw (result: SparqlResultInterface): Promise<any> {
+            let currentChart = this
+            return new Promise(function (resolve, reject) {
+                let margin = {
+                    left: 50,
+                    top : 30,
+                    bottom : 30,
+                    right : 60,
+                }
+                let x = 2
+                let y = 4
+                let width = 800 - margin.left - margin.right
+                let height = 570 - margin.top - margin.bottom
+                let xAxis = d3.axisBottom().scale(x).ticks(192)
+                let yAxis = d3.axisRight().scale(y).ticks(192)
 
-}
+                let svg = d3.select('#' + currentChart.container.id)
+                    .append('svg')
+                    .attr('width', width + margin.left + margin.right)
+                    .attr('height', height + margin.top + margin.bottom)
+                    .append('g')
+                    .attr('transform', 'trasnlate(' + margin.left + ',' + margin.top + ')')
+                svg.append('g')
+                    .attr('class', 'x axis')
+                        .attr('transform', 'trasnlate(0,' + height + ')')
+                        .call(xAxis)
+                svg.append('g')
+                .attr('class', 'y axis')
+                    .call(yAxis)
+                // finish
+                return resolve()
+            })
+        }
+    
+    }
