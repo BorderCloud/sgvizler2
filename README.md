@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Gowtham95/sgvizler2.svg?branch=master)](https://travis-ci.org/BorderCloud/sgvizler2)
+[![Build Status](https://travis-ci.org/BorderCloud/sgvizler2.svg?branch=master)](https://travis-ci.org/BorderCloud/sgvizler2)
 [![Codecov](https://img.shields.io/codecov/c/github/BorderCloud/sgvizler2.svg)](https://codecov.io/gh/BorderCloud/sgvizler2)
 [![NPM version](https://img.shields.io/npm/v/sgvizler2.svg)](https://www.npmjs.com/package/sgvizler2)
 [![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
