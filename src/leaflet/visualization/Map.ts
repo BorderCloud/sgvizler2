@@ -127,7 +127,6 @@ export class Map extends Chart {
                             // latitude longitude title text link
                             let title = row[cols[2]] !== undefined ? row[cols[2]].value : ''
                             let text = row[cols[3]] !== undefined ? row[cols[3]].value : ''
-                            //let text = 'tfyedhjgcby uaebf uyrezbyu crzb evuo rébuvrbyuvzqesrtvyhbjdtyhjffyhvcftghbgyughbfgyg'
                             let link = row[cols[4]] !== undefined ? "<a href='" + row[cols[4]].value + "' target='_blank'>" + title + '</a><br/>' : title
                             let img = row[cols[5]] !== undefined ? "<div ' style='width:150px;height:150px;float:left<br/>;' ><img src='" + row[cols[5]].value + "' style='max-width:150px;height:150px;float:right;'/></div>" : ''
 
