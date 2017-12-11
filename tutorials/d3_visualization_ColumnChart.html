@@ -74,54 +74,38 @@
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
                 <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query="
-                    PREFIX bd: <http://www.bigdata.com/rdf#>
-                    PREFIX wikibase: <http://wikiba.se/ontology#>
-                    PREFIX wd: <http://www.wikidata.org/entity/>
-                    PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+                    PREFIX p: &lt;http://www.wikidata.org/prop/&gt; 
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/&gt; 
+                    prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
+                    prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
                     
-                    select   ?countryLabel (COUNT(?asteroid) as ?nb)
+                    select (YEAR(?date) as ?year) ?Population
                     where {
-                    ?asteroid wdt:P31 wd:Q3863 ;
-                    wdt:P61 ?discoverer .
-                    ?discoverer wdt:P27 ?country .
-                    
-                    SERVICE wikibase:label {
-                    bd:serviceParam wikibase:language 'en' .
-                    } .
-                    
-                    }
-                    GROUP BY  ?countryLabel
-                    ORDER BY DESC(?nb)
-                    limit 7"data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="d3.visualization.Pie"
-                                                              data-sgvizler-log="0"></div>
-
+                           wd:Q61816 p:P1082 ?statement .
+                            ?statement ps:P1082 ?Population ;
+                                        pq:P585 ?date .           
+                          } 
+                    ORDER BY ?year"
+                    http://linkedwiki.com/query/Population_of_Le_Crotoy                    
                 </div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
 data-sgvizler-query="
-PREFIX bd: &lt;http://www.bigdata.com/rdf#>
-PREFIX wikibase: &lt;http://wikiba.se/ontology#>
-PREFIX wd: &lt;http://www.wikidata.org/entity/>
-PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt; 
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt; 
+prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
+prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
 
-select   ?countryLabel (COUNT(?asteroid) as ?nb)
+select (YEAR(?date) as ?year) ?Population
 where {
-        ?asteroid wdt:P31 wd:Q3863 ;
-                  wdt:P61 ?discoverer .
-     ?discoverer wdt:P27 ?country .
-
-       SERVICE wikibase:label {
-        bd:serviceParam wikibase:language 'en' .
-      } .
-
-}
-GROUP BY  ?countryLabel
-ORDER BY DESC(?nb)
-limit 7
-"
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="d3.visualization.Pie"
+       wd:Q61816 p:P1082 ?statement .
+        ?statement ps:P1082 ?Population ;
+                    pq:P585 ?date .           
+      } 
+ORDER BY ?year"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
+data-sgvizler-chart="d3.visualization.ColumnChart"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">

@@ -185,11 +185,8 @@ export class Request {
             if (myRequest.method.toLowerCase() === 'get') {
                 url += '?' + myRequest.queryParameter + '=' + encodeURIComponent(myRequest.query) +
                         '&output=' + SparqlTools.getOutputLabel(myRequest.endpointOutputFormat)
-            }else {
-                data = {
-                    query: myRequest.query ,
-                    output: SparqlTools.getOutputLabel(myRequest.endpointOutputFormat)
-                }
+            } else {
+                data = myRequest.queryParameter + '=' + encodeURIComponent(myRequest.query)
             }
 
             xhr.open(myRequest.method,url,true)
@@ -230,6 +227,7 @@ export class Request {
 
             // Send the request
             if (data) {
+                xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded')
                 xhr.send(data)
             } else {
                 xhr.send()

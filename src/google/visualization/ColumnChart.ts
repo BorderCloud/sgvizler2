@@ -23,7 +23,7 @@ export class ColumnChart extends Chart {
     }
 
     private static init () {
-        google.charts.load('current', {'packages': ['ColumnChart']})
+        google.charts.load('current', {'packages': ['corechart']})
         ColumnChart._isInit = true
     }
 
@@ -67,7 +67,7 @@ export class ColumnChart extends Chart {
             }
 
             let opt = Object.assign({
-                showRowNumber: false,
+                reverseCategories: false,
                 width: currentChart.width,
                 height: height
             }, currentChart.options)
