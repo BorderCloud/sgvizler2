@@ -1,6 +1,6 @@
 <style>
     h3, h4 {
-       margin-top: 25px !important;
+       margin-top: 0px !important;
     }
 </style>
 <div class="container" >
@@ -87,7 +87,7 @@
     </h3>
 
         <h4>
-            Pie example Normal :
+            Pie example Normal with hard small size :
         </h4>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
             <li class="nav-item">
@@ -102,7 +102,7 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query="
+                <div id="example"><div id="result" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -121,13 +121,14 @@ bd:serviceParam wikibase:language 'en,fr' .
 }
 GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
-limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie1" 
+limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql"data-sgvizler-chart="google.visualization.Pie"
+ data-sgvizler-chart-options="width:400;height:300"
                                                               data-sgvizler-log="0"></div>
 
                 </div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
+                <div class="bg-faded"><pre lang="html" id="consoleHtml">&lt;div id="result"
 data-sgvizler-query="
 PREFIX bd: &lt;http://www.bigdata.com/rdf#>
 PREFIX wikibase: &lt;http://wikiba.se/ontology#>
@@ -150,11 +151,12 @@ ORDER BY DESC(?nb)
 limit 100
 "
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Pie1"
+data-sgvizler-chart="google.visualization.Pie"
+data-sgvizler-chart-options="chartArea: {width: 400, height: 300}"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+                <div class="bg-faded"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
 &lt;script&gt;
    //Draw a chart
    //sgvizler2.containerDraw('result');
@@ -166,9 +168,6 @@ data-sgvizler-chart="google.visualization.Pie1"
 &lt;/script&gt;</pre></div>
             </div>
         </div>
-  
-        
-        
         <h4>
             Pie example 3D
         </h4>
@@ -186,7 +185,7 @@ data-sgvizler-chart="google.visualization.Pie1"
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="true">
-                <div id="example2" style="padding: 25px;"><div id="result_2" data-sgvizler-query="
+                <div id="example2"><div id="result_2" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -205,13 +204,14 @@ bd:serviceParam wikibase:language 'en,fr' .
 }
 GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
-limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="is3D=true"
+limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" 
+data-sgvizler-chart-options="is3D=true"
                                                               data-sgvizler-log="0"></div>
 
                 </div>
             </div>
             <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
+                <div class="bg-faded"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
 data-sgvizler-query="
 PREFIX bd: &lt;http://www.bigdata.com/rdf#>
 PREFIX wikibase: &lt;http://wikiba.se/ontology#>
@@ -239,7 +239,7 @@ data-sgvizler-chart-options="is3D=true"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_2" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_2">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+                <div class="bg-faded"><pre lang="html" id="consoleScript_2">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
 &lt;script&gt;
    //Draw a chart
    //sgvizler2.containerDraw('result');
@@ -251,8 +251,6 @@ data-sgvizler-chart-options="is3D=true"
 &lt;/script&gt;</pre></div>
             </div>
         </div>
-
-
         <h4>
             Pie example Donut
         </h4>
@@ -270,7 +268,7 @@ data-sgvizler-chart-options="is3D=true"
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_3" role="tabpanel" aria-expanded="true">
-                <div id="example3" style="padding: 25px;"><div id="result_3" data-sgvizler-query="
+                <div id="example3"><div id="result_3" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -295,7 +293,7 @@ limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgviz
                 </div>
             </div>
             <div class="tab-pane" id="htmlTab_3" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_3">&lt;div id="result"
+                <div class="bg-faded"><pre lang="html" id="consoleHtml_3">&lt;div id="result"
 data-sgvizler-query="
 PREFIX bd: &lt;http://www.bigdata.com/rdf#>
 PREFIX wikibase: &lt;http://wikiba.se/ontology#>
@@ -323,7 +321,7 @@ data-sgvizler-chart-options="pieHole=0.3"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_3" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_3">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+                <div class="bg-faded"><pre lang="html" id="consoleScript_3">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
 &lt;script&gt;
    //Draw a chart
    //sgvizler2.containerDraw('result');
@@ -335,7 +333,6 @@ data-sgvizler-chart-options="pieHole=0.3"
 &lt;/script&gt;</pre></div>
             </div>
         </div>
-
         <h4>
             Pie example Rotating
         </h4>
@@ -353,7 +350,7 @@ data-sgvizler-chart-options="pieHole=0.3"
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_4" role="tabpanel" aria-expanded="true">
-                <div id="example3" style="padding: 25px;"><div id="result_4" data-sgvizler-query="
+                <div id="example3"><div id="result_4" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -378,7 +375,7 @@ limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgviz
                 </div>
             </div>
             <div class="tab-pane" id="htmlTab_4" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_4">&lt;div id="result"
+                <div class="bg-faded"><pre lang="html" id="consoleHtml_4">&lt;div id="result"
 data-sgvizler-query="
 PREFIX bd: &lt;http://www.bigdata.com/rdf#>
 PREFIX wikibase: &lt;http://wikiba.se/ontology#>
@@ -406,7 +403,7 @@ data-sgvizler-chart-options="pieStartAngle=100"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_4" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_4">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+                <div class="bg-faded"><pre lang="html" id="consoleScript_4">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
 &lt;script&gt;
    //Draw a chart
    //sgvizler2.containerDraw('result');
@@ -418,7 +415,6 @@ data-sgvizler-chart-options="pieStartAngle=100"
 &lt;/script&gt;</pre></div>
             </div>
         </div>
-
         <h4>
             Pie example Slice Visibility Threshold
         </h4>
@@ -436,7 +432,7 @@ data-sgvizler-chart-options="pieStartAngle=100"
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_5" role="tabpanel" aria-expanded="true">
-                <div id="example3" style="padding: 25px;"><div id="result_5" data-sgvizler-query="
+                <div id="example3"><div id="result_5" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -461,7 +457,7 @@ limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgviz
                 </div>
             </div>
             <div class="tab-pane" id="htmlTab_5" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_5">&lt;div id="result"
+                <div class="bg-faded"><pre lang="html" id="consoleHtml_5">&lt;div id="result"
 data-sgvizler-query="
 PREFIX bd: &lt;http://www.bigdata.com/rdf#>
 PREFIX wikibase: &lt;http://wikiba.se/ontology#>
@@ -489,7 +485,7 @@ data-sgvizler-chart-options="sliceVisibilityThreshold= .2"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_5" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_5">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+                <div class="bg-faded"><pre lang="html" id="consoleScript_5">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
 &lt;script&gt;
    //Draw a chart
    //sgvizler2.containerDraw('result');
@@ -501,7 +497,6 @@ data-sgvizler-chart-options="sliceVisibilityThreshold= .2"
 &lt;/script&gt;</pre></div>
             </div>
         </div>
-
         <h4>
             Pie example Slice label
         </h4>
@@ -519,7 +514,7 @@ data-sgvizler-chart-options="sliceVisibilityThreshold= .2"
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_6" role="tabpanel" aria-expanded="true">
-                <div id="example3" style="padding: 25px;"><div id="result_6" data-sgvizler-query="
+                <div id="example3"><div id="result_6" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -538,13 +533,13 @@ bd:serviceParam wikibase:language 'en,fr' .
 }
 GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
-limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="pieSliceText=label"
+limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="pieSliceText=label" 
                                                               data-sgvizler-log="0"></div>
 
                 </div>
             </div>
             <div class="tab-pane" id="htmlTab_6" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_6">&lt;div id="result"
+                <div class="bg-faded"><pre lang="html" id="consoleHtml_6">&lt;div id="result"
 data-sgvizler-query="
 PREFIX bd: &lt;http://www.bigdata.com/rdf#>
 PREFIX wikibase: &lt;http://wikiba.se/ontology#>
@@ -572,7 +567,7 @@ data-sgvizler-chart-options="pieSliceText=label"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_6" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_6">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+                <div class="bg-faded"><pre lang="html" id="consoleScript_6">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
 &lt;script&gt;
    //Draw a chart
    //sgvizler2.containerDraw('result');
@@ -584,6 +579,7 @@ data-sgvizler-chart-options="pieSliceText=label"
 &lt;/script&gt;</pre></div>
             </div>
         </div>
+       
         <!--SCRIPT-->
         <script>
             sgvizler2.containerDrawAll();
