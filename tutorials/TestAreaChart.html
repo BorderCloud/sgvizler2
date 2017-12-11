@@ -1,46 +1,31 @@
 <html>
   <head>
-      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-      <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-      <script type="text/javascript" src="js/sgvizler/sgvizler.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+        ['Year', 'Sales', 'Expenses'],
+        ['2013',  1000,      400],
+        ['2014',  1170,      460],
+        ['2015',  660,       1120],
+        ['2016',  1030,      540]
+      ]);
+
+        var options = {
+          title: 'Company Performance',
+          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+    </script>
   </head>
-<body style="margin:0;">
-<div id="sgvzl_example_query" 
- data-sgvizler-endpoint="http://dbpedia-live.openlinksw.com/sparql/" 
- data-sgvizler-query="PREFIX dbo: &lt;http://dbpedia.org/ontology/&gt; 
-PREFIX owl: &lt;http://www.w3.org/2002/07/owl#&gt;
-PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
-PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
-PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
-PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/&gt;
-PREFIX dc: &lt;http://purl.org/dc/elements/1.1/&gt;
-PREFIX : &lt;http://dbpedia.org/resource/&gt;
-PREFIX dbpedia2: &lt;http://dbpedia.org/property/&gt;
-PREFIX dbpedia: &lt;http://dbpedia.org/&gt;
-PREFIX skos: &lt;http://www.w3.org/2004/02/skos/core#&gt;
-
-SELECT DISTINCT ?company ?name 
-WHERE {
-    ?company a dbo:Company .
-    ?company rdfs:label ?name .
-    ?company dbo:industry :Aerospace_manufacturer .
-    FILTER (LANG(?name) = &#039;en&#039;) . 
-    
-} ORDER BY ?name" 
-  data-sgvizler-chart='google.visualization.Table'             
-  data-sgvizler-chart-options=''  
-  data-sgvizler-endpoint_output_format='json'
-  data-sgvizler-loglevel='2'   
-  style='width:100%; height:450px;'  />
-
-
-
-<script>
-$(document).ready(function() { 
-  sgvizler2.containerDrawAll();   
-  
-});
-</script>
-
-</body>
+  <body>
+    <div id="chart_div" style="width: 100%; height: 500px;"></div>
+  </body>
 </html>
