@@ -70,11 +70,11 @@ export class Tools {
 
     public static decodeHtml (str: string) {
         let text = str.replace(/&#(\d+);/g, function ( match, dec) {
-            return String.fromCharCode(dec)
+            return String.fromCharCode(dec).replace(/\s/g, function ( match, dec) {
+                    return ' '
+                })
         })
-        return text.replace(/\s/g, function ( match, dec) {
-            return ' '
-        })
+        return text
     }
 
 }

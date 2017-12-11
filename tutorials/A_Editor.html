@@ -42,8 +42,7 @@ LIMIT 10</textarea>
             <label for="options" class="col-2 col-form-label">Method</label>
             <div class="col-10">
                 <select class="custom-select" id="method">
-                    <option value="" selected></option>
-                    <option value="GET">GET</option>
+                    <option value="GET" selected>GET</option>
                     <option value="POST">POST</option>
                 </select>
             </div>
@@ -171,7 +170,9 @@ $(document).ready(function () {
         )
 
         $("#consoleScript").text(
-            "<script src=\"../browser/sgvizler2.js\">\<\/script>\n" +
+            "<!-- yarn add jquery sgvizler2 -->\n" +
+            "<script src=\"../node_modules/jquery/dist/jquery.slim.js\">\<\/script>\n" +
+            "<script src=\"../node_modules/sgvizler2/build/browser/sgvizler2.js\">\<\/script>\n" +
             "<script>\n" +
             "   //Draw a chart \n"+
             "   //sgvizler2.containerDraw('result'); \n"+
