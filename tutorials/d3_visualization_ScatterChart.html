@@ -50,6 +50,12 @@
                 <td class="left">Chart height</td>
             </tr>
 
+            <tr>
+                <td class="left"><code>title</code></td>
+                <td class="left"></td>
+                <td class="left">Chart title</td>
+            </tr>
+
             </tbody>
         </table>
 
@@ -75,25 +81,22 @@
                
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
                 <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query="
-PREFIX bd: <http://www.bigdata.com/rdf#>
-PREFIX wikibase: <http://wikiba.se/ontology#>
-PREFIX wd: <http://www.wikidata.org/entity/>
-PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-
-select   ?countryLabel (COUNT(?asteroid) as ?nb)
-where {
-?asteroid wdt:P31 wd:Q3863 ;
-wdt:P61 ?discoverer .
-?discoverer wdt:P27 ?country .
-
-SERVICE wikibase:label {
-bd:serviceParam wikibase:language 'en' .
-} .
-
-}
-GROUP BY  ?countryLabel
-ORDER BY DESC(?nb)
-limit 7" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="d3.visualization.Pie"
+                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
+                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
+                    WHERE {
+                              ?pays wdt:P31 wd:Q6256.
+                              ?pays wdt:P2132 ?pib .
+                              ?pays wdt:P1082 ?population .
+                              ?pays wdt:P30 ?continent .
+                    SERVICE wikibase:label {
+                         bd:serviceParam wikibase:language 'en' .
+                    }
+                    
+                          }
+                    LIMIT 10000" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="d3.visualization.Pie"
                                                               data-sgvizler-log="0"></div>
 
                 </div>
