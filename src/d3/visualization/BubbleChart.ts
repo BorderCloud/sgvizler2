@@ -54,32 +54,102 @@ export class BubbleChart extends Chart {
         public draw (result: SparqlResultInterface): Promise<any> {
             let currentChart = this
             return new Promise(function (resolve, reject) {
+                let heightOpt = '100%'
+                if (currentChart.height !== '') {
+                    heightOpt = currentChart.height
+                }
+    
+                let opt = Object.assign({
+                    showRowNumber: false,
+                    width: currentChart.width,
+                    height: heightOpt
+                }, currentChart.options)
+    
+                // build the datatable
+                let cols = result.head.vars
+                let rows = result.results.bindings
+                let noCols = cols.length
+                let noRows = rows.length
+                let dataset: Array<any> = []
+                let pays
+                let pib
+                let population
+                let continent
+                for (let row of rows) {
+                    pays = row[cols[0]].value
+                    pib = Number(row[cols[1]].value)
+                    population = Number(row[cols[2]].value)
+                    continent = row[cols[3]].value
+                    if ( pays === undefined || pib === undefined || population === undefined || continent === undefined) {
+                        Logger.logSimple('Erreur ? D3JS:pie pays ' + pays + ' pib ' + pib+ ' population ' + population+ 'continent ' + continent)
+                    }else {
+                        dataset.push({ pays: pays , pib: pib, population: population, continent: continent})
+                    }
+                }
+                console.log(dataset)
                 let margin = {
                     left: 50,
                     top : 30,
                     bottom : 30,
                     right : 60,
                 }
-                let x = 2
-                let y = 4
-                let width = 800 - margin.left - margin.right
-                let height = 570 - margin.top - margin.bottom
-                let xAxis = d3.axisBottom().scale(x).ticks(192)
-                let yAxis = d3.axisRight().scale(y).ticks(192)
+                let width = 500 - margin.left - margin.right
+                let height = 500 - margin.top - margin.bottom
+                let x = d3.scalePoint()
+                    .domain(dataset.map(function(entry:any){
+                    return entry.label
+                }))
+                .rangeRound([0,1000])
+                .padding(0.5)
+                let y = d3.scaleLinear().range([height,0])
+                y.domain([0, d3.max(dataset, function(d:any){
+                    return d.count
+                })])
+                
+                let xAxis = d3.axisBottom().scale(x).ticks(4)
+                let yAxis = d3.axisRight().scale(y).ticks(4)
+
+                var diameter = 500;
+
+                var bubble = d3.pack()
+                .size([diameter,diameter])
+                .padding(1.5)
 
                 let svg = d3.select('#' + currentChart.container.id)
                     .append('svg')
-                    .attr('width', width + margin.left + margin.right)
-                    .attr('height', height + margin.top + margin.bottom)
-                    .append('g')
-                    .attr('transform', 'trasnlate(' + margin.left + ',' + margin.top + ')')
+                    .attr('width', diameter)
+                    .attr('height', diameter)
+                    .attr('class', 'bubble')
                 svg.append('g')
                     .attr('class', 'x axis')
-                        .attr('transform', 'trasnlate(0,' + height + ')')
+                        .attr('transform', 'translate(0,' + height + ')')
                         .call(xAxis)
                 svg.append('g')
                 .attr('class', 'y axis')
                     .call(yAxis)
+
+                var data:any = dataset.map(function(d:any){ d.value = +d["count"]; return d; });
+                var nodes = d3.hierarchy(dataset)
+                    .sum(function(d:any){return d.responseCount;})
+                    
+                var node = svg.append("g")
+                    .attr("transform", "translate(0,0)")
+                    .selectAll(".nodes")
+                        .data(bubble(nodes).descendants())
+                    .data(nodes)
+                    .enter();
+
+                node.append("circle")
+                    .attr("r", function(d:any){ return d.r; })
+                    .attr("cx", function(d:any){ return d.x; })
+                    .attr("cy", function(d:any){ return d.y; })
+
+                node.append("text")
+                    .attr("x", function(d:any){ return d.x; })
+                    .attr("y", function(d:any){ return d.y + 5; })
+                    .attr("text-anchor", "middle")
+                    .text(function(d:any){ return d["label"]; })
+
                 // finish
                 return resolve()
             })
