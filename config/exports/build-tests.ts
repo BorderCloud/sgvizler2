@@ -1,5 +1,4 @@
 // this script watches the tests exported by typescript, copies them to the test directories, and modifies the require("PKG.NAME") statements to test each build
-
 const cpx = require("cpx");
 const separator = require("path").sep;
 const Transform = require("stream").Transform;
@@ -27,7 +26,7 @@ const makeTransform = (filePath, buildPath) => {
 }
 
 // copy, then watch for changes to the tests
-const testsFromRoot = 'build/main/**/*Line.spec.js';
+const testsFromRoot = 'build/main/**/*.spec.js';
 const watchMode = process.argv.indexOf('-w') !== -1 ? true : false;
 const browserTests = process.argv.indexOf('--no-browser') !== -1 ? true : false;
 const task = watchMode ? cpx.watch : cpx.copy;

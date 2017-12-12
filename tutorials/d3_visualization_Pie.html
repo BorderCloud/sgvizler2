@@ -78,22 +78,19 @@ PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
 PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-
 select   ?countryLabel (COUNT(?asteroid) as ?nb)
 where {
 ?asteroid wdt:P31 wd:Q3863 ;
 wdt:P61 ?discoverer .
 ?discoverer wdt:P27 ?country .
-
 SERVICE wikibase:label {
 bd:serviceParam wikibase:language 'en' .
 } .
-
 }
 GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
 limit 7" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="d3.visualization.Pie"
-                                                             data-sgvizler-options="height:1000" data-sgvizler-log="0"></div>
+                                                              data-sgvizler-log="0"></div>
 
                 </div>
             </div>
