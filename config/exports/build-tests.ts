@@ -1,4 +1,5 @@
 // this script watches the tests exported by typescript, copies them to the test directories, and modifies the require("PKG.NAME") statements to test each build
+
 const cpx = require("cpx");
 const separator = require("path").sep;
 const Transform = require("stream").Transform;

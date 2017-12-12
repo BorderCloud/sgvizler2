@@ -112,16 +112,19 @@ PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
 PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
 PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
 PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
 select distinct ?lat ?long  ?presidentLabel
 where {
         ?president wdt:P39 wd:Q191954 ;
                     wdt:P19  ?villeNaissance ;
                      p:P39 ?s .
+
         ?villeNaissance  p:P625 ?coord .
         ?coord   psv:P625 ?coordValue .
         ?coordValue a wikibase:GlobecoordinateValue ;
                         wikibase:geoLatitude ?lat ;
                         wikibase:geoLongitude ?long .
+
         SERVICE wikibase:label {
              bd:serviceParam wikibase:language &quot;fr&quot; .
         }
