@@ -62,15 +62,16 @@ export class BarChart extends Chart {
             // transform query
             // console.log(noCols + " x " + noRows)
 
-            let height = '100%'
+            let height = '400'
             if (currentChart.height !== '') {
                 height = currentChart.height
             }
 
             let opt = Object.assign({
-                showRowNumber: true,
                 width: '100%',
-                height: height
+                height: height,
+                title: 'Population de Paris par année',
+                isStacked: 'false'
             }, currentChart.options)
 
             if (! BarChart._isInit) {
@@ -92,16 +93,9 @@ export class BarChart extends Chart {
                 console.log(data.getDataTable())
                 console.log(data.getDataTable()["hc"])
                 console.log(data.getDataTable().showRowNumber)
-                let options = {
-                    width: '100%',
-                    height: '400',
-                    title: 'Population de Paris par année'
-                }
-        
                 let chart = new google.visualization.BarChart(document.getElementById(currentChart.container.id))
-                chart.draw(data.getDataTable(), options)
+                chart.draw(data.getDataTable(), opt)
             }
-            
             // finish
             return resolve()
         })
