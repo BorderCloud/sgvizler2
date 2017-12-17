@@ -112,7 +112,7 @@ export class Map extends Chart {
                 if (noCols <= 2) {
                     messageError = 'Parameters : latitude(xsd:Decimal) longitude(xsd:Decimal) title(xsd:string' +
                         ' optional) introduction(xsd:string optional) link(IRI optional)'
-                }else {
+                } else {
                     for (let row of rows) {
                         lat = parseFloat(row[cols[0]].value)
                         long = parseFloat(row[cols[1]].value)
@@ -126,12 +126,17 @@ export class Map extends Chart {
                         if (noCols >= 6) {
                             // latitude longitude title text link
                             let title = row[cols[2]] !== undefined ? row[cols[2]].value : ''
-                            let text = row[cols[3]] !== undefined ? row[cols[3]].value : ''
-                            let link = row[cols[4]] !== undefined ? "<a href='" + row[cols[4]].value + "' target='_blank'>" + title + '</a><br/>' : title
-                            let img = row[cols[5]] !== undefined ? "<div ' style='width:150px;height:150px;float:left<br/>;' ><img src='" + row[cols[5]].value + "' style='max-width:150px;height:150px;float:right;'/></div>" : ''
+                            let text = row[cols[3]] !== undefined ? "<p style='margin: 0px'>" + row[cols[3]].value + "</p>" : ''
+                            let link = row[cols[4]] !== undefined ? "<a style='font-size: large;font-style: medium;' href='" + row[cols[4]].value + "' target='_blank'>" + title + '</a>' : title
+                            let img = row[cols[5]] !== undefined ? "<img src='" + row[cols[5]].value + "' style='margin-left:5px;margin-bottom:5px;width:150px;float:right;'/>" : ''
 
                             marker = L.marker([parseFloat(row[cols[0]].value), parseFloat(row[cols[1]].value)])
-                            marker.bindPopup('<div style="display: flow-root;"><b>' + link + '</b>' + img + '<br/>' + text + '<br></div>')
+
+                            if (row[cols[3]] === undefined || row[cols[3]].value.length === 0) {
+                                marker.bindPopup('<div style="display: flow-root;width-min: 150px;">' + link + '<div>' + img + '</div></div>')
+                            } else {
+                                marker.bindPopup('<div style="display: flow-root;width: 350px;">' + link + '<div>' + img + text + '</div></div>')
+                            }
                         } else if (noCols === 5) {
                             // latitude longitude title introduction link
                             let title = row[cols[2]] !== undefined ? row[cols[2]].value : ''
