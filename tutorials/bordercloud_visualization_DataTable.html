@@ -16,7 +16,7 @@
 
         <p>
             This table uses <a href="https://datatables.net/">DataTables.net</a>. You can adapt each column with the
-            option colstyle.
+            option colstyle. You can customize the style of column or print directly images and videos.
         </p>
 
         <h4>
@@ -115,9 +115,65 @@
                 </td>
             </tr>
 
+            <tr>
+                <td class="left">Example 4</td>
+                <td class="left"><code>colstyle=col2_video_max-width:250px;</code></td>
+                <td class="left">2</td>
+                <td class="left">
+                    Column 2 : <code>&lt;video or iframe
+                    style="max-width:250px"/&gt;</code></br>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="left">Example 5</td>
+                <td class="left"><code>colstyle=col3_video_max-width:250px;"</code></td>
+                <td class="left">3</td>
+                <td class="left">
+                    Column 3 : <code>&lt;video or iframe
+                    style="max-width:250px"/&gt;</code></br>
+                </td>
+            </tr>
+
             </tbody>
         </table>
 
+
+        <h4>Video types supported</h4>
+
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+            <thead>
+            <tr>
+                <th scope="col" class="left">Service</th>
+                <th scope="col" class="left">Video type</th>
+                <th scope="col" class="left">HTML tag used</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td class="left">Youtube</td>
+                <td class="left">Format of Youtube</td>
+                <td class="left">Use the Youtube's iframe</td>
+            </tr>
+            <tr>
+                <td class="left">Facebook</td>
+                <td class="left">Format of Facebook</td>
+                <td class="left">Use the Facebook's iframe (not tested)</td>
+            </tr>
+            <tr>
+                <td class="left">Commons.Wikimedia.org</td>
+                <td class="left">Ogg, Webm, ogv</td>
+                <td class="left">Video (Html 5)</td>
+            </tr>
+            <tr>
+                <td class="left">Default</td>
+                <td class="left"></td>
+                <td class="left">iframe</td>
+            </tr>
+            </tbody>
+        </table>
 
 
 
@@ -126,7 +182,7 @@
     </h3>
 
         <h4>
-            Table example 1 :
+            Example 1 : table by default
         </h4>
         <p></p>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
@@ -184,7 +240,7 @@ data-sgvizler-chart="bordercloud.visualization.DataTable"
         </div>
 
         <h4>
-            Table example 2 :
+            Example 2 : table with images
         </h4>
         <p></p>
         <ul class="nav nav-tabs" role="tablist" id="tab_2">
@@ -255,7 +311,7 @@ data-sgvizler-chart-options="cellspacing=3 ! colstyle=col2_img_max-width:250px; 
         </div>
 
         <h4>
-            Table example 3
+            Example 3 : table with columns customized
         </h4>
         <p></p>
         <ul class="nav nav-tabs" role="tablist" id="tab_3">
@@ -330,14 +386,8 @@ data-sgvizler-chart-options="colstyle=col1_span_color:#F00; col1_span_font-weigh
         </div>
 
 
-
-
-
-
-
-
         <h4>
-            Table example video for youtube :
+            Example 4 : table with videos of Youtube
         </h4>
         <p></p>
         <ul class="nav nav-tabs" role="tablist" id="tab_4">
@@ -361,7 +411,7 @@ PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
 PREFIX lw: &lt;https://lemedia.wiki/wiki/&gt;
 PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
 
-select DISTINCT  ?label  ?video where 
+select DISTINCT  ?label  ?video where
 {
    ?lien a lw:Information  ;
       rdfs:label ?label ;
@@ -373,38 +423,45 @@ select DISTINCT  ?label  ?video where
    OPTIONAL {
     ?lien  rdfs:comment ?description .
    }
-} 
+}
 ORDER BY DESC(?date) ?label
 LIMIT 5
 "
 data-sgvizler-endpoint="https://lemedia.wiki/sparql"
 data-sgvizler-chart="bordercloud.visualization.DataTable"
-data-sgvizler-chart-options="cellspacing=3 ! colstyle=col2_youtube_max-width:250px; col2_youtube_border-radius:50%; col2_youtube_display:block; col2_youtube_margin:auto; col2_youtube_opacity:0.5"
+data-sgvizler-chart-options="colstyle=col2_video_max-width:250px;"
 data-sgvizler-log="2"></div></div>
             </div>
-            <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
+            <div class="tab-pane" id="htmlTab_4" role="tabpanel" aria-expanded="true">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_4">&lt;div id="result"
 data-sgvizler-query="
 PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
-PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
-PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
-PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
 
-SELECT  ?itemLabel ?image
-WHERE
+PREFIX lw: &lt;https://lemedia.wiki/wiki/&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+
+select DISTINCT  ?label  ?video where
 {
-  ?item wdt:P161 wd:Q221074.
-  ?item wdt:P18 ?image .
-  SERVICE wikibase:label { bd:serviceParam wikibase:language &quot;en&quot;. }.
-}LIMIT 5"
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+   ?lien a lw:Information  ;
+      rdfs:label ?label ;
+      lw:video ?video ;
+      lw:date ?date ;
+      lw:videoStart ?videoStart ;
+      lw:videoStop ?videoStop .
+
+   OPTIONAL {
+    ?lien  rdfs:comment ?description .
+   }
+}
+ORDER BY DESC(?date) ?label
+LIMIT 5"
+data-sgvizler-endpoint="https://lemedia.wiki/sparql"
 data-sgvizler-chart="bordercloud.visualization.DataTable"
-data-sgvizler-chart-options="cellspacing=3 ! colstyle=col2_youtube_max-width:250px; col2_youtube_border-radius:50%;
-                    col2_youtube_display:block; col2_youtube_margin:auto;col2_youtube_opacity:0.5"
+data-sgvizler-chart-options="colstyle=col2_video_max-width:250px;"
 &gt;&lt;/div&gt;</pre></div>
             </div>
-            <div class="tab-pane" id="scriptTab_2" role="tabpanel">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_2">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+            <div class="tab-pane" id="scriptTab_4" role="tabpanel">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_4">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
 &lt;script&gt;
    //Draw a chart
    //sgvizler2.containerDraw('result');
@@ -418,8 +475,105 @@ data-sgvizler-chart-options="cellspacing=3 ! colstyle=col2_youtube_max-width:250
         </div>
 
 
+        <h4>
+            Example 5 : table with videos of Commons.Wikimedia.org
+        </h4>
+        <p></p>
+        <ul class="nav nav-tabs" role="tablist" id="tab_5">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#resultTab_5" role="tab" aria-expanded="true">
+                    Result</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#htmlTab_5" role="tab" aria-expanded="false">HTML</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#scriptTab_5" role="tab" aria-expanded="false">Javascript</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="resultTab_5" role="tabpanel" aria-expanded="false">
+                <div id="example_5" style="padding: 25px;"><div id="result_5"
+                     data-sgvizler-query="
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
 
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
 
+select
+(YEAR(?date) as ?year)
+(CONCAT('&lt;a href=\'',?link,'\'&gt;',?label,'&lt;/a&gt;') as ?html)
+?video
+                    where {
+                    ?object wdt:P31 wd:Q11424 ;
+                    wdt:P577 ?date ;
+                    wdt:P10 ?video ;
+                    rdfs:label ?label .
+
+                    FILTER (langMatches(lang(?label), 'fr'))
+
+                    BIND(replace( xsd:string(?object),
+                    'http://www.wikidata.org/entity/',
+                    'https://www.wikidata.org/wiki/Special:GoToLinkedPage/frwiki/') as ?link)
+                    }
+                    ORDER BY ASC(?date)
+                    LIMIT 5
+"
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                data-sgvizler-chart="bordercloud.visualization.DataTable"
+                data-sgvizler-chart-options="colstyle=col3_video_max-width:250px;"
+                data-sgvizler-log="2"></div></div>
+            </div>
+            <div class="tab-pane" id="htmlTab_5" role="tabpanel" aria-expanded="true">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_5">&lt;div id="result"
+data-sgvizler-query="
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+
+select
+(YEAR(?date) as ?year)
+(CONCAT('&lt;a href=\'',?link,'\'&gt;',?label,'&lt;/a&gt;') as ?html)
+?video
+    where {
+    ?object wdt:P31 wd:Q11424 ;
+    wdt:P577 ?date ;
+    wdt:P10 ?video ;
+    rdfs:label ?label .
+
+    FILTER (langMatches(lang(?label), 'fr'))
+
+    BIND(replace( xsd:string(?object),
+    'http://www.wikidata.org/entity/',
+    'https://www.wikidata.org/wiki/Special:GoToLinkedPage/frwiki/') as ?link)
+}
+ORDER BY ASC(?date)
+LIMIT 5"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="bordercloud.visualization.DataTable"
+data-sgvizler-chart-options="colstyle=col3_video_max-width:250px;"
+&gt;&lt;/div&gt;</pre></div>
+            </div>
+            <div class="tab-pane" id="scriptTab_5" role="tabpanel">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_5">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+   //Draw a chart
+   //sgvizler2.containerDraw('result');
+   //or
+   //$("#result").containerchart();
+
+   //Draw all Chart
+   sgvizler2.containerDrawAll();
+&lt;/script&gt;</pre></div>
+            </div>
+        </div>
 
         <!--SCRIPT-->
         <script>

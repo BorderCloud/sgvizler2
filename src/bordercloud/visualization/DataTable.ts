@@ -33,9 +33,8 @@ export class DataTable extends Chart {
         this.addCss(Core.path + '/lib/DataTables/datatables.min.css')
         this.addCss(Core.path + '/lib/DataTables/DataTables-1.10.15/css/dataTables.bootstrap4.min.css')
         let depDatatables = this.addScript(Core.path + '/lib/DataTables/datatables.min.js')
-        this.addScript(Core.path + '/lib/DataTables/DataTables-1.10.15/js/dataTables.bootstrap4.js',depDatatables)
-
         this.addScript(Core.path + '/lib/DataTables/Buttons-1.4.0/js/dataTables.buttons.js',depDatatables)
+        this.addScript(Core.path + '/lib/DataTables/DataTables-1.10.15/js/dataTables.bootstrap4.js',depDatatables)
 
     }
 
@@ -85,10 +84,9 @@ export class DataTable extends Chart {
                     datasetColumnsFunc = this.getFunctionColumnDefSpan(colOptions[c][DATATABLE_COL_OPTIONS.STYLE])
                     break
                     /**/
-                case 'youtube':
-                    datasetColumnsFunc = this.getFunctionColumnDefYoutube(colOptions[c][DATATABLE_COL_OPTIONS.STYLE])
+                case 'video':
+                    datasetColumnsFunc = this.getFunctionColumnDefVideo(colOptions[c][DATATABLE_COL_OPTIONS.STYLE])
                     break
-                    /**/
                 default:
                     datasetColumnsFunc = this.getFunctionColumnDefDefault()
             }
@@ -113,13 +111,30 @@ export class DataTable extends Chart {
             return '<img src="' + data + '"  style="' + style + '"\>'
         })
     }
-        /**/
-    private static getFunctionColumnDefYoutube (style: string): any {
+
+    private static getFunctionColumnDefVideo (style: string): any {
         return (function (data: any, type: any, full: any, meta: any) {
-            return '<iframe width="420" height="315" src="https://www.youtube.com/embed/XGSy3_Czz8k" meta http-equiv="X-Frame-Options" content="allow" frameborder="0" allowfullscreen></iframe>'
+            let youtubePattern = new RegExp('youtu')
+            let facebookPattern = new RegExp('facebook')
+            let mediawikiPattern = new RegExp('commons\.wikimedia\.org')
+
+            if (youtubePattern.test(data)) {
+                let url = data.replace('watch?v=', 'embed/')
+                return '<iframe  style="' + style + '" src="' + url + '" meta http-equiv="X-Frame-Options" content="allow" frameborder="0" allowfullscreen></iframe>'
+            } else if (facebookPattern.test(data)) {
+                //data = 'https://www.facebook.com/XXXX/videos/XXXXX/' // example
+                //doc https://developers.facebook.com/docs/plugins/embedded-video-player
+                return '<iframe src="https://www.facebook.com/plugins/video.php?href=' + encodeURIComponent(data) + '&show_text=0&width=560" style="border:none;overflow:hidden;' + style + '" scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true"></iframe>'
+            } else if (mediawikiPattern.test(data)) {
+                //data = 'https://commons.wikimedia.org/wiki/File%3AAuguste_%26_Louis_Lumi%C3%A8re-_L'Arroseur_arros%C3%A9_(1895).webm' // example
+                //return '<iframe src="' + data + '?embedplayer=false" style="' + style + '" frameborder="0" allowfullscreen></iframe>'
+                //doc http://html5video.org/wiki/Rewriting_HTML5_Media_Elements
+                return '<video controls style="' + style + '"><source src="' + data + '"></video>'
+            } else {
+                return '<iframe  style="' + style + '" src="' + data + '" meta http-equiv="X-Frame-Options" content="allow" frameborder="0" allowfullscreen></iframe>'
+            }
         })
     }
-        /**/
 
     private static getFunctionColumnDefSpan (style: string): any {
         return (function (data: any, type: any, full: any, meta: any) {
@@ -224,6 +239,7 @@ export class DataTable extends Chart {
                 obj.appendChild(tableElement)
 
                 $( '#' + idChart).DataTable( {
+                    bSort : false,
                     data: dataset ,
                     columns: datasetColumns,
                     columnDefs: datasetColumnsDefs,
