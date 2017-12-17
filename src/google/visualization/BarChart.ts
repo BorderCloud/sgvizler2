@@ -47,7 +47,6 @@ export class BarChart extends Chart {
         return 'tutorial-google_visualization_BarChart.html'
     }
 
-    
     /**
      * Make a standard simple html table.
      * Available options:
@@ -78,24 +77,14 @@ export class BarChart extends Chart {
                 BarChart.init()
             }
 
-            /*google.charts.setOnLoadCallback(
-                () => {
-                    let data = new Data(result)
-                    let table = new google.visualization.BarChart(document.getElementById(currentChart.container.id))
-                    table.draw(data.getDataTable(), currentChart.options)
-                }
-            )*/
-
-            google.charts.setOnLoadCallback(drawSeriesChart)
-
-            function drawSeriesChart() {
+            google.charts.setOnLoadCallback(function () {
                 let data = new Data(result)
-                console.log(data.getDataTable())
-                console.log(data.getDataTable()["hc"])
-                console.log(data.getDataTable().showRowNumber)
+                // console.log(data.getDataTable())
+                // console.log(data.getDataTable()["hc"])
+                // console.log(data.getDataTable().showRowNumber)
                 let chart = new google.visualization.BarChart(document.getElementById(currentChart.container.id))
                 chart.draw(data.getDataTable(), opt)
-            }
+            })
             // finish
             return resolve()
         })

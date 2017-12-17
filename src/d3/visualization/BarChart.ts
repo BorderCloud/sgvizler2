@@ -1,3 +1,5 @@
+/** Work in progress, help us ! */
+
 import {
     Chart,
     SparqlResultInterface,

@@ -52,9 +52,9 @@
     </h3>
 
         <h4>
-            BarChart 1 :
+            BarChart by default :
         </h4>
-        <p>With options "isStacked=false"</p>
+        <p>With options "isStacked=false" (default) and  "sortBarsBySize=true" </p>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
@@ -75,9 +75,9 @@
                          ?populationStatement ps:P1082 ?population.
                          ?populationStatement pq:P585 ?date.
                        }
-                       ORDER BY ?year" 
-                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
-                data-sgvizler-chart="google.visualization.BarChart" 
+                       ORDER BY ?year"
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                data-sgvizler-chart="google.visualization.BarChart"
                 data-sgvizler-log="0"></div>
 
                 </div>
@@ -85,27 +85,16 @@
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
                     data-sgvizler-query="
-                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
-                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
-                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
-                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
-                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
-                    WHERE {
-                              ?pays wdt:P31 wd:Q6256.
-                              ?pays wdt:P2132 ?pib .
-                              ?pays wdt:P1082 ?population .
-                              ?pays wdt:P30 ?continent .
-                    SERVICE wikibase:label {
-                         bd:serviceParam wikibase:language 'en' .
-                    }
-                    
-                          }
-                    LIMIT 200" 
-                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
-                data-sgvizler-chart="google.visualization.BarChart" 
-                data-sgvizler-option="sortBarsBySize:true" 
+                    SELECT (YEAR(?date) AS ?year) ?population WHERE {
+                        wd:Q90  p:P1082 ?populationStatement.
+                         ?populationStatement ps:P1082 ?population.
+                         ?populationStatement pq:P585 ?date.
+                       }
+                       ORDER BY ?year"
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                data-sgvizler-chart="google.visualization.BarChart"
                 data-sgvizler-log="0">
-    
+
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
@@ -122,11 +111,8 @@
             </div>
         </div>
 
-
-
-
         <h4>
-            BarChart 2
+            BarChart with options : isStacked
         </h4>
         <p>With options "isStacked=true"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_2">
@@ -150,9 +136,9 @@
                          ?populationStatement ps:P1082 ?population.
                          ?populationStatement pq:P585 ?date.
                        }
-                       ORDER BY ?year" 
-                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
-                data-sgvizler-chart="google.visualization.BarChart" 
+                       ORDER BY ?year"
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                data-sgvizler-chart="google.visualization.BarChart"
                 data-sgvizler-chart-options="isStacked=true"
                 data-sgvizler-log="0">
                     </div>
@@ -161,27 +147,17 @@
             <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
                     data-sgvizler-query="
-                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
-                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
-                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
-                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
-                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
-                    WHERE {
-                              ?pays wdt:P31 wd:Q6256.
-                              ?pays wdt:P2132 ?pib .
-                              ?pays wdt:P1082 ?population .
-                              ?pays wdt:P30 ?continent .
-                    SERVICE wikibase:label {
-                         bd:serviceParam wikibase:language 'en' .
-                    }
-                    
-                          }
-                    LIMIT 200" 
-                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
-                data-sgvizler-chart="google.visualization.BarChart"  
-                data-sgvizler-option="sortBarsBySize:false"
+                    SELECT (YEAR(?date) AS ?year) ?population WHERE {
+                        wd:Q90  p:P1082 ?populationStatement.
+                         ?populationStatement ps:P1082 ?population.
+                         ?populationStatement pq:P585 ?date.
+                       }
+                       ORDER BY ?year"
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                data-sgvizler-chart="google.visualization.BarChart"
+                data-sgvizler-chart-options="isStacked=true"
                 data-sgvizler-log="0">
-    
+
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_2" role="tabpanel">

@@ -15,7 +15,7 @@
         </div-->
 
         <p>
-            BarChart of results.
+            BarChart with d3js . Work in progress, help us !
         </p>
 
         <h4>
@@ -87,25 +87,7 @@
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
 data-sgvizler-query="
-PREFIX bd: &lt;http://www.bigdata.com/rdf#>
-PREFIX wikibase: &lt;http://wikiba.se/ontology#>
-PREFIX wd: &lt;http://www.wikidata.org/entity/>
-PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
 
-select   ?countryLabel (COUNT(?asteroid) as ?nb)
-where {
-        ?asteroid wdt:P31 wd:Q3863 ;
-                  wdt:P61 ?discoverer .
-     ?discoverer wdt:P27 ?country .
-
-       SERVICE wikibase:label {
-        bd:serviceParam wikibase:language 'en' .
-      } .
-
-}
-GROUP BY  ?countryLabel
-ORDER BY DESC(?nb)
-limit 7
 "
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="d3.visualization.BarChart"
