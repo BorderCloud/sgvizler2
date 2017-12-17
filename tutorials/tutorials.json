@@ -19,5 +19,11 @@
   },
   "d3_visualization_Pie": {
     "title": "d3.visualization.Pie (Example)"
+  },
+  "google_visualization_BarChart": {
+    "title": "google.visualization.BarChart"
+  },
+  "d3_visualization_BarChart": {
+    "title": "d3.visualization.BarChart (Example)"
   }
 }
