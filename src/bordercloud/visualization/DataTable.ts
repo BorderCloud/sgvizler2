@@ -84,6 +84,11 @@ export class DataTable extends Chart {
                 case 'span':
                     datasetColumnsFunc = this.getFunctionColumnDefSpan(colOptions[c][DATATABLE_COL_OPTIONS.STYLE])
                     break
+                    /**/
+                case 'youtube':
+                    datasetColumnsFunc = this.getFunctionColumnDefYoutube(colOptions[c][DATATABLE_COL_OPTIONS.STYLE])
+                    break
+                    /**/
                 default:
                     datasetColumnsFunc = this.getFunctionColumnDefDefault()
             }
@@ -108,6 +113,14 @@ export class DataTable extends Chart {
             return '<img src="' + data + '"  style="' + style + '"\>'
         })
     }
+        /**/
+    private static getFunctionColumnDefYoutube (style: string): any {
+        return (function (data: any, type: any, full: any, meta: any) {
+            return '<iframe width="420" height="315" src="https://www.youtube.com/embed/XGSy3_Czz8k" meta http-equiv="X-Frame-Options" content="allow" frameborder="0" allowfullscreen></iframe>'
+        })
+    }
+        /**/
+
     private static getFunctionColumnDefSpan (style: string): any {
         return (function (data: any, type: any, full: any, meta: any) {
             return '<span style="' + style + '"\>' + data + '</span>'
