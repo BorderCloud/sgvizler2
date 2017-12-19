@@ -40,5 +40,11 @@
   },
   "d3_visualization_AreaChart": {
     "title": "d3.visualization.AreaChart (Example)"
+  },
+  "google_visualization_Line": {
+    "title": "google.visualization.Line"
+  },
+  "d3_visualization_Line": {
+    "title": "d3.visualization.Line"
   }
 }
