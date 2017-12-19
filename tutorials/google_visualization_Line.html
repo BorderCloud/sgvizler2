@@ -22,8 +22,6 @@
             Line options:
         </h4>
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
             <colgroup>
                 <col class="left">
 
@@ -40,29 +38,25 @@
             </thead>
             <tbody>
             <tr>
-                <td class="left"><code>title</code></td>
-                <td class="left">Largest cities with female mayor</td>
-                <td class="left">Chart title</td>
+                <td class="left"><code>width</code></td>
+                <td class="left">100%</td>
+                <td class="left">Chart width</td>
             </tr>
             <tr>
-                <td class="left"><code>curveType</code></td>
-                <td class="left">function</td>
-                <td class="left">Controls the curve of the lines when the line width is not zero.</td>
+                <td class="left"><code>height</code></td>
+                <td class="left"></td>
+                <td class="left">Chart height</td>
             </tr>
             <tr>
-                <td class="left"><code>legend</code></td>
-                <td class="left">bottom</td>
-                <td class="left">Chart legend position</td>
+                <td class="left"><code>Others... </code></td>
+                <td class="left"></td>
+                <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/linechart#configuration-options">See the doc</a></td>
             </tr>
             </tbody>
         </table>
 
-    <h3>
-        Examples
-    </h3>
-
         <h4>
-            Line example 1 :
+            Exemple
         </h4>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
             <li class="nav-item">
@@ -77,59 +71,44 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="example" style="padding: 25px;"><div id="result"
-                    data-sgvizler-query='
-                    PREFIX bd: <http://www.bigdata.com/rdf#> 
-                    PREFIX wikibase: <http://wikiba.se/ontology#>
-                    PREFIX wd: <http://www.wikidata.org/entity/> 
-                    PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-                    PREFIX p: <http://www.wikidata.org/prop/>
-                    PREFIX q: <http://www.wikidata.org/prop/qualifier/>
-                    PREFIX v: <http://www.wikidata.org/prop/statement/>
-                    
-                    SELECT DISTINCT  ?cityLabel ?population WHERE {
-                      ?city wdt:P31/wdt:P279* wd:Q515 .
-                      ?city p:P6 ?statement . 
-                      ?statement v:P6 ?mayor .          
-                      ?mayor wdt:P21 wd:Q6581072 .      
-                      FILTER NOT EXISTS { ?statement q:P582 ?x }  
-                      ?city wdt:P1082 ?population .
-                      SERVICE wikibase:label {
-                        bd:serviceParam wikibase:language "en" .
-                      }
-                     } ORDER BY DESC(?population) LIMIT 15'
+                <div id="result"
+                     data-sgvizler-query="PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
+prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
+
+select (YEAR(?date) as ?year) ?population
+where {
+       wd:Q61816 p:P1082 ?statement .
+        ?statement ps:P1082 ?population ;
+                    pq:P585 ?date .
+      }
+ORDER BY ?year"
                      data-sgvizler-endpoint="https://query.wikidata.org/sparql"
                      data-sgvizler-chart="google.visualization.Line"
-                     data-sgvizler-log="0"></div>
-
-                </div>
+                     data-sgvizler-options="height=500px"
+                     data-sgvizler-log="0"
+                ></div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
-data-sgvizler-query='
-PREFIX bd: <http://www.bigdata.com/rdf#> 
-PREFIX wikibase: <http://wikiba.se/ontology#>
-PREFIX wd: <http://www.wikidata.org/entity/> 
-PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-PREFIX p: <http://www.wikidata.org/prop/>
-PREFIX q: <http://www.wikidata.org/prop/qualifier/>
-PREFIX v: <http://www.wikidata.org/prop/statement/>
+data-sgvizler-query="PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
+prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
 
-SELECT DISTINCT  ?cityLabel ?population WHERE {
-  ?city wdt:P31/wdt:P279* wd:Q515 .
-  ?city p:P6 ?statement . 
-  ?statement v:P6 ?mayor .          
-  ?mayor wdt:P21 wd:Q6581072 .      
-  FILTER NOT EXISTS { ?statement q:P582 ?x }  
-  ?city wdt:P1082 ?population .
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "en" .
-  }
- } ORDER BY DESC(?population) LIMIT 15
-'
+select (YEAR(?date) as ?year) ?population
+where {
+    wd:Q61816 p:P1082 ?statement .
+    ?statement ps:P1082 ?population ;
+    pq:P585 ?date .
+}
+ORDER BY ?year"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Table"
-&gt;&lt;/div&gt;</pre></div>
+data-sgvizler-chart="d3.visualization.Line"
+data-sgvizler-options="height=500px"
+data-sgvizler-log="0"
+                &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
@@ -145,95 +124,6 @@ data-sgvizler-chart="google.visualization.Table"
             </div>
         </div>
 
-
-
-
-        <h4>
-            Line example 2
-        </h4>
-        <p>With options "legend:top;curveType:None"</p>
-        <ul class="nav nav-tabs" role="tablist" id="tab_2">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#resultTab_2" role="tab" aria-expanded="true">
-                    Result</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#htmlTab_2" role="tab" aria-expanded="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#scriptTab_2" role="tab" aria-expanded="false">Javascript</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">
-                <div id="example_2" style="padding: 25px;">
-                    <div id="result_2" data-sgvizler-query='
-                        PREFIX bd: <http://www.bigdata.com/rdf#> 
-                        PREFIX wikibase: <http://wikiba.se/ontology#>
-                        PREFIX wd: <http://www.wikidata.org/entity/> 
-                        PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-                        PREFIX p: <http://www.wikidata.org/prop/>
-                        PREFIX q: <http://www.wikidata.org/prop/qualifier/>
-                        PREFIX v: <http://www.wikidata.org/prop/statement/>
-                        
-                        SELECT DISTINCT  ?cityLabel ?population WHERE {
-                        ?city wdt:P31/wdt:P279* wd:Q515 .
-                        ?city p:P6 ?statement . 
-                        ?statement v:P6 ?mayor .          
-                        ?mayor wdt:P21 wd:Q6581072 .      
-                        FILTER NOT EXISTS { ?statement q:P582 ?x }  
-                        ?city wdt:P1082 ?population .
-                        SERVICE wikibase:label {
-                            bd:serviceParam wikibase:language "en" .
-                        }
-                        } ORDER BY DESC(?population) LIMIT 15'
-                        data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-                        data-sgvizler-chart="google.visualization.Line" 
-                        data-sgvizler-chart-options="legend:top;curveType:None"
-                        data-sgvizler-log="0">
-                    </div>
-               </div>
-            </div>
-            <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
-data-sgvizler-query='
-REFIX bd: <http://www.bigdata.com/rdf#> 
-PREFIX wikibase: <http://wikiba.se/ontology#>
-PREFIX wd: <http://www.wikidata.org/entity/> 
-PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-PREFIX p: <http://www.wikidata.org/prop/>
-PREFIX q: <http://www.wikidata.org/prop/qualifier/>
-PREFIX v: <http://www.wikidata.org/prop/statement/>
-
-SELECT DISTINCT  ?cityLabel ?population WHERE {
-  ?city wdt:P31/wdt:P279* wd:Q515 .
-  ?city p:P6 ?statement . 
-  ?statement v:P6 ?mayor .          
-  ?mayor wdt:P21 wd:Q6581072 .      
-  FILTER NOT EXISTS { ?statement q:P582 ?x }  
-  ?city wdt:P1082 ?population .
-  SERVICE wikibase:label {
-    bd:serviceParam wikibase:language "en" .
-  }
- } ORDER BY DESC(?population) LIMIT 15'
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Table"
-data-sgvizler-chart-options="legend:top"
-&gt;&lt;/div&gt;</pre></div>
-            </div>
-            <div class="tab-pane" id="scriptTab_2" role="tabpanel">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_2">&lt;script src="../build/browser/sgvizler2.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-   //Draw a chart
-   //sgvizler2.containerDraw('result');
-   //or
-   //$("#result").containerchart();
-
-   //Draw all Chart
-   sgvizler2.containerDrawAll();
-&lt;/script&gt;</pre></div>
-            </div>
-        </div>
 
         <!--SCRIPT-->
         <script>

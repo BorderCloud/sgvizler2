@@ -57,11 +57,15 @@ export class Line extends Chart {
         let currentChart = this
         return new Promise(function (resolve, reject) {
 
+            let height = '100%'
+            if (currentChart.height !== '') {
+                height = currentChart.height
+            }
+
             let opt = Object.assign({
-                title: 'Largest cities with female mayor',
-                curveType: 'function',
-                legend: { position: 'bottom' },
-                height: '400'
+                showRowNumber: false,
+                width: currentChart.width,
+                height: height
             }, currentChart.options)
 
             if (! Line._isInit) {

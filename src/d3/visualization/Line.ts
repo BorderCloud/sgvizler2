@@ -54,7 +54,7 @@ export class Line extends Chart {
         return new Promise(function (resolve, reject) {
             // transform query
             // console.log(noCols + " x " + noRows)
-console.log('test')
+            //console.log('test')
             let heightOpt = '100%'
             if (currentChart.height !== '') {
                 heightOpt = currentChart.height
@@ -90,7 +90,7 @@ console.log('test')
                 top: 30,
                 right: 20 * 3,
                 bottom: 30,
-                left: 50
+                left: 70
             }
             let width = 800 - margin.left - margin.right
             let height = 570 - margin.top - margin.bottom
@@ -107,7 +107,7 @@ console.log('test')
             y.domain([0, d3.max(dataset, function (d: any) {
             return d.count
             })])
-            let yAxis = d3.axisRight().scale(y).ticks(17)
+            let yAxis = d3.axisLeft().scale(y).ticks(17)
 
             let valueline = d3.line()
                 .x(function (d: any) {

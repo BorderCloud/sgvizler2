@@ -13,5 +13,5 @@ test.beforeEach('setup fixture',
 test('test fails', t => {
     sgvizler2.containerDrawAll()
     // t.is(t.context.document.getElementById('google-visualization-errors-0').textContent, 'All series on a given axis must be of the same data type')
-    t.pass('trop dur à tester')
+    t.pass('todo')
 })
