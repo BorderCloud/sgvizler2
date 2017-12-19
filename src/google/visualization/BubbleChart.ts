@@ -9,12 +9,12 @@ import { API } from '../API'
 declare let google: any
 
 /**
- * Todo BarChart
- * @class google.visualization.BarChart
- * @tutorial google_visualization_BarChart
+ * Todo BubbleChart
+ * @class google.visualization.BubbleChart
+ * @tutorial google_visualization_BubbleChart
  * @memberof google.visualization
  */
-export class BarChart extends Chart {
+export class BubbleChart extends Chart {
     private static _isInit: boolean = false
 
     public constructor () {
@@ -23,8 +23,8 @@ export class BarChart extends Chart {
     }
 
     private static init () {
-        google.charts.load('current', {'packages': ['barchart']})
-        BarChart._isInit = true
+        google.charts.load('current', {'packages': ['corechart']})
+        BubbleChart._isInit = true
     }
 
     public get icon (): string {
@@ -32,26 +32,26 @@ export class BarChart extends Chart {
     }
 
     public get label (): string {
-        return 'BarChart'
+        return 'BubbleChart'
     }
 
     public get subtext (): string {
-        return 'BarChart'
+        return 'BubbleChart'
     }
 
     public get classFullName (): string {
-        return 'google.visualization.BarChart'
+        return 'google.visualization.BubbleChart'
     }
 
     public get tutorialFilename (): string {
-        return 'tutorial-google_visualization_BarChart.html'
+        return 'tutorial-google_visualization_BubbleChart.html'
     }
 
     /**
-     * Make a standard simple html table.
+     * Make a standard simple html bubbleChart.
      * Available options:
      * - 'headings'   :  "true" / "false"  (default: "true")
-     * @memberOf BarChart
+     * @memberOf BubbleChart
      * @returns {Promise<void>}
      * @param result
      */
@@ -61,30 +61,25 @@ export class BarChart extends Chart {
             // transform query
             // console.log(noCols + " x " + noRows)
 
-            let height = '400'
+            let height = '500'
             if (currentChart.height !== '') {
                 height = currentChart.height
             }
 
             let opt = Object.assign({
                 width: '100%',
-                height: height,
-                title: 'Population de Paris par année',
-                isStacked: 'false'
+                height: height
             }, currentChart.options)
 
-            if (! BarChart._isInit) {
-                BarChart.init()
+            if (! BubbleChart._isInit) {
+                BubbleChart.init()
             }
 
             google.charts.setOnLoadCallback(
                 () => {
                     let data = new Data(result)
-                    // console.log(data.getDataTable())
-                    // console.log(data.getDataTable()["hc"])
-                    // console.log(data.getDataTable().showRowNumber)
-                    let chart = new google.visualization.BarChart(document.getElementById(currentChart.container.id))
-                    chart.draw(data.getDataTable(), opt)
+                    let chart = new google.visualization.BubbleChart(document.getElementById(currentChart.container.id))
+                     chart.draw(data.getDataTable(), opt)
                 })
             // finish
             return resolve()

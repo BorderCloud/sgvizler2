@@ -79,3 +79,17 @@ test('Chart : function doParseOptionsRaw with the wiki pattern' , t => {
     t.is(c.options.colstyle, 'col2_img_display:block; col2_img_max-width:250px; col2_img_border-radius:50%;' +
         ' col2_img_margin:auto ;col2_img_opacity:0.5')
 })
+
+test('Chart : function doParseOptionsRaw with options of google' , t => {
+    let c = new sgvizler.visualization.Table()
+    c.optionsRaw = 'title=PIB en fonction de la population et les pays | hAxis.title=PIB | vAxis.title=Population | bubble.textStyle.fontSize = 12 | bubble.textStyle.fontName= Arial  | bubble.textStyle.color= black | bubble.textStyle.bold= false | bubble.textStyle.italic= false'
+
+    t.is(c.options.title, 'PIB en fonction de la population et les pays')
+    t.is(c.options.hAxis.title, 'PIB')
+    t.is(c.options.vAxis.title, 'Population')
+    t.is(c.options.bubble.textStyle.fontSize, 12)
+    t.is(c.options.bubble.textStyle.fontName, 'Arial')
+    t.is(c.options.bubble.textStyle.color, 'black')
+    t.is(c.options.bubble.textStyle.bold, false)
+    t.is(c.options.bubble.textStyle.italic, false)
+})

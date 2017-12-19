@@ -374,8 +374,15 @@ export class Container {
             return
         }
 
+        let sparqlResultI = sparqlResult as SparqlResultInterface
+        if (sparqlResultI.head === undefined ) {
+            console.log(sparqlResultI)
+            Logger.displayFeedback(this, MESSAGES.ERROR_CHART, ['ERROR_head_undefined'])
+            this._state = CONTAINER_STATE.FAILED
+        }
+
         try {
-            this._chart.loadDependenciesAndDraw(sparqlResult as SparqlResultInterface)
+            this._chart.loadDependenciesAndDraw(sparqlResultI)
         } catch (error) {
             console.log(error)
             Logger.displayFeedback(this, MESSAGES.ERROR_CHART, [error])

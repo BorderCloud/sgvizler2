@@ -1,4 +1,5 @@
 import {
+    Logger, MESSAGES,
     SparqlResultInterface
 } from '../../sgvizler'
 
