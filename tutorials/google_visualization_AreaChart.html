@@ -15,11 +15,11 @@
         </div-->
 
         <p>
-            Table of results. All columns are treated as text or Headers can be hide.
+            Table of results.
         </p>
 
         <h4>
-            Table options:
+            AreaChart options:
         </h4>
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -42,17 +42,17 @@
             <tr>
                 <td class="left"><code>width</code></td>
                 <td class="left">100%</td>
-                <td class="left">Table width</td>
+                <td class="left">Chart width</td>
             </tr>
             <tr>
                 <td class="left"><code>height</code></td>
                 <td class="left"></td>
-                <td class="left">Table height</td>
+                <td class="left">Chart height</td>
             </tr>
             <tr>
-                <td class="left"><code>headings</code></td>
-                <td class="left">true</td>
-                <td class="left">true/false Print headers.</td>
+                <td class="left"><code>showRowNumber</code></td>
+                <td class="left">false</td>
+                <td class="left">true/false Print number.</td>
             </tr>
             </tbody>
         </table>
@@ -62,7 +62,7 @@
     </h3>
 
         <h4>
-            Table example 1 :
+            AreaChart example 1 :
         </h4>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
             <li class="nav-item">
@@ -78,56 +78,47 @@
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
                 <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query="
-                    PREFIX dbo: <http://dbpedia.org/ontology/> 
-                    PREFIX owl: <http://www.w3.org/2002/07/owl#>
-                    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-                    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-                    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-                    PREFIX dc: <http://purl.org/dc/elements/1.1/>
-                    PREFIX : <http://dbpedia.org/resource/>
-                    PREFIX dbpedia2: <http://dbpedia.org/property/>
-                    PREFIX dbpedia: <http://dbpedia.org/>
-                    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-                    SELECT DISTINCT ?company ?name 
-                    WHERE {
-                          ?company a dbo:Company .
-                          ?company rdfs:label ?name .
-                          ?company dbo:industry :Aerospace_manufacturer .
-                          FILTER (LANG(?name) = 'en') . 
-                          
-                    } ORDER BY ?name
-" 
-data-sgvizler-endpoint="http://dbpedia-live.openlinksw.com/sparql/" 
-data-sgvizler-chart="sgvizler.visualization.Table"></div></div>
+                    PREFIX p: &lt;http://www.wikidata.org/prop/&gt; 
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/&gt; 
+                    prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
+                    prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
+                    select (YEAR(?date) as ?year) ?population
+                    where {
+                           wd:Q61816 p:P1082 ?statement .
+                            ?statement ps:P1082 ?population ;
+                                        pq:P585 ?date .           
+                          } 
+                    ORDER BY ?year" 
+data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
+data-sgvizler-chart="google.visualization.AreaChart" 
+data-sgvizler-chart-options='title=Population|
+hAxis.title:Year|titleTextStyle.color=#333
+vAxis.minValue=0'
+data-sgvizler-endpoint_output_format='json'
+ data-sgvizler-loglevel='2'></div></div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
 data-sgvizler-query="
-PREFIX dbo: &lt;http://dbpedia.org/ontology/> 
-PREFIX owl: &lt;http://www.w3.org/2002/07/owl#>
-PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#>
-PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#>
-PREFIX rdf: &lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX foaf: &lt;http://xmlns.com/foaf/0.1/>
-PREFIX dc: &lt;http://purl.org/dc/elements/1.1/>
-PREFIX : &lt;http://dbpedia.org/resource/>
-PREFIX dbpedia2: &lt;http://dbpedia.org/property/>
-PREFIX dbpedia: &lt;http://dbpedia.org/>
-PREFIX skos: &lt;http://www.w3.org/2004/02/skos/core#>
-
-SELECT DISTINCT ?company ?name 
-WHERE {
-      ?company a dbo:Company .
-      ?company rdfs:label ?name .
-      ?company dbo:industry :Aerospace_manufacturer .
-      FILTER (LANG(?name) = 'en') . 
-      
-} ORDER BY ?name
-"
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt; 
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt; 
+prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
+prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
+select (YEAR(?date) as ?year) ?population
+where {
+       wd:Q61816 p:P1082 ?statement .
+        ?statement ps:P1082 ?population ;
+                    pq:P585 ?date .           
+      } 
+ORDER BY ?year"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="sgvizler.visualization.Table"
-&gt;&lt;/div&gt;</pre></div>
+data-sgvizler-chart="google.visualization.AreaChart"
+data-sgvizler-endpoint_output_format='json'
+data-sgvizler-chart-options='title=Population,with,AreaChart|
+hAxis.title:Year|titleTextStyle.color=#333
+vAxis.minValue=0'
+&gt;&lt;/div&gt;
+</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
@@ -143,10 +134,13 @@ data-sgvizler-chart="sgvizler.visualization.Table"
             </div>
         </div>
 
+
+
+
         <h4>
-            Table example 2
+            AreaChart example bleu clair 
         </h4>
-<p>With option "headings=false"</p>
+        <p>With option "showRowNumber=true"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_2">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#resultTab_2" role="tab" aria-expanded="true">
@@ -162,39 +156,41 @@ data-sgvizler-chart="sgvizler.visualization.Table"
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">
                 <div id="example_2" style="padding: 25px;"><div id="result_2" data-sgvizler-query="
-                    PREFIX p: <http://www.wikidata.org/prop/> 
-                    PREFIX wd: <http://www.wikidata.org/entity/> 
-                    prefix pq: <http://www.wikidata.org/prop/qualifier/>
-                    prefix ps: <http://www.wikidata.org/prop/statement/>
-                    
+                    PREFIX p: &lt;http://www.wikidata.org/prop/&gt; 
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/&gt; 
+                    prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
+                    prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
                     select (YEAR(?date) as ?year) ?population
                     where {
                            wd:Q61816 p:P1082 ?statement .
                             ?statement ps:P1082 ?population ;
                                         pq:P585 ?date .           
                           } 
-                    ORDER BY ?year
-" data-sgvizler-endpoint="https://query.wikidata.org/sparql"
- data-sgvizler-chart="sgvizler.visualization.Table" data-sgvizler-chart-options="headings=false" data-sgvizler-log="0"></div></div>
+                    ORDER BY ?year" 
+data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
+data-sgvizler-chart="google.visualization.AreaChart" 
+data-sgvizler-chart-options='is3D=true'
+data-sgvizler-endpoint_output_format='json'
+ data-sgvizler-loglevel='2'></div></div>
             </div>
             <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
 data-sgvizler-query="
-PREFIX p: &lt;http://www.wikidata.org/prop/> 
-PREFIX wd: &lt;http://www.wikidata.org/entity/> 
-prefix pq: &lt;http://www.wikidata.org/prop/qualifier/>
-prefix ps: &lt;http://www.wikidata.org/prop/statement/>
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt; 
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt; 
+prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
+prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
 select (YEAR(?date) as ?year) ?population
 where {
        wd:Q61816 p:P1082 ?statement .
         ?statement ps:P1082 ?population ;
                     pq:P585 ?date .           
       } 
-ORDER BY ?year
-"
+ORDER BY ?year"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="sgvizler.visualization.Table"
-data-sgvizler-chart-options="headings=false"
+data-sgvizler-chart="google.visualization.AreaChart"
+data-sgvizler-endpoint_output_format='json'
+data-sgvizler-chart-options='is3D=true'
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_2" role="tabpanel">
@@ -213,7 +209,7 @@ data-sgvizler-chart-options="headings=false"
 
         <!--SCRIPT-->
         <script>
-    sgvizler2.containerDrawAll();   
-    </script>
+            sgvizler2.containerDrawAll();
+        </script>
     </div>
 </div>

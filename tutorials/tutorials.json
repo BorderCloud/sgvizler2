@@ -20,6 +20,9 @@
   "google_visualization_Table": {
     "title": "google.visualization.Table"
   },
+  "google_visualization_Pie": {
+    "title": "google.visualization.Pie"
+  },
   "google_visualization_Map": {
     "title": "google.visualization.Map"
   },
@@ -31,5 +34,11 @@
   },
   "d3_visualization_BarChart": {
     "title": "d3.visualization.BarChart (Example)"
+  },
+  "google_visualization_AreaChart": {
+    "title": "google.visualization.AreaChart"
+  },
+  "d3_visualization_AreaChart": {
+    "title": "d3.visualization.AreaChart (Example)"
   }
 }
