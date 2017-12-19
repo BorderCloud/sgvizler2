@@ -54,7 +54,7 @@ export class AreaChart extends Chart {
         return new Promise(function (resolve, reject) {
             // transform query
             // console.log(noCols + " x " + noRows)
-console.log('test')
+            console.log('test')
             let heightOpt = '100%'
             if (currentChart.height !== '') {
                 heightOpt = currentChart.height
@@ -67,7 +67,7 @@ console.log('test')
             }, currentChart.options)
 
             // build the datatable
-            let cols = result.head.vars
+            /*let cols = result.head.vars
             let rows = result.results.bindings
             let noCols = cols.length
             let noRows = rows.length
@@ -96,7 +96,7 @@ console.log('test')
                 left: 50
             }
             let width = 800 - margin.left - margin.right
-            let height = 570 - margin.top - margin.bottom 
+            let height = 570 - margin.top - margin.bottom
             let parseDate = d3.time.format('%d-%b-%y').parse
             // x axis
             let x = d3.scalePoint().range([0, width])
@@ -138,10 +138,47 @@ data.forEach(function (d: any) {
                 .call(xAxis)
             svg.append('g') // Add the Y Axis
                 .attr('class', 'y axis')
-                .call(yAxis)
+                .call(yAxis)*/
             // finish
-            return resolve()
-                })
+
+            // Example
+            let containerElement = d3.select('#' + currentChart.container.id)
+            let containerElementNode = containerElement.node() as any
+            if (containerElementNode) {
+                let width = containerElementNode.clientWidth !== 0 ? containerElementNode.clientWidth : 300
+                let height = containerElementNode.clientHeight !== 0 ? containerElementNode.clientHeight : 150
+                let svg = containerElement.append('svg') // associate our data with the document
+                    .attr('width', width)
+                    .attr('height', height)
+                    .attr('id', 'idtest')
+
+                let margin = { top: 20, right: 20, bottom: 30, left: 40 }
+                let widthChart = width - (margin.left + margin.right)
+                let heightChart = height - (margin.top + margin.bottom)
+
+                let xScale = d3.scaleLinear()
+                let yScale = d3.scaleLinear()
+
+                let xAxisCall = d3.axisBottom()
+                let yAxisCall = d3.axisLeft()
+
+                xScale.domain([0, 100]).range([0, widthChart])
+                yScale.domain([0, 100]).range([heightChart, 0])
+
+                xAxisCall.scale(xScale)
+                yAxisCall.scale(yScale)
+
+                let newX = svg.append('g')
+                // .attr('class', 'x axis')
+                    .attr('transform', 'translate(' + [margin.left, heightChart + margin.top] + ')')
+                    .call(xAxisCall)
+                let newY = svg.append('g')
+                // .attr('class', 'y axis')
+                    .attr('transform', 'translate(' + [margin.left, margin.top] + ')')
+                    .call(yAxisCall)
+
             }
-        }
-    
+            return resolve()
+        })
+    }
+}
