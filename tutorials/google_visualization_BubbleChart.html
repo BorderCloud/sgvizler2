@@ -39,11 +39,21 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td class="left"><code>textStyle</code></td>
-                <td class="left">Black</td>
-                <td class="left">Controls the color of the bubble's color</td>
-            </tr>
+                <tr>
+                    <td class="left"><code>width</code></td>
+                    <td class="left">100%</td>
+                    <td class="left">Chart width</td>
+                </tr>
+                <tr>
+                    <td class="left"><code>height</code></td>
+                    <td class="left"></td>
+                    <td class="left">Chart height</td>
+                </tr>
+                <tr>
+                    <td class="left"><code>Others... </code></td>
+                    <td class="left"></td>
+                    <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/bubblechart#configuration-options">See the doc</a></td>
+                </tr>
             </tbody>
         </table>
 
@@ -52,7 +62,7 @@
     </h3>
 
         <h4>
-            BubbleChart 1 :
+            BubbleChart without options :
         </h4>
         <p>With options "textStyle.Color=green"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
@@ -70,10 +80,10 @@
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
                 <div id="example" style="padding: 25px;"><div id="result"
                     data-sgvizler-query="
-                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
-                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
-                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
-                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
+                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#>
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/>
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
                     select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
                     WHERE {
                               ?pays wdt:P31 wd:Q6256.
@@ -83,23 +93,22 @@
                     SERVICE wikibase:label {
                          bd:serviceParam wikibase:language 'en' .
                     }
-                    
-                          }
-                    LIMIT 200" 
-                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
-                data-sgvizler-chart="google.visualization.BubbleChart" 
-                data-sgvizler-chart-options="textStyle_color=green"
-                data-sgvizler-log="0"></div>
 
+                          }
+                    LIMIT 200"
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                data-sgvizler-chart="google.visualization.BubbleChart"
+                data-sgvizler-chart-options=""
+                data-sgvizler-log="2"></div>
                 </div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
                     data-sgvizler-query="
-                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
-                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
-                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
-                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
+                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#>
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/>
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
                     select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
                     WHERE {
                               ?pays wdt:P31 wd:Q6256.
@@ -109,14 +118,14 @@
                     SERVICE wikibase:label {
                          bd:serviceParam wikibase:language 'en' .
                     }
-                    
+
                           }
-                    LIMIT 200" 
-                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
-                data-sgvizler-chart="google.visualization.BubbleChart" 
-                data-sgvizler-option="sortBubblesBySize:true" 
+                    LIMIT 200"
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                data-sgvizler-chart="google.visualization.BubbleChart"
+                data-sgvizler-chart-options=""
                 data-sgvizler-log="0">
-    
+
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
@@ -137,7 +146,7 @@
 
 
         <h4>
-            BubbleChart 2
+            BubbleChart with options :
         </h4>
         <p>With options "textStyle.Color=red"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_2">
@@ -155,37 +164,38 @@
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">
                 <div id="example_2" style="padding: 25px;">
-                    <div id="result_2" data-sgvizler-query="
-                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
-                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
-                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
-                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
+                    <div id="result_2"
+                    data-sgvizler-query="
+                         PREFIX bd: &lt;http://www.bigdata.com/rdf#>
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#>
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/>
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
                     select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
                     WHERE {
-                              ?pays wdt:P31 wd:Q6256.
-                              ?pays wdt:P2132 ?pib .
-                              ?pays wdt:P1082 ?population .
-                              ?pays wdt:P30 ?continent .
+                    ?pays wdt:P31 wd:Q6256.
+                    ?pays wdt:P2132 ?pib .
+                    ?pays wdt:P1082 ?population .
+                    ?pays wdt:P30 ?continent .
                     SERVICE wikibase:label {
-                         bd:serviceParam wikibase:language 'en' .
+                    bd:serviceParam wikibase:language 'en' .
                     }
-                    
-                          }
-                    LIMIT 200" 
-                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
-                data-sgvizler-chart="google.visualization.BubbleChart" 
-                data-sgvizler-chart-options="textStyle_color=red"
-                data-sgvizler-log="0">
+
+                    }
+                    LIMIT 200"
+                    data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                    data-sgvizler-chart="google.visualization.BubbleChart"
+                    data-sgvizler-chart-options="title=PIB en fonction de la population et les pays | hAxis.title=PIB | vAxis.title=Population | bubble.textStyle.fontSize = 12 | bubble.textStyle.fontName= Arial  | bubble.textStyle.color= red | bubble.textStyle.bold= true"
+                data-sgvizler-log="2">
                     </div>
                </div>
             </div>
             <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
                     data-sgvizler-query="
-                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
-                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
-                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
-                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
+                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#>
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/>
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
                     select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
                     WHERE {
                               ?pays wdt:P31 wd:Q6256.
@@ -195,14 +205,14 @@
                     SERVICE wikibase:label {
                          bd:serviceParam wikibase:language 'en' .
                     }
-                    
+
                           }
-                    LIMIT 200" 
-                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
-                data-sgvizler-chart="google.visualization.BubbleChart"  
-                data-sgvizler-option="sortBubblesBySize:false"
+                    LIMIT 200"
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                data-sgvizler-chart="google.visualization.BubbleChart"
+                data-sgvizler-chart-options="title=PIB en fonction de la population et les pays | hAxis.title=PIB | vAxis.title=Population | bubble.textStyle.fontSize = 12 | bubble.textStyle.fontName= Arial  | bubble.textStyle.color= red | bubble.textStyle.bold= true"
                 data-sgvizler-log="0">
-    
+
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_2" role="tabpanel">

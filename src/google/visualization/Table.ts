@@ -60,6 +60,7 @@ export class Table extends Chart {
         return new Promise(function (resolve, reject) {
             // transform query
             // console.log(noCols + " x " + noRows)
+
             let height = '100%'
             if (currentChart.height !== '') {
                 height = currentChart.height

@@ -77,14 +77,15 @@ export class BarChart extends Chart {
                 BarChart.init()
             }
 
-            google.charts.setOnLoadCallback(function () {
-                let data = new Data(result)
-                // console.log(data.getDataTable())
-                // console.log(data.getDataTable()["hc"])
-                // console.log(data.getDataTable().showRowNumber)
-                let chart = new google.visualization.BarChart(document.getElementById(currentChart.container.id))
-                chart.draw(data.getDataTable(), opt)
-            })
+            google.charts.setOnLoadCallback(
+                () => {
+                    let data = new Data(result)
+                    // console.log(data.getDataTable())
+                    // console.log(data.getDataTable()["hc"])
+                    // console.log(data.getDataTable().showRowNumber)
+                    let chart = new google.visualization.BarChart(document.getElementById(currentChart.container.id))
+                    chart.draw(data.getDataTable(), opt)
+                })
             // finish
             return resolve()
         })

@@ -80,6 +80,7 @@
             </tr>
             </tbody>
         </table>
+    </div>
 
     <h3>
         Examples
@@ -133,9 +134,7 @@ where {
                      data-sgvizler-chart-options=''
                      data-sgvizler-endpoint_output_format='json'
                      data-sgvizler-loglevel='2'
-                     style='width:100%; height:450px;'  />
-
-                </div>
+                     style='width:100%; height:450px;'></div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
@@ -168,7 +167,7 @@ where {
 }
 "
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Map"
+                     data-sgvizler-chart='google.visualization.Map'
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
@@ -209,35 +208,40 @@ data-sgvizler-chart="google.visualization.Map"
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">
-                <div id="example_2" style="padding: 25px;"><div id="result_2" data-sgvizler-query="
-PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#>
-PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/>
-PREFIX p: &lt;http://www.wikidata.org/prop/>
-PREFIX bd: &lt;http://www.bigdata.com/rdf#>
-PREFIX wikibase: &lt;http://wikiba.se/ontology#>
-PREFIX wd: &lt;http://www.wikidata.org/entity/>
-PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
+                    <div id="result_2"
+                                          data-sgvizler-query="
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/&gt;
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
 
 select distinct
 ?lat ?long ?siteLabel ?siteDescription
 ?site
 (concat(xsd:string(?image),'?width=200') as ?newimage)
 where {
-?site wdt:P31/wdt:P279* wd:Q839954 .
-?site wdt:P17 wd:Q142 .
-?site wdt:P18 ?image .
-?site p:P625 ?coord .
+        ?site wdt:P31/wdt:P279* wd:Q839954 .
+        ?site wdt:P17 wd:Q142 .
+        ?site wdt:P18 ?image .
+   ?site p:P625 ?coord .
 
-?coord   psv:P625 ?coordValue .
+          ?coord   psv:P625 ?coordValue .
 
-?coordValue a wikibase:GlobecoordinateValue ;
-wikibase:geoLatitude ?lat ;
-wikibase:geoLongitude ?long .
+          ?coordValue a wikibase:GlobecoordinateValue ;
+                        wikibase:geoLatitude ?lat ;
+                        wikibase:geoLongitude ?long .
 
-SERVICE wikibase:label {
-bd:serviceParam wikibase:language 'en,fr' .
-}
-}" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="leaflet.visualization.Table" data-sgvizler-chart-options="showRowNumber=true" data-sgvizler-log="0"></div></div>
+        SERVICE wikibase:label {
+             bd:serviceParam wikibase:language 'en,fr' .
+                }
+                }"
+                                          data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart='google.visualization.Map'
+data-sgvizler-chart-options=""
+data-sgvizler-log="2"></div>
             </div>
             <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
@@ -273,7 +277,7 @@ bd:serviceParam wikibase:language 'en,fr' .
 }"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="google.visualization.Table"
-data-sgvizler-chart-options="showRowNumber=true"
+data-sgvizler-chart-options=""
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_2" role="tabpanel">
@@ -295,12 +299,119 @@ data-sgvizler-chart-options="showRowNumber=true"
 &lt;/script&gt;</pre></div>
             </div>
         </div>
-       test 
-        <!--SCRIPT-->
-        <script>
-            sgvizler2.containerDrawAll({
-                googleApiKey : "AIzaSyBro_IlWgOb5o4C80IWZhq0YHhemlRta3Q"
-            });
-        </script>
+
+
+    <h4>
+        Example 3 : Empty result
+    </h4>
+    <p>With option "showRowNumber=true"</p>
+    <ul class="nav nav-tabs" role="tablist" id="tab_3">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#resultTab_3" role="tab" aria-expanded="true">
+                Result</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#htmlTab_3" role="tab" aria-expanded="false">HTML</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#scriptTab_3" role="tab" aria-expanded="false">Javascript</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="resultTab_3" role="tabpanel" aria-expanded="false">
+            <div id="result_3" data-sgvizler-query="
+    PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#>
+    PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/>
+    PREFIX p: &lt;http://www.wikidata.org/prop/>
+    PREFIX bd: &lt;http://www.bigdata.com/rdf#>
+    PREFIX wikibase: &lt;http://wikiba.se/ontology#>
+    PREFIX wd: &lt;http://www.wikidata.org/entity/>
+    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
+
+    select distinct
+    ?lat ?long ?siteLabel ?siteDescription
+    ?site
+    (concat(xsd:string(?image),'?width=200') as ?newimage)
+    where {
+    ?site wdt:P31/wdt:P279* wd:Q839000954 . #wrong type
+    ?site wdt:P17 wd:Q142 .
+    ?site wdt:P18 ?image .
+    ?site p:P625 ?coord .
+
+    ?coord   psv:P625 ?coordValue .
+
+    ?coordValue a wikibase:GlobecoordinateValue ;
+    wikibase:geoLatitude ?lat ;
+    wikibase:geoLongitude ?long .
+
+    SERVICE wikibase:label {
+    bd:serviceParam wikibase:language 'en,fr' .
+    }
+    }" data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                                                            data-sgvizler-chart='google.visualization.Map'
+                                                            data-sgvizler-log="2"></div>
+            <div class="tab-pane" id="htmlTab_3" role="tabpanel" aria-expanded="true">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_3">&lt;div id="result"
+    data-sgvizler-query="
+    PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#>
+    PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/>
+    PREFIX p: &lt;http://www.wikidata.org/prop/>
+    PREFIX bd: &lt;http://www.bigdata.com/rdf#>
+    PREFIX wikibase: &lt;http://wikiba.se/ontology#>
+    PREFIX wd: &lt;http://www.wikidata.org/entity/>
+    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
+
+    select distinct
+    ?lat ?long ?siteLabel ?siteDescription
+    ?site
+    (concat(xsd:string(?image),'?width=200') as ?newimage)
+    where {
+    ?site wdt:P31/wdt:P279* wd:Q839000954 . #wrong type
+    ?site wdt:P17 wd:Q142 .
+    ?site wdt:P18 ?image .
+    ?site p:P625 ?coord .
+    ?site p:P625 ?coord .
+
+    ?coord   psv:P625 ?coordValue .
+
+    ?coordValue a wikibase:GlobecoordinateValue ;
+    wikibase:geoLatitude ?lat ;
+    wikibase:geoLongitude ?long .
+
+    SERVICE wikibase:label {
+    bd:serviceParam wikibase:language 'en,fr' .
+    }
+    }"
+    data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+    data-sgvizler-chart='google.visualization.Map'
+    data-sgvizler-log="2"
+    &gt;&lt;/div&gt;</pre></div>
+            </div>
+            <div class="tab-pane" id="scriptTab_3" role="tabpanel">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_3">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+    &lt;script&gt;
+       //Draw a chart
+       //sgvizler2.containerDraw('result',{
+       //             googleApiKey : "YOUR_GOOGLE_MAP_API_KEY"
+       //         });
+       //or
+       //$("#result").containerchart({
+       //             googleApiKey : "YOUR_GOOGLE_MAP_API_KEY"
+       //         });
+
+       //Draw all Chart
+       sgvizler2.containerDrawAll({
+                    googleApiKey : "YOUR_GOOGLE_MAP_API_KEY"
+       });
+    &lt;/script&gt;</pre></div>
+            </div>
+        </div>
     </div>
+
+    <!--SCRIPT-->
+    <script>
+        sgvizler2.containerDrawAll({
+            googleApiKey : "AIzaSyBro_IlWgOb5o4C80IWZhq0YHhemlRta3Q"
+        });
+    </script>
 </div>

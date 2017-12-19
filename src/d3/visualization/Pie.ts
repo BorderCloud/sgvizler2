@@ -52,8 +52,11 @@ export class Pie extends Chart {
     public draw (result: SparqlResultInterface): Promise<any> {
         let currentChart = this
         return new Promise(function (resolve, reject) {
+
+
             // transform query
             // console.log(noCols + " x " + noRows)
+
             let heightOpt = '100%'
             if (currentChart.height !== '') {
                 heightOpt = currentChart.height

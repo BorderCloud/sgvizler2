@@ -21,7 +21,7 @@
         </div-->
 
         <p>
-            Table of results.
+            In construction...
         </p>
 
         <h4>
@@ -55,11 +55,7 @@
                 <td class="left"></td>
                 <td class="left">Chart height</td>
             </tr>
-            <tr>
-                <td class="left"><code>showRowNumber</code></td>
-                <td class="left">false</td>
-                <td class="left">true/false Print number.</td>
-            </tr>
+
             </tbody>
         </table>
 
@@ -84,10 +80,10 @@
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
                 <div id="example" style="padding: 25px;width: 1100px; height: 400px;"><div id="result" data-sgvizler-query="
-                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
-                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
-                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
-                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
+                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#>
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/>
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
                     select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
                     WHERE {
                               ?pays wdt:P31 wd:Q6256.
@@ -97,10 +93,10 @@
                     SERVICE wikibase:label {
                          bd:serviceParam wikibase:language 'en' .
                     }
-                    
+
                           }
-                    LIMIT 15" 
-                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
+                    LIMIT 15"
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql"
                 data-sgvizler-chart="d3.visualization.BubbleChart"
                 data-sgvizler-log="0"></div>
 
@@ -109,10 +105,10 @@
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
                     data-sgvizler-query="
-                    SPREFIX bd: &lt;http://www.bigdata.com/rdf#>  
-                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
-                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
-                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
+                    SPREFIX bd: &lt;http://www.bigdata.com/rdf#>
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#>
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/>
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
                     select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
                     WHERE {
                               ?pays wdt:P31 wd:Q6256.
@@ -122,7 +118,7 @@
                     SERVICE wikibase:label {
                          bd:serviceParam wikibase:language 'en' .
                     }
-                    
+
                           }
                     LIMIT 10000
                     "

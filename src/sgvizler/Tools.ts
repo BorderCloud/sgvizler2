@@ -28,10 +28,10 @@ export class Tools {
             }
             if (i < len - 1) {
                 cursor = cursor[segments[i]]     // if cursor is undefined, it remains undefined.
-            }else {
+            } else {
                 try {
                     cursor = new cursor[segments[i]]() // create an instance
-                }catch (e) {
+                } catch (e) {
                     // do nothing
                     // cursor[segments[i]]() is not a constructor]
                     cursor = undefined
@@ -43,6 +43,10 @@ export class Tools {
             cursor = this.getObjectByPath(path, window)
         }
         return cursor
+    }
+
+    public static assignProperty (obj: any, path: string, value: any): any {
+        return Tools.assignJSON(obj,Tools.getJSONByPath(path,value))
     }
 
     // public static escapeHtml (str: string): string {
@@ -77,4 +81,72 @@ export class Tools {
         return text
     }
 
+    private static getJSONByPath (path: string, value: any): string {
+        let json = ''
+
+        let propertyName: string = ''
+        let nextPath: string = ''
+        if (path.length === 0 || ! value ) {
+            return json
+        }
+
+        let positionDot = path.search(/\./)
+
+        if ( positionDot === -1) {
+            propertyName = path.trim()
+            if (Number.isNaN(Number(value))) {
+                let valueBoolean = Tools.convertToBoolean(value)
+                if (valueBoolean === undefined) {
+                    json = '{"' + propertyName + '":"' + value + '"}'
+                } else {
+                    json = '{"' + propertyName + '":' + value + '}'
+                }
+            } else {
+                json = '{"' + propertyName + '":' + value + '}'
+            }
+        } else {
+            propertyName = path.substring(0,positionDot)
+            nextPath = path.substring(positionDot + 1,path.length)
+            json = '{"' + propertyName.trim() + '": ' + Tools.getJSONByPath(nextPath,value) + ' }'
+        }
+        return json
+    }
+
+    private static assignJSON (obj: any, json: string): any {
+        Tools.mergeInObject( obj, JSON.parse(json))
+        return obj
+    }
+
+    private static convertToBoolean (input: string): boolean | undefined {
+        if ( input.length <= 5 ) {
+            try {
+                return JSON.parse(input)
+            } catch (e) {
+                return undefined
+            }
+        }
+        return undefined
+    }
+
+    // Convert to typescript : https://github.com/gmasmejean/recursiveAssign/blob/master/index.js
+    private static assign ( ref: any, key: any, value: any ) {
+        if ( Tools.isPlainObject(value) ) {
+            if ( !Tools.isPlainObject(ref[key]) ) {
+                ref[key] = {}
+            }
+            Tools.mergeInObject( ref[key], value )
+        } else {
+            ref[key] = value
+        }
+    }
+
+    private static mergeInObject ( dest: any, data: any ) {
+        Object.keys( data ).forEach( key => {
+            Tools.assign( dest, key, data[key] )
+        })
+    }
+
+    private static isPlainObject ( o: any ) {
+        return o !== undefined && o.constructor !== undefined && o.constructor.prototype === Object.prototype
+    }
 }

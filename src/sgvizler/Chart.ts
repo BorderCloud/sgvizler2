@@ -6,7 +6,8 @@ import {
     Dependency,
     CssDependency,
     ScriptDependency,
-    Loader
+    Loader,
+    Tools
 } from '../sgvizler'
 
 /**
@@ -81,7 +82,7 @@ export abstract class Chart {
 
         if (this.isLoadedAllDependencies()) {
             await this.doDraw()
-        }else {
+        } else {
             await this.loadDependencies()
         }
     }
@@ -342,7 +343,8 @@ export abstract class Chart {
         let raw = this._optionsRaw
         while ((matchArray = patternOption.exec(raw)) !== null) { // tslint:disable-line
             // this.options[matchArray[1].toLowerCase()] = matchArray[2].trim()
-            this.options[matchArray[1]] = matchArray[2].trim()
+            // this.options[matchArray[1]] = matchArray[2].trim()
+            Tools.assignProperty(this.options,matchArray[1],matchArray[2].trim())
             this._patternOptions = typePattern
         }
     }
@@ -366,7 +368,7 @@ export abstract class Chart {
         let raw = this._optionsRaw
         if (raw === '') {
             this._patternOptions = CHART_PATTERN_OPTIONS.EMPTY
-        }else {
+        } else {
             this._patternOptions = CHART_PATTERN_OPTIONS.UNKNOWN
         }
 
@@ -395,7 +397,7 @@ export abstract class Chart {
 
         if ( this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN ) {
             Logger.displayFeedback(this.container, MESSAGES.ERROR_CHART_PATTERN_OPTION_UNKNOWN,[this._optionsRaw])
-        }else if (
+        } else if (
             this.patternOptions === CHART_PATTERN_OPTIONS.WIKI ||
             this.patternOptions === CHART_PATTERN_OPTIONS.VARIABLE ||
             this.patternOptions === CHART_PATTERN_OPTIONS.STYLE
