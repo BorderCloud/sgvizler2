@@ -2,6 +2,12 @@
   "A_Editor": {
     "title": "A SPARQL editor"
   },
+  "google_visualization_BubbleChart": {
+    "title": "google.visualization.BubbleChart"
+  },
+  "d3_visualization_BubbleChart": {
+    "title": "d3.visualization.BubbleChart"
+  },
   "bordercloud_visualization_DataTable": {
     "title": "bordercloud.visualization.DataTable"
   },

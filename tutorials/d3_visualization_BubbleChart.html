@@ -1,0 +1,151 @@
+<style>
+    h3, h4 {
+       margin-top: 25px !important;
+    }
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+</style>
+<div class="container" >
+    <h3 id="DefinitionList"><a id="sec-4-1-20" name="sec-4-1-20"></a>Definition</h3>
+    <div class="outline-text-4" id="text-DefinitionList">
+
+
+        <!--div class="figure">
+            <p><img src="./image/sDefList.png" alt="sDefList.png">
+            </p>
+            <p><span class="figure-number">Figure 16:</span> Definition list</p>
+        </div-->
+
+        <p>
+            Table of results.
+        </p>
+
+        <h4>
+            Table options:
+        </h4>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+            <colgroup>
+                <col class="left">
+
+                <col class="left">
+
+                <col class="left">
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col" class="left">Name</th>
+                <th scope="col" class="left">Default</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left"><code>width</code></td>
+                <td class="left">100%</td>
+                <td class="left">Chart width</td>
+            </tr>
+            <tr>
+                <td class="left"><code>height</code></td>
+                <td class="left"></td>
+                <td class="left">Chart height</td>
+            </tr>
+            <tr>
+                <td class="left"><code>showRowNumber</code></td>
+                <td class="left">false</td>
+                <td class="left">true/false Print number.</td>
+            </tr>
+            </tbody>
+        </table>
+
+    <h3>
+        Example
+    </h3>
+
+        <h4>
+            BubbleChart :
+        </h4>
+        <ul class="nav nav-tabs" role="tablist" id="tab_1">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#htmlTab" role="tab" aria-expanded="false">HTML</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#scriptTab" role="tab" aria-expanded="false">Javascript</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
+                <div id="example" style="padding: 25px;width: 1100px; height: 400px;"><div id="result" data-sgvizler-query="
+                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>  
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
+                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
+                    WHERE {
+                              ?pays wdt:P31 wd:Q6256.
+                              ?pays wdt:P2132 ?pib .
+                              ?pays wdt:P1082 ?population .
+                              ?pays wdt:P30 ?continent .
+                    SERVICE wikibase:label {
+                         bd:serviceParam wikibase:language 'en' .
+                    }
+                    
+                          }
+                    LIMIT 15" 
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
+                data-sgvizler-chart="d3.visualization.BubbleChart"
+                data-sgvizler-log="0"></div>
+
+                </div>
+            </div>
+            <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
+                    data-sgvizler-query="
+                    SPREFIX bd: &lt;http://www.bigdata.com/rdf#>  
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#> 
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/> 
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/> 
+                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
+                    WHERE {
+                              ?pays wdt:P31 wd:Q6256.
+                              ?pays wdt:P2132 ?pib .
+                              ?pays wdt:P1082 ?population .
+                              ?pays wdt:P30 ?continent .
+                    SERVICE wikibase:label {
+                         bd:serviceParam wikibase:language 'en' .
+                    }
+                    
+                          }
+                    LIMIT 10000
+                    "
+                    &gt;&lt;/div&gt;</pre></div>
+            </div>
+            <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+   //Draw a chart
+   //sgvizler2.containerDraw('result');
+   //or
+   //$("#result").containerchart();
+
+   //Draw all Chart
+   sgvizler2.containerDrawAll();
+&lt;/script&gt;</pre></div>
+            </div>
+        </div>
+        </div>
+
+        <!--SCRIPT-->
+        <script>
+            sgvizler2.containerDrawAll();
+        </script>
+    </div>
+</div>
