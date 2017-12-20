@@ -15,7 +15,7 @@
         </div-->
 
         <p>
-            Table of results.
+            Pie chart.
         </p>
 
         <h4>
@@ -78,6 +78,11 @@
                 <td class="left"><code>pieSliceText</code></td>
                 <td class="left">label</td>
                 <td class="left">Label pour afficher le nom des pays.</td>
+            </tr>
+            <tr>
+                <td class="left"><code>Others... </code></td>
+                <td class="left"></td>
+                <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/piechart#configuration-options">See the doc</a></td>
             </tr>
             </tbody>
         </table>
@@ -204,7 +209,7 @@ bd:serviceParam wikibase:language 'en,fr' .
 }
 GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
-limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" 
+limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie"
 data-sgvizler-chart-options="is3D=true"
                                                               data-sgvizler-log="0"></div>
 
@@ -451,7 +456,7 @@ bd:serviceParam wikibase:language 'en,fr' .
 }
 GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
-limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="sliceVisibilityThreshold= .2"
+limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="sliceVisibilityThreshold= 0.2"
                                                               data-sgvizler-log="0"></div>
 
                 </div>
@@ -481,7 +486,7 @@ limit 100
 "
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="google.visualization.Pie"
-data-sgvizler-chart-options="sliceVisibilityThreshold= .2"
+data-sgvizler-chart-options="sliceVisibilityThreshold= 0.2"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_5" role="tabpanel" aria-expanded="false">
@@ -533,7 +538,7 @@ bd:serviceParam wikibase:language 'en,fr' .
 }
 GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
-limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="pieSliceText=label" 
+limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="pieSliceText=label"
                                                               data-sgvizler-log="0"></div>
 
                 </div>
@@ -579,7 +584,7 @@ data-sgvizler-chart-options="pieSliceText=label"
 &lt;/script&gt;</pre></div>
             </div>
         </div>
-       
+
         <!--SCRIPT-->
         <script>
             sgvizler2.containerDrawAll();
