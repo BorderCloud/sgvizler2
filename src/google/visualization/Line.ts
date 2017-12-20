@@ -57,13 +57,12 @@ export class Line extends Chart {
         let currentChart = this
         return new Promise(function (resolve, reject) {
 
-            let height = '100%'
+            let height = '500'
             if (currentChart.height !== '') {
                 height = currentChart.height
             }
 
             let opt = Object.assign({
-                showRowNumber: false,
                 width: currentChart.width,
                 height: height
             }, currentChart.options)

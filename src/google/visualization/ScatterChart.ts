@@ -61,18 +61,14 @@ export class ScatterChart extends Chart {
             // transform query
             // console.log(noCols + " x " + noRows)
 
-            let height = '400'
+            let height = '500'
             if (currentChart.height !== '') {
                 height = currentChart.height
             }
 
             let opt = Object.assign({
-                hAxis: {title: 'uuu', minValue: 0, maxValue: 15},
-                vAxis: {title: 'ggg', minValue: 0, maxValue: 15},
-                height: height,
-                width: '100%',
-                backgroundColor : 'green',
-                title: 'PIB PAR POPULATION'
+                width: currentChart.width,
+                height: height
             }, currentChart.options)
 
             if (! ScatterChart._isInit) {

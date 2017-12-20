@@ -55,7 +55,7 @@ export class ScatterChart extends Chart {
             // transform query
             // console.log(noCols + " x " + noRows)
 
-            let heightOpt = '100%'
+            let heightOpt = '500'
             if (currentChart.height !== '') {
                 heightOpt = currentChart.height
             }
@@ -143,7 +143,7 @@ export class ScatterChart extends Chart {
                     .attr('x', legendRectSize + legendSpacing)
                     .attr('y', legendRectSize - legendSpacing)
                     .text(function (d: any) { return d })*/
-
+/*
                     let width = 500
                     let height = 300
                     let padding = 30
@@ -167,7 +167,7 @@ export class ScatterChart extends Chart {
                                })])
                                .range([height - padding, padding])
                 let rScale = d3.scale.linear()
-                                             .domain([0, d3.max(dataset, function (d: any) {
+                               .domain([0, d3.max(dataset, function (d: any) {
                                  return d[1]
                                })])
                                             .range([2, 5])
@@ -181,9 +181,9 @@ export class ScatterChart extends Chart {
                 // Define Y axis
                 let yAxis = d3.svg.axis()
                               .scale(yScale)
-                                            .orient('left')
-                                            .ticks(5)
-                                            .tickFormat(formatAsPercentage)
+                                .orient('left')
+                                .ticks(5)
+                                .tickFormat(formatAsPercentage)
                 // Create SVG element
                 let svg = d3.select('#' + currentChart.container.id)
                                         .append('svg')
@@ -231,6 +231,7 @@ export class ScatterChart extends Chart {
                    .attr('class', 'axis')
                    .attr('transform', 'translate(' + padding + ',0)')
                    .call(yAxis)
+                   */
             // finish
             return resolve()
         })
