@@ -46,5 +46,11 @@
   },
   "d3_visualization_Line": {
     "title": "d3.visualization.Line"
+  },
+  "d3_visualization_ScatterChart": {
+    "title": "d3.visualization.ScatterChart"
+  },
+  "google_visualization_ScatterChart": {
+    "title": "google.visualization.ScatterChart "
   }
 }
