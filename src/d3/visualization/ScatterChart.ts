@@ -79,7 +79,7 @@ export class ScatterChart extends Chart {
                 counter = Number(row[cols[1]].value)
                 if ( label === undefined || counter === undefined) {
                     Logger.logSimple('Erreur ? D3JS:ScatterChart label ' + label + ' count ' + counter)
-                }else {
+                } else {
                     dataset.push({ label: label , count: counter })
                 }
             }

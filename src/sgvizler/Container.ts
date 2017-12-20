@@ -157,7 +157,7 @@ export class Container {
                 if (heightCss !== null && heightCss !== '0px') {
                     chart.height = heightCss
                 }
-            }catch (e) {
+            } catch (e) {
                 // do nothing, unit test not support jquery
             }
             // read options (and replace may be with and height)
