@@ -2101,10 +2101,6 @@ escape-string-applescript@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/escape-string-applescript/-/escape-string-applescript-2.0.0.tgz#760bca838668e408fe5ee52ce42caf7cb46c5273"
 
-escape-string-applescript@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/escape-string-applescript/-/escape-string-applescript-2.0.0.tgz#760bca838668e408fe5ee52ce42caf7cb46c5273"
-
 escape-string-regexp@^1.0.0, escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.4, escape-string-regexp@^1.0.5, escape-string-regexp@~1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
@@ -5242,18 +5238,6 @@ trash-cli@^1.4.0:
     update-notifier "^1.0.2"
 
 trash@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/trash/-/trash-4.1.0.tgz#edddcf2c26236d4942e8b27c80d1bd746b7acc77"
-  dependencies:
-    escape-string-applescript "^2.0.0"
-    fs-extra "^0.30.0"
-    globby "^6.0.0"
-    pify "^3.0.0"
-    run-applescript "^3.0.0"
-    uuid "^3.1.0"
-    xdg-trashdir "^2.0.0"
-
-trash@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/trash/-/trash-4.1.0.tgz#edddcf2c26236d4942e8b27c80d1bd746b7acc77"
   dependencies:

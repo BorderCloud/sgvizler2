@@ -132,7 +132,6 @@
     "babel": "inherit"
   },
   "dependencies": {
-    "trash": "^4.1.0",
     "tslib": "^1.7.1"
   },
   "files": [
