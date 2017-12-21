@@ -15,15 +15,13 @@
         </div-->
 
         <p>
-            Table of results.
+            Linear and exponential trendlines.
         </p>
 
         <h4>
             Table options:
         </h4>
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
             <colgroup>
                 <col class="left">
 
@@ -45,23 +43,23 @@
                 <td class="left">Chart width</td>
             </tr>
             <tr>
-                <td class="left"><code>Couleur</code></td>
-                <td class="left">Bleu</td>
-                <td class="left">Couleur du trait</td>
+                <td class="left"><code>height</code></td>
+                <td class="left"></td>
+                <td class="left">Chart height</td>
             </tr>
             <tr>
-                <td class="left"><code>trendlines</code></td>
-                <td class="left">0</td>
-                <td class="left">Par défaut</td>
+                <td class="left"><code>Others... </code></td>
+                <td class="left"></td>
+                <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/trendlines">See the doc</a></td>
             </tr>
             </tbody>
         </table>
 
 
         <h4>
-            Trendline Exemple
+           Linear trendline (by default)
         </h4>
-        <p>With option "reverseCategories=true"</p>
+        <p>Without options</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_2">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#resultTab_2" role="tab" aria-expanded="true">
@@ -77,28 +75,28 @@
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">
                 <div id="example_2" style="padding: 25px;"><div id="result_2" data-sgvizler-query="
-                    PREFIX p: &lt;http://www.wikidata.org/prop/&gt; 
-                    PREFIX wd: &lt;http://www.wikidata.org/entity/&gt; 
+                    PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
                     prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
                     prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
-                    
+
                     select (YEAR(?date) as ?year) ?population
                     where {
                            wd:Q61816 p:P1082 ?statement .
                             ?statement ps:P1082 ?population ;
-                                        pq:P585 ?date .           
-                          } 
-                    ORDER BY ?year" 
-data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
-data-sgvizler-chart="google.visualization.Trendline" 
-data-sgvizler-chart-options="" 
+                                        pq:P585 ?date .
+                          }
+                    ORDER BY ?year"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="google.visualization.Trendline"
+data-sgvizler-chart-options=""
 data-sgvizler-log="0"></div></div>
             </div>
             <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
 data-sgvizler-query="
-PREFIX p: &lt;http://www.wikidata.org/prop/&gt; 
-PREFIX wd: &lt;http://www.wikidata.org/entity/&gt; 
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
 prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
 prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
 
@@ -106,11 +104,11 @@ select (YEAR(?date) as ?year) ?population
 where {
        wd:Q61816 p:P1082 ?statement .
         ?statement ps:P1082 ?population ;
-                    pq:P585 ?date .           
-      } 
+                    pq:P585 ?date .
+      }
 ORDER BY ?year"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Table"
+data-sgvizler-chart="google.visualization.Trendline"
 data-sgvizler-chart-options=""
 &gt;&lt;/div&gt;</pre></div>
             </div>
@@ -128,9 +126,9 @@ data-sgvizler-chart-options=""
             </div>
         </div>
         <h4>
-            Trendline Exemple 2
+            Exponential trendlines
         </h4>
-        <p></p>
+        <p>Example with options : "trendlines.0.type=exponential|trendlines.0.visibleInLegend=true|trendlines.0.color=red"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_3">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#resultTab_3" role="tab" aria-expanded="true">
@@ -146,28 +144,28 @@ data-sgvizler-chart-options=""
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_3" role="tabpanel" aria-expanded="false">
                 <div id="example_3" style="padding: 25px;"><div id="result_3" data-sgvizler-query="
-                    PREFIX p: &lt;http://www.wikidata.org/prop/&gt; 
-                    PREFIX wd: &lt;http://www.wikidata.org/entity/&gt; 
+                    PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
                     prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
                     prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
-                    
+
                     select (YEAR(?date) as ?year) ?population
                     where {
                            wd:Q61816 p:P1082 ?statement .
                             ?statement ps:P1082 ?population ;
-                                        pq:P585 ?date .           
-                          } 
-                    ORDER BY ?year" 
-data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
-data-sgvizler-chart="google.visualization.Trendline" 
-data-sgvizler-chart-options="trendlines= {  0: {        type: 'exponential',        visibleInLegend: true,      color: 'red',     }   }"
+                                        pq:P585 ?date .
+                          }
+                    ORDER BY ?year"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="google.visualization.Trendline"
+data-sgvizler-chart-options="trendlines.0.type=exponential|trendlines.0.visibleInLegend=true|trendlines.0.color=red"
 data-sgvizler-log="0"></div></div>
             </div>
             <div class="tab-pane" id="htmlTab_3" role="tabpanel" aria-expanded="true">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_3">&lt;div id="result"
 data-sgvizler-query="
-PREFIX p: &lt;http://www.wikidata.org/prop/&gt; 
-PREFIX wd: &lt;http://www.wikidata.org/entity/&gt; 
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
 prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
 prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
 
@@ -175,12 +173,12 @@ select (YEAR(?date) as ?year) ?population
 where {
        wd:Q61816 p:P1082 ?statement .
         ?statement ps:P1082 ?population ;
-                    pq:P585 ?date .           
-      } 
+                    pq:P585 ?date .
+      }
 ORDER BY ?year"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Table"
-data-sgvizler-chart-options="trendlines: {  0: {        type: 'exponential',        color: 'green', }   }"
+data-sgvizler-chart="google.visualization.Trendline"
+data-sgvizler-chart-options="trendlines.0.type=exponential|trendlines.0.visibleInLegend=true|trendlines.0.color=red"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_3" role="tabpanel">

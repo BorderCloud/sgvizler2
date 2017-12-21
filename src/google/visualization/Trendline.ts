@@ -61,36 +61,25 @@ export class Trendline extends Chart {
             // transform query
             // console.log(noCols + " x " + noRows)
 
-            let height = '100%'
+            let height = '500'
             if (currentChart.height !== '') {
                 height = currentChart.height
             }
 
             let opt = Object.assign({
-                trendlines:'{ 0: {} }',
-                legend: 'none',
                 width: currentChart.width,
-                visibleInLegend: true,
-                color: 'none'
+                height: height
             }, currentChart.options)
 
             if (! Trendline._isInit) {
                 Trendline.init()
             }
 
-            opt.trendlines = (new Function("return " + opt.trendlines+ ";")());
-
             google.charts.setOnLoadCallback(
                 () => {
                     let data = new Data(result)
-
-                    /*  let options = {
-                       
-                        trendlines: { 0: {} }    // Draw a trendline for data series 0.
-                      };*/
-
-                      let chart = new google.visualization.ScatterChart(document.getElementById(currentChart.container.id));
-                      chart.draw(data.getDataTable(), opt);
+                    let chart = new google.visualization.ScatterChart(document.getElementById(currentChart.container.id))
+                    chart.draw(data.getDataTable(), opt)
                 }
             )
             // finish
