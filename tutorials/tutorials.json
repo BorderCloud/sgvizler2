@@ -32,6 +32,12 @@
   "d3_visualization_Pie": {
     "title": "d3.visualization.Pie (Example)"
   },
+  "google_visualization_ColumnChart": {
+    "title": "google.visualization.ColumnChart"
+  },
+  "d3_visualization_ColumnChart": {
+    "title": "d3.visualization.ColumnChart"
+  },
   "google_visualization_BarChart": {
     "title": "google.visualization.BarChart"
   },
