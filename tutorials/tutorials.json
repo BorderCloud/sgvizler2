@@ -26,6 +26,9 @@
   "google_visualization_Map": {
     "title": "google.visualization.Map"
   },
+  "google_visualization_GeoChart": {
+    "title": "google.visualization.GeoChart"
+  },
   "d3_visualization_Pie": {
     "title": "d3.visualization.Pie (Example)"
   },
