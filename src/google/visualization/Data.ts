@@ -18,10 +18,15 @@ export class Data {
     constructor (result: SparqlResultInterface) {
         let data = new google.visualization.DataTable()
 
+        if (result === undefined) { // strange... sometimes
+            return data
+        }
+
         let cols = result.head.vars
         let rows = result.results.bindings
         let noCols = cols.length
         let noRows = rows.length
+
 
         for (let col of cols) {
             // RDF Term	JSON form
@@ -35,18 +40,18 @@ export class Data {
                 if (type === 'http://www.w3.org/2001/XMLSchema#decimal' ||
                     type === 'http://www.w3.org/2001/XMLSchema#integer') {
                     data.addColumn('number', col)
-                }else if (type === 'http://www.w3.org/2001/XMLSchema#boolean') {
+                } else if (type === 'http://www.w3.org/2001/XMLSchema#boolean') {
                     data.addColumn('boolean', col)
-                }else if (type === 'http://www.w3.org/2001/XMLSchema#date') {
+                } else if (type === 'http://www.w3.org/2001/XMLSchema#date') {
                     data.addColumn('date', col)
-                }else if (type === 'http://www.w3.org/2001/XMLSchema#dateTime') {
+                } else if (type === 'http://www.w3.org/2001/XMLSchema#dateTime') {
                     data.addColumn('datetime', col)
-                }else if (type === 'http://www.w3.org/2001/XMLSchema#time') {
+                } else if (type === 'http://www.w3.org/2001/XMLSchema#time') {
                     data.addColumn('timeofday', col)
-                }else {
+                } else {
                     data.addColumn('string', col)
                 }
-            }else {
+            } else {
                 data.addColumn('string', col)
             }
         }

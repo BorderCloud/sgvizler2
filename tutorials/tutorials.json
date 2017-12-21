@@ -55,5 +55,8 @@
   },
   "google_visualization_ScatterChart": {
     "title": "google.visualization.ScatterChart "
+  },
+  "google_visualization_Trendline": {
+    "title": "google.visualization.Trendline"
   }
 }
