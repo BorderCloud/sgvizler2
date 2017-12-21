@@ -65,7 +65,7 @@ export class ColumnChart extends Chart {
                 width: currentChart.width,
                 height: heightOpt
             }, currentChart.options)
-
+/*
             // build the datatable
             let cols = result.head.vars
             let rows = result.results.bindings
@@ -144,6 +144,7 @@ export class ColumnChart extends Chart {
                     .attr('y', legendRectSize - legendSpacing)
                     .text(function (d: any) { return d })
             }
+            */
             // finish
             return resolve()
         })

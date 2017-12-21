@@ -15,15 +15,13 @@
         </div-->
 
         <p>
-            Table of results.
+            Column chart.
         </p>
 
         <h4>
-            Table options:
+            Options:
         </h4>
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
-
             <colgroup>
                 <col class="left">
 
@@ -50,19 +48,18 @@
                 <td class="left">Chart height</td>
             </tr>
             <tr>
-                <td class="left"><code>reverseCategories</code></td>
-                <td class="left">false</td>
-                <td class="left">false/true</td>
+                <td class="left"><code>Others... </code></td>
+                <td class="left"></td>
+                <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/columnchart#configuration-options">See the doc</a></td>
             </tr>
             </tbody>
         </table>
-
     <h3>
         Examples
     </h3>
 
         <h4>
-            Table example 1 : Population of Le Crotoy
+           Example without options: Population of Le Crotoy
         </h4>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
             <li class="nav-item">
@@ -78,24 +75,23 @@
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
                 <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query="
-                    PREFIX p: &lt;http://www.wikidata.org/prop/&gt; 
-                    PREFIX wd: &lt;http://www.wikidata.org/entity/&gt; 
+                    PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
                     prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
                     prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
-                    
+
                     select (YEAR(?date) as ?year) ?Population
                     where {
                            wd:Q61816 p:P1082 ?statement .
                             ?statement ps:P1082 ?Population ;
-                                        pq:P585 ?date .           
-                          } 
-                    ORDER BY ?year" 
+                                        pq:P585 ?date .
+                          }
+                    ORDER BY ?year
+"
 
  data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-  data-sgvizler-chart="google.visualization.ColumnChart" 
-  data-sgvizler-chart-options="reverseCategories=false"  
-  data-sgvizler-endpoint_output_format='json'
-  data-sgvizler-loglevel='2'   
+  data-sgvizler-chart="google.visualization.ColumnChart"
+  data-sgvizler-loglevel='2'
   style='width:100%; height:450px;'
    data-sgvizler-log="0"></div>
 
@@ -104,8 +100,8 @@
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
 data-sgvizler-query="
-PREFIX p: &lt;http://www.wikidata.org/prop/&gt; 
-PREFIX wd: &lt;http://www.wikidata.org/entity/&gt; 
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
 prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
 prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
 
@@ -113,9 +109,9 @@ select (YEAR(?date) as ?year) ?population
 where {
        wd:Q61816 p:P1082 ?statement .
         ?statement ps:P1082 ?population ;
-                    pq:P585 ?date .           
-      } 
-ORDER BY ?year" 
+                    pq:P585 ?date .
+      }
+ORDER BY ?year"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="google.visualization.ColumnChart"
 data-sgvizler-chart-options="reverseCategories=false"
@@ -139,7 +135,7 @@ data-sgvizler-chart-options="reverseCategories=false"
 
 
         <h4>
-            Table example 2 : Population of Le Crotoy
+            Example: Population of Le Crotoy
         </h4>
         <p>With option "reverseCategories=true"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_2">
@@ -157,31 +153,30 @@ data-sgvizler-chart-options="reverseCategories=false"
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">
                 <div id="example_2" style="padding: 25px;"><div id="result_2" data-sgvizler-query="
-                    PREFIX p: &lt;http://www.wikidata.org/prop/&gt; 
-                    PREFIX wd: &lt;http://www.wikidata.org/entity/&gt; 
+                    PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
                     prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
                     prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
-                    
+
                     select (YEAR(?date) as ?year) ?Population
                     where {
                            wd:Q61816 p:P1082 ?statement .
                             ?statement ps:P1082 ?Population ;
-                                        pq:P585 ?date .           
-                          } 
-                    ORDER BY ?year" 
-                    data-sgvizler-endpoint="https://query.wikidata.org/sparql" 
-                    data-sgvizler-chart="google.visualization.ColumnChart" 
-                    data-sgvizler-chart-options="reverseCategories=true"  
-                    data-sgvizler-endpoint_output_format='json'
-                    data-sgvizler-loglevel='2'   
+                                        pq:P585 ?date .
+                          }
+                    ORDER BY ?year"
+                    data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                    data-sgvizler-chart="google.visualization.ColumnChart"
+                    data-sgvizler-chart-options="reverseCategories=true"
+                    data-sgvizler-loglevel='2'
                     style='width:100%; height:450px;'
-                    data-sgvizler-log="0"></div></div>
+                    data-sgvizler-log="0"></div>
             </div>
             <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
 data-sgvizler-query="
-PREFIX p: &lt;http://www.wikidata.org/prop/&gt; 
-PREFIX wd: &lt;http://www.wikidata.org/entity/&gt; 
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
 prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
 prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
 
@@ -189,9 +184,9 @@ select (YEAR(?date) as ?year) ?population
 where {
        wd:Q61816 p:P1082 ?statement .
         ?statement ps:P1082 ?population ;
-                    pq:P585 ?date .           
-      } 
-ORDER BY ?year" 
+                    pq:P585 ?date .
+      }
+ORDER BY ?year"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="google.visualization.ColumnChart"
 data-sgvizler-chart-options="reverseCategories=true"
