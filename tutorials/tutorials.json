@@ -2,67 +2,75 @@
   "A_Editor": {
     "title": "A SPARQL editor"
   },
-  "google_visualization_BubbleChart": {
-    "title": "google.visualization.BubbleChart"
-  },
-  "d3_visualization_BubbleChart": {
-    "title": "d3.visualization.BubbleChart"
-  },
   "bordercloud_visualization_DataTable": {
     "title": "bordercloud.visualization.DataTable"
   },
-  "sgvizler_visualization_Table": {
-    "title": "sgvizler.visualization.Table"
-  },
-  "leaflet_visualization_Map": {
-    "title": "leaflet.visualization.Map"
-  },
-  "google_visualization_Table": {
-    "title": "google.visualization.Table"
-  },
-  "google_visualization_Pie": {
-    "title": "google.visualization.Pie"
-  },
-  "google_visualization_Map": {
-    "title": "google.visualization.Map"
-  },
-  "google_visualization_GeoChart": {
-    "title": "google.visualization.GeoChart"
-  },
-  "d3_visualization_Pie": {
-    "title": "d3.visualization.Pie (Example)"
-  },
-  "google_visualization_ColumnChart": {
-    "title": "google.visualization.ColumnChart"
-  },
-  "d3_visualization_ColumnChart": {
-    "title": "d3.visualization.ColumnChart"
-  },
-  "google_visualization_BarChart": {
-    "title": "google.visualization.BarChart"
+
+  "d3_visualization_AreaChart": {
+    "title": "d3.visualization.AreaChart (Example)"
   },
   "d3_visualization_BarChart": {
     "title": "d3.visualization.BarChart (Example)"
   },
-  "google_visualization_AreaChart": {
-    "title": "google.visualization.AreaChart"
+  "d3_visualization_BubbleChart": {
+    "title": "d3.visualization.BubbleChart"
   },
-  "d3_visualization_AreaChart": {
-    "title": "d3.visualization.AreaChart (Example)"
-  },
-  "google_visualization_Line": {
-    "title": "google.visualization.Line"
+  "d3_visualization_ColumnChart": {
+    "title": "d3.visualization.ColumnChart"
   },
   "d3_visualization_Line": {
     "title": "d3.visualization.Line"
   },
+  "d3_visualization_Pie": {
+    "title": "d3.visualization.Pie (Example)"
+  },
   "d3_visualization_ScatterChart": {
     "title": "d3.visualization.ScatterChart"
+  },
+
+
+  "leaflet_visualization_Map": {
+    "title": "leaflet.visualization.Map"
+  },
+
+  "google_visualization_AnnotationChart": {
+    "title": "google.visualization.AnnotationChart"
+  },
+  "google_visualization_AreaChart": {
+    "title": "google.visualization.AreaChart"
+  },
+  "google_visualization_BarChart": {
+    "title": "google.visualization.BarChart"
+  },
+  "google_visualization_BubbleChart": {
+    "title": "google.visualization.BubbleChart"
+  },
+  "google_visualization_ColumnChart": {
+    "title": "google.visualization.ColumnChart"
+  },
+  "google_visualization_GeoChart": {
+    "title": "google.visualization.GeoChart"
+  },
+  "google_visualization_Line": {
+    "title": "google.visualization.Line"
+  },
+  "google_visualization_Map": {
+    "title": "google.visualization.Map"
+  },
+  "google_visualization_Pie": {
+    "title": "google.visualization.Pie"
   },
   "google_visualization_ScatterChart": {
     "title": "google.visualization.ScatterChart "
   },
+  "google_visualization_Table": {
+    "title": "google.visualization.Table"
+  },
   "google_visualization_Trendline": {
     "title": "google.visualization.Trendline"
+  },
+
+  "sgvizler_visualization_Table": {
+    "title": "sgvizler.visualization.Table"
   }
 }

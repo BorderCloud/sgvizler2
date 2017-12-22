@@ -1,6 +1,11 @@
 /**
  * @namespace google.visualization
  */
+
+// Annotation Chart
+// https://developers.google.com/chart/interactive/docs/gallery/annotationchart
+export * from './visualization/AnnotationChart'
+
 export * from './visualization/Data'
 export * from './visualization/GeoChart'
 export * from './visualization/Table'

@@ -36,7 +36,7 @@ export class Data {
             // Literal S with datatype IRI D	{ "type": "literal", "value": "S", "datatype": "D"}
             // Blank node, label B	{"type": "bnode", "value": "B"}
             if ( noRows > 0 ) {
-                let type = rows[0][col].datatype
+                let type = rows[0][col] !== undefined ? rows[0][col].datatype : ''
                 if (type === 'http://www.w3.org/2001/XMLSchema#decimal' ||
                     type === 'http://www.w3.org/2001/XMLSchema#integer') {
                     data.addColumn('number', col)
@@ -61,38 +61,38 @@ export class Data {
         let i = 0
         for (let x = 0 ; x < noRows ; x++) {
             for (let y = 0 ; y < noCols ; y++) {
-                data.setCell(x,y,rows[x][cols[y]].value)
-
-                let type = rows[0][cols[y]].datatype
+                // data.setCell(x,y,rows[x][cols[y]].value)
+                let type = rows[0][cols[y]] !== undefined ? rows[0][cols[y]].datatype : ''
                 if (type === 'http://www.w3.org/2001/XMLSchema#decimal') {
                     // 'number' - JavaScript number value. Example values: v:7 , v:3.14, v:-55
                     data.setCell(x,y,parseFloat(rows[x][cols[y]].value))
                     // todo... ?
                     // data.setCell(0, 1, 10000, '$10,000');
-                }else if (type === 'http://www.w3.org/2001/XMLSchema#integer') {
+                } else if (type === 'http://www.w3.org/2001/XMLSchema#integer') {
                     // todo test
                     // 'number' - JavaScript number value. Example values: v:7 , v:3.14, v:-55
                     data.setCell(x,y,parseInt(rows[x][cols[y]].value,10))
-                }else if (type === 'http://www.w3.org/2001/XMLSchema#boolean') {
+                } else if (type === 'http://www.w3.org/2001/XMLSchema#boolean') {
                     // todo test
                     // 'boolean' - JavaScript boolean value ('true' or 'false'). Example value: v:'true'
                     data.setCell(x,y,rows[x][cols[y]].value === 'true' ? true : false)
-                }else if (type === 'http://www.w3.org/2001/XMLSchema#date') {
+                } else if (type === 'http://www.w3.org/2001/XMLSchema#date') {
                     // todo test
                     // 'date' - JavaScript Date object (zero-based month), with the time truncated. Example value: v:new Date(2008, 0, 15)
-                    data.setCell(x,y,Date.parse(rows[x][cols[y]].value))
-                }else if (type === 'http://www.w3.org/2001/XMLSchema#dateTime') {
+                    data.setCell(x,y,new Date(rows[x][cols[y]].value))
+                } else if (type === 'http://www.w3.org/2001/XMLSchema#dateTime') {
                     // todo test
                     // 'datetime' - JavaScript Date object including the time. Example value: v:new Date(2008, 0, 15, 14, 30, 45)
-                    data.setCell(x,y,Date.parse(rows[x][cols[y]].value))
-                }else if (type === 'http://www.w3.org/2001/XMLSchema#time') {
+                    data.setCell(x,y,new Date(rows[x][cols[y]].value))
+                } else if (type === 'http://www.w3.org/2001/XMLSchema#time') {
                     // todo test
                     // 'timeofday' - Array of three numbers and an optional fourth, representing hour (0 indicates midnight), minute, second, and optional millisecond. Example values: v:[8, 15, 0], v: [6, 12, 1, 144]
-                    let time: any = Date.parse(rows[x][cols[y]].value)
+                    let time: any = new Date(rows[x][cols[y]].value)
                     data.setCell(x,y,[time.getHours(), time.getHours(), time.getSeconds(), time.getMilliseconds()])
-                }else {
+                } else {
                     // 'string' - JavaScript string value. Example value: v:'hello'
-                    data.setCell(x,y,rows[x][cols[y]].value)
+                    let value = rows[x][cols[y]] !== undefined ? rows[x][cols[y]].value : ''
+                    data.setCell(x,y,value)
                 }
                 // console.log('rows['+x+'][cols['+y+']].value = ' + rows[x][cols[y]].value + ' ' +
                 // rows[x][cols[y]].datatype)

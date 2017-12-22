@@ -1,0 +1,194 @@
+<style>
+    h3, h4 {
+       margin-top: 25px !important;
+    }
+</style>
+<div class="container" >
+    <h3 id="DefinitionList"><a id="sec-4-1-20" name="sec-4-1-20"></a>Definition</h3>
+    <div class="outline-text-4" id="text-DefinitionList">
+
+
+        <!--div class="figure">
+            <p><img src="./image/sDefList.png" alt="sDefList.png">
+            </p>
+            <p><span class="figure-number">Figure 16:</span> Definition list</p>
+        </div-->
+
+        <p>
+            Annotation charts are interactive time series line charts that support annotations. Note that the annotated
+            timeline now automatically uses the Annotation Chart. (<a ref="https://developers.google.com/chart/interactive/docs/gallery/annotationchart">see the doc</a>)
+        </p>
+
+        <h4>
+            Data Format:
+        </h4>
+        <p>
+            You can display one or more lines on your chart. Each row represents an X position on the chart—that is, a specific time; each line is described by a set of one to three columns.
+
+
+
+
+        </p>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Column</th>
+                <th scope="col" class="left">Type</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left">1</td>
+                <td class="left">Date or datetime</td>
+                <td class="left">X value of the point on the chart. If this column is of type date (and not datetime) then the smallest time resolution on the X axis will be one day.</td>
+            </tr>
+            <tr>
+                <td class="left">2.1</td>
+                <td class="left">Number</td>
+                <td class="left">Y value - The first column in each set describes the value of the line at the corresponding time from the first column. The column label is displayed on the chart as the title of that line.</td>
+            </tr>
+            <tr>
+                <td class="left">2.2</td>
+                <td class="left">String (Optional)</td>
+                <td class="left">Annotation title - If a string column follows the value column, and the displayAnnotations option is true, this column holds a short title describing this point.
+                </td>
+            </tr>
+            <tr>
+                <td class="left">2.3</td>
+                <td class="left">String (Optional)</td>
+                <td class="left">Annotation text - If a second string column exists for this series, the cell value will be used as additional descriptive text for this point. You must set the option displayAnnotations to true to use this column. You can use HTML tags, if you set allowHtml to true; there is essentially no size limit, but note that excessively long entries might overflow the display section. You are not required to have this column even if you have an annotation title column for this point. </td>
+            </tr>
+            <tr>
+                <td class="left">3.1</td>
+                <td class="left">Number</td>
+                <td class="left">Y value... of second lines</td>
+            </tr>
+            <tr>
+                <td class="left">3.2.</td>
+                <td class="left">...</td>
+                <td class="left">Annotation title</td>
+            </tr>
+            <tr>
+                <td class="left">3.3.</td>
+                <td class="left">...</td>
+                <td class="left">Annotation text</td>
+            </tr>
+            <tr>
+                <td class="left">4.1</td>
+                <td class="left">Number</td>
+                <td class="left">Y value...</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <h4>
+            Table options:
+        </h4>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Name</th>
+                <th scope="col" class="left">Default</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left"><code>width</code></td>
+                <td class="left">100%</td>
+                <td class="left">Chart width</td>
+            </tr>
+            <tr>
+                <td class="left"><code>height</code></td>
+                <td class="left"></td>
+                <td class="left">Chart height</td>
+            </tr>
+            <tr>
+                <td class="left"><code>Others... </code></td>
+                <td class="left"></td>
+                <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/annotationchart#configuration-options">See the doc</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <h4>
+            Exemple
+        </h4>
+        <ul class="nav nav-tabs" role="tablist" id="tab_1">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#htmlTab" role="tab" aria-expanded="false">HTML</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#scriptTab" role="tab" aria-expanded="false">Javascript</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
+                <div id="result"
+                     data-sgvizler-query="PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+
+select (xsd:date(?date) as ?day) ?population
+(CONCAT(xsd:string(YEAR(?date)),' ',xsd:string(?population)) as ?title)
+                where {
+                wd:Q142 p:P1082 ?statement .
+                ?statement ps:P1082 ?population ;
+                pq:P585 ?date .
+                }
+                ORDER BY ?date
+"
+                     data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                     data-sgvizler-chart="google.visualization.AnnotationChart"
+                     data-sgvizler-chart-options="height=500"
+                     data-sgvizler-log="0"
+                ></div>
+            </div>
+            <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
+data-sgvizler-query="PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+
+select (xsd:date(?date) as ?day) ?population
+(CONCAT(xsd:string(YEAR(?date)),' ',xsd:string(?population)) as ?title)
+                where {
+                wd:Q142 p:P1082 ?statement .
+                ?statement ps:P1082 ?population ;
+                pq:P585 ?date .
+                }
+                ORDER BY ?date"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="google.visualization.AnnotationChart"
+data-sgvizler-chart-options="height=500"
+data-sgvizler-log="0"
+                &gt;&lt;/div&gt;</pre></div>
+            </div>
+            <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+   //Draw a chart
+   //sgvizler2.containerDraw('result');
+   //or
+   //$("#result").containerchart();
+
+   //Draw all Chart
+   sgvizler2.containerDrawAll();
+&lt;/script&gt;</pre></div>
+            </div>
+        </div>
+
+        <!--SCRIPT-->
+        <script>
+            sgvizler2.containerDrawAll();
+        </script>
+    </div>
+</div>
