@@ -69,7 +69,8 @@ export abstract class Chart {
             if (currentThis.container != null &&
                 ! currentThis._isDone &&
                 currentThis.isLoadedAllDependencies() &&
-                currentThis._resultSparql !== null ) {
+                currentThis._resultSparql !== null &&
+                currentThis._resultSparql !== undefined) {
                 currentThis.doDraw()
             }
         })

@@ -50,8 +50,11 @@ export * from './visualization/IntervalChart'
 // https://developers.google.com/chart/interactive/docs/gallery/linechart
 export * from './visualization/LineChart'
 
-export * from './visualization/Table'
+// Map
+// https://developers.google.com/chart/interactive/docs/gallery/map
 export * from './visualization/Map'
+
+export * from './visualization/Table'
 export * from './visualization/Data'
 export * from './visualization/ScatterChart'
 export * from './visualization/Pie'

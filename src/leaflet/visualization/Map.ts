@@ -126,16 +126,16 @@ export class Map extends Chart {
                         if (noCols >= 6) {
                             // latitude longitude title text link
                             let title = row[cols[2]] !== undefined ? row[cols[2]].value : ''
-                            let text = row[cols[3]] !== undefined ? "<p style='margin: 0px'>" + row[cols[3]].value + "</p>" : ''
+                            let text = row[cols[3]] !== undefined ? "<p style='margin: 0px'>" + row[cols[3]].value + '</p>' : ''
                             let link = row[cols[4]] !== undefined ? "<a style='font-size: large;font-style: medium;' href='" + row[cols[4]].value + "' target='_blank'>" + title + '</a>' : title
                             let img = row[cols[5]] !== undefined ? "<img src='" + row[cols[5]].value + "' style='margin-left:5px;margin-bottom:5px;width:150px;float:right;'/>" : ''
 
                             marker = L.marker([parseFloat(row[cols[0]].value), parseFloat(row[cols[1]].value)])
 
                             if (row[cols[3]] === undefined || row[cols[3]].value.length === 0) {
-                                marker.bindPopup('<div style="display: flow-root;width-min: 150px;">' + link + '<div>' + img + '</div></div>')
+                                marker.bindPopup('<div style="display: flow-root;min-width: 150px;min-height:150px;">' + link + '<div>' + img + '</div></div>')
                             } else {
-                                marker.bindPopup('<div style="display: flow-root;width: 350px;">' + link + '<div>' + img + text + '</div></div>')
+                                marker.bindPopup('<div style="display: flow-root;width: 350px;min-height:150px;">' + link + '<div>' + img + text + '</div></div>')
                             }
                         } else if (noCols === 5) {
                             // latitude longitude title introduction link
