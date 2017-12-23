@@ -19,7 +19,43 @@
         </p>
 
         <h4>
-            Line options:
+            Data Format:
+        </h4>
+        <p>
+            Each row in the table represents a set of data points with the same x-axis location. <a href="https://developers.google.com/chart/interactive/docs/gallery/linechart#data-format">see details</a>
+        </p>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Column</th>
+                <th scope="col" class="left">Type</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left">0</td>
+                <td class="left">string (discrete) or
+                    number, date, datetime, or
+                    timeofday (continuous)</td>
+                <td class="left">X-axis group labels (discrete) or  X-axis values (continuous)</td>
+            </tr>
+            <tr>
+                <td class="left">1</td>
+                <td class="left">Number</td>
+                <td class="left">Line 1 values</td>
+            </tr>
+            <tr>
+                <td class="left">N</td>
+                <td class="left">Number</td>
+                <td class="left">Line N values</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <h4>
+            Chart options:
         </h4>
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
             <colgroup>
@@ -85,9 +121,9 @@ where {
       }
 ORDER BY ?year"
                      data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-                     data-sgvizler-chart="google.visualization.Line"
+                     data-sgvizler-chart="google.visualization.LineChart"
                      data-sgvizler-chart-options="height=500px"
-                     data-sgvizler-log="0"
+                     data-sgvizler-log="2"
                 ></div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
@@ -105,9 +141,9 @@ where {
 }
 ORDER BY ?year"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Line"
+data-sgvizler-chart="google.visualization.LineChart"
 data-sgvizler-chart-options="height=500px"
-data-sgvizler-log="0"
+data-sgvizler-log="2"
                 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">

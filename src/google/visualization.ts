@@ -42,10 +42,17 @@ export * from './visualization/GeoChart'
 // https://developers.google.com/chart/interactive/docs/gallery/histogram
 export * from './visualization/Histogram'
 
+// IntervalChart
+// https://developers.google.com/chart/interactive/docs/gallery/intervals
+export * from './visualization/IntervalChart'
+
+// LineChart
+// https://developers.google.com/chart/interactive/docs/gallery/linechart
+export * from './visualization/LineChart'
+
 export * from './visualization/Table'
 export * from './visualization/Map'
 export * from './visualization/Data'
-export * from './visualization/Line'
 export * from './visualization/ScatterChart'
 export * from './visualization/Pie'
 export * from './visualization/Trendline'

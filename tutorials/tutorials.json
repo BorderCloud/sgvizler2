@@ -63,8 +63,11 @@
   "google_visualization_Histogram": {
     "title": "google.visualization.Histogram"
   },
-  "google_visualization_Line": {
-    "title": "google.visualization.Line"
+  "google_visualization_IntervalChart": {
+    "title": "google.visualization.IntervalChart"
+  },
+  "google_visualization_LineChart": {
+    "title": "google.visualization.LineChart"
   },
   "google_visualization_Map": {
     "title": "google.visualization.Map"

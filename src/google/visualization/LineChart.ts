@@ -9,12 +9,12 @@ import { API } from '../API'
 declare let google: any
 
 /**
- * Todo Line
- * @class google.visualization.Line
- * @tutorial google_visualization_Line
+ * Todo LineChart
+ * @class google.visualization.LineChart
+ * @tutorial google_visualization_LineChart
  * @memberof google.visualization
  */
-export class Line extends Chart {
+export class LineChart extends Chart {
     private static _isInit: boolean = false
 
     public constructor () {
@@ -24,7 +24,7 @@ export class Line extends Chart {
 
     private static init () {
         google.charts.load('current', {'packages': ['corechart','line']})
-        Line._isInit = true
+        LineChart._isInit = true
     }
 
     public get icon (): string {
@@ -40,16 +40,16 @@ export class Line extends Chart {
     }
 
     public get classFullName (): string {
-        return 'google.visualization.Line'
+        return 'google.visualization.LineChart'
     }
 
     public get tutorialFilename (): string {
-        return 'tutorial-google_visualization_Line.html'
+        return 'tutorial-google_visualization_LineChart.html'
     }
 
     /**
-     * Draw a line
-     * @memberOf Line
+     * Draw a LineChart
+     * @memberOf LineChart
      * @returns {Promise<void>}
      * @param result
      */
@@ -67,17 +67,16 @@ export class Line extends Chart {
                 height: height
             }, currentChart.options)
 
-            if (! Line._isInit) {
-                Line.init()
+            if (! LineChart._isInit) {
+                LineChart.init()
             }
 
             google.charts.setOnLoadCallback(
                 () => {
                     let data = new Data(result)
 
-                    let table = new google.visualization.LineChart(document.getElementById(currentChart.container.id))
-                    let dataTable = data.getDataTable()
-                    table.draw(dataTable, opt)
+                    let line = new google.visualization.LineChart(document.getElementById(currentChart.container.id))
+                    line.draw(data.getDataTable(), opt)
                 }
             )
             // finish

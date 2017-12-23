@@ -1,0 +1,171 @@
+<style>
+    h3, h4 {
+       margin-top: 25px !important;
+    }
+</style>
+<div class="container" >
+    <h3 id="DefinitionList"><a id="sec-4-1-20" name="sec-4-1-20"></a>Definition</h3>
+    <div class="outline-text-4" id="text-DefinitionList">
+
+
+        <!--div class="figure">
+            <p><img src="./image/sDefList.png" alt="sDefList.png">
+            </p>
+            <p><span class="figure-number">Figure 16:</span> Definition list</p>
+        </div-->
+
+        <p>
+            Google Charts can display intervals around a series. They might be used to portray confidence intervals, minimum and maximum values around a value, percentile sampling, or anything else that requires a varying margin around a series.</p>
+        <p>
+            There are six styles of interval: line, bar, box, stick, point, and area. (<a href="https://developers.google.com/chart/interactive/docs/gallery/intervals#combining-interval-styles">see the doc of Google</a>)
+        </p>
+
+        <h4>
+            Data Format:
+        </h4>
+        <p>
+            Each row in the table represents a set of data points with the same x-axis location. <a href="https://developers.google.com/chart/interactive/docs/gallery/linechart#data-format">see details</a>
+        </p>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Column</th>
+                <th scope="col" class="left">Type</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left">0</td>
+                <td class="left">string (discrete) or
+                    number, date, datetime, or
+                    timeofday (continuous)</td>
+                <td class="left">X-axis group labels (discrete) or  X-axis values (continuous)</td>
+            </tr>
+            <tr>
+                <td class="left">1</td>
+                <td class="left">Number</td>
+                <td class="left">Line 1 values</td>
+            </tr>
+            <tr>
+                <td class="left">N</td>
+                <td class="left">Number</td>
+                <td class="left">Line N values</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h4>
+            Chart options:
+        </h4>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Name</th>
+                <th scope="col" class="left">Default</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left"><code>width</code></td>
+                <td class="left">100%</td>
+                <td class="left">Chart width</td>
+            </tr>
+            <tr>
+                <td class="left"><code>height</code></td>
+                <td class="left"></td>
+                <td class="left">Chart height</td>
+            </tr>
+            <tr>
+                <td class="left"><code>Others... </code></td>
+                <td class="left"></td>
+                <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/histogram#configuration-options">See the doc</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <h4>
+            Exemple
+        </h4>
+        <ul class="nav nav-tabs" role="tablist" id="tab_1">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#htmlTab" role="tab" aria-expanded="false">HTML</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#scriptTab" role="tab" aria-expanded="false">Javascript</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
+                <div id="result"
+                     data-sgvizler-query="
+SELECT ?x ?values ?i0 ?i1 ?i2 ?i3 ?i4 ?i5
+WHERE
+{
+  values (?x ?values ?i0 ?i1 ?i2 ?i3 ?i4 ?i5) {
+(1 100 90 110 85 96 104 120)
+(2 120 95 130 90 113 124 140)
+(3 130 105 140 100 117 133 139)
+(4 90 85 95 85 88 92 95)
+(5 70 74 63 67 69 70 72)
+(6 30 39 22 21 28 34 40)
+(7 80 77 83 70 77 85 90)
+(8 100 90 110 85 95 102 110)
+}
+}
+"
+ data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+ data-sgvizler-chart="google.visualization.IntervalChart"
+ data-sgvizler-chart-options="height=500|title=Line intervals, default|curveType=function|lineWidth=4|intervals.style=line|legend=none"
+ data-sgvizler-log="2"
+                ></div>
+            </div>
+            <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
+data-sgvizler-query="
+SELECT ?x ?values ?i0 ?i1 ?i2 ?i3 ?i4 ?i5
+WHERE
+{
+  values (?x ?values ?i0 ?i1 ?i2 ?i3 ?i4 ?i5) {
+(1 100 90 110 85 96 104 120)
+(2 120 95 130 90 113 124 140)
+(3 130 105 140 100 117 133 139)
+(4 90 85 95 85 88 92 95)
+(5 70 74 63 67 69 70 72)
+(6 30 39 22 21 28 34 40)
+(7 80 77 83 70 77 85 90)
+(8 100 90 110 85 95 102 110)
+}
+}
+"
+ data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+ data-sgvizler-chart="google.visualization.IntervalChart"
+ data-sgvizler-chart-options="height=500|title=Line intervals, default|curveType=function|lineWidth=4|intervals.style=line|legend=none"
+data-sgvizler-log="2"
+                &gt;&lt;/div&gt;</pre></div>
+            </div>
+            <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+   //Draw a chart
+   //sgvizler2.containerDraw('result');
+   //or
+   //$("#result").containerchart();
+
+   //Draw all Chart
+   sgvizler2.containerDrawAll();
+&lt;/script&gt;</pre></div>
+            </div>
+        </div>
+
+        <!--SCRIPT-->
+        <script>
+            sgvizler2.containerDrawAll();
+        </script>
+    </div>
+</div>

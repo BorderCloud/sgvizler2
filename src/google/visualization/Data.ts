@@ -93,6 +93,10 @@ export class Data {
         this._dataTable = data
     }
 
+    setRole (col: Number, role: string) {
+        this._dataTable.setColumnProperty(col, 'role', role)
+    }
+
     getDataTable () {
         return this._dataTable
     }
