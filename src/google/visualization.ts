@@ -34,7 +34,14 @@ export * from './visualization/ColumnChart'
 // https://developers.google.com/chart/interactive/docs/gallery/combochart
 export * from './visualization/ComboChart'
 
+// GeoChart
+// https://developers.google.com/chart/interactive/docs/gallery/geochart
 export * from './visualization/GeoChart'
+
+// Histogram
+// https://developers.google.com/chart/interactive/docs/gallery/histogram
+export * from './visualization/Histogram'
+
 export * from './visualization/Table'
 export * from './visualization/Map'
 export * from './visualization/Data'

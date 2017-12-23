@@ -60,6 +60,9 @@
   "google_visualization_GeoChart": {
     "title": "google.visualization.GeoChart"
   },
+  "google_visualization_Histogram": {
+    "title": "google.visualization.Histogram"
+  },
   "google_visualization_Line": {
     "title": "google.visualization.Line"
   },
