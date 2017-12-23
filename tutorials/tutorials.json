@@ -45,6 +45,9 @@
   "google_visualization_BubbleChart": {
     "title": "google.visualization.BubbleChart"
   },
+  "google_visualization_Calendar": {
+    "title": "google.visualization.Calendar"
+  },
   "google_visualization_ColumnChart": {
     "title": "google.visualization.ColumnChart"
   },

@@ -6,6 +6,10 @@
 // https://developers.google.com/chart/interactive/docs/gallery/annotationchart
 export * from './visualization/AnnotationChart'
 
+// Calendar
+// https://developers.google.com/chart/interactive/docs/gallery/calendar
+export * from './visualization/Calendar'
+
 export * from './visualization/Data'
 export * from './visualization/GeoChart'
 export * from './visualization/Table'
