@@ -58,10 +58,13 @@ export * from './visualization/Map'
 // https://developers.google.com/chart/interactive/docs/gallery/orgchart
 export * from './visualization/OrgChart'
 
+// Pie
+// https://developers.google.com/chart/interactive/docs/gallery/piechart
+export * from './visualization/Pie'
+
 export * from './visualization/Table'
 export * from './visualization/Data'
 export * from './visualization/ScatterChart'
-export * from './visualization/Pie'
 export * from './visualization/Trendline'
 
 export * from './visualization/Data'

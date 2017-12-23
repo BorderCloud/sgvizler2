@@ -15,11 +15,43 @@
         </div-->
 
         <p>
-            Pie chart.
+            Google pie chart.
+            (<a href="https://developers.google.com/chart/interactive/docs/gallery/piechart">see the doc of Google</a>)
         </p>
-
         <h4>
-            Pie options:
+            Data Format:
+        </h4>
+        <p>
+            Each row in the table represents a slice. <a href="https://developers.google.com/chart/interactive/docs/gallery/piechart#data-format">see details</a>
+        </p>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Column</th>
+                <th scope="col" class="left">Type</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left">0</td>
+                <td class="left">string</td>
+                <td class="left">Slice labels</td>
+            </tr>
+            <tr>
+                <td class="left">1</td>
+                <td class="left">Number</td>
+                <td class="left">Slice values</td>
+            </tr>
+            <tr>
+                <td class="left">N</td>
+                <td class="left"></td>
+                <td class="left">Optional roles. <a href="https://developers.google.com/chart/interactive/docs/roles">see details</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <h4>
+            Chart options:
         </h4>
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
@@ -92,7 +124,7 @@
     </h3>
 
         <h4>
-            Pie example Normal with hard small size :
+            With options width and height
         </h4>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
             <li class="nav-item">
@@ -107,7 +139,7 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="example"><div id="result" data-sgvizler-query="
+                <div id="result" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -127,10 +159,8 @@ bd:serviceParam wikibase:language 'en,fr' .
 GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
 limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql"data-sgvizler-chart="google.visualization.Pie"
- data-sgvizler-chart-options="width:400;height:300"
+ data-sgvizler-chart-options="width:400|height:300"
                                                               data-sgvizler-log="0"></div>
-
-                </div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded"><pre lang="html" id="consoleHtml">&lt;div id="result"
@@ -157,7 +187,7 @@ limit 100
 "
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="google.visualization.Pie"
-data-sgvizler-chart-options="chartArea: {width: 400, height: 300}"
+data-sgvizler-chart-options="width:400|height:300"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
@@ -174,7 +204,7 @@ data-sgvizler-chart-options="chartArea: {width: 400, height: 300}"
             </div>
         </div>
         <h4>
-            Pie example 3D
+            Pie 3D
         </h4>
         <p>With option "is3D=true"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_2">
@@ -190,7 +220,7 @@ data-sgvizler-chart-options="chartArea: {width: 400, height: 300}"
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="true">
-                <div id="example2"><div id="result_2" data-sgvizler-query="
+               <div id="result_2" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -212,8 +242,6 @@ ORDER BY DESC(?nb)
 limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie"
 data-sgvizler-chart-options="is3D=true"
                                                               data-sgvizler-log="0"></div>
-
-                </div>
             </div>
             <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
@@ -257,7 +285,7 @@ data-sgvizler-chart-options="is3D=true"
             </div>
         </div>
         <h4>
-            Pie example Donut
+            Donut
         </h4>
         <p>With option "pieHole=0.3"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_3">
@@ -273,7 +301,7 @@ data-sgvizler-chart-options="is3D=true"
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_3" role="tabpanel" aria-expanded="true">
-                <div id="example3"><div id="result_3" data-sgvizler-query="
+                <div id="result_3" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -294,8 +322,6 @@ GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
 limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="pieHole=0.3"
                                                               data-sgvizler-log="0"></div>
-
-                </div>
             </div>
             <div class="tab-pane" id="htmlTab_3" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded"><pre lang="html" id="consoleHtml_3">&lt;div id="result"
@@ -339,7 +365,7 @@ data-sgvizler-chart-options="pieHole=0.3"
             </div>
         </div>
         <h4>
-            Pie example Rotating
+            Rotating
         </h4>
         <p>With option "pieStartAngle= 100"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_4">
@@ -355,7 +381,7 @@ data-sgvizler-chart-options="pieHole=0.3"
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_4" role="tabpanel" aria-expanded="true">
-                <div id="example3"><div id="result_4" data-sgvizler-query="
+                <div id="result_4" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -376,8 +402,6 @@ GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
 limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="pieStartAngle=100"
                                                               data-sgvizler-log="0"></div>
-
-                </div>
             </div>
             <div class="tab-pane" id="htmlTab_4" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded"><pre lang="html" id="consoleHtml_4">&lt;div id="result"
@@ -421,7 +445,7 @@ data-sgvizler-chart-options="pieStartAngle=100"
             </div>
         </div>
         <h4>
-            Pie example Slice Visibility Threshold
+            Slice Visibility Threshold
         </h4>
         <p>With option "sliceVisibilityThreshold= .3"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_5">
@@ -437,7 +461,7 @@ data-sgvizler-chart-options="pieStartAngle=100"
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_5" role="tabpanel" aria-expanded="true">
-                <div id="example3"><div id="result_5" data-sgvizler-query="
+                <div id="result_5" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -458,8 +482,6 @@ GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
 limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="sliceVisibilityThreshold= 0.2"
                                                               data-sgvizler-log="0"></div>
-
-                </div>
             </div>
             <div class="tab-pane" id="htmlTab_5" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded"><pre lang="html" id="consoleHtml_5">&lt;div id="result"
@@ -503,7 +525,7 @@ data-sgvizler-chart-options="sliceVisibilityThreshold= 0.2"
             </div>
         </div>
         <h4>
-            Pie example Slice label
+            Slice label
         </h4>
         <p>With option "pieSliceText=label"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_6">
@@ -519,7 +541,7 @@ data-sgvizler-chart-options="sliceVisibilityThreshold= 0.2"
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_6" role="tabpanel" aria-expanded="true">
-                <div id="example3"><div id="result_6" data-sgvizler-query="
+                <div id="result_6" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -540,8 +562,6 @@ GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
 limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="pieSliceText=label"
                                                               data-sgvizler-log="0"></div>
-
-                </div>
             </div>
             <div class="tab-pane" id="htmlTab_6" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded"><pre lang="html" id="consoleHtml_6">&lt;div id="result"
