@@ -72,6 +72,9 @@
   "google_visualization_Map": {
     "title": "google.visualization.Map"
   },
+  "google_visualization_OrgChart": {
+    "title": "google.visualization.OrgChart"
+  },
   "google_visualization_Pie": {
     "title": "google.visualization.Pie"
   },

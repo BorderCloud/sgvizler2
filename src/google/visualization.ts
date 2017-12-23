@@ -54,6 +54,10 @@ export * from './visualization/LineChart'
 // https://developers.google.com/chart/interactive/docs/gallery/map
 export * from './visualization/Map'
 
+// OrgChart
+// https://developers.google.com/chart/interactive/docs/gallery/orgchart
+export * from './visualization/OrgChart'
+
 export * from './visualization/Table'
 export * from './visualization/Data'
 export * from './visualization/ScatterChart'
