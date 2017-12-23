@@ -312,21 +312,38 @@ export abstract class Chart {
     private doDraw () {
         Logger.log(this.container,'Chart started : ' + this._container.id)
         let currentThis = this
-        if ( currentThis._resultSparql !== null) {
+        let isEmpty = false
+
+        if ( currentThis._resultSparql === null
+        || currentThis._resultSparql === undefined
+        ) {
+            isEmpty = true
+        } else {
+            let cols = currentThis._resultSparql.head.vars
+            let rows = currentThis._resultSparql.results.bindings
+            let noCols = cols.length
+            let noRows = rows.length
+
+            if (noCols === 0 ) {
+                isEmpty = true
+            }
+        }
+
+        if (isEmpty) {
+            Logger.displayFeedback(currentThis._container, MESSAGES.ERROR_DATA_EMPTY)
+            Logger.log(currentThis.container,'Chart finished with error : ' + currentThis._container.id)
+        } else {
             currentThis.draw(currentThis._resultSparql).then(
                 function (valeur) {
                     currentThis._isDone = true
                     Logger.log(currentThis.container,'Chart finished : ' + currentThis._container.id)
                 }
-               , function (error) {
+                , function (error) {
                     console.log(error)
                     Logger.displayFeedback(currentThis._container, MESSAGES.ERROR_CHART, [error])
-                        Logger.log(currentThis.container,'Chart finished with error : ' + currentThis._container.id)
-                    }
+                    Logger.log(currentThis.container,'Chart finished with error : ' + currentThis._container.id)
+                }
             )
-        } else {
-            Logger.displayFeedback(currentThis._container, MESSAGES.ERROR_DATA_EMPTY)
-            Logger.log(currentThis.container,'Chart finished with error : ' + currentThis._container.id)
         }
     }
 

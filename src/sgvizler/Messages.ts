@@ -10,7 +10,8 @@ export enum MESSAGES {
     ERROR_CHART,
     ERROR_DEPENDENCIES,
     ERROR_ENDPOINT_FORGOT,
-    ERROR_DATA_EMPTY
+    ERROR_DATA_EMPTY,
+    ERROR_DATA_NOROW
 }
 
 /**
@@ -43,6 +44,9 @@ export class Messages {
                 break
             case MESSAGES.ERROR_DATA_EMPTY :
                 message = 'The resquest sent null.'
+                break
+            case MESSAGES.ERROR_DATA_NOROW :
+                message = 'The resquest sent no row.'
                 break
         }
 

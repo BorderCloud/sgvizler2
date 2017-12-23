@@ -10,6 +10,10 @@ export * from './visualization/AnnotationChart'
 // https://developers.google.com/chart/interactive/docs/gallery/calendar
 export * from './visualization/Calendar'
 
+// CandlestickChart
+// https://developers.google.com/chart/interactive/docs/gallery/candlestickchart
+export * from './visualization/CandlestickChart'
+
 export * from './visualization/Data'
 export * from './visualization/GeoChart'
 export * from './visualization/Table'

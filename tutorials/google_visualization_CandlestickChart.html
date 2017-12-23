@@ -15,19 +15,16 @@
         </div-->
 
         <p>
-            A calendar chart is a visualization used to show activity over the course of a long span of time, such as months or years.
-            (<a href="https://developers.google.com/chart/interactive/docs/gallery/calendar">see the doc of Google</a>)
+            A candlestick chart is used to show an opening and closing value overlaid on top of a total variance. Candlestick charts are often used to show stock value behavior. In this chart, items where the opening value is less than the closing value (a gain) are drawn as filled boxes, and items where the opening value is more than the closing value (a loss) are drawn as hollow boxes.
+            (<a href="https://developers.google.com/chart/interactive/docs/gallery/candlestickchart">see the doc of Google</a>)
         </p>
 
         <h4>
             Data Format:
         </h4>
         <p>
-            You can display one or more lines on your chart. Each row represents an X position on the chart—that is, a specific time; each line is described by a set of one to three columns.
-
-
-
-
+            Five or more columns, where the first column defines X-axis values or group labels, and each multiple of four data columns after that defines a different series.
+            In order to have more series, it is possible to add additional sets of 4 columns, with a similar structure to columns 1-4. Each such set represents another series of candlesticks. The total number of columns should be 4 times the number of series plus 1 (and any optional tooltip columns).
         </p>
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
             <thead>
@@ -40,19 +37,33 @@
             <tbody>
             <tr>
                 <td class="left">0</td>
-                <td class="left">date, datetime, or timeofday</td>
-                <td class="left">Dates</td>
+                <td class="left">String (discrete) used as a group label, or number, date, datetime, or timeofday (continuous)</td>
+                <td class="left">X axis</td>
             </tr>
             <tr>
                 <td class="left">1</td>
                 <td class="left">Number</td>
-                <td class="left">Values</td>
+                <td class="left">low/minimum value of this marker</td>
             </tr>
             <tr>
-                <td class="left">N</td>
-                <td class="left">string</td>
-                <td class="left">Optional roles - tooltip
-                </td>
+                <td class="left">2</td>
+                <td class="left">Number</td>
+                <td class="left">opening/initial value of this marker.</td>
+            </tr>
+            <tr>
+                <td class="left">3</td>
+                <td class="left">Number</td>
+                <td class="left">closing/final value of this marker</td>
+            </tr>
+            <tr>
+                <td class="left">4</td>
+                <td class="left">Number</td>
+                <td class="left">high/maximum value of this marker</td>
+            </tr>
+            <tr>
+                <td class="left">5</td>
+                <td class="left">Number (Optional)</td>
+                <td class="left">A tooltip or style column for the candlestick.</td>
             </tr>
             </tbody>
         </table>
@@ -83,7 +94,7 @@
             <tr>
                 <td class="left"><code>Others... </code></td>
                 <td class="left"></td>
-                <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/calendar#configuration-options">See the doc</a></td>
+                <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/candlestickchart#configuration-options">See the doc</a></td>
             </tr>
             </tbody>
         </table>
@@ -107,38 +118,44 @@
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
                 <div id="result"
                      data-sgvizler-query="
-PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
-
-select ?date (count(?event) as ?nb)
-where {
-    ?event wdt:P585 ?date .
-  FILTER(YEAR(?date) >= 2017 && YEAR(?date) < 2018)
+SELECT  ?time ?low ?initial ?final ?maximum
+WHERE
+{
+  values (?time ?low ?initial ?final ?maximum)  {
+      ('Mon' 20 28 38 45)
+      ('Tue' 31 38 55 66)
+      ('Wed' 50 55 77 80)
+      ('Thu' 77 77 66 50)
+      ('Fri' 68 66 22 15)
+	}
 }
-GROUP BY ?date
-ORDER BY ?date
 "
                      data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-                     data-sgvizler-chart="google.visualization.Calendar"
+                     data-sgvizler-chart="google.visualization.CandlestickChart"
                      data-sgvizler-chart-options="height=500"
-                     data-sgvizler-log="0"
+                     data-sgvizler-log="2"
                 ></div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
 data-sgvizler-query="
-PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
 
-select ?date (count(?event) as ?nb)
-where {
-    ?event wdt:P585 ?date .
-  FILTER(YEAR(?date) >= 2017 && YEAR(?date) < 2018)
+SELECT  ?time ?low ?initial ?final ?maximum
+WHERE
+{
+  values (?time ?low ?initial ?final ?maximum)  {
+      ('Mon' 20 28 38 45)
+      ('Tue' 31 38 55 66)
+      ('Wed' 50 55 77 80)
+      ('Thu' 77 77 66 50)
+      ('Fri' 68 66 22 15)
+	}
 }
-GROUP BY ?date
-ORDER BY ?date"
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Calendar"
-data-sgvizler-chart-options="height=500"
-data-sgvizler-log="0"
+"
+ data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+ data-sgvizler-chart="google.visualization.CandlestickChart"
+ data-sgvizler-chart-options="height=500"
+ data-sgvizler-log="2"
                 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">

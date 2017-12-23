@@ -48,6 +48,9 @@
   "google_visualization_Calendar": {
     "title": "google.visualization.Calendar"
   },
+  "google_visualization_CandlestickChart": {
+    "title": "google.visualization.CandlestickChart"
+  },
   "google_visualization_ColumnChart": {
     "title": "google.visualization.ColumnChart"
   },
