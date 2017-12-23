@@ -54,6 +54,9 @@
   "google_visualization_ColumnChart": {
     "title": "google.visualization.ColumnChart"
   },
+  "google_visualization_ComboChart": {
+    "title": "google.visualization.ComboChart"
+  },
   "google_visualization_GeoChart": {
     "title": "google.visualization.GeoChart"
   },

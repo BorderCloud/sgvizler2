@@ -6,6 +6,18 @@
 // https://developers.google.com/chart/interactive/docs/gallery/annotationchart
 export * from './visualization/AnnotationChart'
 
+// AreaChart
+// https://developers.google.com/chart/interactive/docs/gallery/areachart
+export * from './visualization/AreaChart'
+
+// BarChart
+// https://developers.google.com/chart/interactive/docs/gallery/barchart
+export * from './visualization/BarChart'
+
+// BubbleChart
+// https://developers.google.com/chart/interactive/docs/gallery/bubblechart
+export * from './visualization/BubbleChart'
+
 // Calendar
 // https://developers.google.com/chart/interactive/docs/gallery/calendar
 export * from './visualization/Calendar'
@@ -14,16 +26,21 @@ export * from './visualization/Calendar'
 // https://developers.google.com/chart/interactive/docs/gallery/candlestickchart
 export * from './visualization/CandlestickChart'
 
-export * from './visualization/Data'
+// ColumnChart
+// https://developers.google.com/chart/interactive/docs/gallery/columnchart
+export * from './visualization/ColumnChart'
+
+// ComboChart
+// https://developers.google.com/chart/interactive/docs/gallery/combochart
+export * from './visualization/ComboChart'
+
 export * from './visualization/GeoChart'
 export * from './visualization/Table'
 export * from './visualization/Map'
-export * from './visualization/BarChart'
 export * from './visualization/Data'
-export * from './visualization/BubbleChart'
-export * from './visualization/AreaChart'
 export * from './visualization/Line'
 export * from './visualization/ScatterChart'
 export * from './visualization/Pie'
 export * from './visualization/Trendline'
-export * from './visualization/ColumnChart'
+
+export * from './visualization/Data'
