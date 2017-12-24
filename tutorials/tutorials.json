@@ -84,6 +84,9 @@
   "google_visualization_Table": {
     "title": "google.visualization.Table"
   },
+  "google_visualization_Timeline": {
+    "title": "google.visualization.Timeline"
+  },
   "google_visualization_Trendline": {
     "title": "google.visualization.Trendline"
   },

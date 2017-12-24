@@ -9,12 +9,12 @@ import { API } from '../API'
 declare let google: any
 
 /**
- * Todo Histogram
- * @class google.visualization.Histogram
- * @tutorial google_visualization_Histogram
+ * Todo Timeline
+ * @class google.visualization.Timeline
+ * @tutorial google_visualization_Timeline
  * @memberof google.visualization
  */
-export class Histogram extends Chart {
+export class Timeline extends Chart {
     private static _isInit: boolean = false
 
     public constructor () {
@@ -23,35 +23,35 @@ export class Histogram extends Chart {
     }
 
     private static init () {
-        google.charts.load('current', {'packages': ['corechart']})
-        Histogram._isInit = true
+        google.charts.load('current', {'packages': ['timeline']})
+        Timeline._isInit = true
     }
 
     public get icon (): string {
-        return 'fa-area-chart'
+        return 'fa-table'
     }
 
     public get label (): string {
-        return 'Histogram'
+        return 'Timeline'
     }
 
     public get subtext (): string {
-        return 'Histogram'
+        return 'Timeline'
     }
 
     public get classFullName (): string {
-        return 'google.visualization.Histogram'
+        return 'google.visualization.Timeline'
     }
 
     public get tutorialFilename (): string {
-        return 'tutorial-google_visualization_Histogram.html'
+        return 'tutorial-google_visualization_Timeline.html'
     }
 
     /**
-     * Make a standard simple html Histogram.
+     * Make a standard simple html Timeline.
      * Available options:
      * - 'headings'   :  "true" / "false"  (default: "true")
-     * @memberOf Histogram
+     * @memberOf Timeline
      * @returns {Promise<void>}
      * @param result
      */
@@ -71,17 +71,17 @@ export class Histogram extends Chart {
                 height: height
             }, currentChart.options)
 
-            if (! Histogram._isInit) {
-                Histogram.init()
+            if (! Timeline._isInit) {
+                Timeline.init()
             }
 
             google.charts.setOnLoadCallback(
                 () => {
                     let data = new Data(result)
 
-                    let histogram = new google.visualization.Histogram(document.getElementById(currentChart.container.id))
+                    let timeline = new google.visualization.Timeline(document.getElementById(currentChart.container.id))
 
-                    histogram.draw(data.getDataTable(), currentChart.options)
+                    timeline.draw(data.getDataTable(), currentChart.options)
                 }
             )
             // finish

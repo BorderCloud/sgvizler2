@@ -80,7 +80,7 @@ export * from './visualization/Table'
 
 // Timeline
 // https://developers.google.com/chart/interactive/docs/gallery/timeline
-// todo ?
+export * from './visualization/Timeline'
 
 // Treemaps
 // https://developers.google.com/chart/interactive/docs/gallery/treemap

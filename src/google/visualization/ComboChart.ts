@@ -67,7 +67,6 @@ export class ComboChart extends Chart {
             }
 
             let opt = Object.assign({
-                reverseCategories: false,
                 width: currentChart.width,
                 height: height
             }, currentChart.options)
