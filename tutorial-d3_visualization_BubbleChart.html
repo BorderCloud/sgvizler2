@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Sgvizler 2 Tutorial: d3.visualization.BubbleChart (in construction)</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="sgvizler2/lib/font-awesome//font-awesome.min.css">
+<link rel="stylesheet" href="sgvizler2/lib/bootstrap-select/css/bootstrap-select.min.css">
+<script src="sgvizler2/lib/bootstrap-select/js/bootstrap-select.js"></script>
+<script src="sgvizler2/sgvizler2.js"></script>
+
+</head>
+
+<body>
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+    <nav class="navbar navbar-toggleable-md navbar-light">
+            <a class="navbar-brand" href="index.html"><div style='position: relative;font:bold;color: black;font-size: 31pt;font-weight: bolder;'><img style='vertical-align: sub;' src='img/mr.sgvizler.png' width='55px'/>Sgvizler 2</div></a>
+
+
+          <div class="collapse navbar-collapse" >
+            <ul class="navbar-nav">
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="tutorials.list.html" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Tutorials
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a href='tutorial-A_Editor.html' class='dropdown-item'>A SPARQL editor</a><a href='tutorial-bordercloud_visualization_DataTable.html' class='dropdown-item'>bordercloud.visualization.DataTable</a><a href='tutorial-d3_visualization_AreaChart.html' class='dropdown-item'>d3.visualization.AreaChart (in construction)</a><a href='tutorial-d3_visualization_BarChart.html' class='dropdown-item'>d3.visualization.BarChart (in construction)</a><a href='tutorial-d3_visualization_BubbleChart.html' class='dropdown-item'>d3.visualization.BubbleChart (in construction)</a><a href='tutorial-d3_visualization_ColumnChart.html' class='dropdown-item'>d3.visualization.ColumnChart (in construction)</a><a href='tutorial-d3_visualization_Line.html' class='dropdown-item'>d3.visualization.Line</a><a href='tutorial-d3_visualization_Pie.html' class='dropdown-item'>d3.visualization.Pie</a><a href='tutorial-d3_visualization_ScatterChart.html' class='dropdown-item'>d3.visualization.ScatterChart (in construction)</a><a href='tutorial-google_visualization_AnnotationChart.html' class='dropdown-item'>google.visualization.AnnotationChart</a><a href='tutorial-google_visualization_AreaChart.html' class='dropdown-item'>google.visualization.AreaChart</a><a href='tutorial-google_visualization_BarChart.html' class='dropdown-item'>google.visualization.BarChart</a><a href='tutorial-google_visualization_BubbleChart.html' class='dropdown-item'>google.visualization.BubbleChart</a><a href='tutorial-google_visualization_Calendar.html' class='dropdown-item'>google.visualization.Calendar</a><a href='tutorial-google_visualization_CandlestickChart.html' class='dropdown-item'>google.visualization.CandlestickChart</a><a href='tutorial-google_visualization_ColumnChart.html' class='dropdown-item'>google.visualization.ColumnChart</a><a href='tutorial-google_visualization_ComboChart.html' class='dropdown-item'>google.visualization.ComboChart</a><a href='tutorial-google_visualization_GeoChart.html' class='dropdown-item'>google.visualization.GeoChart</a><a href='tutorial-google_visualization_Histogram.html' class='dropdown-item'>google.visualization.Histogram</a><a href='tutorial-google_visualization_IntervalChart.html' class='dropdown-item'>google.visualization.IntervalChart</a><a href='tutorial-google_visualization_LineChart.html' class='dropdown-item'>google.visualization.LineChart</a><a href='tutorial-google_visualization_Map.html' class='dropdown-item'>google.visualization.Map</a><a href='tutorial-google_visualization_OrgChart.html' class='dropdown-item'>google.visualization.OrgChart (in construction)</a><a href='tutorial-google_visualization_Pie.html' class='dropdown-item'>google.visualization.Pie</a><a href='tutorial-google_visualization_ScatterChart.html' class='dropdown-item'>google.visualization.ScatterChart </a><a href='tutorial-google_visualization_SteppedAreaChart.html' class='dropdown-item'>google.visualization.SteppedAreaChart </a><a href='tutorial-google_visualization_Table.html' class='dropdown-item'>google.visualization.Table</a><a href='tutorial-google_visualization_Timeline.html' class='dropdown-item'>google.visualization.Timeline</a><a href='tutorial-google_visualization_TreeMap.html' class='dropdown-item'>google.visualization.TreeMap</a><a href='tutorial-google_visualization_Trendline.html' class='dropdown-item'>google.visualization.Trendline</a><a href='tutorial-leaflet_visualization_Map.html' class='dropdown-item'>leaflet.visualization.Map</a><a href='tutorial-sgvizler_visualization_Table.html' class='dropdown-item'>sgvizler.visualization.Table</a>
+                        </div>
+                      </li>
+                    
+                
+                    
+                
+            </ul>
+          </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			<section class="tutorial-section">
+
+<header>
+    
+
+    <h2>d3.visualization.BubbleChart (in construction)</h2>
+</header>
+
+<article>
+    <style>
+    h3, h4 {
+       margin-top: 25px !important;
+    }
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+</style>
+<div class="container" >
+    <h3 id="DefinitionList"><a id="sec-4-1-20" name="sec-4-1-20"></a>Definition</h3>
+    <div class="outline-text-4" id="text-DefinitionList">
+
+
+        <!--div class="figure">
+            <p><img src="./image/sDefList.png" alt="sDefList.png">
+            </p>
+            <p><span class="figure-number">Figure 16:</span> Definition list</p>
+        </div-->
+
+        <p>
+            In construction...
+            Each option is separated by a '|'  or '!' (for Mediawiki).
+        </p>
+
+        <h4>
+            Table options
+        </h4>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+            <colgroup>
+                <col class="left">
+
+                <col class="left">
+
+                <col class="left">
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col" class="left">Name</th>
+                <th scope="col" class="left">Default</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left"><code>width</code></td>
+                <td class="left">100%</td>
+                <td class="left">Chart width</td>
+            </tr>
+            <tr>
+                <td class="left"><code>height</code></td>
+                <td class="left"></td>
+                <td class="left">Chart height</td>
+            </tr>
+
+            </tbody>
+        </table>
+
+    <h3>
+        Example
+    </h3>
+
+        <h4>
+            BubbleChart :
+        </h4>
+        <ul class="nav nav-tabs" role="tablist" id="tab_1">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#htmlTab" role="tab" aria-expanded="false">HTML</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#scriptTab" role="tab" aria-expanded="false">Javascript</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
+                <div id="example" style="padding: 25px;width: 1100px; height: 400px;"><div id="result" data-sgvizler-query="
+                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#>
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/>
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
+                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
+                    WHERE {
+                              ?pays wdt:P31 wd:Q6256.
+                              ?pays wdt:P2132 ?pib .
+                              ?pays wdt:P1082 ?population .
+                              ?pays wdt:P30 ?continent .
+                    SERVICE wikibase:label {
+                         bd:serviceParam wikibase:language 'en' .
+                    }
+
+                          }
+                    LIMIT 15"
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                data-sgvizler-chart="d3.visualization.BubbleChart"
+                data-sgvizler-log="0"></div>
+
+                </div>
+            </div>
+            <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
+                    data-sgvizler-query="
+                    SPREFIX bd: &lt;http://www.bigdata.com/rdf#>
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#>
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/>
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
+                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
+                    WHERE {
+                              ?pays wdt:P31 wd:Q6256.
+                              ?pays wdt:P2132 ?pib .
+                              ?pays wdt:P1082 ?population .
+                              ?pays wdt:P30 ?continent .
+                    SERVICE wikibase:label {
+                         bd:serviceParam wikibase:language 'en' .
+                    }
+
+                          }
+                    LIMIT 10000
+                    "
+                    &gt;&lt;/div&gt;</pre></div>
+            </div>
+            <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+   //Draw a chart
+   //sgvizler2.containerDraw('result');
+   //or
+   //$("#result").containerchart();
+
+   //Draw all Chart
+   sgvizler2.containerDrawAll();
+&lt;/script&gt;</pre></div>
+            </div>
+        </div>
+        </div>
+
+        <!--SCRIPT-->
+        <script>
+            sgvizler2.containerDrawAll();
+        </script>
+    </div>
+</div>
+
+</article>
+
+</section>
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<!--footer class="bd-footer small">
+<div class="container">
+    <div class="bottom-footer">
+        <div class="col-md-12">
+
+        </div>
+        <div class="col-md-12">
+
+        </div>
+        <div class="col-md-12">
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+	
+		on December 24th 2017, 9:10:46 pm
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+        </div>
+    </div>
+</div>
+</footer-->
+
+
+<!--script src="scripts/docstrap.lib.js"></script-->
+<!--script src="scripts/toc.js"></script-->
+
+    <!--script type="text/javascript" src="scripts/fulltext-search-ui.js"></script-->
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+/*
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+        if(example.length !=0 ){
+            exampleText = example.html();
+            var lang = /{@lang (.*?)}/.exec( exampleText );
+            if ( lang && lang[1] ) {
+                exampleText = exampleText.replace( lang[0], "" );
+                example.html( exampleText );
+                lang = lang[1];
+            } else {
+                var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+                lang = langClassMatch ? langClassMatch[1] : "javascript";
+            }
+
+            if ( lang ) {
+
+                $this
+                .addClass( "sunlight-highlight-" + lang )
+                .addClass( "linenums" )
+                .html( example.html() );
+
+            }
+        }
+	} );
+	*/
+/*
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+*/
+/*
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+*/
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+           // SearcherDisplay.init();
+        });
+    </script>
+
+
+
+
+</body>
+</html>

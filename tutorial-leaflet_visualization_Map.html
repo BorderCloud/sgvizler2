@@ -47,7 +47,7 @@
                           Tutorials
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a href='tutorial-A_Editor.html' class='dropdown-item'>A SPARQL editor</a><a href='tutorial-bordercloud_visualization_DataTable.html' class='dropdown-item'>bordercloud.visualization.DataTable</a><a href='tutorial-chartTest.html' class='dropdown-item'>chartTest</a><a href='tutorial-d3_visualization_Pie.html' class='dropdown-item'>d3.visualization.Pie (Example)</a><a href='tutorial-google_visualization_Map.html' class='dropdown-item'>google.visualization.Map</a><a href='tutorial-google_visualization_Table.html' class='dropdown-item'>google.visualization.Table</a><a href='tutorial-leaflet_visualization_Map.html' class='dropdown-item'>leaflet.visualization.Map</a><a href='tutorial-sgvizler_visualization_Table.html' class='dropdown-item'>sgvizler.visualization.Table</a>
+                            <a href='tutorial-A_Editor.html' class='dropdown-item'>A SPARQL editor</a><a href='tutorial-bordercloud_visualization_DataTable.html' class='dropdown-item'>bordercloud.visualization.DataTable</a><a href='tutorial-d3_visualization_AreaChart.html' class='dropdown-item'>d3.visualization.AreaChart (in construction)</a><a href='tutorial-d3_visualization_BarChart.html' class='dropdown-item'>d3.visualization.BarChart (in construction)</a><a href='tutorial-d3_visualization_BubbleChart.html' class='dropdown-item'>d3.visualization.BubbleChart (in construction)</a><a href='tutorial-d3_visualization_ColumnChart.html' class='dropdown-item'>d3.visualization.ColumnChart (in construction)</a><a href='tutorial-d3_visualization_Line.html' class='dropdown-item'>d3.visualization.Line</a><a href='tutorial-d3_visualization_Pie.html' class='dropdown-item'>d3.visualization.Pie</a><a href='tutorial-d3_visualization_ScatterChart.html' class='dropdown-item'>d3.visualization.ScatterChart (in construction)</a><a href='tutorial-google_visualization_AnnotationChart.html' class='dropdown-item'>google.visualization.AnnotationChart</a><a href='tutorial-google_visualization_AreaChart.html' class='dropdown-item'>google.visualization.AreaChart</a><a href='tutorial-google_visualization_BarChart.html' class='dropdown-item'>google.visualization.BarChart</a><a href='tutorial-google_visualization_BubbleChart.html' class='dropdown-item'>google.visualization.BubbleChart</a><a href='tutorial-google_visualization_Calendar.html' class='dropdown-item'>google.visualization.Calendar</a><a href='tutorial-google_visualization_CandlestickChart.html' class='dropdown-item'>google.visualization.CandlestickChart</a><a href='tutorial-google_visualization_ColumnChart.html' class='dropdown-item'>google.visualization.ColumnChart</a><a href='tutorial-google_visualization_ComboChart.html' class='dropdown-item'>google.visualization.ComboChart</a><a href='tutorial-google_visualization_GeoChart.html' class='dropdown-item'>google.visualization.GeoChart</a><a href='tutorial-google_visualization_Histogram.html' class='dropdown-item'>google.visualization.Histogram</a><a href='tutorial-google_visualization_IntervalChart.html' class='dropdown-item'>google.visualization.IntervalChart</a><a href='tutorial-google_visualization_LineChart.html' class='dropdown-item'>google.visualization.LineChart</a><a href='tutorial-google_visualization_Map.html' class='dropdown-item'>google.visualization.Map</a><a href='tutorial-google_visualization_OrgChart.html' class='dropdown-item'>google.visualization.OrgChart (in construction)</a><a href='tutorial-google_visualization_Pie.html' class='dropdown-item'>google.visualization.Pie</a><a href='tutorial-google_visualization_ScatterChart.html' class='dropdown-item'>google.visualization.ScatterChart </a><a href='tutorial-google_visualization_SteppedAreaChart.html' class='dropdown-item'>google.visualization.SteppedAreaChart </a><a href='tutorial-google_visualization_Table.html' class='dropdown-item'>google.visualization.Table</a><a href='tutorial-google_visualization_Timeline.html' class='dropdown-item'>google.visualization.Timeline</a><a href='tutorial-google_visualization_TreeMap.html' class='dropdown-item'>google.visualization.TreeMap</a><a href='tutorial-google_visualization_Trendline.html' class='dropdown-item'>google.visualization.Trendline</a><a href='tutorial-leaflet_visualization_Map.html' class='dropdown-item'>leaflet.visualization.Map</a><a href='tutorial-sgvizler_visualization_Table.html' class='dropdown-item'>sgvizler.visualization.Table</a>
                         </div>
                       </li>
                     
@@ -103,23 +103,66 @@
         </div-->
 
         <p>
-            Map of OpenStreetMap with Leaflet(with cluster). You can use 5 columns.
-
-            <ol>
-                <li>Latitude. Datatype: xsd:Decimal</li>
-                <li>Longitude. Datatype: xsd:Decimal</li>
-                <li>Optional - title. Datatype: xsd:string</li>
-                <li>Optional - introduction. Datatype: xsd:string</li>
-                <li>Optional - link. Datatype: IRI</li>
-                <li>Optional - image. Datatype: IRI</li>
-            </ol>
+            Map of OpenStreetMap with Leaflet(with cluster).
         </p>
+
         <h4>
-            Map options: <a
-                href="https://developers.google.com/maps/documentation/javascript/controls#ControlOptions">See all
-            options
-            </a>
+            Data format
         </h4>
+        <p>
+            Each row in the table represents a set of data points with the same x-axis location. <a href="https://developers.google.com/chart/interactive/docs/gallery/linechart#data-format">see details</a>
+        </p>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Column</th>
+                <th scope="col" class="left">Type</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left">0</td>
+                <td class="left">Number</td>
+                <td class="left">Latitude</td>
+            </tr>
+            <tr>
+                <td class="left">1</td>
+                <td class="left">Number</td>
+                <td class="left">Longitude</td>
+            </tr>
+            <tr>
+                <td class="left">2</td>
+                <td class="left">string (Optional)</td>
+                <td class="left">Title of popup or simple label or HTML</td>
+            </tr>
+            <tr>
+                <td class="left">3</td>
+                <td class="left">string (Optional)</td>
+                <td class="left">Description in the popup</td>
+            </tr>
+            <tr>
+                <td class="left">4</td>
+                <td class="left">string (Optional)</td>
+                <td class="left"></td>
+            </tr>
+            <tr>
+                <td class="left">5</td>
+                <td class="left">url (Optional)</td>
+                <td class="left">Link of title</td>
+            </tr>
+            <tr>
+                <td class="left">6</td>
+                <td class="left">url (Optional)</td>
+                <td class="left">Image in the popup</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h4>
+            Chart options
+        </h4>
+        <p>Each option is separated by a '|'  or '!' (for Mediawiki).</p>
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -337,7 +380,7 @@ where {
         ?site wdt:P31/wdt:P279* wd:Q839954 .
         ?site wdt:P17 wd:Q142 .
         ?site wdt:P18 ?image .
-   ?site p:P625 ?coord .
+         ?site p:P625 ?coord .
 
           ?coord   psv:P625 ?coordValue .
 
@@ -352,7 +395,7 @@ where {
                 "
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="leaflet.visualization.Map"
-data-sgvizler-chart-options="headings=false"
+data-sgvizler-chart-options=""
 &gt;&lt;/div&gt;</pre></div>
         </div>
         <div class="tab-pane" id="scriptTab_2" role="tabpanel">
@@ -378,6 +421,114 @@ data-sgvizler-chart-options="headings=false"
     </div>
 
 
+
+    <h4>
+        Example 3 : Empty result
+    </h4>
+    <p>With option "showRowNumber=true"</p>
+    <ul class="nav nav-tabs" role="tablist" id="tab_3">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#resultTab_3" role="tab" aria-expanded="true">
+                Result</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#htmlTab_3" role="tab" aria-expanded="false">HTML</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#scriptTab_3" role="tab" aria-expanded="false">Javascript</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="resultTab_3" role="tabpanel" aria-expanded="false">
+          <div id="result_3" data-sgvizler-query="
+    PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#>
+    PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/>
+    PREFIX p: &lt;http://www.wikidata.org/prop/>
+    PREFIX bd: &lt;http://www.bigdata.com/rdf#>
+    PREFIX wikibase: &lt;http://wikiba.se/ontology#>
+    PREFIX wd: &lt;http://www.wikidata.org/entity/>
+    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
+
+    select distinct
+    ?lat ?long ?siteLabel ?siteDescription
+    ?site
+    (concat(xsd:string(?image),'?width=200') as ?newimage)
+    where {
+    ?site wdt:P31/wdt:P279* wd:Q839000954 . #wrong type
+    ?site wdt:P17 wd:Q142 .
+    ?site wdt:P18 ?image .
+    ?site p:P625 ?coord .
+
+    ?coord   psv:P625 ?coordValue .
+
+    ?coordValue a wikibase:GlobecoordinateValue ;
+    wikibase:geoLatitude ?lat ;
+    wikibase:geoLongitude ?long .
+
+    SERVICE wikibase:label {
+    bd:serviceParam wikibase:language 'en,fr' .
+    }
+    }" data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                                                            data-sgvizler-chart="leaflet.visualization.Map"
+                                                            data-sgvizler-log="2"></div>
+        <div class="tab-pane" id="htmlTab_3" role="tabpanel" aria-expanded="true">
+            <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_3">&lt;div id="result"
+data-sgvizler-query="
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#>
+PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/>
+PREFIX p: &lt;http://www.wikidata.org/prop/>
+PREFIX bd: &lt;http://www.bigdata.com/rdf#>
+PREFIX wikibase: &lt;http://wikiba.se/ontology#>
+PREFIX wd: &lt;http://www.wikidata.org/entity/>
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
+
+select distinct
+?lat ?long ?siteLabel ?siteDescription
+?site
+(concat(xsd:string(?image),'?width=200') as ?newimage)
+where {
+?site wdt:P31/wdt:P279* wd:Q839000954 . #wrong type
+?site wdt:P17 wd:Q142 .
+?site wdt:P18 ?image .
+?site p:P625 ?coord .
+?site p:P625 ?coord .
+
+?coord   psv:P625 ?coordValue .
+
+?coordValue a wikibase:GlobecoordinateValue ;
+wikibase:geoLatitude ?lat ;
+wikibase:geoLongitude ?long .
+
+SERVICE wikibase:label {
+bd:serviceParam wikibase:language 'en,fr' .
+}
+}"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="leaflet.visualization.Map"
+data-sgvizler-log="2"
+&gt;&lt;/div&gt;</pre></div>
+        </div>
+        <div class="tab-pane" id="scriptTab_3" role="tabpanel">
+            <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_3">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+   //Draw a chart
+   //sgvizler2.containerDraw('result',{
+   //             googleApiKey : "YOUR_GOOGLE_MAP_API_KEY"
+   //         });
+   //or
+   //$("#result").containerchart({
+   //             googleApiKey : "YOUR_GOOGLE_MAP_API_KEY"
+   //         });
+
+   //Draw all Chart
+   sgvizler2.containerDrawAll({
+                googleApiKey : "YOUR_GOOGLE_MAP_API_KEY"
+   });
+&lt;/script&gt;</pre></div>
+        </div>
+    </div>
+
+
         <!--SCRIPT-->
         <script>
             sgvizler2.containerDrawAll({
@@ -389,6 +540,8 @@ data-sgvizler-chart-options="headings=false"
             });
         </script>
     </div>
+
+
 </div>
 
 </article>
@@ -435,7 +588,7 @@ data-sgvizler-chart-options="headings=false"
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
 	
-		on November 20th 2017, 1:47:58 am
+		on December 24th 2017, 9:10:46 pm
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

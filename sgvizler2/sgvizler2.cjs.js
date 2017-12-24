@@ -95,7 +95,8 @@ class Chart {
             if (currentThis.container != null &&
                 !currentThis._isDone &&
                 currentThis.isLoadedAllDependencies() &&
-                currentThis._resultSparql !== null) {
+                currentThis._resultSparql !== null &&
+                currentThis._resultSparql !== undefined) {
                 currentThis.doDraw();
             }
         });
@@ -266,7 +267,25 @@ class Chart {
     doDraw() {
         Logger.log(this.container, 'Chart started : ' + this._container.id);
         let currentThis = this;
-        if (currentThis._resultSparql !== null) {
+        let isEmpty = false;
+        if (currentThis._resultSparql === null
+            || currentThis._resultSparql === undefined) {
+            isEmpty = true;
+        }
+        else {
+            let cols = currentThis._resultSparql.head.vars;
+            let rows = currentThis._resultSparql.results.bindings;
+            let noCols = cols.length;
+            let noRows = rows.length;
+            if (noCols === 0) {
+                isEmpty = true;
+            }
+        }
+        if (isEmpty) {
+            Logger.displayFeedback(currentThis._container, MESSAGES.ERROR_DATA_EMPTY);
+            Logger.log(currentThis.container, 'Chart finished with error : ' + currentThis._container.id);
+        }
+        else {
             currentThis.draw(currentThis._resultSparql).then(function (valeur) {
                 currentThis._isDone = true;
                 Logger.log(currentThis.container, 'Chart finished : ' + currentThis._container.id);
@@ -275,10 +294,6 @@ class Chart {
                 Logger.displayFeedback(currentThis._container, MESSAGES.ERROR_CHART, [error]);
                 Logger.log(currentThis.container, 'Chart finished with error : ' + currentThis._container.id);
             });
-        }
-        else {
-            Logger.displayFeedback(currentThis._container, MESSAGES.ERROR_DATA_EMPTY);
-            Logger.log(currentThis.container, 'Chart finished with error : ' + currentThis._container.id);
         }
     }
     // noinspection JSValidateJSDoc
@@ -294,7 +309,8 @@ class Chart {
         let raw = this._optionsRaw;
         while ((matchArray = patternOption.exec(raw)) !== null) {
             // this.options[matchArray[1].toLowerCase()] = matchArray[2].trim()
-            this.options[matchArray[1]] = matchArray[2].trim();
+            // this.options[matchArray[1]] = matchArray[2].trim()
+            Tools.assignProperty(this.options, matchArray[1], matchArray[2].trim());
             this._patternOptions = typePattern;
         }
     }
@@ -746,7 +762,15 @@ Select.charts = [
         // optgroup
         label: 'd3.visualization',
         charts: [
+            /*'d3.visualization.AreaChart',
+            'd3.visualization.BarChart',
+            'd3.visualization.BubbleChart',
+            'd3.visualization.ColumnChart',*/
+            'd3.visualization.Line',
             'd3.visualization.Pie'
+            /*,
+            'd3.visualization.ScatterChart'
+            */
         ]
     },
     {
@@ -760,8 +784,24 @@ Select.charts = [
         // optgroup
         label: 'google.visualization',
         charts: [
+            'google.visualization.AnnotationChart',
+            'google.visualization.AreaChart',
+            'google.visualization.BarChart',
+            'google.visualization.BubbleChart',
+            'google.visualization.Calendar',
+            'google.visualization.CandlestickChart',
+            'google.visualization.ColumnChart',
+            'google.visualization.ComboChart',
+            'google.visualization.GeoChart',
+            'google.visualization.Histogram',
+            'google.visualization.IntervalChart',
+            'google.visualization.LineChart',
+            'google.visualization.Map',
+            // 'google.visualization.OrgChart',
+            'google.visualization.Pie',
+            'google.visualization.ScatterChart',
             'google.visualization.Table',
-            'google.visualization.Map'
+            'google.visualization.Trendline'
         ]
     },
     {
@@ -787,6 +827,7 @@ var MESSAGES;
     MESSAGES[MESSAGES["ERROR_DEPENDENCIES"] = 4] = "ERROR_DEPENDENCIES";
     MESSAGES[MESSAGES["ERROR_ENDPOINT_FORGOT"] = 5] = "ERROR_ENDPOINT_FORGOT";
     MESSAGES[MESSAGES["ERROR_DATA_EMPTY"] = 6] = "ERROR_DATA_EMPTY";
+    MESSAGES[MESSAGES["ERROR_DATA_NOROW"] = 7] = "ERROR_DATA_NOROW";
 })(MESSAGES || (MESSAGES = {}));
 /**
  *
@@ -818,6 +859,9 @@ class Messages {
                 break;
             case MESSAGES.ERROR_DATA_EMPTY:
                 message = 'The resquest sent null.';
+                break;
+            case MESSAGES.ERROR_DATA_NOROW:
+                message = 'The resquest sent no row.';
                 break;
         }
         if (args) {
@@ -872,6 +916,9 @@ class Tools {
         }
         return cursor;
     }
+    static assignProperty(obj, path, value) {
+        return Tools.assignJSON(obj, Tools.getJSONByPath(path, value));
+    }
     // public static escapeHtml (str: string): string {
     //     let text = document.createTextNode(str)
     //     let div = document.createElement('div')
@@ -899,6 +946,73 @@ class Tools {
             });
         });
         return text;
+    }
+    static getJSONByPath(path, value) {
+        let json = '';
+        let propertyName = '';
+        let nextPath = '';
+        if (path.length === 0 || !value) {
+            return json;
+        }
+        let positionDot = path.search(/\./);
+        if (positionDot === -1) {
+            propertyName = path.trim();
+            if (Number.isNaN(Number(value))) {
+                let valueBoolean = Tools.convertToBoolean(value);
+                if (valueBoolean === undefined) {
+                    let str = JSON.stringify(String(value));
+                    str = str.substring(1, str.length - 1);
+                    json = '{"' + propertyName + '":"' + str + '"}';
+                }
+                else {
+                    json = '{"' + propertyName + '":' + value + '}';
+                }
+            }
+            else {
+                json = '{"' + propertyName + '":' + value + '}';
+            }
+        }
+        else {
+            propertyName = path.substring(0, positionDot);
+            nextPath = path.substring(positionDot + 1, path.length);
+            json = '{"' + propertyName.trim() + '": ' + Tools.getJSONByPath(nextPath, value) + ' }';
+        }
+        return json;
+    }
+    static assignJSON(obj, json) {
+        Tools.mergeInObject(obj, JSON.parse(json));
+        return obj;
+    }
+    static convertToBoolean(input) {
+        if (input.length <= 5) {
+            try {
+                return JSON.parse(input);
+            }
+            catch (e) {
+                return undefined;
+            }
+        }
+        return undefined;
+    }
+    // Convert to typescript : https://github.com/gmasmejean/recursiveAssign/blob/master/index.js
+    static assign(ref, key, value) {
+        if (Tools.isPlainObject(value)) {
+            if (!Tools.isPlainObject(ref[key])) {
+                ref[key] = {};
+            }
+            Tools.mergeInObject(ref[key], value);
+        }
+        else {
+            ref[key] = value;
+        }
+    }
+    static mergeInObject(dest, data) {
+        Object.keys(data).forEach(key => {
+            Tools.assign(dest, key, data[key]);
+        });
+    }
+    static isPlainObject(o) {
+        return o !== undefined && o.constructor !== undefined && o.constructor.prototype === Object.prototype;
     }
 }
 
@@ -1592,8 +1706,14 @@ class Container {
             if (this._state === CONTAINER_STATE.FAILED) {
                 return;
             }
+            let sparqlResultI = sparqlResult;
+            if (sparqlResultI.head === undefined) {
+                console.log(sparqlResultI);
+                Logger.displayFeedback(this, MESSAGES.ERROR_CHART, ['ERROR_head_undefined']);
+                this._state = CONTAINER_STATE.FAILED;
+            }
             try {
-                this._chart.loadDependenciesAndDraw(sparqlResult);
+                this._chart.loadDependenciesAndDraw(sparqlResultI);
             }
             catch (error) {
                 console.log(error);
@@ -1677,8 +1797,8 @@ class DataTable extends Chart {
         this.addCss(Core.path + '/lib/DataTables/datatables.min.css');
         this.addCss(Core.path + '/lib/DataTables/DataTables-1.10.15/css/dataTables.bootstrap4.min.css');
         let depDatatables = this.addScript(Core.path + '/lib/DataTables/datatables.min.js');
-        this.addScript(Core.path + '/lib/DataTables/DataTables-1.10.15/js/dataTables.bootstrap4.js', depDatatables);
         this.addScript(Core.path + '/lib/DataTables/Buttons-1.4.0/js/dataTables.buttons.js', depDatatables);
+        this.addScript(Core.path + '/lib/DataTables/DataTables-1.10.15/js/dataTables.bootstrap4.js', depDatatables);
     }
     /**
      * This function parses colStyle option and build the parameter ColumnDef of DataTable
@@ -1709,7 +1829,7 @@ class DataTable extends Chart {
             if (m.index === regex.lastIndex) {
                 regex.lastIndex++;
             }
-            optionCol = parseInt(m[1], 10) - 1;
+            optionCol = parseInt(m[1], 10);
             colOptions[optionCol][DATATABLE_COL_OPTIONS.TAG] = m[2];
             colOptions[optionCol][DATATABLE_COL_OPTIONS.STYLE] += m[3] + ';';
         }
@@ -1720,6 +1840,10 @@ class DataTable extends Chart {
                     break;
                 case 'span':
                     datasetColumnsFunc = this.getFunctionColumnDefSpan(colOptions[c][DATATABLE_COL_OPTIONS.STYLE]);
+                    break;
+                /**/
+                case 'video':
+                    datasetColumnsFunc = this.getFunctionColumnDefVideo(colOptions[c][DATATABLE_COL_OPTIONS.STYLE]);
                     break;
                 default:
                     datasetColumnsFunc = this.getFunctionColumnDefDefault();
@@ -1741,6 +1865,31 @@ class DataTable extends Chart {
     static getFunctionColumnDefImg(style) {
         return (function (data, type, full, meta) {
             return '<img src="' + data + '"  style="' + style + '"\>';
+        });
+    }
+    static getFunctionColumnDefVideo(style) {
+        return (function (data, type, full, meta) {
+            let youtubePattern = new RegExp('youtu');
+            let facebookPattern = new RegExp('facebook');
+            let mediawikiPattern = new RegExp('commons\.wikimedia\.org');
+            if (youtubePattern.test(data)) {
+                let url = data.replace('watch?v=', 'embed/');
+                return '<iframe  style="' + style + '" src="' + url + '" meta http-equiv="X-Frame-Options" content="allow" frameborder="0" allowfullscreen></iframe>';
+            }
+            else if (facebookPattern.test(data)) {
+                //data = 'https://www.facebook.com/XXXX/videos/XXXXX/' // example
+                //doc https://developers.facebook.com/docs/plugins/embedded-video-player
+                return '<iframe src="https://www.facebook.com/plugins/video.php?href=' + encodeURIComponent(data) + '&show_text=0&width=560" style="border:none;overflow:hidden;' + style + '" scrolling="no" frameborder="0" allowTransparency="true" allowFullScreen="true"></iframe>';
+            }
+            else if (mediawikiPattern.test(data)) {
+                //data = 'https://commons.wikimedia.org/wiki/File%3AAuguste_%26_Louis_Lumi%C3%A8re-_L'Arroseur_arros%C3%A9_(1895).webm' // example
+                //return '<iframe src="' + data + '?embedplayer=false" style="' + style + '" frameborder="0" allowfullscreen></iframe>'
+                //doc http://html5video.org/wiki/Rewriting_HTML5_Media_Elements
+                return '<video controls style="' + style + '"><source src="' + data + '"></video>';
+            }
+            else {
+                return '<iframe  style="' + style + '" src="' + data + '" meta http-equiv="X-Frame-Options" content="allow" frameborder="0" allowfullscreen></iframe>';
+            }
         });
     }
     static getFunctionColumnDefSpan(style) {
@@ -1833,6 +1982,7 @@ class DataTable extends Chart {
                 tableElement.setAttributeNode(tableWidth);
                 obj.appendChild(tableElement);
                 $('#' + idChart).DataTable({
+                    bSort: false,
                     data: dataset,
                     columns: datasetColumns,
                     columnDefs: datasetColumnsDefs,
@@ -1874,13 +2024,44 @@ var bordercloudNS = Object.freeze({
 });
 
 /**
- * Todo Table
- * @class google.visualization.Table
- * @tutorial google_visualization_Table
- * @memberof google.visualization
+ * Tools
+ * @class google.Tools
+ * @memberof google
+ */
+class Tools$1 {
+    static decodeFormatSize(value) {
+        let result = value;
+        if (Number.isNaN(Number(value))) {
+            result = result.replace('px', '');
+            if (!Number.isNaN(Number(result))) {
+                result = Number(result);
+            }
+        }
+        return result;
+    }
+}
+
+/**
+ * Data
+ * @class google.Data
+ * @memberof google.Data
  */
 class Data {
-    constructor(result) {
+    constructor(result, raw = false) {
+        if (raw) {
+            this.convertResultRaw(result);
+        }
+        else {
+            this.convertResult(result);
+        }
+    }
+    setRole(col, role) {
+        this._dataTable.setColumnProperty(col, 'role', role);
+    }
+    getDataTable() {
+        return this._dataTable;
+    }
+    convertResult(result) {
         let data = new google.visualization.DataTable();
         let cols = result.head.vars;
         let rows = result.results.bindings;
@@ -1893,84 +2074,1476 @@ class Data {
             // Literal S with language tag L	{ "type": "literal", "value": "S", "xml:lang": "L"}
             // Literal S with datatype IRI D	{ "type": "literal", "value": "S", "datatype": "D"}
             // Blank node, label B	{"type": "bnode", "value": "B"}
+            let colName = col.replace('_', ' ');
             if (noRows > 0) {
-                let type = rows[0][col].datatype;
+                let type = rows[0][col] !== undefined ? rows[0][col].datatype : '';
                 if (type === 'http://www.w3.org/2001/XMLSchema#decimal' ||
                     type === 'http://www.w3.org/2001/XMLSchema#integer') {
-                    data.addColumn('number', col);
+                    data.addColumn('number', colName);
                 }
                 else if (type === 'http://www.w3.org/2001/XMLSchema#boolean') {
-                    data.addColumn('boolean', col);
+                    data.addColumn('boolean', colName);
                 }
                 else if (type === 'http://www.w3.org/2001/XMLSchema#date') {
-                    data.addColumn('date', col);
+                    data.addColumn('date', colName);
                 }
                 else if (type === 'http://www.w3.org/2001/XMLSchema#dateTime') {
-                    data.addColumn('datetime', col);
+                    data.addColumn('datetime', colName);
                 }
                 else if (type === 'http://www.w3.org/2001/XMLSchema#time') {
-                    data.addColumn('timeofday', col);
+                    data.addColumn('timeofday', colName);
                 }
                 else {
-                    data.addColumn('string', col);
+                    data.addColumn('string', colName);
                 }
             }
             else {
-                data.addColumn('string', col);
+                data.addColumn('string', colName);
             }
         }
-        data.addRows(noRows);
-        let i = 0;
-        for (let x = 0; x < noRows; x++) {
-            for (let y = 0; y < noCols; y++) {
-                data.setCell(x, y, rows[x][cols[y]].value);
-                let type = rows[0][cols[y]].datatype;
-                if (type === 'http://www.w3.org/2001/XMLSchema#decimal') {
-                    // 'number' - JavaScript number value. Example values: v:7 , v:3.14, v:-55
-                    data.setCell(x, y, parseFloat(rows[x][cols[y]].value));
-                    // todo... ?
-                    // data.setCell(0, 1, 10000, '$10,000');
+        if (noRows > 0) {
+            data.addRows(noRows);
+            for (let x = 0; x < noRows; x++) {
+                for (let y = 0; y < noCols; y++) {
+                    // data.setCell(x,y,rows[x][cols[y]].value)
+                    let type = rows[x][cols[y]] !== undefined && rows[x][cols[y]].hasOwnProperty('datatype') ? rows[x][cols[y]].datatype : '';
+                    if (type === 'http://www.w3.org/2001/XMLSchema#integer') {
+                        data.setCell(x, y, parseInt(rows[x][cols[y]].value, 10));
+                    }
+                    else if (type === 'http://www.w3.org/2001/XMLSchema#decimal' || type === 'http://www.w3.org/2001/XMLSchema#float') {
+                        data.setCell(x, y, parseFloat(rows[x][cols[y]].value));
+                    }
+                    else if (type === 'http://www.w3.org/2001/XMLSchema#boolean') {
+                        // todo test
+                        // 'boolean' - JavaScript boolean value ('true' or 'false'). Example value: v:'true'
+                        data.setCell(x, y, rows[x][cols[y]].value === 'true' ? true : false);
+                    }
+                    else if (type === 'http://www.w3.org/2001/XMLSchema#date') {
+                        // todo test
+                        // 'date' - JavaScript Date object (zero-based month), with the time truncated. Example value: v:new Date(2008, 0, 15)
+                        data.setCell(x, y, new Date(rows[x][cols[y]].value));
+                    }
+                    else if (type === 'http://www.w3.org/2001/XMLSchema#dateTime') {
+                        // todo test
+                        // 'datetime' - JavaScript Date object including the time. Example value: v:new Date(2008, 0, 15, 14, 30, 45)
+                        data.setCell(x, y, new Date(rows[x][cols[y]].value));
+                    }
+                    else if (type === 'http://www.w3.org/2001/XMLSchema#time') {
+                        // todo test
+                        // 'timeofday' - Array of three numbers and an optional fourth, representing hour (0 indicates midnight), minute, second, and optional millisecond. Example values: v:[8, 15, 0], v: [6, 12, 1, 144]
+                        let time = new Date(rows[x][cols[y]].value);
+                        data.setCell(x, y, [time.getHours(), time.getHours(), time.getSeconds(), time.getMilliseconds()]);
+                    }
+                    else {
+                        if (rows[x][cols[y]] === undefined) {
+                            data.setCell(x, y, null);
+                        }
+                        else {
+                            // 'string' - JavaScript string value. Example value: v:'hello'
+                            //let value = rows[x][cols[y]] !== undefined ? rows[x][cols[y]].value : ''
+                            data.setCell(x, y, rows[x][cols[y]].value);
+                        }
+                    }
+                    // console.log('rows['+x+'][cols['+y+']].value = ' + rows[x][cols[y]].value + ' ' +
+                    // rows[x][cols[y]].datatype)
                 }
-                else if (type === 'http://www.w3.org/2001/XMLSchema#integer') {
-                    // todo test
-                    // 'number' - JavaScript number value. Example values: v:7 , v:3.14, v:-55
-                    data.setCell(x, y, parseInt(rows[x][cols[y]].value, 10));
-                }
-                else if (type === 'http://www.w3.org/2001/XMLSchema#boolean') {
-                    // todo test
-                    // 'boolean' - JavaScript boolean value ('true' or 'false'). Example value: v:'true'
-                    data.setCell(x, y, rows[x][cols[y]].value === 'true' ? true : false);
-                }
-                else if (type === 'http://www.w3.org/2001/XMLSchema#date') {
-                    // todo test
-                    // 'date' - JavaScript Date object (zero-based month), with the time truncated. Example value: v:new Date(2008, 0, 15)
-                    data.setCell(x, y, Date.parse(rows[x][cols[y]].value));
-                }
-                else if (type === 'http://www.w3.org/2001/XMLSchema#dateTime') {
-                    // todo test
-                    // 'datetime' - JavaScript Date object including the time. Example value: v:new Date(2008, 0, 15, 14, 30, 45)
-                    data.setCell(x, y, Date.parse(rows[x][cols[y]].value));
-                }
-                else if (type === 'http://www.w3.org/2001/XMLSchema#time') {
-                    // todo test
-                    // 'timeofday' - Array of three numbers and an optional fourth, representing hour (0 indicates midnight), minute, second, and optional millisecond. Example values: v:[8, 15, 0], v: [6, 12, 1, 144]
-                    let time = Date.parse(rows[x][cols[y]].value);
-                    data.setCell(x, y, [time.getHours(), time.getHours(), time.getSeconds(), time.getMilliseconds()]);
-                }
-                else {
-                    // 'string' - JavaScript string value. Example value: v:'hello'
-                    data.setCell(x, y, rows[x][cols[y]].value);
-                }
-                // console.log('rows['+x+'][cols['+y+']].value = ' + rows[x][cols[y]].value + ' ' +
-                // rows[x][cols[y]].datatype)
             }
         }
         this._dataTable = data;
     }
-    getDataTable() {
-        return this._dataTable;
+    convertResultRaw(result) {
+        let data = new google.visualization.DataTable();
+        let cols = result.head.vars;
+        let rows = result.results.bindings;
+        let noCols = cols.length;
+        let noRows = rows.length;
+        for (let col of cols) {
+            data.addColumn('string', col);
+        }
+        if (noRows > 0) {
+            data.addRows(noRows);
+            for (let x = 0; x < noRows; x++) {
+                for (let y = 0; y < noCols; y++) {
+                    if (rows[x][cols[y]] === undefined) {
+                        data.setCell(x, y, '');
+                    }
+                    else {
+                        data.setCell(x, y, rows[x][cols[y]].value.toString());
+                    }
+                }
+            }
+        }
+        this._dataTable = data;
     }
 }
+
+/**
+ * Todo AnnotationChart
+ * @class google.visualization.AnnotationChart
+ * @tutorial google_visualization_AnnotationChart
+ * @memberof google.visualization
+ */
+class AnnotationChart extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['annotationchart'] });
+        AnnotationChart._isInit = true;
+    }
+    get icon() {
+        return 'fa-line-chart';
+    }
+    get label() {
+        return 'AnnotationChart';
+    }
+    get subtext() {
+        return 'AnnotationChart';
+    }
+    get classFullName() {
+        return 'google.visualization.AnnotationChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_AnnotationChart.html';
+    }
+    /**
+     * Make a standard simple html AnnotationChart.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf AnnotationChart
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!AnnotationChart._isInit) {
+                AnnotationChart.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let AnnotationChart = new google.visualization.AnnotationChart(document.getElementById(currentChart.container.id));
+                    AnnotationChart.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+AnnotationChart._isInit = false;
+
+/**
+ * Todo AreaChart
+ * @class google.visualization.AreaChart
+ * @tutorial google_visualization_AreaChart
+ * @memberof google.visualization
+ */
+class AreaChart extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['corechart'] });
+        AreaChart._isInit = true;
+    }
+    get icon() {
+        return 'fa-area-chart';
+    }
+    get label() {
+        return 'AreaChart';
+    }
+    get subtext() {
+        return 'AreaChart';
+    }
+    get classFullName() {
+        return 'google.visualization.AreaChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_AreaChart.html';
+    }
+    /**
+     * Make a standard simple html table.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf Table
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!AreaChart._isInit) {
+                AreaChart.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let areaChart = new google.visualization.AreaChart(document.getElementById(currentChart.container.id));
+                    areaChart.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+AreaChart._isInit = false;
+
+/**
+ * Todo BarChart
+ * @class google.visualization.BarChart
+ * @tutorial google_visualization_BarChart
+ * @memberof google.visualization
+ */
+class BarChart extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['corechart', 'bar'] });
+        BarChart._isInit = true;
+    }
+    get icon() {
+        return 'fa-align-left';
+    }
+    get label() {
+        return 'BarChart';
+    }
+    get subtext() {
+        return 'BarChart';
+    }
+    get classFullName() {
+        return 'google.visualization.BarChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_BarChart.html';
+    }
+    /**
+     * Make a standard simple html table.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf BarChart
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!BarChart._isInit) {
+                BarChart.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let chart = new google.visualization.BarChart(document.getElementById(currentChart.container.id));
+                    chart.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+BarChart._isInit = false;
+
+/**
+ * Todo BubbleChart
+ * @class google.visualization.BubbleChart
+ * @tutorial google_visualization_BubbleChart
+ * @memberof google.visualization
+ */
+class BubbleChart extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['corechart'] });
+        BubbleChart._isInit = true;
+    }
+    get icon() {
+        return 'fa-circle';
+    }
+    get label() {
+        return 'BubbleChart';
+    }
+    get subtext() {
+        return 'BubbleChart';
+    }
+    get classFullName() {
+        return 'google.visualization.BubbleChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_BubbleChart.html';
+    }
+    /**
+     * Make a standard simple html bubbleChart.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf BubbleChart
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!BubbleChart._isInit) {
+                BubbleChart.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let chart = new google.visualization.BubbleChart(document.getElementById(currentChart.container.id));
+                    chart.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+BubbleChart._isInit = false;
+
+/**
+ * Todo Calendar
+ * @class google.visualization.Calendar
+ * @tutorial google_visualization_Calendar
+ * @memberof google.visualization
+ */
+class Calendar extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['calendar'] });
+        Calendar._isInit = true;
+    }
+    get icon() {
+        return 'fa-calendar';
+    }
+    get label() {
+        return 'Calendar';
+    }
+    get subtext() {
+        return 'Calendar';
+    }
+    get classFullName() {
+        return 'google.visualization.Calendar';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_Calendar.html';
+    }
+    /**
+     * Make a standard simple html Calendar.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf Calendar
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!Calendar._isInit) {
+                Calendar.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let calendar = new google.visualization.Calendar(document.getElementById(currentChart.container.id));
+                    calendar.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+Calendar._isInit = false;
+
+/**
+ * Todo CandlestickChart
+ * @class google.visualization.CandlestickChart
+ * @tutorial google_visualization_CandlestickChart
+ * @memberof google.visualization
+ */
+class CandlestickChart extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['corechart'] });
+        CandlestickChart._isInit = true;
+    }
+    get icon() {
+        return 'fa-line-chart';
+    }
+    get label() {
+        return 'CandlestickChart';
+    }
+    get subtext() {
+        return 'CandlestickChart';
+    }
+    get classFullName() {
+        return 'google.visualization.CandlestickChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_CandlestickChart.html';
+    }
+    /**
+     * Make a standard simple html CandlestickChart.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf CandlestickChart
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // console.log(noCols + " x " + noRows)
+            if (result.results.bindings.length === 0) {
+                return reject(Messages.get(MESSAGES.ERROR_DATA_NOROW));
+            }
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!CandlestickChart._isInit) {
+                CandlestickChart.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let candlestickChart = new google.visualization.CandlestickChart(document.getElementById(currentChart.container.id));
+                    candlestickChart.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+CandlestickChart._isInit = false;
+
+/**
+ * Todo ColumnChart
+ * @class google.visualization.ColumnChart
+ * @tutorial google_visualization_ColumnChart
+ * @memberof google.visualization
+ */
+class ColumnChart extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['corechart', 'bar'] });
+        ColumnChart._isInit = true;
+    }
+    get icon() {
+        return 'fa-bar-chart';
+    }
+    get label() {
+        return 'ColumnChart';
+    }
+    get subtext() {
+        return 'ColumnChart';
+    }
+    get classFullName() {
+        return 'google.visualization.ColumnChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_ColumnChart.html';
+    }
+    /**
+     * Make a standard simple html ColumnChart.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf ColumnChart
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                reverseCategories: false,
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!ColumnChart._isInit) {
+                ColumnChart.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let ColumnChart = new google.visualization.ColumnChart(document.getElementById(currentChart.container.id));
+                    ColumnChart.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+ColumnChart._isInit = false;
+
+/**
+ * Todo ComboChart
+ * @class google.visualization.ComboChart
+ * @tutorial google_visualization_ComboChart
+ * @memberof google.visualization
+ */
+class ComboChart extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['corechart'] });
+        ComboChart._isInit = true;
+    }
+    get icon() {
+        return 'fa-signal';
+    }
+    get label() {
+        return 'ComboChart';
+    }
+    get subtext() {
+        return 'ComboChart';
+    }
+    get classFullName() {
+        return 'google.visualization.ComboChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_ComboChart.html';
+    }
+    /**
+     * Make a standard simple html ComboChart.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf ComboChart
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!ComboChart._isInit) {
+                ComboChart.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let comboChart = new google.visualization.ComboChart(document.getElementById(currentChart.container.id));
+                    comboChart.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+ComboChart._isInit = false;
+
+/**
+ * Todo API
+ * @class google.API
+ * @memberof google
+ */
+class API {
+    /**
+     * todo
+     * @returns {string}
+     */
+    static get key() {
+        return this._key;
+    }
+    /**
+     * todo
+     * @param {string} value
+     */
+    static set key(value) {
+        this._key = value;
+    }
+}
+/**
+ * todo
+ * @type {string}
+ * @private
+ */
+API._key = '';
+
+/**
+ * Todo GeoChart
+ * @class google.visualization.GeoChart
+ * @tutorial google_visualization_GeoChart
+ * @memberof google.visualization
+ */
+class GeoChart extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['geochart'], mapsApiKey: API.key });
+        GeoChart._isInit = true;
+    }
+    get icon() {
+        return 'fa-globe';
+    }
+    get label() {
+        return 'GeoChart';
+    }
+    get subtext() {
+        return 'GeoChart';
+    }
+    get classFullName() {
+        return 'google.visualization.GeoChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_GeoChart.html';
+    }
+    /**
+     * Make a standard simple html geochart.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf GeoChart
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!GeoChart._isInit) {
+                GeoChart.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let geochart = new google.visualization.GeoChart(document.getElementById(currentChart.container.id));
+                    geochart.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+GeoChart._isInit = false;
+
+/**
+ * Todo Histogram
+ * @class google.visualization.Histogram
+ * @tutorial google_visualization_Histogram
+ * @memberof google.visualization
+ */
+class Histogram extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['corechart'] });
+        Histogram._isInit = true;
+    }
+    get icon() {
+        return 'fa-area-chart';
+    }
+    get label() {
+        return 'Histogram';
+    }
+    get subtext() {
+        return 'Histogram';
+    }
+    get classFullName() {
+        return 'google.visualization.Histogram';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_Histogram.html';
+    }
+    /**
+     * Make a standard simple html Histogram.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf Histogram
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!Histogram._isInit) {
+                Histogram.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let histogram = new google.visualization.Histogram(document.getElementById(currentChart.container.id));
+                    histogram.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+Histogram._isInit = false;
+
+/**
+ * Todo IntervalChart
+ * @class google.visualization.IntervalChart
+ * @tutorial google_visualization_IntervalChart
+ * @memberof google.visualization
+ */
+class IntervalChart extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['corechart', 'line'] });
+        IntervalChart._isInit = true;
+    }
+    get icon() {
+        return 'fa-line-chart';
+    }
+    get label() {
+        return 'Interval';
+    }
+    get subtext() {
+        return 'Interval';
+    }
+    get classFullName() {
+        return 'google.visualization.IntervalChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_IntervalChart.html';
+    }
+    /**
+     * Draw a IntervalChart
+     * @memberOf IntervalChart
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!IntervalChart._isInit) {
+                IntervalChart.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let cols = result.head.vars;
+                    let noCols = cols.length;
+                    for (let y = 2; y < noCols; y++) {
+                        data.setRole(y, 'interval');
+                    }
+                    let line = new google.visualization.LineChart(document.getElementById(currentChart.container.id));
+                    line.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+IntervalChart._isInit = false;
+
+/**
+ * Todo LineChart
+ * @class google.visualization.LineChart
+ * @tutorial google_visualization_LineChart
+ * @memberof google.visualization
+ */
+class LineChart extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['corechart', 'line'] });
+        LineChart._isInit = true;
+    }
+    get icon() {
+        return 'fa-line-chart';
+    }
+    get label() {
+        return 'Line';
+    }
+    get subtext() {
+        return 'Line';
+    }
+    get classFullName() {
+        return 'google.visualization.LineChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_LineChart.html';
+    }
+    /**
+     * Draw a LineChart
+     * @memberOf LineChart
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            let height = '500';
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!LineChart._isInit) {
+                LineChart.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let line = new google.visualization.LineChart(document.getElementById(currentChart.container.id));
+                    line.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+LineChart._isInit = false;
+
+/**
+ * Todo Table
+ * @class google.visualization.Map
+ * @tutorial google_visualization_Map
+ * @memberof google.visualization
+ */
+class Map extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['map'], mapsApiKey: API.key });
+        Map._isInit = true;
+    }
+    get icon() {
+        return 'fa-map';
+    }
+    get label() {
+        return 'Map';
+    }
+    get subtext() {
+        return 'Map';
+    }
+    get classFullName() {
+        return 'google.visualization.Map';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_Map.html';
+    }
+    /**
+     * Make a Google map
+     * todo
+     * @memberOf Map
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height,
+                showTooltip: false,
+                showInfoWindow: true,
+                enableScrollWheel: true
+            }, currentChart.options);
+            // fix bug in local
+            if (location.origin.startsWith('file:')) {
+                opt = Object.assign({
+                    icons: {
+                        default: {
+                            normal: 'https://maps.google.com/mapfiles/ms/micons/red-dot.png',
+                            selected: 'https://maps.google.com/mapfiles/ms/micons/blue-dot.png'
+                        }
+                    }
+                }, opt);
+            }
+            // init only one time
+            if (!Map._isInit) {
+                Map.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let messageError = '';
+                    let cols = result.head.vars;
+                    let rows = result.results.bindings;
+                    let noCols = cols.length;
+                    let noRows = rows.length;
+                    let lat;
+                    let long;
+                    let description;
+                    let data = new google.visualization.DataTable();
+                    if (noCols <= 2) {
+                        messageError = 'Parameters : latitude(xsd:Decimal) longitude(xsd:Decimal) title(xsd:string' +
+                            ' optional) introduction(xsd:string optional) link(IRI optional)';
+                    }
+                    else {
+                        let latitudeCol = 0;
+                        let longitudeCol = 1;
+                        let descriptionCol = 2;
+                        data.addColumn('number', latitudeCol);
+                        data.addColumn('number', longitudeCol);
+                        if (noCols > 2) {
+                            data.addColumn('string', descriptionCol);
+                        }
+                        data.addRows(noRows);
+                        for (let x = 0; x < noRows; x++) {
+                            lat = parseFloat(rows[x][cols[latitudeCol]].value);
+                            long = parseFloat(rows[x][cols[longitudeCol]].value);
+                            description = '';
+                            if (isNaN(lat) || isNaN(long)) {
+                                messageError = 'Latitude or longitude is not a decimal. Parameters of chart :' +
+                                    ' latitude(xsd:Decimal)' +
+                                    ' longitude(xsd:Decimal) title(xsd:string' +
+                                    ' optional) introduction(xsd:string optional) link(IRI optional). ';
+                                break;
+                            }
+                            if (noCols >= 6) {
+                                // latitude longitude title text link
+                                let title = rows[x][cols[2]] !== undefined ? rows[x][cols[2]].value : '';
+                                let text = rows[x][cols[3]] !== undefined ? "<p style='margin: 0px'>" + rows[x][cols[3]].value + '</p>' : '';
+                                let link = rows[x][cols[4]] !== undefined ? "<a style='font-size: large;font-style: medium;' href='" + rows[x][cols[4]].value + "' target='_blank'>" + title + '</a>' : title;
+                                let img = rows[x][cols[5]] !== undefined ? "<img src='" + rows[x][cols[5]].value + "' style='margin-left:5px;margin-bottom:5px;width:150px;float:right;'/>" : '';
+                                if (rows[x][cols[3]] === undefined || rows[x][cols[3]].value.length === 0) {
+                                    description = '<div style="display: flow-root;min-width: 150px;min-height:150px;">' + link + '<div>' + img + '</div></div>';
+                                }
+                                else {
+                                    description = '<div style="display: flow-root;width: 350px;min-height:150px;">' + link + '<div>' + img + text + '</div></div>';
+                                }
+                                data.setCell(x, latitudeCol, lat);
+                                data.setCell(x, longitudeCol, long);
+                                data.setCell(x, descriptionCol, description);
+                            }
+                            else if (noCols === 5) {
+                                // latitude longitude title introduction link
+                                let title = rows[x][cols[2]] !== undefined ? rows[x][cols[2]].value : '';
+                                let text = rows[x][cols[3]] !== undefined ? rows[x][cols[3]].value : '';
+                                let link = rows[x][cols[4]] !== undefined ? "<a href='" + rows[x][cols[4]].value + "'>" + title + '</a>' : title;
+                                description = '<b>' + link + '</b><br/>' + text;
+                                data.setCell(x, latitudeCol, lat);
+                                data.setCell(x, longitudeCol, long);
+                                data.setCell(x, descriptionCol, description);
+                            }
+                            else if (noCols === 4) {
+                                // latitude longitude title introduction
+                                let title = rows[x][cols[2]] !== undefined ? rows[x][cols[2]].value : '';
+                                let text = rows[x][cols[3]] !== undefined ? rows[x][cols[3]].value : '';
+                                description = '<b>' + title + '</b><br/>' + text;
+                                data.setCell(x, latitudeCol, lat);
+                                data.setCell(x, longitudeCol, long);
+                                data.setCell(x, descriptionCol, description);
+                            }
+                            else if (noCols === 3) {
+                                // latitude longitude title
+                                let title = rows[x][cols[2]] !== undefined ? rows[x][cols[2]].value : '';
+                                description = '<b>' + title + '</br>';
+                                data.setCell(x, latitudeCol, lat);
+                                data.setCell(x, longitudeCol, long);
+                                data.setCell(x, descriptionCol, description);
+                            }
+                            else if (noCols === 2) {
+                                // latitude longitude
+                                data.setCell(x, latitudeCol, lat);
+                                data.setCell(x, longitudeCol, long);
+                            }
+                        }
+                    }
+                    if (messageError !== '') {
+                        return reject(Error(messageError));
+                    }
+                    let table = new google.visualization.Map(document.getElementById(currentChart.container.id));
+                    table.draw(data, opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+Map._isInit = false;
+
+/**
+ * Todo OrgChart
+ * @class google.visualization.OrgChart
+ * @tutorial google_visualization_OrgChart
+ * @memberof google.visualization
+ */
+class OrgChart extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['orgchart'] });
+        OrgChart._isInit = true;
+    }
+    get icon() {
+        return 'fa-sitemap';
+    }
+    get label() {
+        return 'OrgChart';
+    }
+    get subtext() {
+        return 'OrgChart';
+    }
+    get classFullName() {
+        return 'google.visualization.OrgChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_OrgChart.html';
+    }
+    /**
+     * Make a standard simple html OrgChart.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf OrgChart
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height,
+                allowHtml: true
+            }, currentChart.options);
+            if (!OrgChart._isInit) {
+                OrgChart.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let orgChart = new google.visualization.OrgChart(document.getElementById(currentChart.container.id));
+                    orgChart.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+OrgChart._isInit = false;
+
+/**
+ * Todo Pie
+ * @class google.visualization.Pie
+ * @tutorial google_visualization_Pie
+ * @memberof google.visualization
+ */
+class Pie extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['corechart'] });
+        Pie._isInit = true;
+    }
+    get icon() {
+        return 'fa-pie-chart';
+    }
+    get label() {
+        return 'Pie';
+    }
+    get subtext() {
+        return 'Pie';
+    }
+    get classFullName() {
+        return 'google.visualization.Pie';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_Pie.html';
+    }
+    /**
+     * Make a standard simple html pie.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf Pie
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!Pie._isInit) {
+                Pie.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let Pie = new google.visualization.PieChart(document.getElementById(currentChart.container.id));
+                    Pie.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+Pie._isInit = false;
+
+/**
+ * Todo ScatterChart
+ * @class google.visualization.ScatterChart
+ * @tutorial google_visualization_ScatterChart
+ * @memberof google.visualization
+ */
+class ScatterChart extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['corechart'] });
+        ScatterChart._isInit = true;
+    }
+    get icon() {
+        return 'fa-circle';
+    }
+    get label() {
+        return 'ScatterChart';
+    }
+    get subtext() {
+        return 'ScatterChart';
+    }
+    get classFullName() {
+        return 'google.visualization.ScatterChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_ScatterChart.html';
+    }
+    /**
+     * Make a standard simple html table.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf ScatterChart
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!ScatterChart._isInit) {
+                ScatterChart.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let chart = new google.visualization.ScatterChart(document.getElementById(currentChart.container.id));
+                    chart.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+ScatterChart._isInit = false;
+
+/**
+ * Todo SteppedAreaChart
+ * @class google.visualization.SteppedAreaChart
+ * @tutorial google_visualization_SteppedAreaChart
+ * @memberof google.visualization
+ */
+class SteppedAreaChart extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['corechart'] });
+        SteppedAreaChart._isInit = true;
+    }
+    get icon() {
+        return 'fa-area-chart';
+    }
+    get label() {
+        return 'SteppedAreaChart';
+    }
+    get subtext() {
+        return 'SteppedAreaChart';
+    }
+    get classFullName() {
+        return 'google.visualization.SteppedAreaChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_SteppedAreaChart.html';
+    }
+    /**
+     * Make a standard simple html table.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf Table
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!SteppedAreaChart._isInit) {
+                SteppedAreaChart.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let steppedAreaChart = new google.visualization.SteppedAreaChart(document.getElementById(currentChart.container.id));
+                    steppedAreaChart.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+SteppedAreaChart._isInit = false;
 
 /**
  * Todo Table
@@ -2017,20 +3590,28 @@ class Table$1 extends Chart {
             // console.log(noCols + " x " + noRows)
             let height = '100%';
             if (currentChart.height !== '') {
-                height = currentChart.height;
+                height = Tools$1.decodeFormatSize(currentChart.height);
             }
             let opt = Object.assign({
+                raw: true,
                 showRowNumber: false,
-                width: currentChart.width,
+                width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
             }, currentChart.options);
             if (!Table$1._isInit) {
                 Table$1.init();
             }
             google.charts.setOnLoadCallback(() => {
-                let data = new Data(result);
-                let table = new google.visualization.Table(document.getElementById(currentChart.container.id));
-                table.draw(data.getDataTable(), currentChart.options);
+                try {
+                    let data = new Data(result, opt.raw);
+                    let table = new google.visualization.Table(document.getElementById(currentChart.container.id));
+                    table.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
             });
             // finish
             return resolve();
@@ -2040,120 +3621,258 @@ class Table$1 extends Chart {
 Table$1._isInit = false;
 
 /**
- * Todo API
- * @class google.API
- * @memberof google
- */
-class API {
-    /**
-     * todo
-     * @returns {string}
-     */
-    static get key() {
-        return this._key;
-    }
-    /**
-     * todo
-     * @param {string} value
-     */
-    static set key(value) {
-        this._key = value;
-    }
-}
-/**
- * todo
- * @type {string}
- * @private
- */
-API._key = '';
-
-/**
- * Todo Table
- * @class google.visualization.Map
- * @tutorial google_visualization_Map
+ * Todo Timeline
+ * @class google.visualization.Timeline
+ * @tutorial google_visualization_Timeline
  * @memberof google.visualization
  */
-class Map extends Chart {
+class Timeline extends Chart {
     constructor() {
         super();
         let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
     }
     static init() {
-        google.charts.load('current', { 'packages': ['map'], mapsApiKey: API.key });
-        Map._isInit = true;
+        google.charts.load('current', { 'packages': ['timeline'] });
+        Timeline._isInit = true;
     }
     get icon() {
-        return 'fa-map';
+        return 'fa-tasks';
     }
     get label() {
-        return 'Map';
+        return 'Timeline';
     }
     get subtext() {
-        return 'Map';
+        return 'Timeline';
     }
     get classFullName() {
-        return 'google.visualization.Map';
+        return 'google.visualization.Timeline';
     }
     get tutorialFilename() {
-        return 'tutorial-google_visualization_Map.html';
+        return 'tutorial-google_visualization_Timeline.html';
     }
     /**
-     * Make a Google map
-     * todo
-     * @memberOf Map
+     * Make a standard simple html Timeline.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf Timeline
      * @returns {Promise<void>}
      * @param result
      */
     draw(result) {
         let currentChart = this;
         return new Promise(function (resolve, reject) {
-            let height = '100%';
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
             if (currentChart.height !== '') {
-                height = currentChart.height;
+                height = Tools$1.decodeFormatSize(currentChart.height);
             }
             let opt = Object.assign({
-                width: currentChart.width,
-                height: height,
-                showTooltip: true,
-                showInfoWindow: true
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
             }, currentChart.options);
-            // fix bug in local
-            if (location.origin.startsWith('file:')) {
-                opt = Object.assign({
-                    icons: {
-                        default: {
-                            normal: 'https://maps.google.com/mapfiles/ms/micons/red-dot.png',
-                            selected: 'https://maps.google.com/mapfiles/ms/micons/blue-dot.png'
-                        }
-                    }
-                }, opt);
-            }
-            // init only one time
-            if (!Map._isInit) {
-                Map.init();
+            if (!Timeline._isInit) {
+                Timeline.init();
             }
             google.charts.setOnLoadCallback(() => {
-                let data = new Data(result);
-                let table = new google.visualization.Map(document.getElementById(currentChart.container.id));
-                table.draw(data.getDataTable(), opt);
+                try {
+                    let data = new Data(result);
+                    let timeline = new google.visualization.Timeline(document.getElementById(currentChart.container.id));
+                    timeline.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
             });
             // finish
             return resolve();
         });
     }
 }
-Map._isInit = false;
+Timeline._isInit = false;
+
+/**
+ * Todo TreeMap
+ * @class google.visualization.TreeMap
+ * @tutorial google_visualization_TreeMap
+ * @memberof google.visualization
+ */
+class TreeMap extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['treemap'] });
+        TreeMap._isInit = true;
+    }
+    get icon() {
+        return 'fa-area-chart';
+    }
+    get label() {
+        return 'TreeMap';
+    }
+    get subtext() {
+        return 'TreeMap';
+    }
+    get classFullName() {
+        return 'google.visualization.TreeMap';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_TreeMap.html';
+    }
+    /**
+     * Make a standard simple html table.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf Table
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            }, currentChart.options);
+            if (!TreeMap._isInit) {
+                TreeMap.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let treeMap = new google.visualization.TreeMap(document.getElementById(currentChart.container.id));
+                    treeMap.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+TreeMap._isInit = false;
+
+/**
+ * Todo Trendline
+ * @class google.visualization.Trendline
+ * @tutorial google_visualization_Trendline
+ * @memberof google.visualization
+ */
+class Trendline extends Chart {
+    constructor() {
+        super();
+        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['corechart'] });
+        Trendline._isInit = true;
+    }
+    get icon() {
+        return 'fa-line-chart';
+    }
+    get label() {
+        return 'Trendline';
+    }
+    get subtext() {
+        return 'Trendline';
+    }
+    get classFullName() {
+        return 'google.visualization.Trendline';
+    }
+    get tutorialFilename() {
+        return 'tutorial-google_visualization_Trendline.html';
+    }
+    /**
+     * Make a standard simple html Trendline.
+     * Available options:
+     * - 'headings'   :  "true" / "false"  (default: "true")
+     * @memberOf Trendline
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let height = 500;
+            if (currentChart.height !== '') {
+                height = Tools$1.decodeFormatSize(currentChart.height);
+            }
+            let opt = Object.assign({
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height,
+                trendlines: { 0: {} }
+            }, currentChart.options);
+            if (!Trendline._isInit) {
+                Trendline.init();
+            }
+            google.charts.setOnLoadCallback(() => {
+                try {
+                    let data = new Data(result);
+                    let chart = new google.visualization.ScatterChart(document.getElementById(currentChart.container.id));
+                    chart.draw(data.getDataTable(), opt);
+                }
+                catch (error) {
+                    console.log(error);
+                    Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error]);
+                    Logger.log(currentChart.container, 'Chart finished with error : ' + currentChart.container.id);
+                }
+            });
+            // finish
+            return resolve();
+        });
+    }
+}
+Trendline._isInit = false;
 
 /**
  * @namespace google.visualization
  */
+// Annotation Chart
+// https://developers.google.com/chart/interactive/docs/gallery/annotationchart
 
+// Word Trees
+// https://developers.google.com/chart/interactive/docs/gallery/wordtree
+// todo
 
 
 var visualizationNS$2 = Object.freeze({
-	Data: Data,
+	AnnotationChart: AnnotationChart,
+	AreaChart: AreaChart,
+	BarChart: BarChart,
+	BubbleChart: BubbleChart,
+	Calendar: Calendar,
+	CandlestickChart: CandlestickChart,
+	ColumnChart: ColumnChart,
+	ComboChart: ComboChart,
+	GeoChart: GeoChart,
+	Histogram: Histogram,
+	IntervalChart: IntervalChart,
+	LineChart: LineChart,
+	Map: Map,
+	OrgChart: OrgChart,
+	Pie: Pie,
+	ScatterChart: ScatterChart,
+	SteppedAreaChart: SteppedAreaChart,
 	Table: Table$1,
-	Map: Map
+	Timeline: Timeline,
+	TreeMap: TreeMap,
+	Trendline: Trendline
 });
 
 /**
@@ -2165,8 +3884,663 @@ const visualization$2 = visualizationNS$2;
 
 var googleNS = Object.freeze({
 	visualization: visualization$2,
+	Data: Data,
+	Tools: Tools$1,
 	API: API
 });
+
+/**
+ * Todo AreaChart
+ * @class d3.visualization.AreaChart
+ * @tutorial d3_visualization_AreaChart
+ * @memberof d3.visualization
+ */
+class AreaChart$1 extends Chart {
+    get icon() {
+        return 'fa-area-chart';
+    }
+    get label() {
+        return 'AreaChart';
+    }
+    get subtext() {
+        return 'AreaChart';
+    }
+    get classFullName() {
+        return 'd3.visualization.AreaChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-d3_visualization_AreaChart.html';
+    }
+    constructor() {
+        super();
+        this.addCss(Core.path + '/lib/d3/d3.css');
+        let dep = this.addScript(Core.path + '/lib/d3/d3.js');
+    }
+    /**
+     * Make a simple line.
+     * Available options:
+     * -
+     * @memberOf AreaChart
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            console.log('test');
+            let heightOpt = '100%';
+            if (currentChart.height !== '') {
+                heightOpt = currentChart.height;
+            }
+            let opt = Object.assign({
+                showRowNumber: false,
+                width: currentChart.width,
+                height: heightOpt
+            }, currentChart.options);
+            // build the datatable
+            /*let cols = result.head.vars
+            let rows = result.results.bindings
+            let noCols = cols.length
+            let noRows = rows.length
+            let dataset: Array<any> = []
+            let label
+            let count
+            let data = [{
+                date: '1-May-12',
+                close: 58.1
+            }]
+            for (let row of rows) {
+                label = row[cols[0]].value
+                count = Number(row[cols[1]].value)
+                if ( label === undefined || count === undefined) {
+                    Logger.logSimple('Erreur ? D3JS:pie label ' + label + ' count ' + count)
+                } else {
+                    dataset.push({ label: label , count: count })
+                }
+            }
+
+            console.log(data)
+            let margin = {
+                top: 30,
+                right: 20 * 3,
+                bottom: 30,
+                left: 50
+            }
+            let width = 800 - margin.left - margin.right
+            let height = 570 - margin.top - margin.bottom
+            let parseDate = d3.time.format('%d-%b-%y').parse
+            // x axis
+            let x = d3.scalePoint().range([0, width])
+            let xAxis = d3.axisBottom().scale(x).ticks(15)
+            // y axis
+            let y = d3.scaleLinear().range([height, 0])
+            let yAxis = d3.axisRight().scale(y).ticks(17)
+
+            let valueline = d3.line()
+                .x(function (d: any) {
+                  return x(d.date)
+                })
+                .y(function (d: any) {
+                  return y(d.close)
+                })
+            let svg = d3.select( '#' + currentChart.container.id)
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+// get data
+
+data.forEach(function (d: any) {
+    d.date = parseDate(d.date)
+    d.close = +d.close
+})
+            svg.append('path') // Add the valueline path.
+            // .attr('fill', 'none')
+           // .attr('stroke', 'steelblue')
+           // .attr('stroke-linejoin', 'round')
+           // .attr('stroke-linecap', 'round')
+           // .attr('stroke-width', 1.5)
+          //  .attr('d', valueline(dataset))
+           .attr('d', valueline(data))
+            svg.append('g') // Add the X Axis
+            .attr('class', 'x axis')
+                .attr('transform', 'translate(0,' + height + ')')
+                .call(xAxis)
+            svg.append('g') // Add the Y Axis
+                .attr('class', 'y axis')
+                .call(yAxis)*/
+            // finish
+            // Example
+            let containerElement = d3.select('#' + currentChart.container.id);
+            let containerElementNode = containerElement.node();
+            if (containerElementNode) {
+                let width = containerElementNode.clientWidth !== 0 ? containerElementNode.clientWidth : 300;
+                let height = containerElementNode.clientHeight !== 0 ? containerElementNode.clientHeight : 150;
+                let svg = containerElement.append('svg') // associate our data with the document
+                    .attr('width', width)
+                    .attr('height', height)
+                    .attr('id', 'idtest');
+                let margin = { top: 20, right: 20, bottom: 30, left: 40 };
+                let widthChart = width - (margin.left + margin.right);
+                let heightChart = height - (margin.top + margin.bottom);
+                let xScale = d3.scaleLinear();
+                let yScale = d3.scaleLinear();
+                let xAxisCall = d3.axisBottom();
+                let yAxisCall = d3.axisLeft();
+                xScale.domain([0, 100]).range([0, widthChart]);
+                yScale.domain([0, 100]).range([heightChart, 0]);
+                xAxisCall.scale(xScale);
+                yAxisCall.scale(yScale);
+                let newX = svg.append('g')
+                    .attr('transform', 'translate(' + [margin.left, heightChart + margin.top] + ')')
+                    .call(xAxisCall);
+                let newY = svg.append('g')
+                    .attr('transform', 'translate(' + [margin.left, margin.top] + ')')
+                    .call(yAxisCall);
+            }
+            return resolve();
+        });
+    }
+}
+
+/** Work in progress, help us ! */
+/**
+ * Todo BarChart
+ * @class d3.visualization.BarChart
+ * @tutorial d3_visualization_BarChart
+ * @memberof d3.visualization
+ */
+class BarChart$1 extends Chart {
+    get icon() {
+        return 'fa-bar-chart';
+    }
+    get label() {
+        return 'BarChart';
+    }
+    get subtext() {
+        return 'BarChart';
+    }
+    get classFullName() {
+        return 'd3.visualization.BarChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-d3_visualization_BarChart.html';
+    }
+    constructor() {
+        super();
+        this.addCss(Core.path + '/lib/d3/d3.css');
+        let dep = this.addScript(Core.path + '/lib/d3/d3.js');
+    }
+    /**
+     * Make a simple pie.
+     * Available options:
+     * -
+     * @memberOf BarChart
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let heightOpt = '100%';
+            if (currentChart.height !== '') {
+                heightOpt = currentChart.height;
+            }
+            let opt = Object.assign({
+                showRowNumber: false,
+                width: currentChart.width,
+                height: heightOpt
+            }, currentChart.options);
+            // build the datatable
+            let cols = result.head.vars;
+            let rows = result.results.bindings;
+            let noCols = cols.length;
+            let noRows = rows.length;
+            let dataset = [];
+            let label;
+            let counter;
+            for (let row of rows) {
+                label = row[cols[0]].value;
+                counter = Number(row[cols[1]].value);
+                if (label === undefined || counter === undefined) {
+                    Logger.logSimple('Erreur ? D3JS:pie label ' + label + ' count ' + counter);
+                }
+                else {
+                    dataset.push({ label: label, count: counter });
+                }
+            }
+            // console.log(data)
+            let containerElement = d3.select('#' + currentChart.container.id);
+            let containerElementNode = containerElement.node();
+            if (containerElementNode) {
+                let width = containerElementNode.clientWidth !== 0 ? containerElementNode.clientWidth : 300;
+                let height = containerElementNode.clientHeight !== 0 ? containerElementNode.clientHeight : 150;
+                let svg = containerElement.append('svg') // associate our data with the document
+                    .attr('width', width)
+                    .attr('height', height)
+                    .attr('id', 'idtest');
+                svg = svg.append('g') // make a group to hold our pie chart
+                    .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')');
+                // var donutWidth = 75;
+                /*let legendRectSize = 18
+                let legendSpacing = 4
+                let color = d3.scaleOrdinal(d3.schemeCategory10)*/
+                /*let arc = d3.arc()
+                   // .innerRadius(radius - donutWidth)
+                    .innerRadius(0)
+                    .outerRadius(radius)
+                let pie = d3.pie()
+                    .value(function (d: any) { return d.count })
+                    .sort(null)*/
+                /*let path = svg.selectAll('path')
+                    .data(pie(dataset)
+                    .enter()
+                    .append('path')
+                    .attr('d', arc)
+                    .attr('fill', function (d: any, i: any) {
+                        return color(d.data.label)
+                    })*/
+                let bars = svg.selectAll('rect')
+                    .data(dataset)
+                    .enter()
+                    .append('rect')
+                    .attr('width', function (i) { return i.count / 10000; })
+                    .attr('height', 50)
+                    .attr('y', function (i, j) { return j * 50; })
+                    .attr('fill', '#3399FF');
+                console.log('dataset : ' + dataset);
+                // Todo limit nb (look pie chart of Google)
+                /*let legend = svg.selectAll('.legend')
+                    .data(color.domain())
+                    .enter()
+                    .append('g')
+                    .attr('class', 'legend')
+                    .attr('transform', function (d: any, i: any) {
+                        let height = legendRectSize + legendSpacing
+                        let offset = height * color.domain().length / 2
+                        let horz = -2 * legendRectSize
+                        let vert = i * height - offset
+                        return 'translate(' + (horz + radius * 2 + 20 ) + ',' + vert + ')'
+                    })
+                legend.append('rect')
+                    .attr('width', legendRectSize)
+                    .attr('height', legendRectSize)
+                    .style('fill', color)
+                    .style('stroke', color)
+                legend.append('text')
+                    .attr('x', legendRectSize + legendSpacing)
+                    .attr('y', legendRectSize - legendSpacing)
+                    .text(function (d: any) { return d })*/
+            }
+            // finish
+            return resolve();
+        });
+    }
+}
+
+/**
+ * Todo BubbleChart
+ * @class d3.visualization.BubbleChart
+ * @tutorial d3_visualization_BubbleChart
+ * @memberof d3.visualization
+ */
+class BubbleChart$1 extends Chart {
+    get icon() {
+        return 'fa-pie-chart';
+    }
+    get label() {
+        return 'BubbleChart';
+    }
+    get subtext() {
+        return 'BubbleChart';
+    }
+    get classFullName() {
+        return 'd3.visualization.BubbleChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-d3_visualization_BubbleChart.html';
+    }
+    constructor() {
+        super();
+        this.addCss(Core.path + '/lib/d3/d3.css');
+        let dep = this.addScript(Core.path + '/lib/d3/d3.js');
+    }
+    /**
+     * Make a simple pie.
+     * Available options:
+     * -
+     * @memberOf Pie
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            let heightOpt = '100%';
+            if (currentChart.height !== '') {
+                heightOpt = currentChart.height;
+            }
+            let opt = Object.assign({
+                showRowNumber: false,
+                width: currentChart.width,
+                height: heightOpt
+            }, currentChart.options);
+            // build the datatable
+            let cols = result.head.vars;
+            let rows = result.results.bindings;
+            let noCols = cols.length;
+            let noRows = rows.length;
+            /*let dataset: Array<any> = []
+            let label
+            let counter
+            for (let row of rows) {
+                label = row[cols[0]].value
+                counter = Number(row[cols[1]].value)
+                if ( label === undefined || counter === undefined) {
+                    Logger.logSimple('Erreur ? D3JS:pie label ' + label + ' count ' + counter)
+                } else {
+                    dataset.push({ label: label , count: counter })
+                }
+            }*/
+            // console.log(data)
+            // Example
+            let containerElement = d3.select('#' + currentChart.container.id);
+            let containerElementNode = containerElement.node();
+            if (containerElementNode) {
+                let width = containerElementNode.clientWidth !== 0 ? containerElementNode.clientWidth : 300;
+                let height = containerElementNode.clientHeight !== 0 ? containerElementNode.clientHeight : 150;
+                let svg = containerElement.append('svg') // associate our data with the document
+                    .attr('width', width)
+                    .attr('height', height)
+                    .attr('id', 'idtest');
+                let margin = { top: 20, right: 20, bottom: 30, left: 40 };
+                let widthChart = width - (margin.left + margin.right);
+                let heightChart = height - (margin.top + margin.bottom);
+                let xScale = d3.scaleLinear();
+                let yScale = d3.scaleLinear();
+                let xAxisCall = d3.axisBottom();
+                let yAxisCall = d3.axisLeft();
+                xScale.domain([0, 100]).range([0, widthChart]);
+                yScale.domain([0, 100]).range([heightChart, 0]);
+                xAxisCall.scale(xScale);
+                yAxisCall.scale(yScale);
+                let newX = svg.append('g')
+                    .attr('transform', 'translate(' + [margin.left, heightChart + margin.top] + ')')
+                    .call(xAxisCall);
+                let newY = svg.append('g')
+                    .attr('transform', 'translate(' + [margin.left, margin.top] + ')')
+                    .call(yAxisCall);
+            }
+            // finish
+            return resolve();
+        });
+    }
+}
+
+/**
+ * Todo ColumnChart
+ * @class d3.visualization.ColumnChart
+ * @tutorial d3_visualization_ColumnChart
+ * @memberof d3.visualization
+ */
+class ColumnChart$1 extends Chart {
+    get icon() {
+        return 'fa-bar-chart';
+    }
+    get label() {
+        return 'ColumnChart';
+    }
+    get subtext() {
+        return 'ColumnChart';
+    }
+    get classFullName() {
+        return 'd3.visualization.ColumnChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-d3_visualization_ColumnChart.html';
+    }
+    constructor() {
+        super();
+        this.addCss(Core.path + '/lib/d3/d3.css');
+        let dep = this.addScript(Core.path + '/lib/d3/d3.js');
+    }
+    /**
+     * Make a simple ColumnChart.
+     * Available options:
+     * -
+     * @memberOf ColumnChart
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let heightOpt = '100%';
+            if (currentChart.height !== '') {
+                heightOpt = currentChart.height;
+            }
+            let opt = Object.assign({
+                showRowNumber: false,
+                width: currentChart.width,
+                height: heightOpt
+            }, currentChart.options);
+            /*
+                        // build the datatable
+                        let cols = result.head.vars
+                        let rows = result.results.bindings
+                        let noCols = cols.length
+                        let noRows = rows.length
+                        let dataset: Array<any> = []
+                        let label
+                        let counter
+                        for (let row of rows) {
+                            label = row[cols[0]].value
+                            counter = Number(row[cols[1]].value)
+                            if ( label === undefined || counter === undefined) {
+                                Logger.logSimple('Erreur ? D3JS:ColumnChart label ' + label + ' count ' + counter)
+                            }else {
+                                dataset.push({ label: label , count: counter })
+                            }
+                        }
+            
+                        // console.log(data)
+                        let containerElement = d3.select('#' + currentChart.container.id)
+                        let containerElementNode = containerElement.node() as any
+                        if (containerElementNode) {
+                            let width = containerElementNode.clientWidth !== 0 ? containerElementNode.clientWidth : 300
+                            let height = containerElementNode.clientHeight !== 0 ? containerElementNode.clientHeight : 150
+                            let svg = containerElement.append('svg') // associate our data with the document
+                                .attr('width', width)
+                                .attr('height', height)
+                                .attr('id', 'idtest')
+            
+                            let radius = Math.min(width, height) / 2
+            
+                            svg = svg.append('g') // make a group to hold our ColumnChart chart
+                                .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')')
+            
+                            // var donutWidth = 75;
+                            let legendRectSize = 18
+                            let legendSpacing = 4
+                            let color = d3.scaleOrdinal(d3.schemeCategory10)
+            
+                            let arc = d3.arc()
+                               // .innerRadius(radius - donutWidth)
+                                .innerRadius(0)
+                                .outerRadius(radius)
+                            let ColumnChart = d3.ColumnChart()
+                                .value(function (d: any) { return d.count })
+                                .sort(null)
+                            let path = svg.selectAll('path')
+                                .data(ColumnChart(dataset))
+                                .enter()
+                                .append('path')
+                                .attr('d', arc)
+                                .attr('fill', function (d: any, i: any) {
+                                    return color(d.data.label)
+                                })
+            
+                            // Todo limit nb (look ColumnChart chart of Google)
+                            let legend = svg.selectAll('.legend')
+                                .data(color.domain())
+                                .enter()
+                                .append('g')
+                                .attr('class', 'legend')
+                                .attr('transform', function (d: any, i: any) {
+                                    let height = legendRectSize + legendSpacing
+                                    let offset = height * color.domain().length / 2
+                                    let horz = -2 * legendRectSize
+                                    let vert = i * height - offset
+                                    return 'translate(' + (horz + radius * 2 + 20 ) + ',' + vert + ')'
+                                })
+                            legend.append('rect')
+                                .attr('width', legendRectSize)
+                                .attr('height', legendRectSize)
+                                .style('fill', color)
+                                .style('stroke', color)
+                            legend.append('text')
+                                .attr('x', legendRectSize + legendSpacing)
+                                .attr('y', legendRectSize - legendSpacing)
+                                .text(function (d: any) { return d })
+                        }
+                        */
+            // finish
+            return resolve();
+        });
+    }
+}
+
+/**
+ * Todo Line
+ * @class d3.visualization.Line
+ * @tutorial d3_visualization_Line
+ * @memberof d3.visualization
+ */
+class Line extends Chart {
+    get icon() {
+        return 'fa-line-chart';
+    }
+    get label() {
+        return 'Line';
+    }
+    get subtext() {
+        return 'Line';
+    }
+    get classFullName() {
+        return 'd3.visualization.Line';
+    }
+    get tutorialFilename() {
+        return 'tutorial-d3_visualization_Line.html';
+    }
+    constructor() {
+        super();
+        this.addCss(Core.path + '/lib/d3/d3.css');
+        let dep = this.addScript(Core.path + '/lib/d3/d3.js');
+    }
+    /**
+     * Make a simple line.
+     * Available options:
+     * -
+     * @memberOf Line
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            //console.log('test')
+            let heightOpt = '100%';
+            if (currentChart.height !== '') {
+                heightOpt = currentChart.height;
+            }
+            let opt = Object.assign({
+                showRowNumber: true,
+                width: currentChart.width,
+                height: heightOpt
+                // hAxisscaleType: true
+            }, currentChart.options);
+            // build the datatable
+            let cols = result.head.vars;
+            let rows = result.results.bindings;
+            let noCols = cols.length;
+            let noRows = rows.length;
+            let dataset = [];
+            let label;
+            let count;
+            for (let row of rows) {
+                label = row[cols[0]].value;
+                count = Number(row[cols[1]].value);
+                if (label === undefined || count === undefined) {
+                    Logger.logSimple('Erreur ? D3JS:pie label ' + label + ' count ' + count);
+                }
+                else {
+                    dataset.push({ label: label, count: count });
+                }
+            }
+            console.log(dataset);
+            let margin = {
+                top: 30,
+                right: 20 * 3,
+                bottom: 30,
+                left: 70
+            };
+            let width = 800 - margin.left - margin.right;
+            let height = 570 - margin.top - margin.bottom;
+            // x axis
+            let x = d3.scalePoint()
+                .domain(dataset.map(function (entry) {
+                return entry.label;
+            }))
+                .rangeRound([0, 800])
+                .padding(0.5);
+            let xAxis = d3.axisBottom().scale(x).ticks(15);
+            // y axis
+            let y = d3.scaleLinear().range([height, 0]);
+            y.domain([0, d3.max(dataset, function (d) {
+                    return d.count;
+                })]);
+            let yAxis = d3.axisLeft().scale(y).ticks(17);
+            let valueline = d3.line()
+                .x(function (d) {
+                return x(d.label);
+            })
+                .y(function (d) {
+                return y(d.count);
+            });
+            let svg = d3.select('#' + currentChart.container.id)
+                .append('svg')
+                .attr('width', width + margin.left + margin.right)
+                .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+            svg.append('path') // Add the valueline path.
+                .attr('fill', 'none')
+                .attr('stroke', 'steelblue')
+                .attr('stroke-linejoin', 'round')
+                .attr('stroke-linecap', 'round')
+                .attr('stroke-width', 1.5)
+                .attr('d', valueline(dataset));
+            svg.append('g') // Add the X Axis
+                .attr('class', 'x axis')
+                .attr('transform', 'translate(0,' + height + ')')
+                .call(xAxis);
+            svg.append('g') // Add the Y Axis
+                .attr('class', 'y axis')
+                .call(yAxis);
+            // finish
+            return resolve();
+        });
+    }
+}
 
 /**
  * Todo Pie
@@ -2174,7 +4548,7 @@ var googleNS = Object.freeze({
  * @tutorial d3_visualization_Pie
  * @memberof d3.visualization
  */
-class Pie extends Chart {
+class Pie$1 extends Chart {
     get icon() {
         return 'fa-pie-chart';
     }
@@ -2296,13 +4670,240 @@ class Pie extends Chart {
 }
 
 /**
+ * Todo ScatterChart
+ * @class d3.visualization.ScatterChart
+ * @tutorial d3_visualization_ScatterChart
+ * @memberof d3.visualization
+ */
+class ScatterChart$1 extends Chart {
+    get icon() {
+        return 'fa-ScatterChart-chart';
+    }
+    get label() {
+        return 'ScatterChart';
+    }
+    get subtext() {
+        return 'ScatterChart';
+    }
+    get classFullName() {
+        return 'd3.visualization.ScatterChart';
+    }
+    get tutorialFilename() {
+        return 'tutorial-d3_visualization_ScatterChart.html';
+    }
+    constructor() {
+        super();
+        this.addCss(Core.path + '/lib/d3/d3.css');
+        let dep = this.addScript(Core.path + '/lib/d3/d3.js');
+    }
+    /**
+     * Make a simple ScatterChart.
+     * Available options:
+     * -
+     * @memberOf ScatterChart
+     * @returns {Promise<void>}
+     * @param result
+     */
+    draw(result) {
+        let currentChart = this;
+        return new Promise(function (resolve, reject) {
+            // transform query
+            // console.log(noCols + " x " + noRows)
+            let heightOpt = '500';
+            if (currentChart.height !== '') {
+                heightOpt = currentChart.height;
+            }
+            let opt = Object.assign({
+                showRowNumber: false,
+                width: currentChart.width,
+                height: heightOpt
+            }, currentChart.options);
+            // build the datatable
+            let cols = result.head.lets;
+            let rows = result.results.bindings;
+            let noCols = cols.length;
+            let noRows = rows.length;
+            let dataset = [];
+            let label;
+            let counter;
+            for (let row of rows) {
+                label = row[cols[0]].value;
+                counter = Number(row[cols[1]].value);
+                if (label === undefined || counter === undefined) {
+                    Logger.logSimple('Erreur ? D3JS:ScatterChart label ' + label + ' count ' + counter);
+                }
+                else {
+                    dataset.push({ label: label, count: counter });
+                }
+            }
+            console.log(dataset);
+            // let containerElement = d3.select('#' + currentChart.container.id)
+            //  let containerElementNode = containerElement.node() as any
+            /*if (containerElementNode) {
+                let width = containerElementNode.clientWidth !== 0 ? containerElementNode.clientWidth : 300
+                let height = containerElementNode.clientHeight !== 0 ? containerElementNode.clientHeight : 150
+                let svg = containerElement.append('svg') // associate our data with the document
+                    .attr('width', width)
+                    .attr('height', height)
+                    .attr('id', 'idtest')
+
+                let radius = Math.min(width, height) / 2
+
+                svg = svg.append('g') // make a group to hold our ScatterChart chart
+                    .attr('transform', 'translate(' + (width / 2) + ',' + (height / 2) + ')')
+
+                // let donutWidth = 75;
+                let legendRectSize = 18
+                let legendSpacing = 4
+                let color = d3.scaleOrdinal(d3.schemeCategory10)
+
+                let arc = d3.arc()
+                   // .innerRadius(radius - donutWidth)
+                    .innerRadius(0)
+                    .outerRadius(radius)
+                let ScatterChart = d3.ScatterChart()
+                    .value(function (d: any) { return d.count })
+                    .sort(null)
+                let path = svg.selectAll('path')
+                    .data(ScatterChart(dataset))
+                    .enter()
+                    .append('path')
+                    .attr('d', arc)
+                    .attr('fill', function (d: any, i: any) {
+                        return color(d.data.label)
+                    })
+
+                // Todo limit nb (look ScatterChart chart of Google)
+                let legend = svg.selectAll('.legend')
+                    .data(color.domain())
+                    .enter()
+                    .append('g')
+                    .attr('class', 'legend')
+                    .attr('transform', function (d: any, i: any) {
+                        let height = legendRectSize + legendSpacing
+                        let offset = height * color.domain().length / 2
+                        let horz = -2 * legendRectSize
+                        let vert = i * height - offset
+                        return 'translate(' + (horz + radius * 2 + 20 ) + ',' + vert + ')'
+                    })
+                legend.append('rect')
+                    .attr('width', legendRectSize)
+                    .attr('height', legendRectSize)
+                    .style('fill', color)
+                    .style('stroke', color)
+                legend.append('text')
+                    .attr('x', legendRectSize + legendSpacing)
+                    .attr('y', legendRectSize - legendSpacing)
+                    .text(function (d: any) { return d })*/
+            /*
+                                let width = 500
+                                let height = 300
+                                let padding = 30
+                                let numDataPoints = 50
+                                let xRange = Math.random() * 1000
+                                let yRange = Math.random() * 1000
+                            for (let i = 0; i < numDataPoints; i++) {
+                              let newNumber1 = Math.floor(Math.random() * xRange)
+                              let newNumber2 = Math.floor(Math.random() * yRange)
+                               dataset.push([newNumber1, newNumber2])
+                            }
+                            // Create scale functions
+                            let xScale = d3.scale.linear()
+                                           .domain([0, d3.max(dataset, function (d: any) {
+                                             return d[0]
+                                           }) ])
+                                           .range([padding, width - padding * 2])
+                            let yScale = d3.scale.linear()
+                                           .domain([0, d3.max(dataset, function (d: any) {
+                                             return d[1]
+                                           })])
+                                           .range([height - padding, padding])
+                            let rScale = d3.scale.linear()
+                                           .domain([0, d3.max(dataset, function (d: any) {
+                                             return d[1]
+                                           })])
+                                                        .range([2, 5])
+                            let formatAsPercentage = d3.tickFormat('.1%')
+                           // Define X axis
+                            let xAxis = d3.svg.axis()
+                                          .scale(xScale)
+                                          .orient('bottom')
+                                          .ticks(5)
+                                          .tickFormat(formatAsPercentage)
+                            // Define Y axis
+                            let yAxis = d3.svg.axis()
+                                          .scale(yScale)
+                                            .orient('left')
+                                            .ticks(5)
+                                            .tickFormat(formatAsPercentage)
+                            // Create SVG element
+                            let svg = d3.select('#' + currentChart.container.id)
+                                                    .append('svg')
+                                                    .attr('width', width)
+                                                    .attr('height', height)
+                                                    .append('g')
+                            // Create circles
+                            svg.selectAll('circle')
+                                 .data(dataset)
+                               .enter()
+                                 .append('circle')
+                                 .attr('cx', function (d: any) {
+                                   return xScale(d[0])
+                                 })
+                                 .attr('cy', function (d: any) {
+                                   return yScale(d[1])
+                                 })
+                                 .attr('r', function (d: any) {
+                                   return rScale(d[1])
+                                 })
+                            // Create labels
+                            svg.selectAll('text')
+                               .data(dataset)
+                               .enter()
+                               .append('text')
+                               .text(function (d: any) {
+                                       return d[0] + ',' + d[1]
+                               })
+                               .attr('x', function (d: any) {
+                                       return xScale(d[0])
+                               })
+                               .attr('y', function (d: any) {
+                                       return yScale(d[1])
+                               })
+                               .attr('font-family', 'sans-serif')
+                               .attr('font-size', '11px')
+                               .attr('fill', 'red')
+                            // Create X axis
+                            svg.append('g')
+                               .attr('class', 'axis')
+                               .attr('transform', 'translate(0,' + (height - padding) + ')')
+                               .call(xAxis)
+                            // Create Y axis
+                            svg.append('g')
+                               .attr('class', 'axis')
+                               .attr('transform', 'translate(' + padding + ',0)')
+                               .call(yAxis)
+                               */
+            // finish
+            return resolve();
+        });
+    }
+}
+
+/**
  * @namespace bordercloud.visualization
  */
 
 
 
 var visualizationNS$3 = Object.freeze({
-	Pie: Pie
+	AreaChart: AreaChart$1,
+	BarChart: BarChart$1,
+	BubbleChart: BubbleChart$1,
+	ColumnChart: ColumnChart$1,
+	Line: Line,
+	Pie: Pie$1,
+	ScatterChart: ScatterChart$1
 });
 
 /**
@@ -2432,11 +5033,16 @@ class Map$1 extends Chart {
                         if (noCols >= 6) {
                             // latitude longitude title text link
                             let title = row[cols[2]] !== undefined ? row[cols[2]].value : '';
-                            let text = row[cols[3]] !== undefined ? row[cols[3]].value : '';
-                            let link = row[cols[4]] !== undefined ? "<a href='" + row[cols[4]].value + "' target='_blank'>" + title + '</a>' : title;
-                            let img = row[cols[5]] !== undefined ? "<img src='" + row[cols[5]].value + "' style='max-width:150px;height:150px;float:right;'/>" : '';
+                            let text = row[cols[3]] !== undefined ? "<p style='margin: 0px'>" + row[cols[3]].value + '</p>' : '';
+                            let link = row[cols[4]] !== undefined ? "<a style='font-size: large;font-style: medium;' href='" + row[cols[4]].value + "' target='_blank'>" + title + '</a>' : title;
+                            let img = row[cols[5]] !== undefined ? "<img src='" + row[cols[5]].value + "' style='margin-left:5px;margin-bottom:5px;width:150px;float:right;'/>" : '';
                             marker = L.marker([parseFloat(row[cols[0]].value), parseFloat(row[cols[1]].value)]);
-                            marker.bindPopup('<div style="display: flow-root;"><b>' + link + '</b>' + img + '<br/>' + text + '</div>');
+                            if (row[cols[3]] === undefined || row[cols[3]].value.length === 0) {
+                                marker.bindPopup('<div style="display: flow-root;min-width: 150px;min-height:150px;">' + link + '<div>' + img + '</div></div>');
+                            }
+                            else {
+                                marker.bindPopup('<div style="display: flow-root;width: 350px;min-height:150px;">' + link + '<div>' + img + text + '</div></div>');
+                            }
                         }
                         else if (noCols === 5) {
                             // latitude longitude title introduction link
@@ -2457,7 +5063,7 @@ class Map$1 extends Chart {
                             // latitude longitude title
                             let title = row[cols[2]] !== undefined ? row[cols[2]].value : '';
                             marker = L.marker([parseFloat(row[cols[0]].value), parseFloat(row[cols[1]].value)]);
-                            marker.bindPopup('<b>' + title + '</b>');
+                            marker.bindPopup('<b>' + title + '</br>');
                         }
                         else if (noCols === 2) {
                             // latitude longitude

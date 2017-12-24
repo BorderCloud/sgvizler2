@@ -46,7 +46,7 @@
 .leaflet-container .leaflet-shadow-pane img,
 .leaflet-container .leaflet-tile-pane img,
 .leaflet-container img.leaflet-image-layer {
-	max-width: none !important;
+	min-width: none !important;
 	}
 
 .leaflet-container.leaflet-touch-zoom {
@@ -455,16 +455,19 @@
 /* popup */
 
 .leaflet-popup {
+	width:auto !important;
 	position: absolute;
 	text-align: center;
 	margin-bottom: 20px;
 	}
 .leaflet-popup-content-wrapper {
+	width:auto !important;
 	padding: 1px;
 	text-align: left;
 	border-radius: 12px;
 	}
 .leaflet-popup-content {
+	width:auto !important;
 	margin: 13px 19px;
 	line-height: 1.4;
 	}
