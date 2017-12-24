@@ -28,7 +28,7 @@ export class BubbleChart extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-table'
+        return 'fa-line-chart'
     }
 
     public get label (): string {

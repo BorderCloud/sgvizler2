@@ -7,25 +7,25 @@
   },
 
   "d3_visualization_AreaChart": {
-    "title": "d3.visualization.AreaChart (Example)"
+    "title": "d3.visualization.AreaChart (in construction)"
   },
   "d3_visualization_BarChart": {
-    "title": "d3.visualization.BarChart (Example)"
+    "title": "d3.visualization.BarChart (in construction)"
   },
   "d3_visualization_BubbleChart": {
-    "title": "d3.visualization.BubbleChart"
+    "title": "d3.visualization.BubbleChart (in construction)"
   },
   "d3_visualization_ColumnChart": {
-    "title": "d3.visualization.ColumnChart"
+    "title": "d3.visualization.ColumnChart (in construction)"
   },
   "d3_visualization_Line": {
     "title": "d3.visualization.Line"
   },
   "d3_visualization_Pie": {
-    "title": "d3.visualization.Pie (Example)"
+    "title": "d3.visualization.Pie"
   },
   "d3_visualization_ScatterChart": {
-    "title": "d3.visualization.ScatterChart"
+    "title": "d3.visualization.ScatterChart (in construction)"
   },
 
 
@@ -73,7 +73,7 @@
     "title": "google.visualization.Map"
   },
   "google_visualization_OrgChart": {
-    "title": "google.visualization.OrgChart"
+    "title": "google.visualization.OrgChart (in construction)"
   },
   "google_visualization_Pie": {
     "title": "google.visualization.Pie"

@@ -28,7 +28,7 @@ export class Pie extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-pie'
+        return 'fa-pie-chart'
     }
 
     public get label (): string {

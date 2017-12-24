@@ -16,7 +16,7 @@ declare let d3: any
 export class AreaChart extends Chart {
 
     public get icon (): string {
-        return 'fa-areaChart-chart'
+        return 'fa-area-chart'
     }
 
     public get label (): string {

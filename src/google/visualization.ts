@@ -62,9 +62,36 @@ export * from './visualization/OrgChart'
 // https://developers.google.com/chart/interactive/docs/gallery/piechart
 export * from './visualization/Pie'
 
-export * from './visualization/Table'
-export * from './visualization/Data'
+// Sankey Diagram
+// https://developers.google.com/chart/interactive/docs/gallery/sankey
+// todo ?
+
+// Scatter Chart
+// https://developers.google.com/chart/interactive/docs/gallery/scatterchart
 export * from './visualization/ScatterChart'
+
+// steppedareachart
+// https://developers.google.com/chart/interactive/docs/gallery/steppedareachart
+// todo ?
+
+// Table
+// https://developers.google.com/chart/interactive/docs/gallery/table
+export * from './visualization/Table'
+
+// Timeline
+// https://developers.google.com/chart/interactive/docs/gallery/timeline
+// todo ?
+
+// Treemaps
+// https://developers.google.com/chart/interactive/docs/gallery/treemap
+// todo ?
+
+// Trendline
+// https://developers.google.com/chart/interactive/docs/gallery/trendlines
 export * from './visualization/Trendline'
+
+// Word Trees
+// https://developers.google.com/chart/interactive/docs/gallery/wordtree
+// todo
 
 export * from './visualization/Data'

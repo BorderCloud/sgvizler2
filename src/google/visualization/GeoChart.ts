@@ -23,12 +23,12 @@ export class GeoChart extends Chart {
     }
 
     private static init () {
-        google.charts.load('current', {'packages': ['geochart']})
+        google.charts.load('current', {'packages': ['geochart'], mapsApiKey: API.key})
         GeoChart._isInit = true
     }
 
     public get icon (): string {
-        return 'fa-geochart'
+        return 'fa-globe'
     }
 
     public get label (): string {

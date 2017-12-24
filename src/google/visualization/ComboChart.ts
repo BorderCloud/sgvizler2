@@ -28,7 +28,7 @@ export class ComboChart extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-ComboChart'
+        return 'fa-line-chart'
     }
 
     public get label (): string {

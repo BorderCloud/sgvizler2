@@ -28,15 +28,15 @@ export class IntervalChart extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-line'
+        return 'fa-line-chart'
     }
 
     public get label (): string {
-        return 'Line'
+        return 'Interval'
     }
 
     public get subtext (): string {
-        return 'Line'
+        return 'Interval'
     }
 
     public get classFullName (): string {

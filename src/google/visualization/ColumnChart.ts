@@ -28,7 +28,7 @@ export class ColumnChart extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-ColumnChart'
+        return 'fa-bar-chart'
     }
 
     public get label (): string {

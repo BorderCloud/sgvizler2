@@ -28,7 +28,7 @@ export class Histogram extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-Histogram'
+        return 'fa-area-chart'
     }
 
     public get label (): string {

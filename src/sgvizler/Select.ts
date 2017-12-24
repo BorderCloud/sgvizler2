@@ -28,7 +28,15 @@ export class Select {
             // optgroup
             label: 'd3.visualization',
             charts: [
+                /*'d3.visualization.AreaChart',
+                'd3.visualization.BarChart',
+                'd3.visualization.BubbleChart',
+                'd3.visualization.ColumnChart',*/
+                'd3.visualization.Line',
                 'd3.visualization.Pie'
+                /*,
+                'd3.visualization.ScatterChart'
+                */
             ]
         },
         {
@@ -42,8 +50,24 @@ export class Select {
             // optgroup
             label: 'google.visualization',
             charts: [
+                'google.visualization.AnnotationChart',
+                'google.visualization.AreaChart',
+                'google.visualization.BarChart',
+                'google.visualization.BubbleChart',
+                'google.visualization.Calendar',
+                'google.visualization.CandlestickChart',
+                'google.visualization.ColumnChart',
+                'google.visualization.ComboChart',
+                'google.visualization.GeoChart',
+                'google.visualization.Histogram',
+                'google.visualization.IntervalChart',
+                'google.visualization.LineChart',
+                'google.visualization.Map',
+                // 'google.visualization.OrgChart',
+                'google.visualization.Pie',
+                'google.visualization.ScatterChart',
                 'google.visualization.Table',
-                'google.visualization.Map'
+                'google.visualization.Trendline'
             ]
         },
         {

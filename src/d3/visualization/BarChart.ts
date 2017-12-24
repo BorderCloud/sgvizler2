@@ -18,7 +18,7 @@ declare let d3: any
 export class BarChart extends Chart {
 
     public get icon (): string {
-        return 'fa-pie-chart'
+        return 'fa-bar-chart'
     }
 
     public get label (): string {

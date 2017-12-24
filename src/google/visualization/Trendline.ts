@@ -28,7 +28,7 @@ export class Trendline extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-Trendline'
+        return 'fa-line-chart'
     }
 
     public get label (): string {

@@ -28,7 +28,7 @@ export class LineChart extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-line'
+        return 'fa-line-chart'
     }
 
     public get label (): string {
