@@ -15,13 +15,53 @@
         </div-->
 
         <p>
-            Column chart.
+            Google column chart.
+            (<a href="https://developers.google.com/chart/interactive/docs/gallery/columnchart">see the doc of Google</a>)
         </p>
 
         <h4>
-            Options:
+            Data format
         </h4>
+        <p>
+            Each row in the table represents a group of bars.
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Column</th>
+                <th scope="col" class="left">Type</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left">0</td>
+                <td class="left">string (discrete) or
+                    number, date, datetime or
+                    timeofday (continuous)</td>
+                <td class="left">X-axis group labels or values</td>
+            </tr>
+            <tr>
+                <td class="left">1</td>
+                <td class="left">Number</td>
+                <td class="left">Bar 1 values</td>
+            </tr>
+            <tr>
+                <td class="left">N</td>
+                <td class="left">Number</td>
+                <td class="left">Bar N values</td>
+            </tr>
+            </tbody>
+        </table>
+        </p>
+
+        <h4>
+            Chart options
+        </h4>
+        <p>
+        Each option is separated by a '|'  or '!' (for Mediawiki).
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
             <colgroup>
                 <col class="left">
 
@@ -54,12 +94,13 @@
             </tr>
             </tbody>
         </table>
+        </p>
     <h3>
         Examples
     </h3>
 
         <h4>
-           Example without options: Population of Le Crotoy
+           Without options
         </h4>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
             <li class="nav-item">
@@ -114,7 +155,7 @@ where {
 ORDER BY ?year"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="google.visualization.ColumnChart"
-data-sgvizler-chart-options="reverseCategories=false"
+data-sgvizler-chart-options=""
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
@@ -135,7 +176,7 @@ data-sgvizler-chart-options="reverseCategories=false"
 
 
         <h4>
-            Example: Population of Le Crotoy
+           With options
         </h4>
         <p>With option "reverseCategories=true"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_2">

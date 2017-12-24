@@ -6,7 +6,8 @@ import {
     SparqlResultInterface
 } from '../../sgvizler'
 
-import { Data } from './Data'
+import { Tools } from '../Tools'
+import { Data } from '../Data'
 import { API } from '../API'
 
 declare let google: any
@@ -67,13 +68,13 @@ export class CandlestickChart extends Chart {
                 return reject(Messages.get(MESSAGES.ERROR_DATA_NOROW))
             }
 
-            let height = '100%'
+            let height = 500
             if (currentChart.height !== '') {
-                height = currentChart.height
+                height = Tools.decodeFormatSize(currentChart.height)
             }
 
             let opt = Object.assign({
-                width: currentChart.width,
+                width: Tools.decodeFormatSize(currentChart.width),
                 height: height
             }, currentChart.options)
 
@@ -83,11 +84,15 @@ export class CandlestickChart extends Chart {
 
             google.charts.setOnLoadCallback(
                 () => {
-                    let data = new Data(result)
-
-                    let candlestickChart = new google.visualization.CandlestickChart(document.getElementById(currentChart.container.id))
-
-                   candlestickChart.draw(data.getDataTable(), currentChart.options)
+                    try {
+                        let data = new Data(result)
+                        let candlestickChart = new google.visualization.CandlestickChart(document.getElementById(currentChart.container.id))
+                       candlestickChart.draw(data.getDataTable(), opt)
+                    } catch (error) {
+                        console.log(error)
+                        Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error])
+                        Logger.log(currentChart.container,'Chart finished with error : ' + currentChart.container.id)
+                    }
                 }
             )
             // finish

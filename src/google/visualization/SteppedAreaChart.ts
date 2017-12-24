@@ -10,12 +10,12 @@ import { API } from '../API'
 declare let google: any
 
 /**
- * Todo AnnotationChart
- * @class google.visualization.AnnotationChart
- * @tutorial google_visualization_AnnotationChart
+ * Todo SteppedAreaChart
+ * @class google.visualization.SteppedAreaChart
+ * @tutorial google_visualization_SteppedAreaChart
  * @memberof google.visualization
  */
-export class AnnotationChart extends Chart {
+export class SteppedAreaChart extends Chart {
     private static _isInit: boolean = false
 
     public constructor () {
@@ -24,35 +24,35 @@ export class AnnotationChart extends Chart {
     }
 
     private static init () {
-        google.charts.load('current', {'packages': ['annotationchart']})
-        AnnotationChart._isInit = true
+        google.charts.load('current', {'packages': ['corechart']})
+        SteppedAreaChart._isInit = true
     }
 
     public get icon (): string {
-        return 'fa-line-chart'
+        return 'fa-area-chart'
     }
 
     public get label (): string {
-        return 'AnnotationChart'
+        return 'SteppedAreaChart'
     }
 
     public get subtext (): string {
-        return 'AnnotationChart'
+        return 'SteppedAreaChart'
     }
 
     public get classFullName (): string {
-        return 'google.visualization.AnnotationChart'
+        return 'google.visualization.SteppedAreaChart'
     }
 
     public get tutorialFilename (): string {
-        return 'tutorial-google_visualization_AnnotationChart.html'
+        return 'tutorial-google_visualization_SteppedAreaChart.html'
     }
 
     /**
-     * Make a standard simple html AnnotationChart.
+     * Make a standard simple html table.
      * Available options:
      * - 'headings'   :  "true" / "false"  (default: "true")
-     * @memberOf AnnotationChart
+     * @memberOf Table
      * @returns {Promise<void>}
      * @param result
      */
@@ -72,16 +72,16 @@ export class AnnotationChart extends Chart {
                 height: height
             }, currentChart.options)
 
-            if (! AnnotationChart._isInit) {
-                AnnotationChart.init()
+            if (! SteppedAreaChart._isInit) {
+                SteppedAreaChart.init()
             }
 
             google.charts.setOnLoadCallback(
                 () => {
                     try {
                         let data = new Data(result)
-                        let AnnotationChart = new google.visualization.AnnotationChart(document.getElementById(currentChart.container.id))
-                        AnnotationChart.draw(data.getDataTable(), opt)
+                        let steppedAreaChart = new google.visualization.SteppedAreaChart(document.getElementById(currentChart.container.id))
+                        steppedAreaChart.draw(data.getDataTable(), opt)
                     } catch (error) {
                         console.log(error)
                         Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error])

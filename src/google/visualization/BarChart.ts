@@ -1,9 +1,10 @@
 import {
-    Chart,
+    Chart, Logger, MESSAGES,
     SparqlResultInterface
 } from '../../sgvizler'
 
-import { Data } from './Data'
+import { Tools } from '../Tools'
+import { Data } from '../Data'
 import { API } from '../API'
 
 declare let google: any
@@ -23,12 +24,12 @@ export class BarChart extends Chart {
     }
 
     private static init () {
-        google.charts.load('current', {'packages': ['barchart']})
+        google.charts.load('current', {'packages': ['corechart', 'bar']})
         BarChart._isInit = true
     }
 
     public get icon (): string {
-        return 'fa-bar-chart'
+        return 'fa-align-left'
     }
 
     public get label (): string {
@@ -61,16 +62,14 @@ export class BarChart extends Chart {
             // transform query
             // console.log(noCols + " x " + noRows)
 
-            let height = '400'
+            let height = 500
             if (currentChart.height !== '') {
-                height = currentChart.height
+                height = Tools.decodeFormatSize(currentChart.height)
             }
 
             let opt = Object.assign({
-                width: '100%',
-                height: height,
-                title: 'Population de Paris par année',
-                isStacked: 'false'
+                width:  Tools.decodeFormatSize(currentChart.width),
+                height: height
             }, currentChart.options)
 
             if (! BarChart._isInit) {
@@ -79,12 +78,15 @@ export class BarChart extends Chart {
 
             google.charts.setOnLoadCallback(
                 () => {
-                    let data = new Data(result)
-                    // console.log(data.getDataTable())
-                    // console.log(data.getDataTable()["hc"])
-                    // console.log(data.getDataTable().showRowNumber)
-                    let chart = new google.visualization.BarChart(document.getElementById(currentChart.container.id))
-                    chart.draw(data.getDataTable(), opt)
+                    try {
+                        let data = new Data(result)
+                        let chart = new google.visualization.BarChart(document.getElementById(currentChart.container.id))
+                        chart.draw(data.getDataTable(), opt)
+                    } catch (error) {
+                        console.log(error)
+                        Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error])
+                        Logger.log(currentChart.container,'Chart finished with error : ' + currentChart.container.id)
+                    }
                 })
             // finish
             return resolve()

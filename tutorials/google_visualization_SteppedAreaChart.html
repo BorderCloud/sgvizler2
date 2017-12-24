@@ -15,17 +15,15 @@
         </div-->
 
         <p>
-            A candlestick chart is used to show an opening and closing value overlaid on top of a total variance. Candlestick charts are often used to show stock value behavior. In this chart, items where the opening value is less than the closing value (a gain) are drawn as filled boxes, and items where the opening value is more than the closing value (a loss) are drawn as hollow boxes.
-            (<a href="https://developers.google.com/chart/interactive/docs/gallery/candlestickchart">see the doc of Google</a>)
+            Google stepped area chart.
+            (<a href="https://developers.google.com/chart/interactive/docs/gallery/steppedareachart">see the doc of Google</a>)
         </p>
 
         <h4>
             Data format
         </h4>
         <p>
-            Five or more columns, where the first column defines X-axis values or group labels, and each multiple of four data columns after that defines a different series.
-            In order to have more series, it is possible to add additional sets of 4 columns, with a similar structure to columns 1-4. Each such set represents another series of candlesticks. The total number of columns should be 4 times the number of series plus 1 (and any optional tooltip columns).
-        </p>
+            Each row in the table represents a group of bars.
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
             <thead>
             <tr>
@@ -37,43 +35,36 @@
             <tbody>
             <tr>
                 <td class="left">0</td>
-                <td class="left">String (discrete) used as a group label, or number, date, datetime, or timeofday (continuous)</td>
-                <td class="left">X axis</td>
+                <td class="left">string</td>
+                <td class="left">X-axis group labels</td>
             </tr>
             <tr>
                 <td class="left">1</td>
                 <td class="left">Number</td>
-                <td class="left">low/minimum value of this marker</td>
+                <td class="left">Bar 1 values</td>
             </tr>
             <tr>
-                <td class="left">2</td>
+                <td class="left">N</td>
                 <td class="left">Number</td>
-                <td class="left">opening/initial value of this marker.</td>
-            </tr>
-            <tr>
-                <td class="left">3</td>
-                <td class="left">Number</td>
-                <td class="left">closing/final value of this marker</td>
-            </tr>
-            <tr>
-                <td class="left">4</td>
-                <td class="left">Number</td>
-                <td class="left">high/maximum value of this marker</td>
-            </tr>
-            <tr>
-                <td class="left">5</td>
-                <td class="left">Number (Optional)</td>
-                <td class="left">A tooltip or style column for the candlestick.</td>
+                <td class="left">Bar N values</td>
             </tr>
             </tbody>
         </table>
-
+        </p>
 
         <h4>
             Chart options
         </h4>
-        <p>Each option is separated by a '|'  or '!' (for Mediawiki).</p>
+        <p>
+        Each option is separated by a '|'  or '!' (for Mediawiki).
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <colgroup>
+                <col class="left">
+
+                <col class="left">
+
+                <col class="left">
+            </colgroup>
             <thead>
             <tr>
                 <th scope="col" class="left">Name</th>
@@ -95,15 +86,20 @@
             <tr>
                 <td class="left"><code>Others... </code></td>
                 <td class="left"></td>
-                <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/candlestickchart#configuration-options">See the doc</a></td>
+                <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/steppedareachart#configuration-options">See the doc</a></td>
             </tr>
             </tbody>
         </table>
+        </p>
 
+    <h3>
+        Examples
+    </h3>
 
         <h4>
-            Exemple
+            With title and legend
         </h4>
+        <p>Options : title=The decline of "The 39 Steps"|hAxis.title=Accumulated Rating|isStacked= true|legend.position=bottom</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
@@ -117,47 +113,41 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="result"
-                     data-sgvizler-query="
-SELECT  ?time ?low ?initial ?final ?maximum
+                <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query="
+SELECT ?Director_Year  ?Rotten_Tomatoes ?IMDB
 WHERE
 {
-  values (?time ?low ?initial ?final ?maximum)  {
-      ('Mon' 20 28 38 45)
-      ('Tue' 31 38 55 66)
-      ('Wed' 50 55 77 80)
-      ('Thu' 77 77 66 50)
-      ('Fri' 68 66 22 15)
-	}
+  values (?Director_Year  ?Rotten_Tomatoes ?IMDB) {
+          ('Alfred Hitchcock (1935)' 8.4         7.9)
+          ('Ralph Thomas (1959)'     6.9         6.5)
+          ('Don Sharp (1978)'        6.5         6.4)
+          ('James Hawes (2008)'      4.4         6.2)
 }
-"
-                     data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-                     data-sgvizler-chart="google.visualization.CandlestickChart"
-                     data-sgvizler-chart-options="height=500"
-                     data-sgvizler-log="2"
-                ></div>
+}"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="google.visualization.SteppedAreaChart"
+data-sgvizler-chart-options='title=The decline of "The 39 Steps"|hAxis.title=Accumulated Rating|isStacked= true|legend.position=bottom'
+data-sgvizler-loglevel='2'></div></div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
 data-sgvizler-query="
-
-SELECT  ?time ?low ?initial ?final ?maximum
+SELECT ?Director_Year  ?Rotten_Tomatoes ?IMDB
 WHERE
 {
-  values (?time ?low ?initial ?final ?maximum)  {
-      ('Mon' 20 28 38 45)
-      ('Tue' 31 38 55 66)
-      ('Wed' 50 55 77 80)
-      ('Thu' 77 77 66 50)
-      ('Fri' 68 66 22 15)
-	}
+  values (?Director_Year  ?Rotten_Tomatoes ?IMDB) {
+          ('Alfred Hitchcock (1935)' 8.4         7.9)
+          ('Ralph Thomas (1959)'     6.9         6.5)
+          ('Don Sharp (1978)'        6.5         6.4)
+          ('James Hawes (2008)'      4.4         6.2)
 }
-"
- data-sgvizler-endpoint="https://query.wikidata.org/sparql"
- data-sgvizler-chart="google.visualization.CandlestickChart"
- data-sgvizler-chart-options="height=500"
- data-sgvizler-log="2"
-                &gt;&lt;/div&gt;</pre></div>
+}"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="google.visualization.SteppedAreaChart"
+data-sgvizler-chart-options='title=The decline of "The 39 Steps"|hAxis.title=Accumulated Rating|isStacked= true|legend.position=bottom'
+data-sgvizler-loglevel='2'
+&gt;&lt;/div&gt;
+</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;

@@ -1,9 +1,10 @@
 import {
-    Chart,
+    Chart, Logger, MESSAGES,
     SparqlResultInterface
 } from '../../sgvizler'
 
-import { Data } from './Data'
+import { Tools } from '../Tools'
+import { Data } from '../Data'
 import { API } from '../API'
 
 declare let google: any
@@ -28,7 +29,7 @@ export class BubbleChart extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-line-chart'
+        return 'fa-circle'
     }
 
     public get label (): string {
@@ -61,13 +62,13 @@ export class BubbleChart extends Chart {
             // transform query
             // console.log(noCols + " x " + noRows)
 
-            let height = '500'
+            let height = 500
             if (currentChart.height !== '') {
-                height = currentChart.height
+                height = Tools.decodeFormatSize(currentChart.height)
             }
 
             let opt = Object.assign({
-                width: '100%',
+                width: Tools.decodeFormatSize(currentChart.width),
                 height: height
             }, currentChart.options)
 
@@ -77,9 +78,15 @@ export class BubbleChart extends Chart {
 
             google.charts.setOnLoadCallback(
                 () => {
-                    let data = new Data(result)
-                    let chart = new google.visualization.BubbleChart(document.getElementById(currentChart.container.id))
-                     chart.draw(data.getDataTable(), opt)
+                    try {
+                        let data = new Data(result)
+                        let chart = new google.visualization.BubbleChart(document.getElementById(currentChart.container.id))
+                         chart.draw(data.getDataTable(), opt)
+                    } catch (error) {
+                        console.log(error)
+                        Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error])
+                        Logger.log(currentChart.container,'Chart finished with error : ' + currentChart.container.id)
+                    }
                 })
             // finish
             return resolve()

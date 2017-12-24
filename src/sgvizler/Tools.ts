@@ -97,7 +97,9 @@ export class Tools {
             if (Number.isNaN(Number(value))) {
                 let valueBoolean = Tools.convertToBoolean(value)
                 if (valueBoolean === undefined) {
-                    json = '{"' + propertyName + '":"' + value + '"}'
+                    let str = JSON.stringify(String(value))
+                    str = str.substring(1, str.length - 1)
+                    json = '{"' + propertyName + '":"' + str + '"}'
                 } else {
                     json = '{"' + propertyName + '":' + value + '}'
                 }

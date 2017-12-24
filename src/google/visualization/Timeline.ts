@@ -1,9 +1,10 @@
 import {
-    Chart,
+    Chart, Logger, MESSAGES,
     SparqlResultInterface
 } from '../../sgvizler'
 
-import { Data } from './Data'
+import { Tools } from '../Tools'
+import { Data } from '../Data'
 import { API } from '../API'
 
 declare let google: any
@@ -28,7 +29,7 @@ export class Timeline extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-table'
+        return 'fa-tasks'
     }
 
     public get label (): string {
@@ -61,13 +62,13 @@ export class Timeline extends Chart {
             // transform query
             // console.log(noCols + " x " + noRows)
 
-            let height = '100%'
+            let height = 500
             if (currentChart.height !== '') {
-                height = currentChart.height
+                height = Tools.decodeFormatSize(currentChart.height)
             }
 
             let opt = Object.assign({
-                width: currentChart.width,
+                width: Tools.decodeFormatSize(currentChart.width),
                 height: height
             }, currentChart.options)
 
@@ -77,11 +78,15 @@ export class Timeline extends Chart {
 
             google.charts.setOnLoadCallback(
                 () => {
-                    let data = new Data(result)
-
-                    let timeline = new google.visualization.Timeline(document.getElementById(currentChart.container.id))
-
-                    timeline.draw(data.getDataTable(), currentChart.options)
+                    try {
+                        let data = new Data(result)
+                        let timeline = new google.visualization.Timeline(document.getElementById(currentChart.container.id))
+                        timeline.draw(data.getDataTable(), opt)
+                    } catch (error) {
+                        console.log(error)
+                        Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error])
+                        Logger.log(currentChart.container,'Chart finished with error : ' + currentChart.container.id)
+                    }
                 }
             )
             // finish

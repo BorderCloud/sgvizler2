@@ -19,8 +19,9 @@
         </p>
 
         <h4>
-            Table options:
+            Table options
         </h4>
+        <p>Each option is separated by a '|'  or '!' (for Mediawiki).</p>
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -78,7 +79,7 @@
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
                 <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query="
-                    PREFIX dbo: <http://dbpedia.org/ontology/> 
+                    PREFIX dbo: <http://dbpedia.org/ontology/>
                     PREFIX owl: <http://www.w3.org/2002/07/owl#>
                     PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
                     PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
@@ -89,22 +90,22 @@
                     PREFIX dbpedia2: <http://dbpedia.org/property/>
                     PREFIX dbpedia: <http://dbpedia.org/>
                     PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-                    SELECT DISTINCT ?company ?name 
+                    SELECT DISTINCT ?company ?name
                     WHERE {
                           ?company a dbo:Company .
                           ?company rdfs:label ?name .
                           ?company dbo:industry :Aerospace_manufacturer .
-                          FILTER (LANG(?name) = 'en') . 
-                          
+                          FILTER (LANG(?name) = 'en') .
+
                     } ORDER BY ?name
-" 
-data-sgvizler-endpoint="http://dbpedia-live.openlinksw.com/sparql/" 
+"
+data-sgvizler-endpoint="http://dbpedia-live.openlinksw.com/sparql/"
 data-sgvizler-chart="sgvizler.visualization.Table"></div></div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
 data-sgvizler-query="
-PREFIX dbo: &lt;http://dbpedia.org/ontology/> 
+PREFIX dbo: &lt;http://dbpedia.org/ontology/>
 PREFIX owl: &lt;http://www.w3.org/2002/07/owl#>
 PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#>
 PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#>
@@ -116,13 +117,13 @@ PREFIX dbpedia2: &lt;http://dbpedia.org/property/>
 PREFIX dbpedia: &lt;http://dbpedia.org/>
 PREFIX skos: &lt;http://www.w3.org/2004/02/skos/core#>
 
-SELECT DISTINCT ?company ?name 
+SELECT DISTINCT ?company ?name
 WHERE {
       ?company a dbo:Company .
       ?company rdfs:label ?name .
       ?company dbo:industry :Aerospace_manufacturer .
-      FILTER (LANG(?name) = 'en') . 
-      
+      FILTER (LANG(?name) = 'en') .
+
 } ORDER BY ?name
 "
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
@@ -162,17 +163,17 @@ data-sgvizler-chart="sgvizler.visualization.Table"
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">
                 <div id="example_2" style="padding: 25px;"><div id="result_2" data-sgvizler-query="
-                    PREFIX p: <http://www.wikidata.org/prop/> 
-                    PREFIX wd: <http://www.wikidata.org/entity/> 
+                    PREFIX p: <http://www.wikidata.org/prop/>
+                    PREFIX wd: <http://www.wikidata.org/entity/>
                     prefix pq: <http://www.wikidata.org/prop/qualifier/>
                     prefix ps: <http://www.wikidata.org/prop/statement/>
-                    
+
                     select (YEAR(?date) as ?year) ?population
                     where {
                            wd:Q61816 p:P1082 ?statement .
                             ?statement ps:P1082 ?population ;
-                                        pq:P585 ?date .           
-                          } 
+                                        pq:P585 ?date .
+                          }
                     ORDER BY ?year
 " data-sgvizler-endpoint="https://query.wikidata.org/sparql"
  data-sgvizler-chart="sgvizler.visualization.Table" data-sgvizler-chart-options="headings=false" data-sgvizler-log="0"></div></div>
@@ -180,16 +181,16 @@ data-sgvizler-chart="sgvizler.visualization.Table"
             <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
 data-sgvizler-query="
-PREFIX p: &lt;http://www.wikidata.org/prop/> 
-PREFIX wd: &lt;http://www.wikidata.org/entity/> 
+PREFIX p: &lt;http://www.wikidata.org/prop/>
+PREFIX wd: &lt;http://www.wikidata.org/entity/>
 prefix pq: &lt;http://www.wikidata.org/prop/qualifier/>
 prefix ps: &lt;http://www.wikidata.org/prop/statement/>
 select (YEAR(?date) as ?year) ?population
 where {
        wd:Q61816 p:P1082 ?statement .
         ?statement ps:P1082 ?population ;
-                    pq:P585 ?date .           
-      } 
+                    pq:P585 ?date .
+      }
 ORDER BY ?year
 "
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
@@ -213,7 +214,7 @@ data-sgvizler-chart-options="headings=false"
 
         <!--SCRIPT-->
         <script>
-    sgvizler2.containerDrawAll();   
+    sgvizler2.containerDrawAll();
     </script>
     </div>
 </div>

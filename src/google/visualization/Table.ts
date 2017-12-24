@@ -1,9 +1,10 @@
 import {
-    Chart,
+    Chart, Logger, MESSAGES,
     SparqlResultInterface
 } from '../../sgvizler'
 
-import { Data } from './Data'
+import { Tools } from '../Tools'
+import { Data } from '../Data'
 import { API } from '../API'
 
 declare let google: any
@@ -63,12 +64,13 @@ export class Table extends Chart {
 
             let height = '100%'
             if (currentChart.height !== '') {
-                height = currentChart.height
+                height = Tools.decodeFormatSize(currentChart.height)
             }
 
             let opt = Object.assign({
+                raw: true,
                 showRowNumber: false,
-                width: currentChart.width,
+                width: Tools.decodeFormatSize(currentChart.width),
                 height: height
             }, currentChart.options)
 
@@ -78,11 +80,15 @@ export class Table extends Chart {
 
             google.charts.setOnLoadCallback(
                 () => {
-                    let data = new Data(result)
-
-                    let table = new google.visualization.Table(document.getElementById(currentChart.container.id))
-
-                    table.draw(data.getDataTable(), currentChart.options)
+                    try {
+                        let data = new Data(result,opt.raw)
+                        let table = new google.visualization.Table(document.getElementById(currentChart.container.id))
+                        table.draw(data.getDataTable(), opt)
+                    } catch (error) {
+                        console.log(error)
+                        Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error])
+                        Logger.log(currentChart.container,'Chart finished with error : ' + currentChart.container.id)
+                    }
                 }
             )
             // finish

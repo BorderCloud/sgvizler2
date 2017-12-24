@@ -16,12 +16,47 @@
 
         <p>
             ScatterChart of results.
+            (<a href="https://developers.google.com/chart/interactive/docs/gallery/scatterchart">see the doc of Google</a>)
         </p>
 
         <h4>
-            ScatterChart options:
+            Data format
+        </h4>
+        <p>
+            Each row in the table represents a set of data points with the same x-axis value. To specify multiple series, specify two or more Y-axis columns, and specify Y values in only one Y column: <a href="https://developers.google.com/chart/interactive/docs/gallery/scatterchart#data-format">See an example</a>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Column</th>
+                <th scope="col" class="left">Type</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left">0</td>
+                <td class="left">	string, number, or date/datetime/timeofday</td>
+                <td class="left">Data point X values</td>
+            </tr>
+            <tr>
+                <td class="left">1</td>
+                <td class="left">	string, number, or date/datetime/timeofday</td>
+                <td class="left">Series 1 Y values/td>
+            </tr>
+            <tr>
+                <td class="left">N</td>
+                <td class="left">	string, number, or date/datetime/timeofday</td>
+                <td class="left">Series N Y values</td>
+            </tr>
+            </tbody>
+        </table>
+        </p>
+
+        <h4>
+            Chart options
         </h4>
 
+        <p>Each option is separated by a '|'  or '!' (for Mediawiki).</p>
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
             <colgroup>
                 <col class="left">
@@ -61,9 +96,9 @@
     </h3>
 
         <h4>
-            ScatterChart example 1 :
+            ScatterChart
         </h4>
-        <p></p>
+        <p>With options : title=Age vs Weight comparison|hAxis.title=Age|hAxis.minValue=0|hAxis.maxValue=15|vAxis.title=Weight|vAxis.minValue= 0|vAxis.maxValue=15|legend=none </p>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
@@ -79,51 +114,45 @@
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
                 <div id="example" style="padding: 25px;"><div id="result"
                     data-sgvizler-query="
-                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>
-                    PREFIX wikibase: &lt;http://wikiba.se/ontology#>
-                    PREFIX wd: &lt;http://www.wikidata.org/entity/>
-                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
-                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
-                    WHERE {
-                              ?pays wdt:P31 wd:Q6256.
-                              ?pays wdt:P2132 ?pib .
-                              ?pays wdt:P1082 ?population .
-                              ?pays wdt:P30 ?continent .
-                    SERVICE wikibase:label {
-                         bd:serviceParam wikibase:language 'en' .
-                    }
+select  DISTINCT ?Age ?Weight
+WHERE {
+     values
+        (?Age ?Weight){
+        ( 8 12)
+        ( 4 5.5)
+        ( 11 14)
+        ( 4 5)
+        ( 3 3.5)
+        ( 6.5 7)
+        }
 
-                          }
-                    LIMIT 10000"
+      }"
                      data-sgvizler-endpoint="https://query.wikidata.org/sparql"
                      data-sgvizler-chart="google.visualization.ScatterChart"
-                     data-sgvizler-chart-options="title = PIB PAR POPULATION"
-                     data-sgvizler-log="0"></div>
+                     data-sgvizler-chart-options="title=Age vs Weight comparison|hAxis.title=Age|hAxis.minValue=0|hAxis.maxValue=15|vAxis.title=Weight|vAxis.minValue= 0|vAxis.maxValue=15|legend=none"
+                     data-sgvizler-log="2"></div>
 
                 </div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
-data-sgvizler-query='
-PREFIX bd: &lt;http://www.bigdata.com/rdf#>
-PREFIX wikibase: &lt;http://wikiba.se/ontology#>
-PREFIX wd: &lt;http://www.wikidata.org/entity/>
-PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
-select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
+data-sgvizler-query="
+select  DISTINCT ?Age ?Weight
 WHERE {
-          ?pays wdt:P31 wd:Q6256.
-          ?pays wdt:P2132 ?pib .
-          ?pays wdt:P1082 ?population .
-          ?pays wdt:P30 ?continent .
-SERVICE wikibase:label {
-     bd:serviceParam wikibase:language 'en' .
-}
+values
+    (?Age ?Weight){
+    ( 8 12)
+    ( 4 5.5)
+    ( 11 14)
+    ( 4 5)
+    ( 3 3.5)
+    ( 6.5 7)
+    }
 
-      }
-LIMIT 10000
-'
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Table"
+}"
+ data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+ data-sgvizler-chart="google.visualization.ScatterChart"
+ data-sgvizler-chart-options="title=Age vs Weight comparison|hAxis.title=Age|hAxis.minValue=0|hAxis.maxValue=15|vAxis.title=Weight|vAxis.minValue= 0|vAxis.maxValue=15|legend=none"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
@@ -139,9 +168,6 @@ data-sgvizler-chart="google.visualization.Table"
 &lt;/script&gt;</pre></div>
             </div>
         </div>
-
-
-
 
         <!--SCRIPT-->
         <script>

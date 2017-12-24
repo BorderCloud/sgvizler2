@@ -10,12 +10,12 @@ import { API } from '../API'
 declare let google: any
 
 /**
- * Todo AnnotationChart
- * @class google.visualization.AnnotationChart
- * @tutorial google_visualization_AnnotationChart
+ * Todo TreeMap
+ * @class google.visualization.TreeMap
+ * @tutorial google_visualization_TreeMap
  * @memberof google.visualization
  */
-export class AnnotationChart extends Chart {
+export class TreeMap extends Chart {
     private static _isInit: boolean = false
 
     public constructor () {
@@ -24,35 +24,35 @@ export class AnnotationChart extends Chart {
     }
 
     private static init () {
-        google.charts.load('current', {'packages': ['annotationchart']})
-        AnnotationChart._isInit = true
+        google.charts.load('current', {'packages': ['treemap']})
+        TreeMap._isInit = true
     }
 
     public get icon (): string {
-        return 'fa-line-chart'
+        return 'fa-area-chart'
     }
 
     public get label (): string {
-        return 'AnnotationChart'
+        return 'TreeMap'
     }
 
     public get subtext (): string {
-        return 'AnnotationChart'
+        return 'TreeMap'
     }
 
     public get classFullName (): string {
-        return 'google.visualization.AnnotationChart'
+        return 'google.visualization.TreeMap'
     }
 
     public get tutorialFilename (): string {
-        return 'tutorial-google_visualization_AnnotationChart.html'
+        return 'tutorial-google_visualization_TreeMap.html'
     }
 
     /**
-     * Make a standard simple html AnnotationChart.
+     * Make a standard simple html table.
      * Available options:
      * - 'headings'   :  "true" / "false"  (default: "true")
-     * @memberOf AnnotationChart
+     * @memberOf Table
      * @returns {Promise<void>}
      * @param result
      */
@@ -72,16 +72,16 @@ export class AnnotationChart extends Chart {
                 height: height
             }, currentChart.options)
 
-            if (! AnnotationChart._isInit) {
-                AnnotationChart.init()
+            if (! TreeMap._isInit) {
+                TreeMap.init()
             }
 
             google.charts.setOnLoadCallback(
                 () => {
                     try {
                         let data = new Data(result)
-                        let AnnotationChart = new google.visualization.AnnotationChart(document.getElementById(currentChart.container.id))
-                        AnnotationChart.draw(data.getDataTable(), opt)
+                        let treeMap = new google.visualization.TreeMap(document.getElementById(currentChart.container.id))
+                        treeMap.draw(data.getDataTable(), opt)
                     } catch (error) {
                         console.log(error)
                         Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error])

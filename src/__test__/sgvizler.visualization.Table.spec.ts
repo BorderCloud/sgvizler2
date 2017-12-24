@@ -10,7 +10,7 @@ test.beforeEach('setup fixture',
 )
 
 test('Test JQuery', t => {
-    jqueryProxy(t.context.document).ready(function () {
+    jqueryProxy(t.context.document).on('load',function () {
         sgvizler2.containerDrawAll()
     })
     t.pass('Test query')

@@ -1,21 +1,36 @@
 import {
     Logger, MESSAGES,
     SparqlResultInterface
-} from '../../sgvizler'
+} from '../sgvizler'
 
 declare let google: any
 
 /**
- * Todo Table
- * @class google.visualization.Table
- * @tutorial google_visualization_Table
- * @memberof google.visualization
+ * Data
+ * @class google.Data
+ * @memberof google.Data
  */
 export class Data {
 
     private _dataTable: any
 
-    constructor (result: SparqlResultInterface) {
+    constructor (result: SparqlResultInterface, raw: boolean = false) {
+        if (raw) {
+            this.convertResultRaw (result)
+        } else {
+            this.convertResult (result)
+        }
+    }
+
+    setRole (col: Number, role: string) {
+        this._dataTable.setColumnProperty(col, 'role', role)
+    }
+
+    getDataTable () {
+        return this._dataTable
+    }
+
+    private convertResult (result: SparqlResultInterface) {
         let data = new google.visualization.DataTable()
 
         let cols = result.head.vars
@@ -30,24 +45,25 @@ export class Data {
             // Literal S with language tag L	{ "type": "literal", "value": "S", "xml:lang": "L"}
             // Literal S with datatype IRI D	{ "type": "literal", "value": "S", "datatype": "D"}
             // Blank node, label B	{"type": "bnode", "value": "B"}
+            let colName = col.replace('_',' ')
             if ( noRows > 0 ) {
                 let type = rows[0][col] !== undefined ? rows[0][col].datatype : ''
                 if (type === 'http://www.w3.org/2001/XMLSchema#decimal' ||
                     type === 'http://www.w3.org/2001/XMLSchema#integer') {
-                    data.addColumn('number', col)
+                    data.addColumn('number', colName)
                 } else if (type === 'http://www.w3.org/2001/XMLSchema#boolean') {
-                    data.addColumn('boolean', col)
+                    data.addColumn('boolean', colName)
                 } else if (type === 'http://www.w3.org/2001/XMLSchema#date') {
-                    data.addColumn('date', col)
+                    data.addColumn('date', colName)
                 } else if (type === 'http://www.w3.org/2001/XMLSchema#dateTime') {
-                    data.addColumn('datetime', col)
+                    data.addColumn('datetime', colName)
                 } else if (type === 'http://www.w3.org/2001/XMLSchema#time') {
-                    data.addColumn('timeofday', col)
+                    data.addColumn('timeofday', colName)
                 } else {
-                    data.addColumn('string', col)
+                    data.addColumn('string', colName)
                 }
             } else {
-                data.addColumn('string', col)
+                data.addColumn('string', colName)
             }
         }
 
@@ -57,7 +73,7 @@ export class Data {
             for (let x = 0; x < noRows; x++) {
                 for (let y = 0; y < noCols; y++) {
                     // data.setCell(x,y,rows[x][cols[y]].value)
-                    let type = rows[0][cols[y]] !== undefined ? rows[0][cols[y]].datatype : ''
+                    let type = rows[x][cols[y]] !== undefined && rows[x][cols[y]].hasOwnProperty('datatype') ? rows[x][cols[y]].datatype : ''
                     if (type === 'http://www.w3.org/2001/XMLSchema#integer') {
                         data.setCell(x, y, parseInt(rows[x][cols[y]].value, 10))
                     } else if (type === 'http://www.w3.org/2001/XMLSchema#decimal' || type === 'http://www.w3.org/2001/XMLSchema#float') {
@@ -80,9 +96,13 @@ export class Data {
                         let time: any = new Date(rows[x][cols[y]].value)
                         data.setCell(x, y, [time.getHours(), time.getHours(), time.getSeconds(), time.getMilliseconds()])
                     } else {
-                        // 'string' - JavaScript string value. Example value: v:'hello'
-                        let value = rows[x][cols[y]] !== undefined ? rows[x][cols[y]].value : ''
-                        data.setCell(x, y, value)
+                        if (rows[x][cols[y]] === undefined ) {
+                            data.setCell(x, y, null)
+                        } else {
+                            // 'string' - JavaScript string value. Example value: v:'hello'
+                            //let value = rows[x][cols[y]] !== undefined ? rows[x][cols[y]].value : ''
+                            data.setCell(x, y, rows[x][cols[y]].value)
+                        }
                     }
                     // console.log('rows['+x+'][cols['+y+']].value = ' + rows[x][cols[y]].value + ' ' +
                     // rows[x][cols[y]].datatype)
@@ -93,11 +113,32 @@ export class Data {
         this._dataTable = data
     }
 
-    setRole (col: Number, role: string) {
-        this._dataTable.setColumnProperty(col, 'role', role)
-    }
+    private convertResultRaw (result: SparqlResultInterface) {
+        let data = new google.visualization.DataTable()
 
-    getDataTable () {
-        return this._dataTable
+        let cols = result.head.vars
+        let rows = result.results.bindings
+        let noCols = cols.length
+        let noRows = rows.length
+
+        for (let col of cols) {
+            data.addColumn('string', col)
+        }
+
+        if (noRows > 0) {
+            data.addRows(noRows)
+            let i = 0
+            for (let x = 0; x < noRows; x++) {
+                for (let y = 0; y < noCols; y++) {
+                    if (rows[x][cols[y]] === undefined ) {
+                        data.setCell(x, y, '')
+                    } else {
+                        data.setCell(x, y, rows[x][cols[y]].value.toString())
+                    }
+                }
+            }
+        }
+
+        this._dataTable = data
     }
 }

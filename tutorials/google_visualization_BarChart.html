@@ -15,12 +15,48 @@
         </div-->
 
         <p>
-            Line of results.
+            Google bar chart.
+            (<a href="https://developers.google.com/chart/interactive/docs/gallery/barchart">see the doc of Google</a>)
         </p>
 
         <h4>
-            Line options:
+            Data format
         </h4>
+        <p>
+            Each row in the table represents a group of bars.
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Column</th>
+                <th scope="col" class="left">Type</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left">0</td>
+                <td class="left">string</td>
+                <td class="left">X-axis group labels</td>
+            </tr>
+            <tr>
+                <td class="left">1</td>
+                <td class="left">Number</td>
+                <td class="left">Bar 1 values</td>
+            </tr>
+            <tr>
+                <td class="left">N</td>
+                <td class="left">Number</td>
+                <td class="left">Bar N values</td>
+            </tr>
+            </tbody>
+        </table>
+        </p>
+
+        <h4>
+            Chart options
+        </h4>
+        <p>
+        Each option is separated by a '|'  or '!' (for Mediawiki).
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -40,21 +76,32 @@
             </thead>
             <tbody>
             <tr>
-                <td class="left"><code>isStacked</code></td>
-                <td class="left">false</td>
-                <td class="left">If set to true, stacks the elements for all series at each domain value</td>
+                <td class="left"><code>width</code></td>
+                <td class="left">100%</td>
+                <td class="left">Chart width</td>
+            </tr>
+            <tr>
+                <td class="left"><code>height</code></td>
+                <td class="left"></td>
+                <td class="left">Chart height</td>
+            </tr>
+            <tr>
+                <td class="left"><code>Others... </code></td>
+                <td class="left"></td>
+                <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/barchart#configuration-options">See the doc</a></td>
             </tr>
             </tbody>
         </table>
+        </p>
 
     <h3>
         Examples
     </h3>
 
         <h4>
-            BarChart by default :
+            By default
         </h4>
-        <p>With options "isStacked=false" (default) and  "sortBarsBySize=true" </p>
+        <p></p>
         <ul class="nav nav-tabs" role="tablist" id="tab_1">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
@@ -68,34 +115,38 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="example" style="padding: 25px;"><div id="result"
-                    data-sgvizler-query="
-                    SELECT (YEAR(?date) AS ?year) ?population WHERE {
-                        wd:Q90  p:P1082 ?populationStatement.
-                         ?populationStatement ps:P1082 ?population.
-                         ?populationStatement pq:P585 ?date.
-                       }
-                       ORDER BY ?year"
+                <div id="result"
+                     data-sgvizler-query="
+                    SELECT ?City ?2010_Population ?2000_Population WHERE {
+                        values  (?City ?2010_Population ?2000_Population){
+                             ('New York City NY' 8175000 8008000)
+                             ('Los Angeles CA' 3792000 3694000)
+                             ('Chicago IL' 2695000 2896000)
+                             ('Houston TX' 2099000 1953000)
+                             ('Philadelphia PA' 1526000 1517000)
+                             }
+                       }"
                 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
                 data-sgvizler-chart="google.visualization.BarChart"
-                data-sgvizler-log="0"></div>
-
-                </div>
+                data-sgvizler-log="2"></div>
             </div>
             <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
-                    data-sgvizler-query="
-                    SELECT (YEAR(?date) AS ?year) ?population WHERE {
-                        wd:Q90  p:P1082 ?populationStatement.
-                         ?populationStatement ps:P1082 ?population.
-                         ?populationStatement pq:P585 ?date.
-                       }
-                       ORDER BY ?year"
-                data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-                data-sgvizler-chart="google.visualization.BarChart"
+ data-sgvizler-query="
+SELECT ?City ?2010_Population ?2000_Population WHERE {
+    values  (?City ?2010_Population ?2000_Population){
+        ('New York City NY' 8175000 8008000)
+        ('Los Angeles CA' 3792000 3694000)
+        ('Chicago IL' 2695000 2896000)
+        ('Houston TX' 2099000 1953000)
+        ('Philadelphia PA' 1526000 1517000)
+    }
+}"
+ data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+ data-sgvizler-chart="google.visualization.BarChart"
+                data-sgvizler-chart-options=""
                 data-sgvizler-log="0">
-
-&gt;&lt;/div&gt;</pre></div>
+                data-sgvizler-log="2"&gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
@@ -112,9 +163,9 @@
         </div>
 
         <h4>
-            BarChart with options : isStacked
+            With options
         </h4>
-        <p>With options "isStacked=true"</p>
+        <p>With options "isStacked=true|title=Population of Largest U.S. Cities|chartArea.width=50%|hAxis.title=Total Population|hAxis.minValue=0|vAxis.title=City"</p>
         <ul class="nav nav-tabs" role="tablist" id="tab_2">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#resultTab_2" role="tab" aria-expanded="true">
@@ -129,36 +180,38 @@
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">
-                <div id="example_2" style="padding: 25px;">
-                    <div id="result_2" data-sgvizler-query="
-                    SELECT (YEAR(?date) AS ?year) ?population WHERE {
-                        wd:Q90  p:P1082 ?populationStatement.
-                         ?populationStatement ps:P1082 ?population.
-                         ?populationStatement pq:P585 ?date.
-                       }
-                       ORDER BY ?year"
+                    <div id="result_2"
+                         data-sgvizler-query="
+                    SELECT ?City ?2010_Population ?2000_Population WHERE {
+                        values  (?City ?2010_Population ?2000_Population){
+                             ('New York City NY' 8175000 8008000)
+                             ('Los Angeles CA' 3792000 3694000)
+                             ('Chicago IL' 2695000 2896000)
+                             ('Houston TX' 2099000 1953000)
+                             ('Philadelphia PA' 1526000 1517000)
+                             }
+                       }"
                 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
                 data-sgvizler-chart="google.visualization.BarChart"
-                data-sgvizler-chart-options="isStacked=true"
-                data-sgvizler-log="0">
-                    </div>
-               </div>
+                data-sgvizler-chart-options="isStacked=true|title=Population of Largest U.S. Cities|chartArea.width=50%|hAxis.title=Total Population|hAxis.minValue=0|vAxis.title=City"
+                data-sgvizler-log="2"></div>
             </div>
             <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
-                    data-sgvizler-query="
-                    SELECT (YEAR(?date) AS ?year) ?population WHERE {
-                        wd:Q90  p:P1082 ?populationStatement.
-                         ?populationStatement ps:P1082 ?population.
-                         ?populationStatement pq:P585 ?date.
-                       }
-                       ORDER BY ?year"
-                data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-                data-sgvizler-chart="google.visualization.BarChart"
-                data-sgvizler-chart-options="isStacked=true"
-                data-sgvizler-log="0">
-
-&gt;&lt;/div&gt;</pre></div>
+                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
+data-sgvizler-query="
+SELECT ?City ?2010_Population ?2000_Population WHERE {
+values  (?City ?2010_Population ?2000_Population){
+('New York City NY' 8175000 8008000)
+('Los Angeles CA' 3792000 3694000)
+('Chicago IL' 2695000 2896000)
+('Houston TX' 2099000 1953000)
+('Philadelphia PA' 1526000 1517000)
+}
+}"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="google.visualization.BarChart"
+data-sgvizler-chart-options="isStacked=true|title=Population of Largest U.S. Cities|chartArea.width=50%|hAxis.title=Total Population|hAxis.minValue=0|vAxis.title=City"
+data-sgvizler-log="2"&gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_2" role="tabpanel">
                 <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_2">&lt;script src="../build/browser/sgvizler2.js"&gt;&lt;/script&gt;

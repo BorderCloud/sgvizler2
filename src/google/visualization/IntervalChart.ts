@@ -1,9 +1,10 @@
 import {
-    Chart,
+    Chart, Logger, MESSAGES,
     SparqlResultInterface
 } from '../../sgvizler'
 
-import { Data } from './Data'
+import { Tools } from '../Tools'
+import { Data } from '../Data'
 import { API } from '../API'
 
 declare let google: any
@@ -57,13 +58,13 @@ export class IntervalChart extends Chart {
         let currentChart = this
         return new Promise(function (resolve, reject) {
 
-            let height = '500'
+            let height = 500
             if (currentChart.height !== '') {
-                height = currentChart.height
+                height = Tools.decodeFormatSize(currentChart.height)
             }
 
             let opt = Object.assign({
-                width: currentChart.width,
+                width: Tools.decodeFormatSize(currentChart.width),
                 height: height
             }, currentChart.options)
 
@@ -73,16 +74,22 @@ export class IntervalChart extends Chart {
 
             google.charts.setOnLoadCallback(
                 () => {
-                    let data = new Data(result)
-                    let cols = result.head.vars
-                    let noCols = cols.length
+                    try {
+                        let data = new Data(result)
+                        let cols = result.head.vars
+                        let noCols = cols.length
 
-                    for (let y = 2; y < noCols; y++) {
-                        data.setRole(y,'interval')
+                        for (let y = 2; y < noCols; y++) {
+                            data.setRole(y,'interval')
+                        }
+
+                        let line = new google.visualization.LineChart(document.getElementById(currentChart.container.id))
+                        line.draw(data.getDataTable(), opt)
+                    } catch (error) {
+                        console.log(error)
+                        Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error])
+                        Logger.log(currentChart.container,'Chart finished with error : ' + currentChart.container.id)
                     }
-
-                    let line = new google.visualization.LineChart(document.getElementById(currentChart.container.id))
-                    line.draw(data.getDataTable(), opt)
                 }
             )
             // finish

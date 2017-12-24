@@ -54,6 +54,10 @@ export * from './visualization/LineChart'
 // https://developers.google.com/chart/interactive/docs/gallery/map
 export * from './visualization/Map'
 
+// MotionChart
+// https://developers.google.com/chart/interactive/docs/gallery/motionchart (obsolete ?)
+// todo with d3 ?
+
 // OrgChart
 // https://developers.google.com/chart/interactive/docs/gallery/orgchart
 export * from './visualization/OrgChart'
@@ -70,9 +74,9 @@ export * from './visualization/Pie'
 // https://developers.google.com/chart/interactive/docs/gallery/scatterchart
 export * from './visualization/ScatterChart'
 
-// steppedareachart
+// SteppedAreaChart
 // https://developers.google.com/chart/interactive/docs/gallery/steppedareachart
-// todo ?
+export * from './visualization/SteppedAreaChart'
 
 // Table
 // https://developers.google.com/chart/interactive/docs/gallery/table
@@ -82,9 +86,9 @@ export * from './visualization/Table'
 // https://developers.google.com/chart/interactive/docs/gallery/timeline
 export * from './visualization/Timeline'
 
-// Treemaps
+// TreeMap
 // https://developers.google.com/chart/interactive/docs/gallery/treemap
-// todo ?
+export * from './visualization/TreeMap'
 
 // Trendline
 // https://developers.google.com/chart/interactive/docs/gallery/trendlines
@@ -93,5 +97,3 @@ export * from './visualization/Trendline'
 // Word Trees
 // https://developers.google.com/chart/interactive/docs/gallery/wordtree
 // todo
-
-export * from './visualization/Data'

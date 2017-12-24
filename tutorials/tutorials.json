@@ -81,6 +81,9 @@
   "google_visualization_ScatterChart": {
     "title": "google.visualization.ScatterChart "
   },
+  "google_visualization_SteppedAreaChart": {
+    "title": "google.visualization.SteppedAreaChart "
+  },
   "google_visualization_Table": {
     "title": "google.visualization.Table"
   },
@@ -89,6 +92,9 @@
   },
   "google_visualization_Trendline": {
     "title": "google.visualization.Trendline"
+  },
+  "google_visualization_TreeMap": {
+    "title": "google.visualization.TreeMap"
   },
 
   "sgvizler_visualization_Table": {

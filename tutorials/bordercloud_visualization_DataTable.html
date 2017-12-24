@@ -20,9 +20,10 @@
         </p>
 
         <h4>
-            Table options:
+            Chart options
         </h4>
-        Options separated by a pipe '!'.
+        <p>
+            Each option is separated by a '|'  or '!' (for Mediawiki).
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -69,6 +70,7 @@
             </tr>
             </tbody>
         </table>
+        </p>
 
         <h4>Examples for colstyle</h4>
 
@@ -92,45 +94,45 @@
             </tr>
             <tr>
                 <td class="left">Example 2</td>
-                <td class="left"><code>cellspacing=3 ! colstyle=col2_img_display:block; col2_img_max-width:250px;
-                    col2_img_border-radius:50%; col2_img_margin:auto
-                    ;col2_img_opacity:0.5</code></td>
-                <td class="left">2</td>
+                <td class="left"><code>cellspacing=3 ! colstyle=col1_img_display:block; col1_img_max-width:250px;
+                    col1_img_border-radius:50%; col1_img_margin:auto
+                    ;col1_img_opacity:0.5</code></td>
+                <td class="left">1</td>
                 <td
-                        class="left">Column 2 : <code>&lt;img
+                        class="left">Column 1 : <code>&lt;img
                     url="data"
-                    style="display:block;max-width:300px;border-radius:50%;margin:auto; opacity:0.5"/&gt;<code></td>
+                    style="display:block;max-width:300px;border-radius:50%;margin:auto; opacity:0.5"/&gt;</code></td>
             </tr>
             <tr>
                 <td class="left">Example 3</td>
-                <td class="left"><code>colstyle=col1_span_color:#F00; col1_span_font-weight: bold; col2_img_max-width:75px; col2_img_border-radius:50%; col2_img_display:block; col2_img_margin:auto; col3_img_max-width:100px; col3_img_max-height:300px; col2_img_opacity:0.8"</code></td>
-                <td class="left">1, 2 and 3</td>
+                <td class="left"><code>colstyle=col0_span_color:#F00; col0_span_font-weight: bold; col1_img_max-width:75px; col1_img_border-radius:50%; col1_img_display:block; col1_img_margin:auto; col2_img_max-width:100px; col2_img_max-height:300px; col1_img_opacity:0.8"</code></td>
+                <td class="left">0, 1 and 2</td>
                 <td class="left">
-                    Column 1 : <code>&lt;span
+                    Column 0 : <code>&lt;span
                     style="color:#F00;font-weight: bold"/&gt;data&lt;/span&gt;</code></br>
-                    Column 2 : <code>&lt;img
+                    Column 1 : <code>&lt;img
                     style="display:block;border-radius:50%; max-width:75px;margin:auto;"/&gt;</code></br>
-                    Column 3 : <code>&lt;img
+                    Column 2 : <code>&lt;img
                     style="width:100px; max-height:300px;opacity:0.8"/&gt;</code></br>
                 </td>
             </tr>
 
             <tr>
                 <td class="left">Example 4</td>
-                <td class="left"><code>colstyle=col2_video_max-width:250px;</code></td>
-                <td class="left">2</td>
+                <td class="left"><code>colstyle=col1_video_max-width:250px;</code></td>
+                <td class="left">1</td>
                 <td class="left">
-                    Column 2 : <code>&lt;video or iframe
+                    Column 1 : <code>&lt;video or iframe
                     style="max-width:250px"/&gt;</code></br>
                 </td>
             </tr>
 
             <tr>
                 <td class="left">Example 5</td>
-                <td class="left"><code>colstyle=col3_video_max-width:250px;"</code></td>
-                <td class="left">3</td>
+                <td class="left"><code>colstyle=col2_video_max-width:250px;"</code></td>
+                <td class="left">2</td>
                 <td class="left">
-                    Column 3 : <code>&lt;video or iframe
+                    Column 2 : <code>&lt;video or iframe
                     style="max-width:250px"/&gt;</code></br>
                 </td>
             </tr>
@@ -272,7 +274,7 @@ WHERE
 }LIMIT 5"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="bordercloud.visualization.DataTable"
-data-sgvizler-chart-options="cellspacing=3 ! colstyle=col2_img_max-width:250px; col2_img_border-radius:50%; col2_img_display:block; col2_img_margin:auto; col2_img_opacity:0.5"
+data-sgvizler-chart-options="cellspacing=3 ! colstyle=col1_img_max-width:250px; col1_img_border-radius:50%; col1_img_display:block; col1_img_margin:auto; col1_img_opacity:0.5"
 data-sgvizler-log="2"></div></div>
             </div>
             <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
@@ -292,8 +294,8 @@ WHERE
 }LIMIT 5"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="bordercloud.visualization.DataTable"
-data-sgvizler-chart-options="cellspacing=3 ! colstyle=col2_img_max-width:250px; col2_img_border-radius:50%;
-                    col2_img_display:block; col2_img_margin:auto;col2_img_opacity:0.5"
+data-sgvizler-chart-options="cellspacing=3 ! colstyle=col1_img_max-width:250px; col1_img_border-radius:50%;
+                    col1_img_display:block; col1_img_margin:auto;col1_img_opacity:0.5"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_2" role="tabpanel">
@@ -345,7 +347,7 @@ WHERE {
 LIMIT 5"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="bordercloud.visualization.DataTable"
-data-sgvizler-chart-options="colstyle=col1_span_color:#F00; col1_span_font-weight: bold; col2_img_max-width:75px; col2_img_border-radius:50%; col2_img_display:block; col2_img_margin:auto; col3_img_max-width:100px; col3_img_max-height:300px; col2_img_opacity:0.8"
+data-sgvizler-chart-options="colstyle=col0_span_color:#F00; col0_span_font-weight: bold; col1_img_max-width:75px; col1_img_border-radius:50%; col1_img_display:block; col1_img_margin:auto; col2_img_max-width:100px; col2_img_max-height:300px; col1_img_opacity:0.8"
 data-sgvizler-log="2"
                 ></div></div>
             </div>
@@ -368,7 +370,7 @@ WHERE {
 LIMIT 5"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="bordercloud.visualization.DataTable"
-data-sgvizler-chart-options="colstyle=col1_span_color:#F00; col1_span_font-weight: bold; col2_img_max-width:75px; col2_img_border-radius:50%; col2_img_display:block; col2_img_margin:auto; col3_img_max-width:100px; col3_img_max-height:300px; col2_img_opacity:0.8"
+data-sgvizler-chart-options="colstyle=col0_span_color:#F00; col0_span_font-weight: bold; col1_img_max-width:75px; col1_img_border-radius:50%; col1_img_display:block; col1_img_margin:auto; col2_img_max-width:100px; col2_img_max-height:300px; col1_img_opacity:0.8"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_3" role="tabpanel">
@@ -429,7 +431,7 @@ LIMIT 5
 "
 data-sgvizler-endpoint="https://lemedia.wiki/sparql"
 data-sgvizler-chart="bordercloud.visualization.DataTable"
-data-sgvizler-chart-options="colstyle=col2_video_max-width:250px;"
+data-sgvizler-chart-options="colstyle=col1_video_max-width:250px;"
 data-sgvizler-log="2"></div></div>
             </div>
             <div class="tab-pane" id="htmlTab_4" role="tabpanel" aria-expanded="true">
@@ -457,7 +459,7 @@ ORDER BY DESC(?date) ?label
 LIMIT 5"
 data-sgvizler-endpoint="https://lemedia.wiki/sparql"
 data-sgvizler-chart="bordercloud.visualization.DataTable"
-data-sgvizler-chart-options="colstyle=col2_video_max-width:250px;"
+data-sgvizler-chart-options="colstyle=col1_video_max-width:250px;"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_4" role="tabpanel">
@@ -524,7 +526,7 @@ select
 "
                 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
                 data-sgvizler-chart="bordercloud.visualization.DataTable"
-                data-sgvizler-chart-options="colstyle=col3_video_max-width:250px;"
+                data-sgvizler-chart-options="colstyle=col2_video_max-width:250px;"
                 data-sgvizler-log="2"></div></div>
             </div>
             <div class="tab-pane" id="htmlTab_5" role="tabpanel" aria-expanded="true">
@@ -558,7 +560,7 @@ ORDER BY ASC(?date)
 LIMIT 5"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="bordercloud.visualization.DataTable"
-data-sgvizler-chart-options="colstyle=col3_video_max-width:250px;"
+data-sgvizler-chart-options="colstyle=col2_video_max-width:250px;"
 &gt;&lt;/div&gt;</pre></div>
             </div>
             <div class="tab-pane" id="scriptTab_5" role="tabpanel">

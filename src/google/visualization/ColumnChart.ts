@@ -1,9 +1,10 @@
 import {
-    Chart,
+    Chart, Logger, MESSAGES,
     SparqlResultInterface
 } from '../../sgvizler'
 
-import { Data } from './Data'
+import { Tools } from '../Tools'
+import { Data } from '../Data'
 import { API } from '../API'
 
 declare let google: any
@@ -23,7 +24,7 @@ export class ColumnChart extends Chart {
     }
 
     private static init () {
-        google.charts.load('current', {'packages': ['corechart']})
+        google.charts.load('current', {'packages': ['corechart', 'bar']})
         ColumnChart._isInit = true
     }
 
@@ -61,14 +62,14 @@ export class ColumnChart extends Chart {
             // transform query
             // console.log(noCols + " x " + noRows)
 
-            let height = '100%'
+            let height = 500
             if (currentChart.height !== '') {
-                height = currentChart.height
+                height = Tools.decodeFormatSize(currentChart.height)
             }
 
             let opt = Object.assign({
                 reverseCategories: false,
-                width: currentChart.width,
+                width: Tools.decodeFormatSize(currentChart.width),
                 height: height
             }, currentChart.options)
 
@@ -78,11 +79,15 @@ export class ColumnChart extends Chart {
 
             google.charts.setOnLoadCallback(
                 () => {
-                    let data = new Data(result)
-
-                    let ColumnChart = new google.visualization.ColumnChart(document.getElementById(currentChart.container.id))
-
-                    ColumnChart.draw(data.getDataTable(), currentChart.options)
+                    try {
+                        let data = new Data(result)
+                        let ColumnChart = new google.visualization.ColumnChart(document.getElementById(currentChart.container.id))
+                        ColumnChart.draw(data.getDataTable(), opt)
+                    } catch (error) {
+                        console.log(error)
+                        Logger.displayFeedback(currentChart.container, MESSAGES.ERROR_CHART, [error])
+                        Logger.log(currentChart.container,'Chart finished with error : ' + currentChart.container.id)
+                    }
                 }
             )
             // finish

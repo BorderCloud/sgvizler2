@@ -70,7 +70,7 @@ export class DataTable extends Chart {
                 regex.lastIndex++
             }
 
-            optionCol = parseInt(m[1],10) - 1
+            optionCol = parseInt(m[1],10)
             colOptions[optionCol][DATATABLE_COL_OPTIONS.TAG] = m[2]
             colOptions[optionCol][DATATABLE_COL_OPTIONS.STYLE] += m[3] + ';'
         }
