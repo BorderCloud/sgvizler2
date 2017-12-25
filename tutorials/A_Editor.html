@@ -92,7 +92,7 @@ LIMIT 10</textarea>
         <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript"></pre></div>
     </div>
 </div>
-<script>
+<script  type="text/javascript">
     function htmlDecode(value) {
         return $("<textarea/>").html(value).text();
     }
@@ -100,9 +100,11 @@ LIMIT 10</textarea>
     function htmlEncode(value) {
         return $('<textarea/>').text(value).html();
     }
+    // $(document).ready(function (event) {
+    //     alert('test');
+    // });
 
-
-    $(document).ready(function () {
+    $(this).on('load', function (event) {
 
         //Option 1
         //$('.selectchart').selectchart('render'});
@@ -129,7 +131,7 @@ LIMIT 10</textarea>
 
         // $("#console").text($("#example").html().replace(/"( |>)/gi, "\"\n$1"));
 
-        $("#execQuery").click(function() {
+        $("#execQuery").click(function(event) {
             $("#result").html("")
             $("#console").html("")
 

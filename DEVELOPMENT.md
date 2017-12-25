@@ -65,8 +65,8 @@ Commands :
 ```
 yarn test
 yarn buildall
-yarn docs:publish
 yarn changelog
+yarn docs:publish
 ```
 
 ## Remove (before the first release and )

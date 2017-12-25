@@ -6,12 +6,14 @@ import * as jqueryProxy from 'jquery'
 const jquery: JQueryStatic = (jqueryProxy as any).default || jqueryProxy
 
 test.beforeEach('setup fixture',
-    fixture('./src/__test__/html/container.html')
+    fixture('./build/docs/tutorial-sgvizler_visualization_Table.html')
 )
 
 test('Test JQuery', t => {
-    jqueryProxy(t.context.document).on('load',function () {
+   /* jqueryProxy(t.context.document).on('load',function () {
         sgvizler2.containerDrawAll()
-    })
-    t.pass('Test query')
+    })*/
+    // t.pass('Test query')
+
+    t.notThrows(sgvizler2.containerDrawAll)
 })
