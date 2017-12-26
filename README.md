@@ -27,7 +27,8 @@ Add visualisations directly into your webpages like this:
      LIMIT 4
      "
      ></div>
- <script src="node_modules/sgvizler2/build/browser/sgvizler2.js"></script>
+ <script src="sgvizler2/sgvizler2.js"></script>
+ <!--script src="node_modules/sgvizler2/build/browser/sgvizler2.js"></script-->
  <script>
     //Draw a chart
     //sgvizler2.containerDraw('result');
@@ -42,13 +43,26 @@ Add visualisations directly into your webpages like this:
 Generate your chart with [our SPARQL editor](https://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html) and to
 read their docs.
 
-## Install
+## Download directly Sgvizler2
+
+[Download the last version](https://github.com/BorderCloud/sgvizler2/releases)
+
+The path of Sgvizler2 will be :
+```html
+<script src="sgvizler2/sgvizler2.js"></script>
+```
+
+## Install the package via yarn or npm
 
 With yarn or npm
 ```
 yarn add sgvizler2
 # or
 npm install sgvizler2
+```
+The path of Sgvizler2 will be :
+```html
+ <script src="node_modules/sgvizler2/build/browser/sgvizler2.js"></script>
 ```
 
 ## Get started
