@@ -1,34 +1,5 @@
-config
-examples
-test
-tsconfig.json
-tslint.json
-.travis.yml
-.github
-.git
-.gitignore
-.npmignore
-build/temp
-build/docs
-jsdoc.json
-yarn.lock
-.tslintignore
+# ignore all
+*
 
-tutorials
-jsdoc_template
-assets
-
-build/main/__test__
-build/module/__test__
-src/__test__
-
-coverage
-.nyc_output
-*.log
-
-oldjs
-lib
-
-#editor settings
-.idea
-.editorconfig
+# include only browser version
+!build/browser/*
