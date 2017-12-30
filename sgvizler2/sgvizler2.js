@@ -5213,7 +5213,7 @@ jqueryProxy.prototype.extend({
         }
         // Return the jQuery object for chaining.
         return $this.each(function (index, obj) {
-            if (index > 0 && action === 'render') {
+            if (index >= 0 && action === 'render') {
                 if (param && typeof param === 'object') {
                     Select.draw(obj, param);
                 }
@@ -5236,7 +5236,7 @@ jqueryProxy.prototype.extend({
         }
         // Return the jQuery object for chaining.
         return $this.each(function (index, obj) {
-            if (index > 0 && action === 'render') {
+            if (index >= 0 && action === 'render') {
                 if (param && typeof param === 'object') {
                     Container.drawWithElementId($(obj).attr('id'), param);
                 }
