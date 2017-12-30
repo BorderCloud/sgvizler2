@@ -800,8 +800,11 @@ Select.charts = [
             // 'google.visualization.OrgChart',
             'google.visualization.Pie',
             'google.visualization.ScatterChart',
+            'google.visualization.SteppedAreaChart',
             'google.visualization.Table',
-            'google.visualization.Trendline'
+            'google.visualization.Trendline',
+            'google.visualization.Timeline',
+            'google.visualization.TreeMap'
         ]
     },
     {
@@ -1474,6 +1477,42 @@ class Container {
         }
         if (elmAttrs[self.CHART_ATTRIBUTE_NAME]) {
             this._chartName = elmAttrs[self.CHART_ATTRIBUTE_NAME].value;
+            // This code will disappear but it's necessary for the migration with the old Sgvizler
+            switch (this._chartName) {
+                case 'google.visualization.AnnotatedTimeLine':
+                case 'google.visualization.Gauge':
+                case 'google.visualization.ImageSparkLine':
+                case 'google.visualization.MotionChart':
+                case 'sgvizler.visualization.D3ForceGraph':
+                case 'sgvizler.visualization.DefList"':
+                case 'sgvizler.visualization.DraculaGraph':
+                case 'sgvizler.visualization.List':
+                case 'sgvizler.visualization.Text':
+                case 'sgvizler.visualization.MapWKT':
+                    {
+                        console.warn('Sgvizler2 : ' + this._chartName + ' is deprecated. Please choose another chart.');
+                        this._chartName = 'bordercloud.visualization.DataTable';
+                        break;
+                    }
+                case 'sgvizler.visualization.Map':
+                    {
+                        console.warn('Sgvizler2 : ' + this._chartName + ' is obsolete. Please choose leaflet.visualization.Map or another chart.');
+                        this._chartName = 'leaflet.visualization.Map';
+                        break;
+                    }
+                case 'google.visualization.GeoMap':
+                    {
+                        console.warn('Sgvizler2 : ' + this._chartName + ' is obsolete. Please choose google.visualization.Map or another chart.');
+                        this._chartName = 'google.visualization.Map';
+                        break;
+                    }
+                case 'google.visualization.PieChart':
+                    {
+                        console.warn('Sgvizler2 : ' + this._chartName + ' is obsolete. Please choose google.visualization.Pie or another chart.');
+                        this._chartName = 'google.visualization.Pie';
+                        break;
+                    }
+            }
         }
         if (elmAttrs[self.CHART_OPTION_ATTRIBUTE_NAME]) {
             this._chartOptions =
