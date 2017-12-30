@@ -59,6 +59,9 @@ Command :
 yarn docs:html
 ```
 
+Read this docs before your first commit : [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+
+
 ## Make a new release
 
 Commands :
@@ -68,10 +71,13 @@ yarn buildall
 yarn changelog
 yarn docs:publish
 
-# Avoid a problem in yarn publish
+# Avoid problems in yarn/npm publish
 yarn pack
-yarn publish sgvizler2-vVERSION.tgz
+# check the package before to publish
+yarn publish sgvizler2-vVERSION.tgz  --new-version VERSION
 ```
+
+
 
 ## Remove (before the first release and )
 

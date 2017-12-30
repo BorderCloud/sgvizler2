@@ -66,8 +66,11 @@ export class Select {
                 // 'google.visualization.OrgChart',
                 'google.visualization.Pie',
                 'google.visualization.ScatterChart',
+                'google.visualization.SteppedAreaChart',
                 'google.visualization.Table',
-                'google.visualization.Trendline'
+                'google.visualization.Trendline',
+                'google.visualization.Timeline',
+                'google.visualization.TreeMap'
             ]
         },
         {
