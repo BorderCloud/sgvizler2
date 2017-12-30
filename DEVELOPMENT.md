@@ -67,6 +67,10 @@ yarn test
 yarn buildall
 yarn changelog
 yarn docs:publish
+
+# Avoid a problem in yarn publish
+yarn pack
+yarn publish sgvizler2-vVERSION.tgz
 ```
 
 ## Remove (before the first release and )

@@ -162,16 +162,16 @@ jqueryProxy.prototype.extend(
             if (param) {
                 if (typeof param === 'string') {
                     action = param
-                }else if (typeof param === 'object') {
+                } else if (typeof param === 'object') {
                     action = param.action ? param.action : action
                 }
             }
             // Return the jQuery object for chaining.
             return $this.each(function (index: any,obj: any) {
-                if (index > 0 && action === 'render') {
+                if (index >= 0 && action === 'render') {
                     if (param && typeof param === 'object') {
                         S.Select.draw(obj,param)
-                    }else {
+                    } else {
                         S.Select.draw(obj)
                     }
                 }
@@ -183,16 +183,16 @@ jqueryProxy.prototype.extend(
             if (param) {
                 if (typeof param === 'string') {
                     action = param
-                }else if (typeof param === 'object') {
+                } else if (typeof param === 'object') {
                     action = param.action ? param.action : action
                 }
             }
             // Return the jQuery object for chaining.
             return $this.each(function (index: any,obj: any) {
-                if (index > 0 && action === 'render') {
+                if (index >= 0 && action === 'render') {
                     if (param && typeof param === 'object') {
                         S.Container.drawWithElementId($(obj).attr('id') as string,param)
-                    }else {
+                    } else {
                         S.Container.drawWithElementId($(obj).attr('id') as string)
                     }
                 }
