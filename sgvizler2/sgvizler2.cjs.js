@@ -627,13 +627,29 @@ class CssDependency extends Dependency {
  * @memberof sgvizler
  */
 class SparqlError {
-    static getErrorMessage(xhr) {
+    static getErrorMessageWithStatus200(xhr) {
         let patternWikidata = /MalformedQueryException: *(.*)/m; // tslint:disable-line
         let errorWikidata = patternWikidata.exec(xhr.response);
         if (errorWikidata !== null) {
             return errorWikidata[1];
         }
         return xhr.response;
+    }
+    static getErrorWithOtherStatus(xhr, url) {
+        let linkError = '<a href="' + url + '" target="_blank">See this error</a>';
+        let message = '';
+        if (xhr.status === 0) {
+            if (xhr.statusText !== '') {
+                message = xhr.statusText + '(' + xhr.status + ')';
+            }
+            else {
+                message = 'You need to allow running insecure content in your navigator or this SPARQL service doesn\'t exist or timed out or CORS violation or no Access-Control-Allow-Origin header set. (see console log)';
+            }
+        }
+        else {
+            message = xhr.statusText + '(' + xhr.status + ')';
+        }
+        return message + '<br/>\n' + linkError;
     }
 }
 
@@ -1381,18 +1397,11 @@ class Request {
                     }
                     else {
                         // If it fails, reject the promise with a error message
-                        reject(SparqlError.getErrorMessage(xhr));
+                        reject(SparqlError.getErrorMessageWithStatus200(xhr));
                     }
                 }
             };
-            xhr.onerror = function (options) {
-                // Also deal with the case when the entire request fails to begin with
-                // This is probably a network error, so reject the promise with an appropriate message
-                reject(SparqlError.getErrorMessage(xhr));
-            };
-            xhr.onabort = function () {
-                reject(SparqlError.getErrorMessage(xhr));
-            };
+            xhr.onerror = () => reject(SparqlError.getErrorWithOtherStatus(xhr, url));
             // Send the request
             if (data) {
                 xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
