@@ -228,7 +228,7 @@ export class Container {
         let ids: Array<string> = []
 
         let iterator = document.evaluate('//div[@' + Container.PREFIX + 'query]/@id',
-            document, null, XPathResult.ANY_TYPE, null )
+            document, null, XPathResult.ANY_TYPE, null)
         let thisNode = iterator.iterateNext() as Attr
 
         while (thisNode) {
@@ -254,7 +254,7 @@ export class Container {
         let ids: Array<string> = []
 
         let iterator = document.evaluate('//div[@' + Container.PREFIX + 'query]/@id',
-            document, null, XPathResult.ANY_TYPE, null )
+            document, null, XPathResult.ANY_TYPE, null)
         let thisNode = iterator.iterateNext() as Attr
 
         while (thisNode) {
@@ -412,7 +412,7 @@ export class Container {
         }
 
         let sparqlResultI = sparqlResult as SparqlResultInterface
-        if (sparqlResultI.head === undefined ) {
+        if (sparqlResultI.head === undefined) {
             console.log(sparqlResultI)
             Logger.displayFeedback(this, MESSAGES.ERROR_CHART, ['ERROR_head_undefined'])
             this._state = CONTAINER_STATE.FAILED

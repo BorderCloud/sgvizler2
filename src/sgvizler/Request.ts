@@ -211,19 +211,11 @@ export class Request {
                         resolve(JSON.parse(xhr.response))
                     } else {
                         // If it fails, reject the promise with a error message
-                        reject(SparqlError.getErrorMessage(xhr))
+                        reject(SparqlError.getErrorMessageWithStatus200(xhr))
                     }
                 }
             }
-
-            xhr.onerror = function (options: any) {
-                // Also deal with the case when the entire request fails to begin with
-                // This is probably a network error, so reject the promise with an appropriate message
-                reject(SparqlError.getErrorMessage(xhr))
-            }
-            xhr.onabort = function () {
-                reject(SparqlError.getErrorMessage(xhr))
-            }
+            xhr.onerror = () => reject(SparqlError.getErrorWithOtherStatus(xhr,url))
 
             // Send the request
             if (data) {
