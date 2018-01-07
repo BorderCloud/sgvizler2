@@ -519,7 +519,7 @@ class Loader {
         let url = dep.url;
         return new Promise(function (resolve, reject) {
             if (dep.loadBefore && !dep.loadBefore.endDownload) {
-                //Logger.logSimple('Waiting : ' + dep.loadBefore.url + ' before ' + dep.url)
+                // Logger.logSimple('Waiting : ' + dep.loadBefore.url + ' before ' + dep.url)
                 Loader._dependenciesToLoad.push(dep);
                 Loader.load(dep.loadBefore);
                 return resolve();
@@ -960,9 +960,11 @@ class Tools {
     }
     static decodeHtml(str) {
         let text = str.replace(/&#(\d+);/g, function (match, dec) {
-            return String.fromCharCode(dec).replace(/\s/g, function (match, dec) {
-                return ' ';
-            });
+            return String.fromCharCode(dec);
+        });
+        // remove \u00a0 of &nbsp;
+        text = text.replace(/(?:\s|\u00a0)/g, function (match, dec) {
+            return ' ';
         });
         return text;
     }
@@ -2080,9 +2082,16 @@ class Tools$1 {
     static decodeFormatSize(value) {
         let result = value;
         if (Number.isNaN(Number(value))) {
-            result = result.replace('px', '');
-            if (!Number.isNaN(Number(result))) {
-                result = Number(result);
+            let patternPercent = /%/gi;
+            let patternPixel = /px/gi;
+            if (result.search(patternPixel) >= 0) {
+                result = result.replace('px', '');
+                if (!Number.isNaN(Number(result))) {
+                    result = Number(result);
+                }
+            }
+            else if (result.search(patternPercent) >= 0) {
+                // do nothing
             }
         }
         return result;
@@ -2272,10 +2281,12 @@ class AnnotationChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!AnnotationChart._isInit) {
                 AnnotationChart.init();
             }
@@ -2345,10 +2356,12 @@ class AreaChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!AreaChart._isInit) {
                 AreaChart.init();
             }
@@ -2418,10 +2431,12 @@ class BarChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!BarChart._isInit) {
                 BarChart.init();
             }
@@ -2491,10 +2506,12 @@ class BubbleChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!BubbleChart._isInit) {
                 BubbleChart.init();
             }
@@ -2564,10 +2581,12 @@ class Calendar extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!Calendar._isInit) {
                 Calendar.init();
             }
@@ -2639,10 +2658,12 @@ class CandlestickChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!CandlestickChart._isInit) {
                 CandlestickChart.init();
             }
@@ -2713,10 +2734,13 @@ class ColumnChart extends Chart {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
             let opt = Object.assign({
-                reverseCategories: false,
+                reverseCategories: false
+            }, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!ColumnChart._isInit) {
                 ColumnChart.init();
             }
@@ -2786,10 +2810,12 @@ class ComboChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!ComboChart._isInit) {
                 ComboChart.init();
             }
@@ -2887,10 +2913,12 @@ class GeoChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!GeoChart._isInit) {
                 GeoChart.init();
             }
@@ -2960,10 +2988,12 @@ class Histogram extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!Histogram._isInit) {
                 Histogram.init();
             }
@@ -3029,10 +3059,12 @@ class IntervalChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!IntervalChart._isInit) {
                 IntervalChart.init();
             }
@@ -3103,10 +3135,12 @@ class LineChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!LineChart._isInit) {
                 LineChart.init();
             }
@@ -3174,12 +3208,15 @@ class Map extends Chart {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
             let opt = Object.assign({
-                width: Tools$1.decodeFormatSize(currentChart.width),
-                height: height,
                 showTooltip: false,
                 showInfoWindow: true,
                 enableScrollWheel: true
             }, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            });
             // fix bug in local
             if (location.origin.startsWith('file:')) {
                 opt = Object.assign({
@@ -3348,10 +3385,13 @@ class OrgChart extends Chart {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
             let opt = Object.assign({
-                width: Tools$1.decodeFormatSize(currentChart.width),
-                height: height,
                 allowHtml: true
             }, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            });
             if (!OrgChart._isInit) {
                 OrgChart.init();
             }
@@ -3421,10 +3461,12 @@ class Pie extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!Pie._isInit) {
                 Pie.init();
             }
@@ -3494,10 +3536,12 @@ class ScatterChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!ScatterChart._isInit) {
                 ScatterChart.init();
             }
@@ -3567,10 +3611,12 @@ class SteppedAreaChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!SteppedAreaChart._isInit) {
                 SteppedAreaChart.init();
             }
@@ -3642,10 +3688,13 @@ class Table$1 extends Chart {
             }
             let opt = Object.assign({
                 raw: true,
-                showRowNumber: false,
+                showRowNumber: false
+            }, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!Table$1._isInit) {
                 Table$1.init();
             }
@@ -3715,10 +3764,12 @@ class Timeline extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!Timeline._isInit) {
                 Timeline.init();
             }
@@ -3788,10 +3839,12 @@ class TreeMap extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({
+            let opt = Object.assign({}, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options);
+            });
             if (!TreeMap._isInit) {
                 TreeMap.init();
             }
@@ -3862,10 +3915,13 @@ class Trendline extends Chart {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
             let opt = Object.assign({
-                width: Tools$1.decodeFormatSize(currentChart.width),
-                height: height,
                 trendlines: { 0: {} }
             }, currentChart.options);
+            // fix the size
+            opt = Object.assign(opt, {
+                width: Tools$1.decodeFormatSize(currentChart.width),
+                height: height
+            });
             if (!Trendline._isInit) {
                 Trendline.init();
             }
@@ -5125,10 +5181,15 @@ class Map$1 extends Chart {
                 if (messageError !== '') {
                     return reject(Error(messageError));
                 }
-                map.addLayer(markers);
-                // zoom on the markers
-                group = L.featureGroup(markerArray);
-                map.fitBounds(group.getBounds());
+                if (noRows > 0) {
+                    map.addLayer(markers);
+                    // zoom on the markers
+                    group = L.featureGroup(markerArray);
+                    map.fitBounds(group.getBounds());
+                }
+                else {
+                    map.fitWorld({ reset: true }).zoomIn();
+                }
                 // finish
                 return resolve();
             }
