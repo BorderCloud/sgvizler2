@@ -69,10 +69,14 @@ export class Table extends Chart {
 
             let opt = Object.assign({
                 raw: true,
-                showRowNumber: false,
+                showRowNumber: false
+            }, currentChart.options)
+
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options)
+            })
 
             if (! Table._isInit) {
                 Table.init()

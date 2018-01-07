@@ -68,9 +68,14 @@ export class BarChart extends Chart {
             }
 
             let opt = Object.assign({
-                width:  Tools.decodeFormatSize(currentChart.width),
-                height: height
+                // Default options
             }, currentChart.options)
+
+            // fix the size
+            opt = Object.assign(opt, {
+                width: Tools.decodeFormatSize(currentChart.width),
+                height: height
+            })
 
             if (! BarChart._isInit) {
                 BarChart.init()

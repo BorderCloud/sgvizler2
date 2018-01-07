@@ -69,12 +69,13 @@ Commands :
 yarn test
 yarn buildall
 yarn changelog
-yarn docs:publish
-
 # Avoid problems in yarn/npm publish
 yarn pack
 # check the package before to publish
 yarn publish sgvizler2-vVERSION.tgz  --new-version VERSION
+
+yarn docs:all
+yarn docs:publish
 ```
 
 

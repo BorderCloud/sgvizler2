@@ -99,7 +99,7 @@ export class Map extends Chart {
                     accessToken: API.osmAccessToken
                 })
 
-                map = L.map(idChart,{zoom: 13,layers: [osmLayer]})
+                map = L.map(idChart, {zoom: 13, layers: [osmLayer]})
 
                 // todo insert option
                 markers = L.markerClusterGroup({
@@ -107,7 +107,7 @@ export class Map extends Chart {
                     spiderfyOnMaxZoom: true,
                     showCoverageOnHover: true,
                     zoomToBoundsOnClick: true
-                 })
+                })
 
                 if (noCols <= 2) {
                     messageError = 'Parameters : latitude(xsd:Decimal) longitude(xsd:Decimal) title(xsd:string' +
@@ -144,14 +144,14 @@ export class Map extends Chart {
                             let link = row[cols[4]] !== undefined ? "<a href='" + row[cols[4]].value + "'>" + title + '</a>' : title
 
                             marker = L.marker([parseFloat(row[cols[0]].value), parseFloat(row[cols[1]].value)])
-                            marker.bindPopup('<b>' + link + '</b><br/>' + text )
+                            marker.bindPopup('<b>' + link + '</b><br/>' + text)
                         } else if (noCols === 4) {
                             // latitude longitude title introduction
                             let title = row[cols[2]] !== undefined ? row[cols[2]].value : ''
                             let text = row[cols[3]] !== undefined ? row[cols[3]].value : ''
 
                             marker = L.marker([parseFloat(row[cols[0]].value), parseFloat(row[cols[1]].value)])
-                            marker.bindPopup('<b>' + title + '</b><br/>' + text )
+                            marker.bindPopup('<b>' + title + '</b><br/>' + text)
                         } else if (noCols === 3) {
                             // latitude longitude title
                             let title = row[cols[2]] !== undefined ? row[cols[2]].value : ''
@@ -172,11 +172,14 @@ export class Map extends Chart {
                     return reject(Error(messageError))
                 }
 
-                map.addLayer(markers)
-
-                // zoom on the markers
-                group = L.featureGroup(markerArray)
-                map.fitBounds(group.getBounds())
+                if (noRows > 0) {
+                    map.addLayer(markers)
+                    // zoom on the markers
+                    group = L.featureGroup(markerArray)
+                    map.fitBounds(group.getBounds())
+                } else {
+                    map.fitWorld({ reset: true }).zoomIn()
+                }
                 // finish
                 return resolve()
             }

@@ -315,7 +315,7 @@ export abstract class Chart {
         let currentThis = this
         let isEmpty = false
 
-        if ( currentThis._resultSparql === null
+        if (currentThis._resultSparql === null
         || currentThis._resultSparql === undefined
         ) {
             isEmpty = true
@@ -325,7 +325,7 @@ export abstract class Chart {
             let noCols = cols.length
             let noRows = rows.length
 
-            if (noCols === 0 ) {
+            if (noCols === 0) {
                 isEmpty = true
             }
         }
@@ -394,15 +394,15 @@ export abstract class Chart {
             this.execPattern(patternWiki,CHART_PATTERN_OPTIONS.WIKI)
         }
 
-        if ( this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN) {
+        if (this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN) {
             this.execPattern(patternOption,CHART_PATTERN_OPTIONS.VARIABLE)
         }
 
-        if ( this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN) {
+        if (this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN) {
             this.execPattern(patternStyle,CHART_PATTERN_OPTIONS.STYLE)
         }
 
-        if ( this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN) {
+        if (this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN) {
             let matchArray
             let raw = this._optionsRaw
             let i = 0
@@ -413,17 +413,17 @@ export abstract class Chart {
             }
         }
 
-        if ( this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN ) {
+        if (this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN) {
             Logger.displayFeedback(this.container, MESSAGES.ERROR_CHART_PATTERN_OPTION_UNKNOWN,[this._optionsRaw])
         } else if (
             this.patternOptions === CHART_PATTERN_OPTIONS.WIKI ||
             this.patternOptions === CHART_PATTERN_OPTIONS.VARIABLE ||
             this.patternOptions === CHART_PATTERN_OPTIONS.STYLE
         ) {
-            if (this.options['width'] !== undefined ) {
+            if (this.options['width'] !== undefined) {
                 this.width = this.options['width']
             }
-            if (this.options['height'] !== undefined ) {
+            if (this.options['height'] !== undefined) {
                 this.height = this.options['height'] as string
             }
         }

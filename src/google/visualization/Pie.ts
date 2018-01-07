@@ -66,10 +66,16 @@ export class Pie extends Chart {
             if (currentChart.height !== '') {
                 height = Tools.decodeFormatSize(currentChart.height)
             }
+
             let opt = Object.assign({
+                // Default options
+            }, currentChart.options)
+
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options)
+            })
 
             if (! Pie._isInit) {
                 Pie.init()

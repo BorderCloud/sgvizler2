@@ -68,9 +68,14 @@ export class Histogram extends Chart {
             }
 
             let opt = Object.assign({
+                // Default options
+            }, currentChart.options)
+
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options)
+            })
 
             if (! Histogram._isInit) {
                 Histogram.init()

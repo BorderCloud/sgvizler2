@@ -64,9 +64,14 @@ export class LineChart extends Chart {
             }
 
             let opt = Object.assign({
+                // Default options
+            }, currentChart.options)
+
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options)
+            })
 
             if (! LineChart._isInit) {
                 LineChart.init()

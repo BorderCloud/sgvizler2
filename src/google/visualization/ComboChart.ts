@@ -24,7 +24,7 @@ export class ComboChart extends Chart {
     }
 
     private static init () {
-        google.charts.load('current', {'packages': ['corechart']})
+        google.charts.load('current', { 'packages': ['corechart'] })
         ComboChart._isInit = true
     }
 
@@ -68,9 +68,14 @@ export class ComboChart extends Chart {
             }
 
             let opt = Object.assign({
+                // Default options
+            }, currentChart.options)
+
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options)
+            })
 
             if (! ComboChart._isInit) {
                 ComboChart.init()

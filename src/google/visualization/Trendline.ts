@@ -24,7 +24,7 @@ export class Trendline extends Chart {
     }
 
     private static init () {
-        google.charts.load('current', {'packages': ['corechart']})
+        google.charts.load('current',{ 'packages': ['corechart'] })
         Trendline._isInit = true
     }
 
@@ -68,10 +68,14 @@ export class Trendline extends Chart {
             }
 
             let opt = Object.assign({
-                width: Tools.decodeFormatSize(currentChart.width),
-                height: height,
                 trendlines: { 0: {} }
             }, currentChart.options)
+
+            // fix the size
+            opt = Object.assign(opt, {
+                width: Tools.decodeFormatSize(currentChart.width),
+                height: height
+            })
 
             if (! Trendline._isInit) {
                 Trendline.init()

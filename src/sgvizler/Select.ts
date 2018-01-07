@@ -115,8 +115,8 @@ export class Select {
         let nodesOption = Select.getSelectOptions()
 
         let nodesSnapshot = document.evaluate("//select[contains(@class, '" + Select.CLASS_NAME + "')]",
-            document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null )
-        for ( let i = 0 ; i < nodesSnapshot.snapshotLength; i++ ) {
+            document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null)
+        for (let i = 0 ; i < nodesSnapshot.snapshotLength; i++) {
             for (let node of nodesOption) {
                 nodesSnapshot.snapshotItem(i).appendChild(node.cloneNode(true))
             }
@@ -136,7 +136,7 @@ export class Select {
 
         if (pathDoc !== undefined) {
             path = pathDoc
-        }else {
+        } else {
             path = Core.DOCPATH
         }
 

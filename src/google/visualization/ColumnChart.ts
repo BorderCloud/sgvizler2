@@ -68,10 +68,14 @@ export class ColumnChart extends Chart {
             }
 
             let opt = Object.assign({
-                reverseCategories: false,
+                reverseCategories: false
+            }, currentChart.options)
+
+            // fix the size
+            opt = Object.assign(opt, {
                 width: Tools.decodeFormatSize(currentChart.width),
                 height: height
-            }, currentChart.options)
+            })
 
             if (! ColumnChart._isInit) {
                 ColumnChart.init()

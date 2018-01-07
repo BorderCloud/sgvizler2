@@ -16,9 +16,9 @@ export class Data {
 
     constructor (result: SparqlResultInterface, raw: boolean = false) {
         if (raw) {
-            this.convertResultRaw (result)
+            this.convertResultRaw(result)
         } else {
-            this.convertResult (result)
+            this.convertResult(result)
         }
     }
 
@@ -46,7 +46,7 @@ export class Data {
             // Literal S with datatype IRI D	{ "type": "literal", "value": "S", "datatype": "D"}
             // Blank node, label B	{"type": "bnode", "value": "B"}
             let colName = col.replace('_',' ')
-            if ( noRows > 0 ) {
+            if (noRows > 0) {
                 let type = rows[0][col] !== undefined ? rows[0][col].datatype : ''
                 if (type === 'http://www.w3.org/2001/XMLSchema#decimal' ||
                     type === 'http://www.w3.org/2001/XMLSchema#integer') {
@@ -96,7 +96,7 @@ export class Data {
                         let time: any = new Date(rows[x][cols[y]].value)
                         data.setCell(x, y, [time.getHours(), time.getHours(), time.getSeconds(), time.getMilliseconds()])
                     } else {
-                        if (rows[x][cols[y]] === undefined ) {
+                        if (rows[x][cols[y]] === undefined) {
                             data.setCell(x, y, null)
                         } else {
                             // 'string' - JavaScript string value. Example value: v:'hello'
@@ -130,7 +130,7 @@ export class Data {
             let i = 0
             for (let x = 0; x < noRows; x++) {
                 for (let y = 0; y < noCols; y++) {
-                    if (rows[x][cols[y]] === undefined ) {
+                    if (rows[x][cols[y]] === undefined) {
                         data.setCell(x, y, '')
                     } else {
                         data.setCell(x, y, rows[x][cols[y]].value.toString())

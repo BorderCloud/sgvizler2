@@ -2,8 +2,8 @@
 import commonjs from 'rollup-plugin-commonjs';
 import nodeResolve from 'rollup-plugin-node-resolve';
 import alias from 'rollup-plugin-alias';
-import uglify from 'rollup-plugin-uglify';
-import { minify } from 'uglify-es';
+import minify from 'rollup-plugin-minify-es';
+//import closure from 'rollup-plugin-closure-compiler-js';
 
 const substituteModulePaths = {
     /*'crypto': 'build/module/adapters/crypto.browser.js',
@@ -19,7 +19,7 @@ export default {
             browser: true
         }),
         commonjs(),
-        uglify({},minify)
+        minify()
     ],
     external: ['jquery'],
     globals: {

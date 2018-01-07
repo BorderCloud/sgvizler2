@@ -26,7 +26,7 @@ export class Loader {
 
     public static detectRoot (): void {
         let resultXpath = document.evaluate('//script[contains(@src,"sgvizler2.js")]/@src',
-            document, null, XPathResult.STRING_TYPE, null )
+            document, null, XPathResult.STRING_TYPE, null)
         let srcScript = resultXpath.stringValue
 
         let match = /^(.*)sgvizler2\.js$/.exec(srcScript)
@@ -46,7 +46,7 @@ export class Loader {
     public static load (dep: Dependency) {
         if (dep instanceof ScriptDependency) {
             Loader.loadScript(dep)
-        }else if (dep instanceof CssDependency) {
+        } else if (dep instanceof CssDependency) {
             Loader.loadCss(dep)
         }
     }
@@ -63,10 +63,10 @@ export class Loader {
             let dep = Loader._dependenciesToLoad[i]
             if (dep === undefined || Loader.isLoaded(dep)) {
                 this._dependenciesToLoad.splice(i)
-            }else {
+            } else {
                 if (dep instanceof ScriptDependency) {
                     Loader.loadScript(dep)
-                }else if (dep instanceof ScriptDependency) {
+                } else if (dep instanceof ScriptDependency) {
                     Loader.loadCss(dep)
                 }
             }
@@ -85,7 +85,7 @@ export class Loader {
         let url = dep.url
         return new Promise(function (resolve, reject) {
             if (dep.loadBefore && ! dep.loadBefore.endDownload) {
-                //Logger.logSimple('Waiting : ' + dep.loadBefore.url + ' before ' + dep.url)
+                // Logger.logSimple('Waiting : ' + dep.loadBefore.url + ' before ' + dep.url)
                 Loader._dependenciesToLoad.push(dep)
                 Loader.load(dep.loadBefore)
                 return resolve()
@@ -94,7 +94,7 @@ export class Loader {
             // include script only once
             if (Loader.isLoad(dep)) {
                 return resolve() // false;
-            }else {
+            } else {
                 Loader._load.push(url)
             }
 
@@ -131,7 +131,7 @@ export class Loader {
             // include script only once
             if (Loader.isLoad(dep)) {
                 return // false;
-            }else {
+            } else {
                 Loader._load.push(url)
             }
 
@@ -145,7 +145,7 @@ export class Loader {
             // There are several events for cross browser compatibility.
             link.onload = function () {
                 Loader._loaded.push(url)
-                Logger.logSimple('Loaded : ' + url )
+                Logger.logSimple('Loaded : ' + url)
                 dep.callBack()
                 Loader.checkDependenciesToLoad()
                 // remember included script

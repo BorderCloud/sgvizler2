@@ -68,10 +68,14 @@ export class OrgChart extends Chart {
             }
 
             let opt = Object.assign({
-                width: Tools.decodeFormatSize(currentChart.width),
-                height: height,
                 allowHtml: true
             }, currentChart.options)
+
+            // fix the size
+            opt = Object.assign(opt, {
+                width: Tools.decodeFormatSize(currentChart.width),
+                height: height
+            })
 
             if (! OrgChart._isInit) {
                 OrgChart.init()

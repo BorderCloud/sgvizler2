@@ -66,17 +66,19 @@ export class Tools {
 
     public static encodeHtml (str: string) {
         let buf = []
-        for (let i = str.length - 1 ;i >= 0 ; i-- ) {
+        for (let i = str.length - 1 ;i >= 0 ; i--) {
             buf.unshift(['&#', str.charCodeAt(i) , ';'].join(''))
         }
         return buf.join('')
     }
 
     public static decodeHtml (str: string) {
-        let text = str.replace(/&#(\d+);/g, function ( match, dec) {
-            return String.fromCharCode(dec).replace(/\s/g, function ( match, dec) {
-                    return ' '
+        let text = str.replace(/&#(\d+);/g, function (match, dec) {
+            return String.fromCharCode(dec)
                 })
+        // remove \u00a0 of &nbsp;
+        text = text.replace(/(?:\s|\u00a0)/g, function (match, dec) {
+            return ' '
         })
         return text
     }
@@ -86,13 +88,13 @@ export class Tools {
 
         let propertyName: string = ''
         let nextPath: string = ''
-        if (path.length === 0 || ! value ) {
+        if (path.length === 0 || ! value) {
             return json
         }
 
         let positionDot = path.search(/\./)
 
-        if ( positionDot === -1) {
+        if (positionDot === -1) {
             propertyName = path.trim()
             if (Number.isNaN(Number(value))) {
                 let valueBoolean = Tools.convertToBoolean(value)
@@ -115,12 +117,12 @@ export class Tools {
     }
 
     private static assignJSON (obj: any, json: string): any {
-        Tools.mergeInObject( obj, JSON.parse(json))
+        Tools.mergeInObject(obj, JSON.parse(json))
         return obj
     }
 
     private static convertToBoolean (input: string): boolean | undefined {
-        if ( input.length <= 5 ) {
+        if (input.length <= 5) {
             try {
                 return JSON.parse(input)
             } catch (e) {
@@ -131,24 +133,24 @@ export class Tools {
     }
 
     // Convert to typescript : https://github.com/gmasmejean/recursiveAssign/blob/master/index.js
-    private static assign ( ref: any, key: any, value: any ) {
-        if ( Tools.isPlainObject(value) ) {
-            if ( !Tools.isPlainObject(ref[key]) ) {
+    private static assign (ref: any, key: any, value: any) {
+        if (Tools.isPlainObject(value)) {
+            if (!Tools.isPlainObject(ref[key])) {
                 ref[key] = {}
             }
-            Tools.mergeInObject( ref[key], value )
+            Tools.mergeInObject(ref[key], value)
         } else {
             ref[key] = value
         }
     }
 
-    private static mergeInObject ( dest: any, data: any ) {
-        Object.keys( data ).forEach( key => {
-            Tools.assign( dest, key, data[key] )
+    private static mergeInObject (dest: any, data: any) {
+        Object.keys(data).forEach(key => {
+            Tools.assign(dest, key, data[key])
         })
     }
 
-    private static isPlainObject ( o: any ) {
+    private static isPlainObject (o: any) {
         return o !== undefined && o.constructor !== undefined && o.constructor.prototype === Object.prototype
     }
 }

@@ -64,12 +64,16 @@ export class Map extends Chart {
             }
 
             let opt = Object.assign({
-                width: Tools.decodeFormatSize(currentChart.width),
-                height: height,
                 showTooltip: false,
                 showInfoWindow: true,
                 enableScrollWheel: true
             }, currentChart.options)
+
+            // fix the size
+            opt = Object.assign(opt, {
+                width: Tools.decodeFormatSize(currentChart.width),
+                height: height
+            })
 
             // fix bug in local
             if (location.origin.startsWith('file:')) {
