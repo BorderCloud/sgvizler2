@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.9"></a>
+## [1.0.9](https://github.com/BorderCloud/sgvizler2/compare/v1.0.8...v1.0.9) (2018-01-13)
+
+
+### Bug Fixes
+
+* **mediawiki:** fix error for minify version. ([b497895](https://github.com/BorderCloud/sgvizler2/commit/b497895))
+
+
+
 <a name="1.0.8"></a>
 ## [1.0.8](https://github.com/BorderCloud/sgvizler2/compare/v1.0.7...v1.0.8) (2018-01-07)
 
