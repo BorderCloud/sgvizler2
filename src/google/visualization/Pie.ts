@@ -16,18 +16,6 @@ declare let google: any
  * @memberof google.visualization
  */
 export class Pie extends Chart {
-    private static _isInit: boolean = false
-
-    public constructor () {
-        super()
-        let dep = this.addScript('https://www.gstatic.com/charts/loader.js')
-    }
-
-    private static init () {
-        google.charts.load('current', {'packages': ['corechart']})
-        Pie._isInit = true
-    }
-
     public get icon (): string {
         return 'fa-pie-chart'
     }
@@ -46,6 +34,18 @@ export class Pie extends Chart {
 
     public get tutorialFilename (): string {
         return 'tutorial-google_visualization_Pie.html'
+    }
+
+    private static _isInit: boolean = false
+
+    public constructor () {
+        super()
+        this.addScript('https://www.gstatic.com/charts/loader.js')
+    }
+
+    private static init () {
+        google.charts.load('current', { 'packages': ['corechart'] })
+        Pie._isInit = true
     }
 
     /**
