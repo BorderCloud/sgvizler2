@@ -35,24 +35,14 @@ To check namespace :
 
 ## Development zen
 
-Read the doc of [start project typescript](https://www.typescriptlang.org/)
-
 Commands :
 ```
-yarn build
-yarn test
-yarn docs:publish
+yarn docs:all
 ```
 
 ## Docs
 
-The project generate only tutorials because JSdoc3 cannot parse correctly Typescript, for the moment...
-
-You can generate all the docs but you need to :
-* delete the file jsdoc_template/template/tmpl/layout.tmpl
-* rename layout.old by layout.tmpl
-* change jsdoc.json
-* build the docs
+* build only the docs
 
 Command :
 ```
@@ -66,9 +56,8 @@ Read this docs before your first commit : [![Conventional Commits](https://img.s
 
 Commands :
 ```
-yarn test
-yarn buildall
-yarn changelog
+yarn docs:all
+yarn version
 # Avoid problems in yarn/npm publish
 yarn pack
 # check the package before to publish
@@ -77,8 +66,6 @@ yarn publish sgvizler2-vVERSION.tgz  --new-version VERSION
 yarn docs:all
 yarn docs:publish
 ```
-
-
 
 ## Remove (before the first release and )
 
