@@ -5,7 +5,7 @@
 
 # sgvizler2
 
-Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin). See [the demo](http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html) (in the menu "tutorial", there are examples) and the [typedoc](http://bordercloud.github.io/typedoc/index.html).
+Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin). See [the demo](http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html) (in the menu "tutorial", there are examples) and the [typedoc](http://bordercloud.github.io/sgvizler2/typedoc/index.html).
 
 This project is the reboot in Typescript of project [Sgvizler](https://github.com/mgskjaeveland/sgvizler) of Martin G.
 Skjæveland.
