@@ -10,11 +10,17 @@
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>-->
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 <link rel="stylesheet" href="sgvizler2/lib/font-awesome//font-awesome.min.css">
 <link rel="stylesheet" href="sgvizler2/lib/bootstrap-select/css/bootstrap-select.min.css">
@@ -23,7 +29,7 @@
 </head>
 
 <body>
-<div class="navbar navbar-default navbar-fixed-top ">
+<div class="navbar navbar-expand-lg ">
 <div class="container">
     <nav class="navbar navbar-toggleable-md navbar-light">
             <a class="navbar-brand" href="index.html"><div style='position: relative;font:bold;color: black;font-size: 31pt;font-weight: bolder;'><img style='vertical-align: sub;' src='img/mr.sgvizler.png' width='55px'/>Sgvizler 2</div></a>
@@ -31,8 +37,6 @@
 
           <div class="collapse navbar-collapse" >
             <ul class="navbar-nav">
-                
-                    
                 
                     
                 
@@ -54,15 +58,6 @@
             </ul>
           </div>
     </nav>
-
-
-
-
-
-
-
-
-
 </div>
 </div>
 
@@ -97,13 +92,12 @@
 
 
     <section class="readme-section">
-        <article><p><a href="https://travis-ci.org/BorderCloud/sgvizler2"><img src="https://travis-ci.org/BorderCloud/sgvizler2.svg?branch=master" alt="Build Status"></a>
-<a href="https://codecov.io/gh/BorderCloud/sgvizler2"><img src="https://img.shields.io/codecov/c/github/BorderCloud/sgvizler2.svg" alt="Codecov"></a>
-<a href="https://www.npmjs.com/package/sgvizler2"><img src="https://img.shields.io/npm/v/sgvizler2.svg" alt="NPM version"></a>
+        <article><p><a href="https://www.npmjs.com/package/sgvizler2"><img src="https://img.shields.io/npm/v/sgvizler2.svg" alt="NPM version"></a>
 <a href="https://github.com/conventional-changelog/standard-version"><img src="https://img.shields.io/badge/release-standard%20version-brightgreen.svg" alt="Standard Version"></a>
 <a href="https://david-dm.org/bordercloud/sgvizler2"><img src="https://david-dm.org/bordercloud/sgvizler2/status.svg" alt="dependencies Status"></a>
 <a href="https://david-dm.org/bordercloud/sgvizler2?type=dev"><img src="https://david-dm.org/bordercloud/sgvizler2/dev-status.svg" alt="devDependencies Status"></a></p>
-<h1>sgvizler2</h1><p>Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin). <a href="http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">See the demo</a></p>
+<h1>sgvizler2</h1>
+<p>Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin). See <a href="http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">the demo</a> (in the menu &quot;tutorial&quot;, there are examples) and the <a href="http://bordercloud.github.io/typedoc/index.html">typedoc</a>.</p>
 <p>This project is the reboot in Typescript of project <a href="https://github.com/mgskjaeveland/sgvizler">Sgvizler</a> of Martin G.
 Skjæveland.</p>
 <p>Add visualisations directly into your webpages like this:</p>
@@ -129,17 +123,29 @@ Skjæveland.</p>
 
     //Draw all Chart
     sgvizler2.containerDrawAll();
- &lt;/script></code></pre><p>Generate your chart with <a href="https://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">our SPARQL editor</a> and to
+ &lt;/script>
+</code></pre>
+<p>Generate your chart with <a href="https://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">our SPARQL editor</a> and to
 read their docs.</p>
-<h2>Download directly Sgvizler2</h2><p><a href="https://github.com/BorderCloud/sgvizler2/releases">Download the last version</a></p>
+<h2>Download directly Sgvizler2</h2>
+<p><a href="https://github.com/BorderCloud/sgvizler2/releases">Download the last version</a></p>
 <p>The path of Sgvizler2 will be :</p>
-<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;sgvizler2/sgvizler2.js&quot;>&lt;/script></code></pre><h2>Install the package via yarn or npm</h2><p>With yarn or npm</p>
+<pre class="prettyprint source lang-html"><code>&lt;script src=&quot;sgvizler2/sgvizler2.js&quot;>&lt;/script>
+</code></pre>
+<h2>Install the package via yarn or npm</h2>
+<p>With yarn or npm</p>
 <pre class="prettyprint source"><code>yarn add sgvizler2
 # or
-npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
-<pre class="prettyprint source lang-html"><code> &lt;script src=&quot;node_modules/sgvizler2/build/browser/sgvizler2.js&quot;>&lt;/script></code></pre><h2>Get started</h2><p>You can use the <a href="http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">SPARQL editor</a> to generate an example
+npm install sgvizler2
+</code></pre>
+<p>The path of Sgvizler2 will be :</p>
+<pre class="prettyprint source lang-html"><code> &lt;script src=&quot;node_modules/sgvizler2/build/browser/sgvizler2.js&quot;>&lt;/script>
+</code></pre>
+<h2>Get started</h2>
+<p>You can use the <a href="http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">SPARQL editor</a> to generate an example
 with your SPARQL query and see examples for each charts, maps and tables in this project.</p>
-<h2>Why reboot the project ?</h2><p>The project could not be easily extensible and the docs was not automatically generate in the packages for composer,
+<h2>Why reboot the project ?</h2>
+<p>The project could not be easily extensible and the docs was not automatically generate in the packages for composer,
 yarn, npm, etc.
 The project can exist without Google and new libs of charts exist. For example with D3JS,...</p>
 <p>And why with Typescript ? The project is now too complex and there are hard problems to debug with
@@ -199,9 +205,9 @@ tutorials like JSDoc :( The JSDoc of project generates only tutorials for the mo
         </div>
         <div class="col-md-12">
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.2</a>
 	
-		on January 7th 2018, 10:06:55 pm
+		on July 6th 2019, 4:57:09 pm
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
@@ -242,12 +248,9 @@ $( function () {
             }
 
             if ( lang ) {
-
-                $this
                 .addClass( "sunlight-highlight-" + lang )
                 .addClass( "linenums" )
                 .html( example.html() );
-
             }
         }
 	} );

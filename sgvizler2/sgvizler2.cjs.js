@@ -2,8 +2,22 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var jqueryProxy = require('jquery');
-var jqueryProxy__default = jqueryProxy['default'];
+var sgvizler2 = /*#__PURE__*/Object.freeze({
+    get sgvizler () { return sgvizler; },
+    get bordercloud () { return bordercloud; },
+    get google () { return google$1; },
+    get d3 () { return d3$1; },
+    get leaflet () { return leaflet; },
+    get VERSION () { return VERSION; },
+    get HOMEPAGE () { return HOMEPAGE; },
+    get containerLoadAll () { return containerLoadAll; },
+    get containerDraw () { return containerDraw; },
+    get containerDrawAll () { return containerDrawAll; },
+    get selectDraw () { return selectDraw; },
+    get selectDrawAll () { return selectDrawAll; },
+    get getChartDoc () { return getChartDoc; },
+    get create () { return create; }
+});
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -19,19 +33,6 @@ MERCHANTABLITY OR NON-INFRINGEMENT.
 See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
-/* global Reflect, Promise */
-
-
-
-
-
-
-
-
-
-
-
-
 
 function __awaiter(thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -307,7 +308,7 @@ class Chart {
     execPattern(patternOption, typePattern) {
         let matchArray;
         let raw = this._optionsRaw;
-        while ((matchArray = patternOption.exec(raw)) !== null) {
+        while ((matchArray = patternOption.exec(raw)) !== null) { // tslint:disable-line
             // this.options[matchArray[1].toLowerCase()] = matchArray[2].trim()
             // this.options[matchArray[1]] = matchArray[2].trim()
             Tools.assignProperty(this.options, matchArray[1], matchArray[2].trim());
@@ -348,7 +349,7 @@ class Chart {
             let matchArray;
             let raw = this._optionsRaw;
             let i = 0;
-            while ((matchArray = patternClass.exec(raw)) !== null) {
+            while ((matchArray = patternClass.exec(raw)) !== null) { // tslint:disable-line
                 this.options['class' + i] = matchArray[2];
                 this._patternOptions = CHART_PATTERN_OPTIONS.UNKNOWN;
                 i++;
@@ -445,10 +446,8 @@ class Table extends Chart {
  * @namespace sgvizler.visualization
  */
 
-
-
-var visualizationNS = Object.freeze({
-	Table: Table
+var visualizationNS = /*#__PURE__*/Object.freeze({
+    Table: Table
 });
 
 /**
@@ -693,6 +692,7 @@ class Select {
         let nodesSnapshot = document.evaluate("//select[contains(@class, '" + Select.CLASS_NAME + "')]", document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null);
         for (let i = 0; i < nodesSnapshot.snapshotLength; i++) {
             for (let node of nodesOption) {
+                // @ts-ignore
                 nodesSnapshot.snapshotItem(i).appendChild(node.cloneNode(true));
             }
         }
@@ -884,7 +884,7 @@ class Messages {
                 break;
         }
         if (args) {
-            for (let i = 0, len = args.length; i < len; i++) {
+            for (let i = 0, len = args.length; i < len; i++) { // tslint:disable-line
                 message = message.replace('$' + i, args[i]);
             }
         }
@@ -913,7 +913,7 @@ class Tools {
         let segments = path.split('.');
         let cursor = object || sgvizler2; // search in the lib if object is empty
         for (i = 0, len = segments.length; i < len; i += 1) {
-            if (cursor === undefined) {
+            if (cursor === undefined) { // create new child element.
                 break;
             }
             if (i < len - 1) {
@@ -930,7 +930,7 @@ class Tools {
                 }
             }
         }
-        if (cursor === undefined && !object) {
+        if (cursor === undefined && !object) { // window is the global scope.
             cursor = this.getObjectByPath(path, window);
         }
         return cursor;
@@ -1386,9 +1386,6 @@ class Request {
                     let percentComplete = (oEvent.loaded / oEvent.total) * 100;
                     console.log('onprogress' + percentComplete);
                 }
-                else {
-                    // Impossible de calculer la progression puisque la taille totale est inconnue
-                }
             };
             // When the request loads, check whether it was successful
             xhr.onload = function (options) {
@@ -1800,28 +1797,26 @@ Container.LOG_LEVEL_ATTRIBUTE_NAME = Container.PREFIX + 'log';
  */
 const visualization = visualizationNS;
 
-
-
-var S = Object.freeze({
-	visualization: visualization,
-	Loader: Loader,
-	Dependency: Dependency,
-	ScriptDependency: ScriptDependency,
-	CssDependency: CssDependency,
-	SparqlError: SparqlError,
-	Select: Select,
-	get MESSAGES () { return MESSAGES; },
-	Messages: Messages,
-	Tools: Tools,
-	Logger: Logger,
-	Core: Core,
-	get CHART_PATTERN_OPTIONS () { return CHART_PATTERN_OPTIONS; },
-	Chart: Chart,
-	get SPARQL_RESULT () { return SPARQL_RESULT; },
-	SparqlTools: SparqlTools,
-	Request: Request,
-	get CONTAINER_STATE () { return CONTAINER_STATE; },
-	Container: Container
+var S = /*#__PURE__*/Object.freeze({
+    visualization: visualization,
+    Logger: Logger,
+    Loader: Loader,
+    SparqlError: SparqlError,
+    Select: Select,
+    get MESSAGES () { return MESSAGES; },
+    Messages: Messages,
+    Tools: Tools,
+    Dependency: Dependency,
+    ScriptDependency: ScriptDependency,
+    CssDependency: CssDependency,
+    Core: Core,
+    get CHART_PATTERN_OPTIONS () { return CHART_PATTERN_OPTIONS; },
+    Chart: Chart,
+    get SPARQL_RESULT () { return SPARQL_RESULT; },
+    SparqlTools: SparqlTools,
+    Request: Request,
+    get CONTAINER_STATE () { return CONTAINER_STATE; },
+    Container: Container
 });
 
 /**
@@ -2057,10 +2052,8 @@ class DataTable extends Chart {
  * @namespace bordercloud.visualization
  */
 
-
-
-var visualizationNS$1 = Object.freeze({
-	DataTable: DataTable
+var visualizationNS$1 = /*#__PURE__*/Object.freeze({
+    DataTable: DataTable
 });
 
 /**
@@ -2068,9 +2061,8 @@ var visualizationNS$1 = Object.freeze({
  */
 const visualization$1 = visualizationNS$1;
 
-
-var bordercloudNS = Object.freeze({
-	visualization: visualization$1
+var bordercloudNS = /*#__PURE__*/Object.freeze({
+    visualization: visualization$1
 });
 
 /**
@@ -2090,9 +2082,7 @@ class Tools$1 {
                     result = Number(result);
                 }
             }
-            else if (result.search(patternPercent) >= 0) {
-                // do nothing
-            }
+            else if (result.search(patternPercent) >= 0) ;
         }
         return result;
     }
@@ -2281,7 +2271,9 @@ class AnnotationChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -2356,7 +2348,9 @@ class AreaChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -2431,7 +2425,9 @@ class BarChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -2506,7 +2502,9 @@ class BubbleChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -2581,7 +2579,9 @@ class Calendar extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -2658,7 +2658,9 @@ class CandlestickChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -2810,7 +2812,9 @@ class ComboChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -2913,7 +2917,9 @@ class GeoChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -2988,7 +2994,9 @@ class Histogram extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -3059,7 +3067,9 @@ class IntervalChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -3135,7 +3145,9 @@ class LineChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -3423,11 +3435,7 @@ OrgChart._isInit = false;
 class Pie extends Chart {
     constructor() {
         super();
-        let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
-    }
-    static init() {
-        google.charts.load('current', { 'packages': ['corechart'] });
-        Pie._isInit = true;
+        this.addScript('https://www.gstatic.com/charts/loader.js');
     }
     get icon() {
         return 'fa-pie-chart';
@@ -3443,6 +3451,10 @@ class Pie extends Chart {
     }
     get tutorialFilename() {
         return 'tutorial-google_visualization_Pie.html';
+    }
+    static init() {
+        google.charts.load('current', { 'packages': ['corechart'] });
+        Pie._isInit = true;
     }
     /**
      * Make a standard simple html pie.
@@ -3461,7 +3473,9 @@ class Pie extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -3536,7 +3550,9 @@ class ScatterChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -3611,7 +3627,9 @@ class SteppedAreaChart extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -3764,7 +3782,9 @@ class Timeline extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -3839,7 +3859,9 @@ class TreeMap extends Chart {
             if (currentChart.height !== '') {
                 height = Tools$1.decodeFormatSize(currentChart.height);
             }
-            let opt = Object.assign({}, currentChart.options);
+            let opt = Object.assign({
+            // Default options
+            }, currentChart.options);
             // fix the size
             opt = Object.assign(opt, {
                 width: Tools$1.decodeFormatSize(currentChart.width),
@@ -3947,36 +3969,32 @@ Trendline._isInit = false;
 /**
  * @namespace google.visualization
  */
-// Annotation Chart
-// https://developers.google.com/chart/interactive/docs/gallery/annotationchart
-
 // Word Trees
 // https://developers.google.com/chart/interactive/docs/gallery/wordtree
 // todo
 
-
-var visualizationNS$2 = Object.freeze({
-	AnnotationChart: AnnotationChart,
-	AreaChart: AreaChart,
-	BarChart: BarChart,
-	BubbleChart: BubbleChart,
-	Calendar: Calendar,
-	CandlestickChart: CandlestickChart,
-	ColumnChart: ColumnChart,
-	ComboChart: ComboChart,
-	GeoChart: GeoChart,
-	Histogram: Histogram,
-	IntervalChart: IntervalChart,
-	LineChart: LineChart,
-	Map: Map,
-	OrgChart: OrgChart,
-	Pie: Pie,
-	ScatterChart: ScatterChart,
-	SteppedAreaChart: SteppedAreaChart,
-	Table: Table$1,
-	Timeline: Timeline,
-	TreeMap: TreeMap,
-	Trendline: Trendline
+var visualizationNS$2 = /*#__PURE__*/Object.freeze({
+    IntervalChart: IntervalChart,
+    AnnotationChart: AnnotationChart,
+    BarChart: BarChart,
+    BubbleChart: BubbleChart,
+    Calendar: Calendar,
+    CandlestickChart: CandlestickChart,
+    ColumnChart: ColumnChart,
+    ComboChart: ComboChart,
+    GeoChart: GeoChart,
+    Histogram: Histogram,
+    AreaChart: AreaChart,
+    LineChart: LineChart,
+    Map: Map,
+    OrgChart: OrgChart,
+    Pie: Pie,
+    ScatterChart: ScatterChart,
+    SteppedAreaChart: SteppedAreaChart,
+    Table: Table$1,
+    Timeline: Timeline,
+    TreeMap: TreeMap,
+    Trendline: Trendline
 });
 
 /**
@@ -3984,13 +4002,11 @@ var visualizationNS$2 = Object.freeze({
  */
 const visualization$2 = visualizationNS$2;
 
-
-
-var googleNS = Object.freeze({
-	visualization: visualization$2,
-	Data: Data,
-	Tools: Tools$1,
-	API: API
+var googleNS = /*#__PURE__*/Object.freeze({
+    visualization: visualization$2,
+    Data: Data,
+    Tools: Tools$1,
+    API: API
 });
 
 /**
@@ -4139,9 +4155,11 @@ data.forEach(function (d: any) {
                 xAxisCall.scale(xScale);
                 yAxisCall.scale(yScale);
                 let newX = svg.append('g')
+                    // .attr('class', 'x axis')
                     .attr('transform', 'translate(' + [margin.left, heightChart + margin.top] + ')')
                     .call(xAxisCall);
                 let newY = svg.append('g')
+                    // .attr('class', 'y axis')
                     .attr('transform', 'translate(' + [margin.left, margin.top] + ')')
                     .call(yAxisCall);
             }
@@ -4374,9 +4392,11 @@ class BubbleChart$1 extends Chart {
                 xAxisCall.scale(xScale);
                 yAxisCall.scale(yScale);
                 let newX = svg.append('g')
+                    // .attr('class', 'x axis')
                     .attr('transform', 'translate(' + [margin.left, heightChart + margin.top] + ')')
                     .call(xAxisCall);
                 let newY = svg.append('g')
+                    // .attr('class', 'y axis')
                     .attr('transform', 'translate(' + [margin.left, margin.top] + ')')
                     .call(yAxisCall);
             }
@@ -4731,6 +4751,7 @@ class Pie$1 extends Chart {
                 let legendSpacing = 4;
                 let color = d3.scaleOrdinal(d3.schemeCategory10);
                 let arc = d3.arc()
+                    // .innerRadius(radius - donutWidth)
                     .innerRadius(0)
                     .outerRadius(radius);
                 let pie = d3.pie()
@@ -4998,16 +5019,14 @@ class ScatterChart$1 extends Chart {
  * @namespace bordercloud.visualization
  */
 
-
-
-var visualizationNS$3 = Object.freeze({
-	AreaChart: AreaChart$1,
-	BarChart: BarChart$1,
-	BubbleChart: BubbleChart$1,
-	ColumnChart: ColumnChart$1,
-	Line: Line,
-	Pie: Pie$1,
-	ScatterChart: ScatterChart$1
+var visualizationNS$3 = /*#__PURE__*/Object.freeze({
+    AreaChart: AreaChart$1,
+    BarChart: BarChart$1,
+    BubbleChart: BubbleChart$1,
+    ColumnChart: ColumnChart$1,
+    Line: Line,
+    Pie: Pie$1,
+    ScatterChart: ScatterChart$1
 });
 
 /**
@@ -5015,9 +5034,8 @@ var visualizationNS$3 = Object.freeze({
  */
 const visualization$3 = visualizationNS$3;
 
-
-var d3NS = Object.freeze({
-	visualization: visualization$3
+var d3NS = /*#__PURE__*/Object.freeze({
+    visualization: visualization$3
 });
 
 /**
@@ -5201,10 +5219,8 @@ class Map$1 extends Chart {
  * @namespace leaflet.visualization
  */
 
-
-
-var visualizationNS$4 = Object.freeze({
-	Map: Map$1
+var visualizationNS$4 = /*#__PURE__*/Object.freeze({
+    Map: Map$1
 });
 
 /**
@@ -5212,15 +5228,11 @@ var visualizationNS$4 = Object.freeze({
  */
 const visualization$4 = visualizationNS$4;
 
-
-
-var leafletNS = Object.freeze({
-	visualization: visualization$4,
-	API: API$1
+var leafletNS = /*#__PURE__*/Object.freeze({
+    visualization: visualization$4,
+    API: API$1
 });
 
-/** @module example */
-// Namespace
 const sgvizler = S;
 const bordercloud = bordercloudNS;
 const google$1 = googleNS;
@@ -5307,7 +5319,7 @@ function create(elementID, endpoint, query, chartName, options, loglevel, output
     return Container.create(elementID, endpoint, query, chartName, options, loglevel, output, method, parameter);
 }
 // noinspection JSPotentiallyInvalidConstructorUsage
-jqueryProxy.prototype.extend({
+jQuery.fn.extend({
     selectchart: function (param, option) {
         let $this = this;
         let action = 'render';
@@ -5357,36 +5369,17 @@ jqueryProxy.prototype.extend({
 });
 Loader.detectRoot();
 
-
-var sgvizler2 = Object.freeze({
-	sgvizler: sgvizler,
-	bordercloud: bordercloud,
-	google: google$1,
-	d3: d3$1,
-	leaflet: leaflet,
-	VERSION: VERSION,
-	HOMEPAGE: HOMEPAGE,
-	containerLoadAll: containerLoadAll,
-	containerDraw: containerDraw,
-	containerDrawAll: containerDrawAll,
-	selectDraw: selectDraw,
-	selectDrawAll: selectDrawAll,
-	getChartDoc: getChartDoc,
-	create: create
-});
-
-exports.sgvizler = sgvizler;
-exports.bordercloud = bordercloud;
-exports.google = google$1;
-exports.d3 = d3$1;
-exports.leaflet = leaflet;
-exports.VERSION = VERSION;
 exports.HOMEPAGE = HOMEPAGE;
-exports.containerLoadAll = containerLoadAll;
+exports.VERSION = VERSION;
+exports.bordercloud = bordercloud;
 exports.containerDraw = containerDraw;
 exports.containerDrawAll = containerDrawAll;
+exports.containerLoadAll = containerLoadAll;
+exports.create = create;
+exports.d3 = d3$1;
+exports.getChartDoc = getChartDoc;
+exports.google = google$1;
+exports.leaflet = leaflet;
 exports.selectDraw = selectDraw;
 exports.selectDrawAll = selectDrawAll;
-exports.getChartDoc = getChartDoc;
-exports.create = create;
-//# sourceMappingURL=sgvizler2.cjs.js.map
+exports.sgvizler = sgvizler;

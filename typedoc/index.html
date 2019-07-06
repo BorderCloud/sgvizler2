@@ -1,0 +1,397 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>sgvizler2</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">sgvizler2</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> sgvizler2</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<p><a href="https://www.npmjs.com/package/sgvizler2"><img src="https://img.shields.io/npm/v/sgvizler2.svg" alt="NPM version"></a>
+					<a href="https://github.com/conventional-changelog/standard-version"><img src="https://img.shields.io/badge/release-standard%20version-brightgreen.svg" alt="Standard Version"></a>
+					<a href="https://david-dm.org/bordercloud/sgvizler2"><img src="https://david-dm.org/bordercloud/sgvizler2/status.svg" alt="dependencies Status"></a>
+				<a href="https://david-dm.org/bordercloud/sgvizler2?type=dev"><img src="https://david-dm.org/bordercloud/sgvizler2/dev-status.svg" alt="devDependencies Status"></a></p>
+				<h1 id="sgvizler2">sgvizler2</h1>
+				<p>Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin). See <a href="http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">the demo</a> (in the menu &quot;tutorial&quot;, there are examples) and the <a href="http://bordercloud.github.io/typedoc/index.html">typedoc</a>.</p>
+				<p>This project is the reboot in Typescript of project <a href="https://github.com/mgskjaeveland/sgvizler">Sgvizler</a> of Martin G.
+				Skjæveland.</p>
+				<p>Add visualisations directly into your webpages like this:</p>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"result"</span>
+     <span class="hljs-attr">data-sgvizler-endpoint</span>=<span class="hljs-string">"https://query.wikidata.org/sparql"</span>
+     <span class="hljs-attr">data-sgvizler-chart</span>=<span class="hljs-string">"bordercloud.visualization.DataTable"</span>
+     <span class="hljs-attr">data-sgvizler-query</span>=<span class="hljs-string">"
+     PREFIX rdfs: &amp;amp;lt;http://www.w3.org/2000/01/rdf-schema#&amp;amp;gt;
+     SELECT  *
+     WHERE {
+             ?object ?property ?valueOrObject .
+     }
+     LIMIT 4
+     "</span>
+     &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"sgvizler2/sgvizler2.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+ <span class="hljs-comment">&lt;!--script src="node_modules/sgvizler2/build/browser/sgvizler2.js"&gt;&lt;/script--&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+    <span class="hljs-comment">//Draw a chart</span>
+    <span class="hljs-comment">//sgvizler2.containerDraw('result');</span>
+    <span class="hljs-comment">//or</span>
+    <span class="hljs-comment">//$("#result").containerchart();</span>
+
+    <span class="hljs-comment">//Draw all Chart</span>
+    sgvizler2.containerDrawAll();
+ </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<p>Generate your chart with <a href="https://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">our SPARQL editor</a> and to
+				read their docs.</p>
+				<h2 id="download-directly-sgvizler2">Download directly Sgvizler2</h2>
+				<p><a href="https://github.com/BorderCloud/sgvizler2/releases">Download the last version</a></p>
+				<p>The path of Sgvizler2 will be :</p>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"sgvizler2/sgvizler2.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<h2 id="install-the-package-via-yarn-or-npm">Install the package via yarn or npm</h2>
+				<p>With yarn or npm</p>
+				<pre><code>yarn <span class="hljs-keyword">add</span><span class="bash"> sgvizler2</span>
+<span class="hljs-comment"># or</span>
+npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
+				<pre><code class="language-html"> <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"node_modules/sgvizler2/build/browser/sgvizler2.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<h2 id="get-started">Get started</h2>
+				<p>You can use the <a href="http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">SPARQL editor</a> to generate an example
+				with your SPARQL query and see examples for each charts, maps and tables in this project.</p>
+				<h2 id="why-reboot-the-project-">Why reboot the project ?</h2>
+				<p>The project could not be easily extensible and the docs was not automatically generate in the packages for composer,
+					yarn, npm, etc.
+				The project can exist without Google and new libs of charts exist. For example with D3JS,...</p>
+				<p>And why with Typescript ? The project is now too complex and there are hard problems to debug with
+					several charts of Google. I search solutions... but finally, I have to reboot with
+					the <a href="https://github.com/bitjson/typescript-starter">start project typescript</a>.
+					It&#39;s possible to generate a compatible lib in Javascript with unit test and coverage of code. So...
+					There are only a problem with JSDoc that not support several token of Typescript. I try TypeDoc but it do not generate
+				tutorials like JSDoc :( The JSDoc of project generates only tutorials for the moment.</p>
+				<p>If you want to participate at this project, <a href="https://github.com/BorderCloud/sgvizler2/blob/master/DEVELOPMENT.md">read this doc</a>.</p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+					<li class=" tsd-kind-enum">
+						<a href="enums/chart_pattern_options.html" class="tsd-kind-icon">CHART_<wbr>PATTERN_<wbr>OPTIONS</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/container_state.html" class="tsd-kind-icon">CONTAINER_<wbr>STATE</a>
+					</li>
+					<li class=" tsd-kind-enum tsd-is-not-exported">
+						<a href="enums/datatable_col_options.html" class="tsd-kind-icon">DATATABLE_<wbr>COL_<wbr>OPTIONS</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/messages.html" class="tsd-kind-icon">MESSAGES</a>
+					</li>
+					<li class=" tsd-kind-enum">
+						<a href="enums/sparql_result.html" class="tsd-kind-icon">SPARQL_<wbr>RESULT</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/api.html" class="tsd-kind-icon">API</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/annotationchart.html" class="tsd-kind-icon">Annotation<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/areachart.html" class="tsd-kind-icon">Area<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/barchart.html" class="tsd-kind-icon">Bar<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/bubblechart.html" class="tsd-kind-icon">Bubble<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/calendar.html" class="tsd-kind-icon">Calendar</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/candlestickchart.html" class="tsd-kind-icon">Candlestick<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/chart.html" class="tsd-kind-icon">Chart</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/columnchart.html" class="tsd-kind-icon">Column<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/combochart.html" class="tsd-kind-icon">Combo<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/container.html" class="tsd-kind-icon">Container</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/core.html" class="tsd-kind-icon">Core</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/cssdependency.html" class="tsd-kind-icon">Css<wbr>Dependency</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/data.html" class="tsd-kind-icon">Data</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/datatable.html" class="tsd-kind-icon">Data<wbr>Table</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/dependency.html" class="tsd-kind-icon">Dependency</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/geochart.html" class="tsd-kind-icon">Geo<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/histogram.html" class="tsd-kind-icon">Histogram</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/intervalchart.html" class="tsd-kind-icon">Interval<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/line.html" class="tsd-kind-icon">Line</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/linechart.html" class="tsd-kind-icon">Line<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/loader.html" class="tsd-kind-icon">Loader</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/logger.html" class="tsd-kind-icon">Logger</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/map.html" class="tsd-kind-icon">Map</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/messages.html" class="tsd-kind-icon">Messages</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/orgchart.html" class="tsd-kind-icon">Org<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/pie.html" class="tsd-kind-icon">Pie</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/request.html" class="tsd-kind-icon">Request</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/scatterchart.html" class="tsd-kind-icon">Scatter<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/scriptdependency.html" class="tsd-kind-icon">Script<wbr>Dependency</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/select.html" class="tsd-kind-icon">Select</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/sparqlerror.html" class="tsd-kind-icon">Sparql<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/sparqltools.html" class="tsd-kind-icon">Sparql<wbr>Tools</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/steppedareachart.html" class="tsd-kind-icon">Stepped<wbr>Area<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/table.html" class="tsd-kind-icon">Table</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/timeline.html" class="tsd-kind-icon">Timeline</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/tools.html" class="tsd-kind-icon">Tools</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/treemap.html" class="tsd-kind-icon">Tree<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/trendline.html" class="tsd-kind-icon">Trendline</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-is-not-exported">
+						<a href="interfaces/jquery.html" class="tsd-kind-icon">JQuery</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#_" class="tsd-kind-icon">$</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#homepage" class="tsd-kind-icon">HOMEPAGE</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#l" class="tsd-kind-icon">L</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#version" class="tsd-kind-icon">VERSION</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#bordercloud" class="tsd-kind-icon">bordercloud</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#d3" class="tsd-kind-icon">d3</a>
+					</li>
+					<li class=" tsd-kind-variable tsd-is-not-exported">
+						<a href="globals.html#google" class="tsd-kind-icon">google</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#leaflet" class="tsd-kind-icon">leaflet</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#sgvizler" class="tsd-kind-icon">sgvizler</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#visualization" class="tsd-kind-icon">visualization</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#containerdraw" class="tsd-kind-icon">container<wbr>Draw</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#containerdrawall" class="tsd-kind-icon">container<wbr>Draw<wbr>All</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#containerloadall" class="tsd-kind-icon">container<wbr>Load<wbr>All</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#create" class="tsd-kind-icon">create</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getchartdoc" class="tsd-kind-icon">get<wbr>Chart<wbr>Doc</a>
+					</li>
+					<li class=" tsd-kind-function tsd-is-not-exported">
+						<a href="globals.html#readoptions" class="tsd-kind-icon">read<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#selectdraw" class="tsd-kind-icon">select<wbr>Draw</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#selectdrawall" class="tsd-kind-icon">select<wbr>Draw<wbr>All</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
