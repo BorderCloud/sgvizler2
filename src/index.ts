@@ -2,7 +2,6 @@
 
 /** @module example */
 import * as jqueryProxy from 'jquery'
-const jquery: JQueryStatic = (jqueryProxy as any).default || jqueryProxy
 
 // Namespace
 import * as S from './sgvizler'
@@ -154,7 +153,7 @@ interface JQuery {
 }
 
 // noinspection JSPotentiallyInvalidConstructorUsage
-jqueryProxy.prototype.extend(
+jQuery.fn.extend(
     {
         selectchart : function (param?: any,option?: any): JQuery {
             let $this = this

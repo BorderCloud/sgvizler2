@@ -118,6 +118,7 @@ export class Select {
             document, null, XPathResult.UNORDERED_NODE_SNAPSHOT_TYPE, null)
         for (let i = 0 ; i < nodesSnapshot.snapshotLength; i++) {
             for (let node of nodesOption) {
+                // @ts-ignore
                 nodesSnapshot.snapshotItem(i).appendChild(node.cloneNode(true))
             }
         }
