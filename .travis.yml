@@ -10,9 +10,7 @@ before_install:
   - sudo docker-compose -f ./test/selenium3/docker-compose.yaml up -d
 install:
   - yarn install
-  - mkdir -p build/module
-  - mkdir -p build/main
-  - yarn run docs:all
+  - sudo yarn run docs:all
 script:
   - selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=chrome" ./test/tests.side
   - selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=firefox" ./test/tests.side
