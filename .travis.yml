@@ -6,12 +6,14 @@ services:
 before_install:
 - sudo docker-compose -f ./test/selenium3/docker-compose.yaml up -d
 install:
-- sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+- sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | NVM_DIR=/usr/local/nvm bash
 - sudo nvm install node
 - sudo node -v
 - sudo npm -v
 
 script:
+- sudo export NVM_DIR="/usr/local/nvm"
+- sudo [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 - sudo npm install
 - sudo npm run docs:all
 - sudo selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=chrome" ./test/tests.side
