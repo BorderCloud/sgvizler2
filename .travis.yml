@@ -10,8 +10,8 @@ before_install:
   - sudo docker-compose -f ./test/selenium3/docker-compose.yaml up -d
 install:
   - yarn install
-  - sudo mkdir -p build
-  - sudo chown $USER:$USER build
+  - sudo chown -R $USER:$USER .
+  - mkdir -p build
   - ls -al
   - yarn run docs:all
 script:
