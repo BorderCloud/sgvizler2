@@ -11,7 +11,7 @@ before_install:
 install:
   - yarn install
   - sudo mkdir -p build
-  - sudo chown travis:travis build
+  - sudo chown $USER:$USER build
   - ls -al
   - yarn run docs:all
 script:
