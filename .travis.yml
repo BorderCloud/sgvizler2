@@ -13,6 +13,6 @@ install:
 
 script:
 - npm install
-- npm run docs:all
+- sudo npm run docs:all
 - selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=chrome" ./test/tests.side
 - selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=firefox" ./test/tests.side
