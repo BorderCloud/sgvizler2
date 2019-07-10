@@ -10,8 +10,9 @@ install:
 - nvm install node
 - node -v
 - npm -v
-- npm install -g selenium-side-runner
 
 script:
+- npm install
+- npm docs:all
 - selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=chrome" ./test/tests.side
 - selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=firefox" ./test/tests.side
