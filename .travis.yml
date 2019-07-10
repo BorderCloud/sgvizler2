@@ -1,0 +1,17 @@
+language: php
+
+services:
+  - docker
+
+before_install:
+- docker-compose -f ./test/selenium3/docker-compose.yaml up -d
+install:
+- curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+- nvm install node
+- node -v
+- npm -v
+- npm install -g selenium-side-runner
+
+script:
+- selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=chrome" ./test/tests.side
+- selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=firefox" ./test/tests.side
