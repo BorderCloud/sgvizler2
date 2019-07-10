@@ -12,7 +12,7 @@
   "scripts": {
     "describe": "npm-scripts-info",
     "clean": "trash build",
-    "build": "mkdirp build/module build/main  && run-p build:* && run-s browser copy-lib",
+    "build": "mkdirp build build/module build/main  && run-p build:* && run-s browser copy-lib",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p config/exports/tsconfig.module.json",
     "copy-lib": "cp -r ./lib ./build/browser/lib",
