@@ -37,8 +37,8 @@ export class BubbleChart extends Chart {
 
         public constructor () {
             super()
-            this.addCss(Core.path + '/lib/d3/d3.css')
-            let dep = this.addScript(Core.path + '/lib/d3/d3.js')
+            //this.addCss(Core.path + '/lib/d3/d3.css')
+            let dep = this.addScript(Core.path + '/lib/d3/d3.min.js')
         }
 
         /**

@@ -1,1 +1,1 @@
-docker-compose -f docker-compose-debug.yaml down
+docker-compose -f docker-compose-debug.yaml down -v
