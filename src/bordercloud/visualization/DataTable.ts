@@ -48,7 +48,7 @@ export class DataTable extends Chart {
      */
     private static buildColumnDefs (codeStyle: string,noCols: number): Array<any> {
         // noinspection Annotator
-        let regex = / *col([1-9]+)\_([a-zA-Z]+)\_([^=;\n]*) */ig
+        let regex = / *col([0-9]+)\_([a-zA-Z]+)\_([^=;\n]*) */ig
         let m
         let datasetColumnsDefs = [] as Array<any>
         let datasetColumnsFunc

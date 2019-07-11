@@ -29,7 +29,7 @@ export class TreeMap extends Chart {
     }
 
     public get icon (): string {
-        return 'fa fa-area-chart'
+        return 'fas fa-chart-area'
     }
 
     public get label (): string {

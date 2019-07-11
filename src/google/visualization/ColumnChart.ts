@@ -29,7 +29,7 @@ export class ColumnChart extends Chart {
     }
 
     public get icon (): string {
-        return 'fa fa-bar-chart'
+        return 'fas fa-chart-bar'
     }
 
     public get label (): string {

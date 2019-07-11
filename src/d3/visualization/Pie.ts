@@ -16,7 +16,7 @@ declare let d3: any
 export class Pie extends Chart {
 
     public get icon (): string {
-        return 'fa fa-pie-chart'
+        return 'fas fa-chart-pie'
     }
 
     public get label (): string {
