@@ -15,7 +15,7 @@
     "build": "run-p build:* && run-s browser copy-lib",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p config/exports/tsconfig.module.json",
-    "copy-lib": "cp -r ./lib ./build/browser/lib",
+    "copy-lib": "trash ./build/browser/lib && cp -r ./lib ./build/browser/lib",
     "browser": "run-s browser:deps && run-p browser:js browser:minify browser:cjs",
     "browser:deps": "mkdirp build/temp",
     "browser:js": "rollup -c config/exports/rollup.config.ts -f umd --name sgvizler2 -o build/browser/sgvizler2.js -m",
