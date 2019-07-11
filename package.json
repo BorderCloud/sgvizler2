@@ -1,6 +1,6 @@
 {
   "name": "sgvizler2",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin).",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
@@ -34,7 +34,9 @@
     "typedoc:html": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --out build/docs/typedoc",
     "typedoc:json": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --json build/docs/typedoc/typedoc.json",
     "docs:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
-    "std-version": "standard-version",
+    "std-version-major": "standard-version -- --release-as major",
+    "std-version-minor": "standard-version -- --release-as minor",
+    "std-version-patch": "standard-version -- --release-as patch",
     "!!reset": "git clean -dfx && git reset --hard && npm i",
     "prepare-release": "run-s all version doc:publish",
     "release": "run-s build docs:html && yarn docs:publish && yarn changelog",
