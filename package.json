@@ -42,7 +42,8 @@
     "test:stop": "docker-compose -f ./test/selenium3/docker-compose.yaml down -v",
     "test:chrome": "selenium-side-runner  --server http://localhost:4444/wd/hub -c 'browserName=chrome' ./test/tests.side",
     "test:firefox": "selenium-side-runner  --server http://localhost:4444/wd/hub -c 'browserName=firefox' ./test/tests.side",
-    "test:run": "run-s test:chrome test:firefox"
+    "test:run": "run-s test:chrome test:firefox",
+    "dev:httpd": "ws -d ./build/docs --spa index.html"
   },
   "scripts-info": {
     "info": "Display information about the package yzscripts",
@@ -70,6 +71,7 @@
     "gh-pages": "^2.0.1",
     "jsdoc": "^3.6.2",
     "jsdoc-memberof-namespace": "^2.2.0",
+    "local-web-server": "^3.0.4",
     "moment": "^2.24.0",
     "npm-run-all": "^4.1.5",
     "rollup": "^1.16.6",

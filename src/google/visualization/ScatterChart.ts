@@ -29,7 +29,7 @@ export class ScatterChart extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-circle'
+        return 'fa fa-circle'
     }
 
     public get label (): string {

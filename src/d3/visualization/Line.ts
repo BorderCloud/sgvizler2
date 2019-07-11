@@ -16,7 +16,7 @@ declare let d3: any
 export class Line extends Chart {
 
     public get icon (): string {
-        return 'fa-line-chart'
+        return 'fa fa-line-chart'
     }
 
     public get label (): string {

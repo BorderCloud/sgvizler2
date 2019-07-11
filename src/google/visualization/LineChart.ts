@@ -29,7 +29,7 @@ export class LineChart extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-line-chart'
+        return 'fa fa-line-chart'
     }
 
     public get label (): string {

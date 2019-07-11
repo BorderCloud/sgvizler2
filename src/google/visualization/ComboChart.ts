@@ -29,7 +29,7 @@ export class ComboChart extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-signal'
+        return 'fa fa-signal'
     }
 
     public get label (): string {

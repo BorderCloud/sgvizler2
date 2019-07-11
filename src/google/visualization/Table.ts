@@ -29,7 +29,7 @@ export class Table extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-table'
+        return 'fa fa-table'
     }
 
     public get label (): string {

@@ -56,11 +56,20 @@ Read this docs before your first commit : [![Conventional Commits](https://img.s
 
 Command Development :
 ```
-# start Selenium Hub and the Web server
-yarn test:start
+yarn dev:httpd
 
 # Build all
 yarn docs:all
+```
+
+You can see the result here : http://localhost:8000
+
+## Tests 
+
+Command :
+```
+# start Selenium Hub and the Web server
+yarn test:start
 
 #  run Selenium's tests
 yarn test:run

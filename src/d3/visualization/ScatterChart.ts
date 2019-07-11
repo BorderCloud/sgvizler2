@@ -16,7 +16,7 @@ declare let d3: any
 export class ScatterChart extends Chart {
 
     public get icon (): string {
-        return 'fa-ScatterChart-chart'
+        return 'fa fa-ScatterChart-chart'
     }
 
     public get label (): string {

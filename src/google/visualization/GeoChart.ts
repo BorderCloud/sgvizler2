@@ -29,7 +29,7 @@ export class GeoChart extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-globe'
+        return 'fa fa-globe'
     }
 
     public get label (): string {

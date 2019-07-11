@@ -29,7 +29,7 @@ export class Map extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-map'
+        return 'fa fa-map'
     }
 
     public get label (): string {

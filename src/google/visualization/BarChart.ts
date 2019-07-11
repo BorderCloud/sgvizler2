@@ -29,7 +29,7 @@ export class BarChart extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-align-left'
+        return 'fa fa-align-left'
     }
 
     public get label (): string {

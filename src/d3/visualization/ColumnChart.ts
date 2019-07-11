@@ -16,7 +16,7 @@ declare let d3: any
 export class ColumnChart extends Chart {
 
     public get icon (): string {
-        return 'fa-bar-chart'
+        return 'fa fa-bar-chart'
     }
 
     public get label (): string {

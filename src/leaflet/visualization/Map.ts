@@ -24,7 +24,7 @@ declare let L: any
 export class Map extends Chart {
 
     public get icon (): string {
-        return 'fa-map'
+        return 'fa fa-map'
     }
 
     public get label (): string {
@@ -135,7 +135,7 @@ export class Map extends Chart {
                             if (row[cols[3]] === undefined || row[cols[3]].value.length === 0) {
                                 marker.bindPopup('<div style="display: flow-root;min-width: 150px;min-height:150px;">' + link + '<div>' + img + '</div></div>')
                             } else {
-                                marker.bindPopup('<div style="display: flow-root;width: 350px;min-height:150px;">' + link + '<div>' + img + text + '</div></div>')
+                                marker.bindPopup('<div style="display: flow-root;min-height:150px;">' + link + '<div>' + img + text + '</div></div>')
                             }
                         } else if (noCols === 5) {
                             // latitude longitude title introduction link

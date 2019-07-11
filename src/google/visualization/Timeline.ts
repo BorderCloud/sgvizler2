@@ -29,7 +29,7 @@ export class Timeline extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-tasks'
+        return 'fa fa-tasks'
     }
 
     public get label (): string {

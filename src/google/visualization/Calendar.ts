@@ -29,7 +29,7 @@ export class Calendar extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-calendar'
+        return 'fa fa-calendar'
     }
 
     public get label (): string {

@@ -29,7 +29,7 @@ export class OrgChart extends Chart {
     }
 
     public get icon (): string {
-        return 'fa-sitemap'
+        return 'fa fa-sitemap'
     }
 
     public get label (): string {
