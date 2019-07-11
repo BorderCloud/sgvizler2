@@ -1,29 +1,73 @@
-/* line 27, bootstrap-select.scss */
+/*!
+ * Bootstrap-select v1.13.10 (https://developer.snapappointments.com/bootstrap-select)
+ *
+ * Copyright 2012-2019 SnapAppointments, LLC
+ * Licensed under MIT (https://github.com/snapappointments/bootstrap-select/blob/master/LICENSE)
+ */
+
 select.bs-select-hidden,
+.bootstrap-select > select.bs-select-hidden,
 select.selectpicker {
   display: none !important;
 }
-
-/* line 32, bootstrap-select.scss */
 .bootstrap-select {
   width: 220px \0;
   /*IE9 and below*/
+  vertical-align: middle;
 }
-/* line 37, bootstrap-select.scss */
-.bootstrap-select.btn-group > .dropdown-toggle {
-  height: 100%;
-}
-/* line 43, bootstrap-select.scss */
 .bootstrap-select > .dropdown-toggle {
+  position: relative;
   width: 100%;
-  padding-right: 25px;
-  z-index: 1;
+  text-align: right;
+  white-space: nowrap;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
-/* line 48, bootstrap-select.scss */
-.bootstrap-select > .dropdown-toggle.bs-placeholder, .bootstrap-select > .dropdown-toggle.bs-placeholder:hover, .bootstrap-select > .dropdown-toggle.bs-placeholder:focus, .bootstrap-select > .dropdown-toggle.bs-placeholder:active {
+.bootstrap-select > .dropdown-toggle:after {
+  margin-top: -1px;
+}
+.bootstrap-select > .dropdown-toggle.bs-placeholder,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:hover,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:focus,
+.bootstrap-select > .dropdown-toggle.bs-placeholder:active {
   color: #999;
 }
-/* line 56, bootstrap-select.scss */
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-primary,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-secondary,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-success,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-danger,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-info,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-dark,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-primary:hover,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-secondary:hover,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-success:hover,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-danger:hover,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-info:hover,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-dark:hover,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-primary:focus,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-secondary:focus,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-success:focus,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-danger:focus,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-info:focus,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-dark:focus,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-primary:active,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-secondary:active,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-success:active,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-danger:active,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-info:active,
+.bootstrap-select > .dropdown-toggle.bs-placeholder.btn-dark:active {
+  color: rgba(255, 255, 255, 0.5);
+}
 .bootstrap-select > select {
   position: absolute !important;
   bottom: 0;
@@ -34,239 +78,277 @@ select.selectpicker {
   padding: 0 !important;
   opacity: 0 !important;
   border: none;
+  z-index: 0 !important;
 }
-/* line 67, bootstrap-select.scss */
 .bootstrap-select > select.mobile-device {
   top: 0;
   left: 0;
   display: block !important;
   width: 100% !important;
-  z-index: 2;
+  z-index: 2 !important;
 }
-/* line 77, bootstrap-select.scss */
-.has-error .bootstrap-select .dropdown-toggle, .error .bootstrap-select .dropdown-toggle {
+.has-error .bootstrap-select .dropdown-toggle,
+.error .bootstrap-select .dropdown-toggle,
+.bootstrap-select.is-invalid .dropdown-toggle,
+.was-validated .bootstrap-select .selectpicker:invalid + .dropdown-toggle {
   border-color: #b94a48;
 }
-/* line 82, bootstrap-select.scss */
+.bootstrap-select.is-valid .dropdown-toggle,
+.was-validated .bootstrap-select .selectpicker:valid + .dropdown-toggle {
+  border-color: #28a745;
+}
 .bootstrap-select.fit-width {
   width: auto !important;
 }
-/* line 86, bootstrap-select.scss */
 .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
   width: 220px;
 }
-/* line 90, bootstrap-select.scss */
+.bootstrap-select > select.mobile-device:focus + .dropdown-toggle,
 .bootstrap-select .dropdown-toggle:focus {
   outline: thin dotted #333333 !important;
   outline: 5px auto -webkit-focus-ring-color !important;
   outline-offset: -2px;
 }
-
-/* line 97, bootstrap-select.scss */
 .bootstrap-select.form-control {
   margin-bottom: 0;
   padding: 0;
   border: none;
+  height: auto;
 }
-/* line 102, bootstrap-select.scss */
-.bootstrap-select.form-control:not([class*="col-"]) {
+:not(.input-group) > .bootstrap-select.form-control:not([class*="col-"]) {
   width: 100%;
 }
-/* line 106, bootstrap-select.scss */
 .bootstrap-select.form-control.input-group-btn {
+  float: none;
   z-index: auto;
 }
-/* line 110, bootstrap-select.scss */
-.bootstrap-select.form-control.input-group-btn:not(:first-child):not(:last-child) > .btn {
-  border-radius: 0;
+.form-inline .bootstrap-select,
+.form-inline .bootstrap-select.form-control:not([class*="col-"]) {
+  width: auto;
 }
-
-/* line 119, bootstrap-select.scss */
-.bootstrap-select.btn-group:not(.input-group-btn), .bootstrap-select.btn-group[class*="col-"] {
+.bootstrap-select:not(.input-group-btn),
+.bootstrap-select[class*="col-"] {
   float: none;
   display: inline-block;
   margin-left: 0;
 }
-/* line 130, bootstrap-select.scss */
-.bootstrap-select.btn-group.dropdown-menu-right, .bootstrap-select.btn-group[class*="col-"].dropdown-menu-right, .row .bootstrap-select.btn-group[class*="col-"].dropdown-menu-right {
+.bootstrap-select.dropdown-menu-right,
+.bootstrap-select[class*="col-"].dropdown-menu-right,
+.row .bootstrap-select[class*="col-"].dropdown-menu-right {
   float: right;
 }
-/* line 135, bootstrap-select.scss */
-.form-inline .bootstrap-select.btn-group, .form-horizontal .bootstrap-select.btn-group, .form-group .bootstrap-select.btn-group {
+.form-inline .bootstrap-select,
+.form-horizontal .bootstrap-select,
+.form-group .bootstrap-select {
   margin-bottom: 0;
 }
-/* line 141, bootstrap-select.scss */
-.form-group-lg .bootstrap-select.btn-group.form-control, .form-group-sm .bootstrap-select.btn-group.form-control {
+.form-group-lg .bootstrap-select.form-control,
+.form-group-sm .bootstrap-select.form-control {
   padding: 0;
 }
-/* line 145, bootstrap-select.scss */
-.form-group-lg .bootstrap-select.btn-group.form-control .dropdown-toggle, .form-group-sm .bootstrap-select.btn-group.form-control .dropdown-toggle {
+.form-group-lg .bootstrap-select.form-control .dropdown-toggle,
+.form-group-sm .bootstrap-select.form-control .dropdown-toggle {
   height: 100%;
   font-size: inherit;
   line-height: inherit;
   border-radius: inherit;
 }
-/* line 155, bootstrap-select.scss */
-.form-inline .bootstrap-select.btn-group .form-control {
+.bootstrap-select.form-control-sm .dropdown-toggle,
+.bootstrap-select.form-control-lg .dropdown-toggle {
+  font-size: inherit;
+  line-height: inherit;
+  border-radius: inherit;
+}
+.bootstrap-select.form-control-sm .dropdown-toggle {
+  padding: 0.25rem 0.5rem;
+}
+.bootstrap-select.form-control-lg .dropdown-toggle {
+  padding: 0.5rem 1rem;
+}
+.form-inline .bootstrap-select .form-control {
   width: 100%;
 }
-/* line 159, bootstrap-select.scss */
-.bootstrap-select.btn-group.disabled,
-.bootstrap-select.btn-group > .disabled {
+.bootstrap-select.disabled,
+.bootstrap-select > .disabled {
   cursor: not-allowed;
 }
-/* line 163, bootstrap-select.scss */
-.bootstrap-select.btn-group.disabled:focus,
-.bootstrap-select.btn-group > .disabled:focus {
+.bootstrap-select.disabled:focus,
+.bootstrap-select > .disabled:focus {
   outline: none !important;
 }
-/* line 168, bootstrap-select.scss */
-.bootstrap-select.btn-group.bs-container {
+.bootstrap-select.bs-container {
   position: absolute;
+  top: 0;
+  left: 0;
   height: 0 !important;
   padding: 0 !important;
 }
-/* line 173, bootstrap-select.scss */
-.bootstrap-select.btn-group.bs-container .dropdown-menu {
+.bootstrap-select.bs-container .dropdown-menu {
   z-index: 1060;
 }
-/* line 180, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-toggle .filter-option {
-  display: inline-block;
-  overflow: hidden;
+.bootstrap-select .dropdown-toggle .filter-option {
+  position: static;
+  top: 0;
+  left: 0;
+  float: left;
+  height: 100%;
   width: 100%;
   text-align: left;
+  overflow: hidden;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 1 auto;
+      -ms-flex: 0 1 auto;
+          flex: 0 1 auto;
 }
-/* line 187, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-toggle .caret {
+.bs3.bootstrap-select .dropdown-toggle .filter-option {
+  padding-right: inherit;
+}
+.input-group .bs3-has-addon.bootstrap-select .dropdown-toggle .filter-option {
+  position: absolute;
+  padding-top: inherit;
+  padding-bottom: inherit;
+  padding-left: inherit;
+  float: none;
+}
+.input-group .bs3-has-addon.bootstrap-select .dropdown-toggle .filter-option .filter-option-inner {
+  padding-right: inherit;
+}
+.bootstrap-select .dropdown-toggle .filter-option-inner-inner {
+  overflow: hidden;
+}
+.bootstrap-select .dropdown-toggle .filter-expand {
+  width: 0 !important;
+  float: left;
+  opacity: 0 !important;
+  overflow: hidden;
+}
+.bootstrap-select .dropdown-toggle .caret {
   position: absolute;
   top: 50%;
   right: 12px;
   margin-top: -2px;
   vertical-align: middle;
 }
-/* line 196, bootstrap-select.scss */
-.bootstrap-select.btn-group[class*="col-"] .dropdown-toggle {
+.input-group .bootstrap-select.form-control .dropdown-toggle {
+  border-radius: inherit;
+}
+.bootstrap-select[class*="col-"] .dropdown-toggle {
   width: 100%;
 }
-/* line 201, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-menu {
+.bootstrap-select .dropdown-menu {
   min-width: 100%;
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
-/* line 205, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-menu.inner {
-  display: block;
+.bootstrap-select .dropdown-menu > .inner:focus {
+  outline: none !important;
+}
+.bootstrap-select .dropdown-menu.inner {
   position: static;
   float: none;
   border: 0;
   padding: 0;
   margin: 0;
   border-radius: 0;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
-/* line 216, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-menu a.dropdown-item {
+.bootstrap-select .dropdown-menu li {
   position: relative;
-  cursor: pointer;
-  user-select: none;
 }
-/* line 221, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-menu a.dropdown-item.active small {
-  color: #fff;
+.bootstrap-select .dropdown-menu li.active small {
+  color: rgba(255, 255, 255, 0.5) !important;
 }
-/* line 225, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-menu a.dropdown-item.disabled a {
+.bootstrap-select .dropdown-menu li.disabled a {
   cursor: not-allowed;
 }
-/* line 229, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-menu a.dropdown-item.hidden {
-  display: none;
+.bootstrap-select .dropdown-menu li a {
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
-/* line 233, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-menu a.dropdown-item span.dropdown-item-inner {
-  display: block;
-}
-/* line 236, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-menu a.dropdown-item span.dropdown-item-inner.opt {
+.bootstrap-select .dropdown-menu li a.opt {
   position: relative;
   padding-left: 2.25em;
 }
-/* line 241, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-menu a.dropdown-item span.dropdown-item-inner span.check-mark {
+.bootstrap-select .dropdown-menu li a span.check-mark {
   display: none;
 }
-/* line 245, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-menu a.dropdown-item span.dropdown-item-inner span.text {
+.bootstrap-select .dropdown-menu li a span.text {
   display: inline-block;
 }
-/* line 250, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-menu a.dropdown-item small {
+.bootstrap-select .dropdown-menu li small {
   padding-left: 0.5em;
 }
-/* line 257, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-menu .dropdown-item .span.check-mark {
-  display: none;
-}
-/* line 261, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-menu .dropdown-item .span.text {
-  display: inline-block;
-}
-/* line 266, bootstrap-select.scss */
-.bootstrap-select.btn-group .dropdown-menu .notify {
+.bootstrap-select .dropdown-menu .notify {
   position: absolute;
   bottom: 5px;
   width: 96%;
   margin: 0 2%;
   min-height: 26px;
   padding: 3px 5px;
-  background: whitesmoke;
+  background: #f5f5f5;
   border: 1px solid #e3e3e3;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   pointer-events: none;
   opacity: 0.9;
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
-/* line 282, bootstrap-select.scss */
-.bootstrap-select.btn-group .no-results {
+.bootstrap-select .no-results {
   padding: 3px;
   background: #f5f5f5;
   margin: 0 5px;
   white-space: nowrap;
 }
-/* line 290, bootstrap-select.scss */
-.bootstrap-select.btn-group.fit-width .dropdown-toggle .filter-option {
+.bootstrap-select.fit-width .dropdown-toggle .filter-option {
   position: static;
+  display: inline;
+  padding: 0;
 }
-/* line 294, bootstrap-select.scss */
-.bootstrap-select.btn-group.fit-width .dropdown-toggle .caret {
+.bootstrap-select.fit-width .dropdown-toggle .filter-option-inner,
+.bootstrap-select.fit-width .dropdown-toggle .filter-option-inner-inner {
+  display: inline;
+}
+.bootstrap-select.fit-width .dropdown-toggle .bs-caret:before {
+  content: '\00a0';
+}
+.bootstrap-select.fit-width .dropdown-toggle .caret {
   position: static;
   top: auto;
   margin-top: -1px;
 }
-/* line 302, bootstrap-select.scss */
-.bootstrap-select.btn-group.show-tick .dropdown-menu a.selected span.dropdown-item-inner span.check-mark {
+.bootstrap-select.show-tick .dropdown-menu .selected span.check-mark {
   position: absolute;
   display: inline-block;
   right: 15px;
-  margin-top: 5px;
+  top: 5px;
 }
-/* line 309, bootstrap-select.scss */
-.bootstrap-select.btn-group.show-tick .dropdown-menu a a span.text {
+.bootstrap-select.show-tick .dropdown-menu li a span.text {
   margin-right: 34px;
 }
-
-/* line 316, bootstrap-select.scss */
-.bootstrap-select.show-menu-arrow.open > .dropdown-toggle {
+.bootstrap-select .bs-ok-default:after {
+  content: '';
+  display: block;
+  width: 0.5em;
+  height: 1em;
+  border-style: solid;
+  border-width: 0 0.26em 0.26em 0;
+  -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+       -o-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+.bootstrap-select.show-menu-arrow.open > .dropdown-toggle,
+.bootstrap-select.show-menu-arrow.show > .dropdown-toggle {
   z-index: 1061;
 }
-/* line 321, bootstrap-select.scss */
-.bootstrap-select.show-menu-arrow .dropdown-toggle:before {
+.bootstrap-select.show-menu-arrow .dropdown-toggle .filter-option:before {
   content: '';
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
@@ -276,8 +358,7 @@ select.selectpicker {
   left: 9px;
   display: none;
 }
-/* line 332, bootstrap-select.scss */
-.bootstrap-select.show-menu-arrow .dropdown-toggle:after {
+.bootstrap-select.show-menu-arrow .dropdown-toggle .filter-option:after {
   content: '';
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
@@ -287,78 +368,62 @@ select.selectpicker {
   left: 10px;
   display: none;
 }
-/* line 345, bootstrap-select.scss */
-.bootstrap-select.show-menu-arrow.dropup .dropdown-toggle:before {
+.bootstrap-select.show-menu-arrow.dropup .dropdown-toggle .filter-option:before {
   bottom: auto;
-  top: -3px;
+  top: -4px;
   border-top: 7px solid rgba(204, 204, 204, 0.2);
   border-bottom: 0;
 }
-/* line 352, bootstrap-select.scss */
-.bootstrap-select.show-menu-arrow.dropup .dropdown-toggle:after {
+.bootstrap-select.show-menu-arrow.dropup .dropdown-toggle .filter-option:after {
   bottom: auto;
-  top: -3px;
+  top: -4px;
   border-top: 6px solid white;
   border-bottom: 0;
 }
-/* line 361, bootstrap-select.scss */
-.bootstrap-select.show-menu-arrow.pull-right .dropdown-toggle:before {
+.bootstrap-select.show-menu-arrow.pull-right .dropdown-toggle .filter-option:before {
   right: 12px;
   left: auto;
 }
-/* line 366, bootstrap-select.scss */
-.bootstrap-select.show-menu-arrow.pull-right .dropdown-toggle:after {
+.bootstrap-select.show-menu-arrow.pull-right .dropdown-toggle .filter-option:after {
   right: 13px;
   left: auto;
 }
-/* line 373, bootstrap-select.scss */
-.bootstrap-select.show-menu-arrow.open > .dropdown-toggle:before, .bootstrap-select.show-menu-arrow.open > .dropdown-toggle:after {
+.bootstrap-select.show-menu-arrow.open > .dropdown-toggle .filter-option:before,
+.bootstrap-select.show-menu-arrow.show > .dropdown-toggle .filter-option:before,
+.bootstrap-select.show-menu-arrow.open > .dropdown-toggle .filter-option:after,
+.bootstrap-select.show-menu-arrow.show > .dropdown-toggle .filter-option:after {
   display: block;
 }
-
-/* line 380, bootstrap-select.scss */
 .bs-searchbox,
 .bs-actionsbox,
 .bs-donebutton {
   padding: 4px 8px;
 }
-
-/* line 386, bootstrap-select.scss */
 .bs-actionsbox {
   width: 100%;
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
-/* line 390, bootstrap-select.scss */
 .bs-actionsbox .btn-group button {
   width: 50%;
 }
-
-/* line 395, bootstrap-select.scss */
 .bs-donebutton {
   float: left;
   width: 100%;
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
-/* line 400, bootstrap-select.scss */
 .bs-donebutton .btn-group button {
   width: 100%;
 }
-
-/* line 406, bootstrap-select.scss */
 .bs-searchbox + .bs-actionsbox {
   padding: 0 8px 4px;
 }
-/* line 410, bootstrap-select.scss */
 .bs-searchbox .form-control {
   margin-bottom: 0;
   width: 100%;
   float: none;
 }
-/* line 417, bootstrap-select.scss */
-.input-group .bs-searchbox .form-control {
-  width: 100%;
-}
+/*# sourceMappingURL=bootstrap-select.css.map */
