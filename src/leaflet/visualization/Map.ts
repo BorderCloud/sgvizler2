@@ -48,8 +48,8 @@ export class Map extends Chart {
         this.addCss(Core.path + '/lib/leaflet/leaflet.css')
         this.addCss(Core.path + '/lib/leaflet/MarkerCluster.Default.css')
 
-        let dep = this.addScript(Core.path + '/lib/leaflet/leaflet-src.js')
-        this.addScript(Core.path + '/lib/leaflet/leaflet.markercluster-src.js',dep)
+        let dep = this.addScript(Core.path + '/lib/leaflet/leaflet.js')
+        this.addScript(Core.path + '/lib/leaflet/leaflet.markercluster.js',dep)
     }
     /**
      * Make a Google map
