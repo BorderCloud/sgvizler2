@@ -37,7 +37,7 @@ To check namespace :
 
 Commands :
 ```
-yarn docs:all
+yarn docs:open
 ```
 
 ## Docs
@@ -50,6 +50,26 @@ yarn docs:html
 ```
 
 Read this docs before your first commit : [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
+
+
+## Tests and development
+
+Command Development :
+```
+# start Selenium Hub and the Web server
+yarn test:start
+
+# Build all
+yarn docs:all
+
+#  run Selenium's tests
+yarn test:run
+
+# stop Selenium Hub and the Web server
+yarn test:stop
+```
+
+The test suite is in the file : test/tests.side
 
 
 ## Make a new release
