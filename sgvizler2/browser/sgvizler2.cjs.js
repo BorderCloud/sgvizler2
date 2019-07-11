@@ -1856,7 +1856,7 @@ class DataTable extends Chart {
      */
     static buildColumnDefs(codeStyle, noCols) {
         // noinspection Annotator
-        let regex = / *col([1-9]+)\_([a-zA-Z]+)\_([^=;\n]*) */ig;
+        let regex = / *col([0-9]+)\_([a-zA-Z]+)\_([^=;\n]*) */ig;
         let m;
         let datasetColumnsDefs = [];
         let datasetColumnsFunc;
@@ -2240,7 +2240,7 @@ class AnnotationChart extends Chart {
         AnnotationChart._isInit = true;
     }
     get icon() {
-        return 'fa fa-line-chart';
+        return 'fas fa-chart-line';
     }
     get label() {
         return 'AnnotationChart';
@@ -2317,7 +2317,7 @@ class AreaChart extends Chart {
         AreaChart._isInit = true;
     }
     get icon() {
-        return 'fa fa-area-chart';
+        return 'fas fa-chart-area';
     }
     get label() {
         return 'AreaChart';
@@ -2625,7 +2625,7 @@ class CandlestickChart extends Chart {
         CandlestickChart._isInit = true;
     }
     get icon() {
-        return 'fa fa-line-chart';
+        return 'fas fa-chart-line';
     }
     get label() {
         return 'CandlestickChart';
@@ -2704,7 +2704,7 @@ class ColumnChart extends Chart {
         ColumnChart._isInit = true;
     }
     get icon() {
-        return 'fa fa-bar-chart';
+        return 'fas fa-chart-bar';
     }
     get label() {
         return 'ColumnChart';
@@ -2963,7 +2963,7 @@ class Histogram extends Chart {
         Histogram._isInit = true;
     }
     get icon() {
-        return 'fa fa-area-chart';
+        return 'fas fa-chart-area';
     }
     get label() {
         return 'Histogram';
@@ -3040,7 +3040,7 @@ class IntervalChart extends Chart {
         IntervalChart._isInit = true;
     }
     get icon() {
-        return 'fa fa-line-chart';
+        return 'fas fa-chart-line';
     }
     get label() {
         return 'Interval';
@@ -3118,7 +3118,7 @@ class LineChart extends Chart {
         LineChart._isInit = true;
     }
     get icon() {
-        return 'fa fa-line-chart';
+        return 'fas fa-chart-line';
     }
     get label() {
         return 'Line';
@@ -3438,7 +3438,7 @@ class Pie extends Chart {
         this.addScript('https://www.gstatic.com/charts/loader.js');
     }
     get icon() {
-        return 'fa fa-pie-chart';
+        return 'fas fa-chart-pie';
     }
     get label() {
         return 'Pie';
@@ -3596,7 +3596,7 @@ class SteppedAreaChart extends Chart {
         SteppedAreaChart._isInit = true;
     }
     get icon() {
-        return 'fa fa-area-chart';
+        return 'fas fa-chart-area';
     }
     get label() {
         return 'SteppedAreaChart';
@@ -3828,7 +3828,7 @@ class TreeMap extends Chart {
         TreeMap._isInit = true;
     }
     get icon() {
-        return 'fa fa-area-chart';
+        return 'fas fa-chart-area';
     }
     get label() {
         return 'TreeMap';
@@ -3905,7 +3905,7 @@ class Trendline extends Chart {
         Trendline._isInit = true;
     }
     get icon() {
-        return 'fa fa-line-chart';
+        return 'fas fa-chart-line';
     }
     get label() {
         return 'Trendline';
@@ -4017,7 +4017,7 @@ var googleNS = /*#__PURE__*/Object.freeze({
  */
 class AreaChart$1 extends Chart {
     get icon() {
-        return 'fa fa-area-chart';
+        return 'fas fa-chart-area';
     }
     get label() {
         return 'AreaChart';
@@ -4177,7 +4177,7 @@ data.forEach(function (d: any) {
  */
 class BarChart$1 extends Chart {
     get icon() {
-        return 'fa fa-bar-chart';
+        return 'far fa-chart-bar';
     }
     get label() {
         return 'BarChart';
@@ -4313,7 +4313,7 @@ class BarChart$1 extends Chart {
  */
 class BubbleChart$1 extends Chart {
     get icon() {
-        return 'fa fa-pie-chart';
+        return 'fas fa-chart-pie';
     }
     get label() {
         return 'BubbleChart';
@@ -4414,7 +4414,7 @@ class BubbleChart$1 extends Chart {
  */
 class ColumnChart$1 extends Chart {
     get icon() {
-        return 'fa fa-bar-chart';
+        return 'far fa-chart-bar';
     }
     get label() {
         return 'ColumnChart';
@@ -4549,7 +4549,7 @@ class ColumnChart$1 extends Chart {
  */
 class Line extends Chart {
     get icon() {
-        return 'fa fa-line-chart';
+        return 'fas fa-chart-line';
     }
     get label() {
         return 'Line';
@@ -4674,7 +4674,7 @@ class Line extends Chart {
  */
 class Pie$1 extends Chart {
     get icon() {
-        return 'fa fa-pie-chart';
+        return 'fas fa-chart-pie';
     }
     get label() {
         return 'Pie';
