@@ -34,7 +34,7 @@
     "typedoc:html": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --out build/docs/typedoc",
     "typedoc:json": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --json build/docs/typedoc/typedoc.json",
     "docs:publish": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
-    "version": "standard-version",
+    "std-version": "standard-version",
     "!!reset": "git clean -dfx && git reset --hard && npm i",
     "prepare-release": "run-s all version doc:publish",
     "release": "run-s build docs:html && yarn docs:publish && yarn changelog",

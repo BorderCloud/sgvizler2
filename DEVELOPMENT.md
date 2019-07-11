@@ -86,7 +86,7 @@ The test suite is in the file : test/tests.side
 Commands :
 ```
 yarn docs:all
-yarn version
+yarn std-version
 # Avoid problems in yarn/npm publish
 yarn pack
 # check the package before to publish
