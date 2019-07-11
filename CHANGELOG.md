@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/BorderCloud/sgvizler2/compare/v1.1.0...v1.2.0) (2019-07-11)
+
+
+### Features
+
+* **libs:** update Bootstrap-select version 1.13.10 ([82e8ebe](https://github.com/BorderCloud/sgvizler2/commit/82e8ebe))
+* **libs:** update D3 version 5.9.7 ([7ff83c1](https://github.com/BorderCloud/sgvizler2/commit/7ff83c1))
+* **libs:** update Datables version 1.10.15 ([7a62470](https://github.com/BorderCloud/sgvizler2/commit/7a62470))
+* **libs:** update Leaflet v1.5.1 and markercluster version v1.4.1 ([1e57ec3](https://github.com/BorderCloud/sgvizler2/commit/1e57ec3))
+
+
+
 ## [1.1.0](https://github.com/BorderCloud/sgvizler2/compare/v1.0.9...v1.1.0) (2019-07-06)
 
 
