@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://github.com/BorderCloud/sgvizler2/compare/v1.2.1...v1.2.2) (2019-07-13)
+
+
+### Bug Fixes
+
+* keep the  newline character in the query ([24e246e](https://github.com/BorderCloud/sgvizler2/commit/24e246e))
+
+
+
 ### [1.2.1](https://github.com/BorderCloud/sgvizler2/compare/v1.2.0...v1.2.1) (2019-07-11)
 
 
