@@ -965,7 +965,7 @@
                 return String.fromCharCode(dec);
             });
             // remove \u00a0 of &nbsp;
-            text = text.replace(/(?:\s|\u00a0)/g, function (match, dec) {
+            text = text.replace(/(?:[^\S\r\n]|\u00a0)/g, function (match, dec) {
                 return ' ';
             });
             return text;
