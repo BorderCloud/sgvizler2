@@ -21,24 +21,25 @@ export class Select {
             // optgroup
             label: 'bordercloud.visualization',
             charts: [
-                'bordercloud.visualization.DataTable'
+                'bordercloud.visualization.DataTable',
+                'bordercloud.visualization.PivotTable'
             ]
         },
-        {
-            // optgroup
-            label: 'd3.visualization',
-            charts: [
-                /*'d3.visualization.AreaChart',
-                'd3.visualization.BarChart',
-                'd3.visualization.BubbleChart',
-                'd3.visualization.ColumnChart',*/
-                'd3.visualization.Line',
-                'd3.visualization.Pie'
-                /*,
-                'd3.visualization.ScatterChart'
-                */
-            ]
-        },
+        // { // not ready
+        //     // optgroup
+        //     label: 'd3.visualization',
+        //     charts: [
+        //         /*'d3.visualization.AreaChart',
+        //         'd3.visualization.BarChart',
+        //         'd3.visualization.BubbleChart',
+        //         'd3.visualization.ColumnChart',*/
+        //         'd3.visualization.Line',
+        //         'd3.visualization.Pie'
+        //         /*,
+        //         'd3.visualization.ScatterChart'
+        //         */
+        //     ]
+        // },
         {
             // optgroup
             label: 'leaflet.visualization',

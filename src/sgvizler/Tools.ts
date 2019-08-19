@@ -67,7 +67,35 @@ export class Tools {
     public static encodeHtml (str: string) {
         let buf = []
         for (let i = str.length - 1 ;i >= 0 ; i--) {
-            buf.unshift(['&#', str.charCodeAt(i) , ';'].join(''))
+            // let iC = str.charCodeAt(i)
+            // if (iC < 65 || iC > 127 ) { //|| (iC>90 && iC<97)
+            //     buf.unshift(['&#', iC, ';'].join(''))
+            // } else {
+            //     buf.unshift(str[i])
+            // }
+
+            switch (str[i]) {
+                case '&':
+                    buf.unshift('&amp;')
+                    break;
+                case '"':
+                    buf.unshift('&quot;')
+                    break;
+                case "'":
+                    buf.unshift('&apos;')
+                    break;
+                case '<':
+                    buf.unshift('&lt;')
+                    break;
+                case '>':
+                    buf.unshift('&gt;')
+                    break;
+                // case '':
+                //     buf.unshift(['&#', str.charCodeAt(i), ';'].join(''))
+                //     break;
+                default:
+                    buf.unshift(str[i])
+            }
         }
         return buf.join('')
     }

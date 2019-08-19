@@ -102,20 +102,7 @@
         <h4>
            Without options
         </h4>
-        <ul class="nav nav-tabs" role="tablist" id="tab_1">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#htmlTab" role="tab" aria-expanded="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#scriptTab" role="tab" aria-expanded="false">Javascript</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query="
+        <div id="result" data-sgvizler-query="
                     PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
                     PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
                     prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
@@ -136,64 +123,11 @@
   style='width:100%; height:450px;'
    data-sgvizler-log="0"></div>
 
-                </div>
-            </div>
-            <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
-data-sgvizler-query="
-PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
-PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
-prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
-prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
-
-select (YEAR(?date) as ?year) ?population
-where {
-       wd:Q61816 p:P1082 ?statement .
-        ?statement ps:P1082 ?population ;
-                    pq:P585 ?date .
-      }
-ORDER BY ?year"
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.ColumnChart"
-data-sgvizler-chart-options=""
-&gt;&lt;/div&gt;</pre></div>
-            </div>
-            <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-   //Draw a chart
-   //sgvizler2.containerDraw('result');
-   //or
-   //$("#result").containerchart();
-
-   //Draw all Chart
-   sgvizler2.containerDrawAll();
-&lt;/script&gt;</pre></div>
-            </div>
-        </div>
-
-
-
-
         <h4>
            With options
         </h4>
         <p>With option "reverseCategories=true"</p>
-        <ul class="nav nav-tabs" role="tablist" id="tab_2">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#resultTab_2" role="tab" aria-expanded="true">
-                    Result</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#htmlTab_2" role="tab" aria-expanded="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#scriptTab_2" role="tab" aria-expanded="false">Javascript</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="false">
-                <div id="example_2" style="padding: 25px;"><div id="result_2" data-sgvizler-query="
+        <div id="result_2" data-sgvizler-query="
                     PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
                     PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
                     prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
@@ -212,44 +146,15 @@ data-sgvizler-chart-options=""
                     data-sgvizler-loglevel='2'
                     style='width:100%; height:450px;'
                     data-sgvizler-log="0"></div>
-            </div>
-            <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="true">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
-data-sgvizler-query="
-PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
-PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
-prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
-prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
-
-select (YEAR(?date) as ?year) ?population
-where {
-       wd:Q61816 p:P1082 ?statement .
-        ?statement ps:P1082 ?population ;
-                    pq:P585 ?date .
-      }
-ORDER BY ?year"
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.ColumnChart"
-data-sgvizler-chart-options="reverseCategories=true"
-&gt;&lt;/div&gt;</pre></div>
-            </div>
-            <div class="tab-pane" id="scriptTab_2" role="tabpanel">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript_2">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-   //Draw a chart
-   //sgvizler2.containerDraw('result');
-   //or
-   //$("#result").containerchart();
-
-   //Draw all Chart
-   sgvizler2.containerDrawAll();
-&lt;/script&gt;</pre></div>
-            </div>
-        </div>
 
         <!--SCRIPT-->
         <script>
-            sgvizler2.containerDrawAll();
+            sgvizler2.showTabHtmlAndScript("result");
+            sgvizler2.showTabHtmlAndScript("result_2");
+
+            $(function() {
+                sgvizler2.containerDrawAll();
+            });
         </script>
     </div>
 </div>

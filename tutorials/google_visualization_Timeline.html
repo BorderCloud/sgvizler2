@@ -98,20 +98,7 @@
         <h4>
             Exemple
         </h4>
-        <ul class="nav nav-tabs" role="tablist" id="tab_1">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#htmlTab" role="tab" aria-expanded="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#scriptTab" role="tab" aria-expanded="false">Javascript</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="result"
+        <div id="result"
                      data-sgvizler-query="
 SELECT ?President ?Start ?End
 WHERE
@@ -128,43 +115,14 @@ WHERE
                      data-sgvizler-chart-options="height=500"
                      data-sgvizler-log="2"
                 ></div>
-            </div>
-            <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
-data-sgvizler-query="
-SELECT ?President ?Start ?End
-WHERE
-{
-  values (?President ?Start ?End ) {
-         ( 'Washington'  '1789-03-30 '^^xsd:date  '1797-02-04 '^^xsd:date )
-          ( 'Adams'      '1797-02-04 '^^xsd:date  '1801-02-04 '^^xsd:date )
-          ( 'Jefferson'  '1801-02-04 '^^xsd:date  '1809-02-04 '^^xsd:date )
-	}
-}
-"
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Timeline"
-data-sgvizler-chart-options="height=500"
-data-sgvizler-log="2"
-                &gt;&lt;/div&gt;</pre></div>
-            </div>
-            <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-   //Draw a chart
-   //sgvizler2.containerDraw('result');
-   //or
-   //$("#result").containerchart();
-
-   //Draw all Chart
-   sgvizler2.containerDrawAll();
-&lt;/script&gt;</pre></div>
-            </div>
-        </div>
 
         <!--SCRIPT-->
         <script>
-            sgvizler2.containerDrawAll();
+            sgvizler2.showTabHtmlAndScript("result");
+
+            $(function() {
+                sgvizler2.containerDrawAll();
+            });
         </script>
     </div>
 </div>

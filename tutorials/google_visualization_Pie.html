@@ -127,20 +127,7 @@
         <h4>
             With options width and height
         </h4>
-        <ul class="nav nav-tabs" role="tablist" id="tab_1">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#htmlTab" role="tab" aria-expanded="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#scriptTab" role="tab" aria-expanded="false">Javascript</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="result" data-sgvizler-query="
+        <div id="result" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -162,66 +149,13 @@ ORDER BY DESC(?nb)
 limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql"data-sgvizler-chart="google.visualization.Pie"
  data-sgvizler-chart-options="width:400|height:300"
                                                               data-sgvizler-log="0"></div>
-            </div>
-            <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded"><pre lang="html" id="consoleHtml">&lt;div id="result"
-data-sgvizler-query="
-PREFIX bd: &lt;http://www.bigdata.com/rdf#>
-PREFIX wikibase: &lt;http://wikiba.se/ontology#>
-PREFIX wd: &lt;http://www.wikidata.org/entity/>
-PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
 
-select   ?countryLabel (COUNT(?asteroid) as ?nb)
-where {
-        ?asteroid wdt:P31 wd:Q3863 ;
-                  wdt:P61 ?discoverer .
-     ?discoverer wdt:P27 ?country .
 
-       SERVICE wikibase:label {
-        bd:serviceParam wikibase:language 'en,fr' .
-      } .
-
-}
-GROUP BY  ?countryLabel
-ORDER BY DESC(?nb)
-limit 100
-"
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Pie"
-data-sgvizler-chart-options="width:400|height:300"
-&gt;&lt;/div&gt;</pre></div>
-            </div>
-            <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-   //Draw a chart
-   //sgvizler2.containerDraw('result');
-   //or
-   //$("#result").containerchart();
-
-   //Draw all Chart
-   sgvizler2.containerDrawAll();
-&lt;/script&gt;</pre></div>
-            </div>
-        </div>
         <h4>
             Pie 3D
         </h4>
         <p>With option "is3D=true"</p>
-        <ul class="nav nav-tabs" role="tablist" id="tab_2">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#resultTab_2" role="tab" aria-expanded="true">Result</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#htmlTab_2" role="tab" aria-expanded="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#scriptTab_2" role="tab" aria-expanded="false">Javascript</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="resultTab_2" role="tabpanel" aria-expanded="true">
-               <div id="result_2" data-sgvizler-query="
+        <div id="result_2" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -243,66 +177,12 @@ ORDER BY DESC(?nb)
 limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie"
 data-sgvizler-chart-options="is3D=true"
                                                               data-sgvizler-log="0"></div>
-            </div>
-            <div class="tab-pane" id="htmlTab_2" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded"><pre lang="html" id="consoleHtml_2">&lt;div id="result"
-data-sgvizler-query="
-PREFIX bd: &lt;http://www.bigdata.com/rdf#>
-PREFIX wikibase: &lt;http://wikiba.se/ontology#>
-PREFIX wd: &lt;http://www.wikidata.org/entity/>
-PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
 
-select   ?countryLabel (COUNT(?asteroid) as ?nb)
-where {
-        ?asteroid wdt:P31 wd:Q3863 ;
-                  wdt:P61 ?discoverer .
-     ?discoverer wdt:P27 ?country .
-
-       SERVICE wikibase:label {
-        bd:serviceParam wikibase:language 'en,fr' .
-      } .
-
-}
-GROUP BY  ?countryLabel
-ORDER BY DESC(?nb)
-limit 100
-"
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Pie"
-data-sgvizler-chart-options="is3D=true"
-&gt;&lt;/div&gt;</pre></div>
-            </div>
-            <div class="tab-pane" id="scriptTab_2" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded"><pre lang="html" id="consoleScript_2">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-   //Draw a chart
-   //sgvizler2.containerDraw('result');
-   //or
-   //$("#result").containerchart();
-
-   //Draw all Chart
-   sgvizler2.containerDrawAll();
-&lt;/script&gt;</pre></div>
-            </div>
-        </div>
         <h4>
             Donut
         </h4>
         <p>With option "pieHole=0.3"</p>
-        <ul class="nav nav-tabs" role="tablist" id="tab_3">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#resultTab_2" role="tab" aria-expanded="true">Result</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#htmlTab_3" role="tab" aria-expanded="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#scriptTab_3" role="tab" aria-expanded="false">Javascript</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="resultTab_3" role="tabpanel" aria-expanded="true">
-                <div id="result_3" data-sgvizler-query="
+        <div id="result_3" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -323,66 +203,13 @@ GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
 limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="pieHole=0.3"
                                                               data-sgvizler-log="0"></div>
-            </div>
-            <div class="tab-pane" id="htmlTab_3" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded"><pre lang="html" id="consoleHtml_3">&lt;div id="result"
-data-sgvizler-query="
-PREFIX bd: &lt;http://www.bigdata.com/rdf#>
-PREFIX wikibase: &lt;http://wikiba.se/ontology#>
-PREFIX wd: &lt;http://www.wikidata.org/entity/>
-PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
 
-select   ?countryLabel (COUNT(?asteroid) as ?nb)
-where {
-        ?asteroid wdt:P31 wd:Q3863 ;
-                  wdt:P61 ?discoverer .
-     ?discoverer wdt:P27 ?country .
 
-       SERVICE wikibase:label {
-        bd:serviceParam wikibase:language 'en,fr' .
-      } .
-
-}
-GROUP BY  ?countryLabel
-ORDER BY DESC(?nb)
-limit 100
-"
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Pie"
-data-sgvizler-chart-options="pieHole=0.3"
-&gt;&lt;/div&gt;</pre></div>
-            </div>
-            <div class="tab-pane" id="scriptTab_3" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded"><pre lang="html" id="consoleScript_3">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-   //Draw a chart
-   //sgvizler2.containerDraw('result');
-   //or
-   //$("#result").containerchart();
-
-   //Draw all Chart
-   sgvizler2.containerDrawAll();
-&lt;/script&gt;</pre></div>
-            </div>
-        </div>
         <h4>
             Rotating
         </h4>
         <p>With option "pieStartAngle= 100"</p>
-        <ul class="nav nav-tabs" role="tablist" id="tab_4">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#resultTab_4" role="tab" aria-expanded="true">Result</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#htmlTab_4" role="tab" aria-expanded="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#scriptTab_4" role="tab" aria-expanded="false">Javascript</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="resultTab_4" role="tabpanel" aria-expanded="true">
-                <div id="result_4" data-sgvizler-query="
+        <div id="result_4" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -403,66 +230,12 @@ GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
 limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="pieStartAngle=100"
                                                               data-sgvizler-log="0"></div>
-            </div>
-            <div class="tab-pane" id="htmlTab_4" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded"><pre lang="html" id="consoleHtml_4">&lt;div id="result"
-data-sgvizler-query="
-PREFIX bd: &lt;http://www.bigdata.com/rdf#>
-PREFIX wikibase: &lt;http://wikiba.se/ontology#>
-PREFIX wd: &lt;http://www.wikidata.org/entity/>
-PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
 
-select   ?countryLabel (COUNT(?asteroid) as ?nb)
-where {
-        ?asteroid wdt:P31 wd:Q3863 ;
-                  wdt:P61 ?discoverer .
-     ?discoverer wdt:P27 ?country .
-
-       SERVICE wikibase:label {
-        bd:serviceParam wikibase:language 'en,fr' .
-      } .
-
-}
-GROUP BY  ?countryLabel
-ORDER BY DESC(?nb)
-limit 100
-"
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Pie"
-data-sgvizler-chart-options="pieStartAngle=100"
-&gt;&lt;/div&gt;</pre></div>
-            </div>
-            <div class="tab-pane" id="scriptTab_4" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded"><pre lang="html" id="consoleScript_4">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-   //Draw a chart
-   //sgvizler2.containerDraw('result');
-   //or
-   //$("#result").containerchart();
-
-   //Draw all Chart
-   sgvizler2.containerDrawAll();
-&lt;/script&gt;</pre></div>
-            </div>
-        </div>
         <h4>
             Slice Visibility Threshold
         </h4>
         <p>With option "sliceVisibilityThreshold= .3"</p>
-        <ul class="nav nav-tabs" role="tablist" id="tab_5">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#resultTab_5" role="tab" aria-expanded="true">Result</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#htmlTab_5" role="tab" aria-expanded="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#scriptTab_5" role="tab" aria-expanded="false">Javascript</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="resultTab_5" role="tabpanel" aria-expanded="true">
-                <div id="result_5" data-sgvizler-query="
+        <div id="result_5" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -483,66 +256,12 @@ GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
 limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="sliceVisibilityThreshold= 0.2"
                                                               data-sgvizler-log="0"></div>
-            </div>
-            <div class="tab-pane" id="htmlTab_5" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded"><pre lang="html" id="consoleHtml_5">&lt;div id="result"
-data-sgvizler-query="
-PREFIX bd: &lt;http://www.bigdata.com/rdf#>
-PREFIX wikibase: &lt;http://wikiba.se/ontology#>
-PREFIX wd: &lt;http://www.wikidata.org/entity/>
-PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
 
-select   ?countryLabel (COUNT(?asteroid) as ?nb)
-where {
-        ?asteroid wdt:P31 wd:Q3863 ;
-                  wdt:P61 ?discoverer .
-     ?discoverer wdt:P27 ?country .
-
-       SERVICE wikibase:label {
-        bd:serviceParam wikibase:language 'en,fr' .
-      } .
-
-}
-GROUP BY  ?countryLabel
-ORDER BY DESC(?nb)
-limit 100
-"
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Pie"
-data-sgvizler-chart-options="sliceVisibilityThreshold= 0.2"
-&gt;&lt;/div&gt;</pre></div>
-            </div>
-            <div class="tab-pane" id="scriptTab_5" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded"><pre lang="html" id="consoleScript_5">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-   //Draw a chart
-   //sgvizler2.containerDraw('result');
-   //or
-   //$("#result").containerchart();
-
-   //Draw all Chart
-   sgvizler2.containerDrawAll();
-&lt;/script&gt;</pre></div>
-            </div>
-        </div>
         <h4>
             Slice label
         </h4>
         <p>With option "pieSliceText=label"</p>
-        <ul class="nav nav-tabs" role="tablist" id="tab_6">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#resultTab_6" role="tab" aria-expanded="true">Result</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#htmlTab_6" role="tab" aria-expanded="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#scriptTab_6" role="tab" aria-expanded="false">Javascript</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="resultTab_6" role="tabpanel" aria-expanded="true">
-                <div id="result_6" data-sgvizler-query="
+        <div id="result_6" data-sgvizler-query="
 PREFIX bd: <http://www.bigdata.com/rdf#>
 PREFIX wikibase: <http://wikiba.se/ontology#>
 PREFIX wd: <http://www.wikidata.org/entity/>
@@ -563,52 +282,20 @@ GROUP BY  ?countryLabel
 ORDER BY DESC(?nb)
 limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="pieSliceText=label"
                                                               data-sgvizler-log="0"></div>
-            </div>
-            <div class="tab-pane" id="htmlTab_6" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded"><pre lang="html" id="consoleHtml_6">&lt;div id="result"
-data-sgvizler-query="
-PREFIX bd: &lt;http://www.bigdata.com/rdf#>
-PREFIX wikibase: &lt;http://wikiba.se/ontology#>
-PREFIX wd: &lt;http://www.wikidata.org/entity/>
-PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
 
-select   ?countryLabel (COUNT(?asteroid) as ?nb)
-where {
-        ?asteroid wdt:P31 wd:Q3863 ;
-                  wdt:P61 ?discoverer .
-     ?discoverer wdt:P27 ?country .
-
-       SERVICE wikibase:label {
-        bd:serviceParam wikibase:language 'en,fr' .
-      } .
-
-}
-GROUP BY  ?countryLabel
-ORDER BY DESC(?nb)
-limit 100
-"
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.Pie"
-data-sgvizler-chart-options="pieSliceText=label"
-&gt;&lt;/div&gt;</pre></div>
-            </div>
-            <div class="tab-pane" id="scriptTab_6" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded"><pre lang="html" id="consoleScript_6">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-   //Draw a chart
-   //sgvizler2.containerDraw('result');
-   //or
-   //$("#result").containerchart();
-
-   //Draw all Chart
-   sgvizler2.containerDrawAll();
-&lt;/script&gt;</pre></div>
-            </div>
-        </div>
 
         <!--SCRIPT-->
         <script>
-            sgvizler2.containerDrawAll();
+            sgvizler2.showTabHtmlAndScript("result");
+            sgvizler2.showTabHtmlAndScript("result_2");
+            sgvizler2.showTabHtmlAndScript("result_3");
+            sgvizler2.showTabHtmlAndScript("result_4");
+            sgvizler2.showTabHtmlAndScript("result_5");
+            sgvizler2.showTabHtmlAndScript("result_6");
+
+            $(function() {
+                sgvizler2.containerDrawAll();
+            });
         </script>
     </div>
 </div>

@@ -25,6 +25,7 @@ LIMIT 10</textarea>
             <div class="col-10">
                 <input class="form-control" type="input" id="options">
             </div>
+            <button id="loadOption" type="button" class="btn btn-primary">Load options</button>
         </div>
         <div class="form-group row">
             <label for="options" class="col-2 col-form-label">Format</label>
@@ -58,6 +59,17 @@ LIMIT 10</textarea>
                 </select>
             </div>
         </div>
+
+        <div class="form-group row">
+            <label for="lang" class="col-2 col-form-label">Language</label>
+            <div class="col-10">
+                <select class="custom-select" id="lang">
+                    <option value="en" selected>English</option>
+                    <option value="fr">French</option>
+                </select>
+            </div>
+        </div>
+
         <div style="height: 50px;">
             <div class="float-right" >
                 <select class="selectpicker selectchart" id="chart"></select>
@@ -93,17 +105,6 @@ LIMIT 10</textarea>
     </div>
 </div>
 <script  type="text/javascript">
-    function htmlDecode(value) {
-        return $("<textarea/>").html(value).text();
-    }
-
-    function htmlEncode(value) {
-        return $('<textarea/>').text(value).html();
-    }
-    // $(document).ready(function (event) {
-    //     alert('test');
-    // });
-
     $(this).on('load', function (event) {
 
         //Option 1
@@ -127,10 +128,6 @@ LIMIT 10</textarea>
 
         $('.selectpicker').selectpicker('refresh');
 
-        //  $("#console").text($("#chart").html().replace(/"( |>)/gi, "\"\n$1"));
-
-        // $("#console").text($("#example").html().replace(/"( |>)/gi, "\"\n$1"));
-
         $("#execQuery").click(function(event) {
             $("#result").html("")
             $("#console").html("")
@@ -144,57 +141,13 @@ LIMIT 10</textarea>
                 $('#logsLevel').val(),
                 $('#format').val(),
                 $('#method').val(),
-                $('#parameter').val()
+                $('#parameter').val(),
+                $('#lang').val()
             )
 
-            var html =  "<div id=\"result\" \n" +
-                "data-sgvizler-query=\"" + htmlEncode($('#query').val()) + "\" \n" +
-                "data-sgvizler-endpoint=\"" + $('#endpoint').val() + "\" \n" +
-                "data-sgvizler-chart=\"" + $('.selectpicker').selectpicker('val') + "\" \n" ;
+            sgvizler2.giveHTMLAndScript('result',"consoleHtml","consoleScript");
 
-            if($('#options').val() != ""){
-                html += "data-sgvizler-chart-options=\"" +  $('#options').val() + "\" \n";
-            }
-            if($('#logsLevel').val() != "0"){
-                html += "data-sgvizler-log=\"" +  $('#logsLevel').val() + "\" \n";
-            }
-            if($('#format').val() != ""){
-                html += "data-sgvizler-output-format=\"" +  $('#format').val() + "\" \n";
-            }
-            if($('#method').val() == "GET" || $('#method').val() == "POST" ){
-                html += "data-sgvizler-method=\"" +  $('#method').val() + "\" \n";
-            }
-            if($('#parameter').val() != "query" ){
-                html += "data-sgvizler-endpoint-query-parameter=\"" +  $('#parameter').val() + "\" \n";
-            }
-            html +=  "></div>";
-            $("#consoleHtml").text(
-                html
-            )
-
-            $("#consoleScript").text(
-                "<script src=\"../browser/sgvizler2.js\">\<\/script>\n" +
-                "<script>\n" +
-                "   //Draw a chart \n"+
-                "   //sgvizler2.containerDraw('result'); \n"+
-                "   //or \n"+
-                "   //$(\"#result\").containerchart(); \n"+
-                "    \n"+
-                "   //Draw all Chart \n"+
-                "   sgvizler2.containerDrawAll(); \n"+
-                "\<\/script>"
-            )
-
-            //$("#console").text($("#example").html())
-            //$("#console").text($("#example").text().replace(/"( |>)/gi, "\"\n$1"));
-
-            //Draw a chart
-            //sgvizler2.containerDraw('result');
-            //or
-            // $("#result").containerchart();
-
-            //Draw all Chart
-            sgvizler2.containerDrawAll({
+            var options = {
                 // Google Api key
                 // Todo put the link of tutorial to create a new key
                 googleApiKey : "AIzaSyBro_IlWgOb5o4C80IWZhq0YHhemlRta3Q",
@@ -205,7 +158,24 @@ LIMIT 10</textarea>
 
                 //path of lib
                 path: ""
-            });
+            };
+
+            //Draw a chart
+            sgvizler2.containerDraw('result',options)
+                .done(
+                    function() {
+                        console.log("Success!");
+                    }
+                ).fail(
+                    function() {
+                        console.log("There is a problem");
+                    }
+                );
+            //or
+            // $("#result").containerchart();
+
+            //Draw all Chart
+            //sgvizler2.containerDrawAll(options);
         });
         $("#seeDoc").click(function() {
             //Option 1 :
@@ -217,8 +187,10 @@ LIMIT 10</textarea>
             )
             window.open(url, '_blank');
         });
-
-
+        $("#loadOption").click(function() {
+            console.log(sgvizler2.getChartOptions('result'))
+            $('#options').val(sgvizler2.getChartOptions('result'));
+        });
     })
 
 </script>

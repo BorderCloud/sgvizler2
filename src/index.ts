@@ -54,35 +54,39 @@ function readOptions (options: any) {
  * Draws the sgvizler-containers with the given element id.
  * @param {string} elementID
  */
-export function containerDraw (elementID: string,options: any): void {
+export function containerDraw (elementID: string,options: any): S.Logger {
    // S.Container.loadDependenciesId(elementID)
     readOptions(options)
-    S.Container.drawWithElementId(elementID)
+    S.Container.drawWithElementId(elementID);
+    return S.Logger
 }
 
 /**
  * Todo.
  */
-export function containerDrawAll (options?: any) {
+export function containerDrawAll (options?: any) : S.Logger {
    // S.Container.loadAllDependencies()
     readOptions(options)
     S.Container.drawAll()
+    return S.Logger
 }
 
 /**
  * Todo.
  */
-export function selectDraw (elementID: string) {
+export function selectDraw (elementID: string) : S.Logger {
     // S.Select.loadDependencies()
     S.Select.drawWithElementId(elementID)
+    return S.Logger
 }
 
 /**
  * Todo.
  */
-export function selectDrawAll () {
+export function selectDrawAll () : S.Logger {
    // S.Select.loadDependencies()
     S.Select.drawAll()
+    return S.Logger
 }
 
 /**
@@ -93,6 +97,108 @@ export function selectDrawAll () {
  */
 export function getChartDoc (className: string,pathDoc?: string) {
     return S.Select.getChartDoc(className,pathDoc)
+}
+
+/**
+ * Todo.
+ * @param {string} className
+ * @param {string} pathDoc
+ * @returns {string}
+ */
+export function getChartOptions(elementID: string): S.Logger {
+    let optionsChart = ""
+    S.Container.list.forEach(
+        (container) => {
+            if(container.id === elementID) {
+                optionsChart = container.chart.newOptionsRaw
+            }
+        }
+    )
+    return optionsChart
+}
+
+export function encodeHtml (str: string):string  {
+    return S.Tools.encodeHtml(str)
+}
+export function decodeHtml (str: string):string  {
+    return S.Tools.decodeHtml(str)
+}
+
+export function giveHTMLAndScript(idDivOfSgvizler: string,idHtmlOfSgvizler: string,idScriptOfSgvizler: string, options?: any){
+    let div = document.getElementById(idDivOfSgvizler);
+    let htmlDiv = document.getElementById(idHtmlOfSgvizler);
+    let scriptDiv = document.getElementById(idScriptOfSgvizler);
+
+    if(div){
+        if(htmlDiv){
+            htmlDiv.textContent = new XMLSerializer().serializeToString(div)
+                .replace(/&#10;/g,"\n")
+                .replace(/xmlns="http:\/\/www.w3.org\/1999\/xhtml"/g,"")
+                .replace(/ data-/gm,"\ndata-");
+        }
+        if(scriptDiv){
+            let script = "<script src=\"../browser/sgvizler2.js\"><\/script>\n" +
+                "<script>\n" ;
+            if (options) {
+                script += "var options = {\n" +
+                    "             googleApiKey : \"YOUR_GOOGLE_MAP_API_KEY\",\n" +
+                    "             //OpenStreetMap Access Token\n" +
+                    "             // https://www.mapbox.com/\n" +
+                    "             osmAccessToken:  \"YOUR_OSM_ACCESS_TOKEN\"\n" +
+                    "};\n";
+
+                script += "//Draw a chart\n" +
+                    "//sgvizler2.containerDraw('result',options);\n" +
+                    "//or\n" +
+                    "//$(\"#result\").containerchart(options);\n" +
+                    "\n" +
+                    "//Draw all Chart\n" +
+                    "sgvizler2.containerDrawAll(options);\n";
+            }else{
+                script +=
+                    "//Draw a chart\n" +
+                    "//sgvizler2.containerDraw('"+idDivOfSgvizler+"');\n" +
+                    "//or\n" +
+                    "//$(\"#"+idDivOfSgvizler+"\").containerchart();\n"+
+                    "\n" +
+                    "//Draw all Chart\n" +
+                    "sgvizler2.containerDrawAll();\n" ;
+            }
+
+            script +="<\/script>"
+            scriptDiv.textContent = script;
+        }
+    }
+}
+
+export function showTabHtmlAndScript(idDivOfSgvizler: string, options?: any){
+    $("#"+idDivOfSgvizler).before(
+        '<ul class="nav nav-tabs" role="tablist" idDivOfSgvizler="'+idDivOfSgvizler+'tab">\n' +
+        '    <li class="nav-item">\n' +
+        '         <a class="nav-link active" data-toggle="tab" href="#'+idDivOfSgvizler+'Tab" role="tab" aria-expanded="true">Result</a>\n' +
+        '         </li>\n' +
+        '         <li class="nav-item">\n' +
+        '         <a class="nav-link" data-toggle="tab" href="#'+idDivOfSgvizler+'htmlTab" role="tab" aria-expanded="false">HTML</a>\n' +
+        '         </li>\n' +
+        '         <li class="nav-item">\n' +
+        '         <a class="nav-link" data-toggle="tab" href="#'+idDivOfSgvizler+'scriptTab" role="tab" aria-expanded="false">Javascript</a>\n' +
+        '         </li>\n' +
+        '</ul>\n' +
+        '<div class="tab-content">\n' +
+        '         <div class="tab-pane active" id="'+idDivOfSgvizler+'Tab" role="tabpanel" aria-expanded="true">' +
+        '              <div id="'+idDivOfSgvizler+'example" style="padding: 25px;"></div>' +
+        '         </div>\n' +
+        '         <div class="tab-pane" id="'+idDivOfSgvizler+'htmlTab" role="tabpanel" aria-expanded="false">\n' +
+        '            <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="'+idDivOfSgvizler+'Html"></pre></div>\n' +
+        '         </div>\n' +
+        '         <div class="tab-pane" id="'+idDivOfSgvizler+'scriptTab" role="tabpanel" aria-expanded="false">\n' +
+        '            <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="'+idDivOfSgvizler+'Script"></pre></div>\n' +
+        '         </div>\n' +
+        '</div>');
+
+    var element = $("#"+idDivOfSgvizler).detach();
+    $('#'+idDivOfSgvizler+'example').append(element);
+    giveHTMLAndScript(idDivOfSgvizler,idDivOfSgvizler+"Html",idDivOfSgvizler+"Script",options);
 }
 
 /**
@@ -114,7 +220,8 @@ export function create (
     loglevel?: string,
     output?: string,
     method?: string,
-    parameter?: string
+    parameter?: string,
+    lang?: string
 ) {
     return S.Container.create(
         elementID,
@@ -125,7 +232,8 @@ export function create (
         loglevel,
         output,
         method,
-        parameter
+        parameter,
+        lang
     )
 }
 

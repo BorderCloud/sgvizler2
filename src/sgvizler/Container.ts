@@ -5,7 +5,8 @@ import {
     Logger,
     MESSAGES,
     SparqlTools,
-    SparqlResultInterface
+    SparqlResultInterface,
+    LoadingIcon, Dependency, ScriptDependency
 } from '../sgvizler'
 
 declare let $: any
@@ -57,6 +58,9 @@ export enum CONTAINER_STATE {
  */
 export class Container {
 
+    public static list:Array<Container> = []
+
+    private static readonly LANG: string = 'lang'
     private static readonly PREFIX: string = 'data-sgvizler-'
     private static readonly QUERY_ATTRIBUTE_NAME: string = Container.PREFIX + 'query'
     private static readonly ENDPOINT_ATTRIBUTE_NAME: string = Container.PREFIX + 'endpoint'
@@ -67,6 +71,7 @@ export class Container {
     private static readonly CHART_OPTION_ATTRIBUTE_NAME: string = Container.PREFIX + 'chart-options'
     private static readonly LOG_LEVEL_ATTRIBUTE_NAME: string = Container.PREFIX + 'log'
 
+    private _lang: string = 'en'
     private _chart: Chart
     private _chartOptions: string = ''
     private _chartName: string = ''
@@ -94,6 +99,10 @@ export class Container {
         let elmAttrs = element.attributes
 
         // read basic parameters
+        if (elmAttrs[self.LANG as any]) {
+            this._lang = elmAttrs[self.LANG as any].value
+        }
+
         if (elmAttrs[self.LOG_LEVEL_ATTRIBUTE_NAME as any]) {
             this._loglevel = parseInt(elmAttrs[self.LOG_LEVEL_ATTRIBUTE_NAME as any].value,10)
         }
@@ -202,6 +211,27 @@ export class Container {
 
             this._chart = chart
         }
+        this.saveRefOfContainer();
+    }
+
+    /**
+     * Save the reference of container
+     */
+    private saveRefOfContainer () {
+        let index = -1
+        let len = Container.list.length
+        for(let i = 0; i < len; i++){
+            let dep = Container.list[i]
+            if (this.id === Container.list[i].id) {
+                //this._dependenciesToLoad.splice(i)
+                index = i
+            }
+        }
+        if(index != -1){
+            Container.list[index] = this
+        }else{
+            Container.list.push(this)
+        }
     }
 
     /**
@@ -214,6 +244,7 @@ export class Container {
     public static async drawWithElementId (elementID: string, options?: any) {
         let container = new Container(elementID)
         // console.log(container)
+        LoadingIcon.displayLoadingIcon(container)
         Logger.log(container,'drawing id: ' + elementID)
         await container.draw()
     }
@@ -287,7 +318,8 @@ export class Container {
         loglevel?: string,
         output?: string,
         method?: string,
-        parameter?: string
+        parameter?: string,
+        lang?: string
     ) {
         let element = document.getElementById(elementID)
         if (element === null) {
@@ -333,6 +365,11 @@ export class Container {
             attrQueryAttribut.value = parameter
             element.setAttributeNode(attrQueryAttribut)
         }
+        if (lang) {
+            let attrQueryAttribut = document.createAttribute(self.LANG)
+            attrQueryAttribut.value = lang
+            element.setAttributeNode(attrQueryAttribut)
+        }
 
         return element.innerHTML
     }
@@ -343,6 +380,14 @@ export class Container {
      */
     get id (): string {
         return this._id
+    }
+
+    /**
+     *
+     * @returns {string}
+     */
+    get lang (): string {
+        return this._lang
     }
 
     /**

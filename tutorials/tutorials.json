@@ -5,6 +5,9 @@
   "bordercloud_visualization_DataTable": {
     "title": "bordercloud.visualization.DataTable"
   },
+  "bordercloud_visualization_PivotTable": {
+    "title": "bordercloud.visualization.PivotTable"
+  },
 
   "d3_visualization_AreaChart": {
     "title": "d3.visualization.AreaChart (in construction)"
@@ -19,10 +22,10 @@
     "title": "d3.visualization.ColumnChart (in construction)"
   },
   "d3_visualization_Line": {
-    "title": "d3.visualization.Line"
+    "title": "d3.visualization.Line (in construction)"
   },
   "d3_visualization_Pie": {
-    "title": "d3.visualization.Pie"
+    "title": "d3.visualization.Pie (in construction)"
   },
   "d3_visualization_ScatterChart": {
     "title": "d3.visualization.ScatterChart (in construction)"

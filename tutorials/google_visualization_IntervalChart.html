@@ -90,20 +90,7 @@
         <h4>
             Exemple
         </h4>
-        <ul class="nav nav-tabs" role="tablist" id="tab_1">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#htmlTab" role="tab" aria-expanded="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#scriptTab" role="tab" aria-expanded="false">Javascript</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="result"
+        <div id="result"
                      data-sgvizler-query="
 SELECT ?x ?values ?i0 ?i1 ?i2 ?i3 ?i4 ?i5
 WHERE
@@ -125,48 +112,14 @@ WHERE
  data-sgvizler-chart-options="height=500|title=Line intervals, default|curveType=function|lineWidth=4|intervals.style=line|legend=none"
  data-sgvizler-log="2"
                 ></div>
-            </div>
-            <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
-data-sgvizler-query="
-SELECT ?x ?values ?i0 ?i1 ?i2 ?i3 ?i4 ?i5
-WHERE
-{
-  values (?x ?values ?i0 ?i1 ?i2 ?i3 ?i4 ?i5) {
-(1 100 90 110 85 96 104 120)
-(2 120 95 130 90 113 124 140)
-(3 130 105 140 100 117 133 139)
-(4 90 85 95 85 88 92 95)
-(5 70 74 63 67 69 70 72)
-(6 30 39 22 21 28 34 40)
-(7 80 77 83 70 77 85 90)
-(8 100 90 110 85 95 102 110)
-}
-}
-"
- data-sgvizler-endpoint="https://query.wikidata.org/sparql"
- data-sgvizler-chart="google.visualization.IntervalChart"
- data-sgvizler-chart-options="height=500|title=Line intervals, default|curveType=function|lineWidth=4|intervals.style=line|legend=none"
-data-sgvizler-log="2"
-                &gt;&lt;/div&gt;</pre></div>
-            </div>
-            <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-   //Draw a chart
-   //sgvizler2.containerDraw('result');
-   //or
-   //$("#result").containerchart();
-
-   //Draw all Chart
-   sgvizler2.containerDrawAll();
-&lt;/script&gt;</pre></div>
-            </div>
-        </div>
 
         <!--SCRIPT-->
         <script>
-            sgvizler2.containerDrawAll();
+            sgvizler2.showTabHtmlAndScript("result");
+
+            $(function() {
+                sgvizler2.containerDrawAll();
+            });
         </script>
     </div>
 </div>

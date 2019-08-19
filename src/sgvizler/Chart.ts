@@ -22,7 +22,8 @@ export enum CHART_PATTERN_OPTIONS {
     VARIABLE,
     STYLE,
     CLASS,
-    WIKI
+    WIKI,
+    OBJECT
 }
 
 /**
@@ -235,6 +236,13 @@ export abstract class Chart {
     }
 
     /**
+     * To read new options for interactive chart
+     */
+    public get newOptionsRaw (): string {
+        return this.optionsRaw;
+    }
+
+    /**
      * Todo
      * @memberof sgvizler.Chart
      * @returns {string}
@@ -338,6 +346,7 @@ export abstract class Chart {
                 function (valeur) {
                     currentThis._isDone = true
                     Logger.log(currentThis.container,'Chart finished : ' + currentThis._container.id)
+                    Logger.fireDoneEvent(currentThis._container)
                 }
                 , function (error) {
                     console.log(error)
@@ -382,12 +391,18 @@ export abstract class Chart {
         let patternStyle = /([^:]+):([^:;]+) *;?/iy // tslint:disable-line
         let patternClass = /([^ |;]+) ?/iy // tslint:disable-line
         let patternWiki =  /\!? *([^=]*) *= *([^=!]*)/iy // tslint:disable-line
+        let patternObject =  /([^:{]+):([^:,}]+) *,?/iy // tslint:disable-line // for PivotTable
 
         let raw = this._optionsRaw
         if (raw === '') {
             this._patternOptions = CHART_PATTERN_OPTIONS.EMPTY
         } else {
             this._patternOptions = CHART_PATTERN_OPTIONS.UNKNOWN
+        }
+
+        if (this._optionsRaw.indexOf('{') === 0 && this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN) {
+            //this.execPattern(patternObject,CHART_PATTERN_OPTIONS.OBJECT) // todo ?
+            this._patternOptions = CHART_PATTERN_OPTIONS.OBJECT
         }
 
         if (this._optionsRaw.indexOf('|') === -1 && this.patternOptions === CHART_PATTERN_OPTIONS.UNKNOWN) {

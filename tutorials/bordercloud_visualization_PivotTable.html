@@ -1,0 +1,102 @@
+<style>
+    h3, h4 {
+       margin-top: 25px !important;
+    }
+</style>
+<div class="container" >
+    <h3 id="DefinitionList"><a id="sec-4-1-20" name="sec-4-1-20"></a>Definition</h3>
+    <div class="outline-text-4" id="text-DefinitionList">
+
+
+        <!--div class="figure">
+            <p><img src="./image/sDefList.png" alt="sDefList.png">
+            </p>
+            <p><span class="figure-number">Figure 16:</span> Definition list</p>
+        </div-->
+
+        <p>
+            This table uses <a href="https://datatables.net/">DataTables.net</a>. You can adapt each column with the
+            option colstyle. You can customize the style of column or print directly images and videos.
+        </p>
+
+        <h4>
+            Chart options
+        </h4>
+        <p>
+            You can change all the options directly and you can hide all buttons via the switch at the top right.
+        </p>
+    <h3>
+        Examples
+    </h3>
+
+        <h4>
+            Example 1 : PivotTable without UI by default
+        </h4>
+        <p></p>
+        <div id="result" data-sgvizler-query="
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+select   ?countryLabel ?asteroid
+where {
+        ?asteroid wdt:P31 wd:Q3863 ;
+                  wdt:P61 ?discoverer .
+     ?discoverer wdt:P27 ?country .
+
+       SERVICE wikibase:label {
+        bd:serviceParam wikibase:language &quot;en&quot; .
+       } .
+}
+"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="bordercloud.visualization.PivotTable"
+data-sgvizler-chart-options="{&quot;rowOrder&quot;:&quot;key_a_to_z&quot;,&quot;rows&quot;:[&quot;countryLabel&quot;],&quot;cols&quot;:[],&quot;aggregatorName&quot;:&quot;Count&quot;,&quot;vals&quot;:[],&quot;rendererName&quot;:&quot;Multiple Pie Chart&quot;,&quot;showUI&quot;:false}"
+data-sgvizler-output-format="width:100%; height:auto;"
+data-sgvizler-log="2"
+                ></div>
+
+        <h4>
+            Example 2 : PivotTable with UI by default
+        </h4>
+        <p>In this example, the showUI option is true.</p>
+        <div id="result2" data-sgvizler-query="
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+select   ?countryLabel ?asteroid
+where {
+        ?asteroid wdt:P31 wd:Q3863 ;
+                  wdt:P61 ?discoverer .
+     ?discoverer wdt:P27 ?country .
+
+       SERVICE wikibase:label {
+        bd:serviceParam wikibase:language &quot;en&quot; .
+       } .
+}
+"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="bordercloud.visualization.PivotTable"
+data-sgvizler-chart-options="{&quot;rowOrder&quot;:&quot;key_a_to_z&quot;,&quot;rows&quot;:[&quot;countryLabel&quot;],&quot;cols&quot;:[],&quot;aggregatorName&quot;:&quot;Count&quot;,&quot;vals&quot;:[],&quot;rendererName&quot;:&quot;Multiple Pie Chart&quot;,&quot;showUI&quot;:true}"
+data-sgvizler-output-format="width:100%; height:auto;"
+data-sgvizler-log="2"
+                ></div>
+
+        <!--SCRIPT-->
+        <script>
+
+            sgvizler2.showTabHtmlAndScript("result");
+            sgvizler2.showTabHtmlAndScript("result2");
+
+            $(function() {
+                sgvizler2.containerDrawAll();
+            });
+        </script>
+    </div>
+</div>
+
+
+

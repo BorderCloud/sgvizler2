@@ -179,20 +179,7 @@
         <h4>
         List of countries ordered by the number of their cities with female mayor
     </h4>
-        <ul class="nav nav-tabs" role="tablist" id="tab_1">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#htmlTab" role="tab" aria-expanded="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#scriptTab" role="tab" aria-expanded="false">Javascript</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+        <div id="result" data-sgvizler-endpoint="https://query.wikidata.org/sparql"
                     data-sgvizler-query="PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
                     PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
                     PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
@@ -218,65 +205,14 @@
                         data-sgvizler-loglevel='2'
                         style='width:100%; height:400px;'></div>
 
-                </div>
-            </div>
-            <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="sgvzl_example_Html">
-                    &lt;div id="result"
-                        data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-                        data-sgvizler-query="PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
-                        PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
-                        PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
-                        PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
-                        PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
-                        PREFIX q: &lt;http://www.wikidata.org/prop/qualifier/&gt;
-                        PREFIX v: &lt;http://www.wikidata.org/prop/statement/&gt;
-
-                    SELECT ?countryLabel (count(*) as ?count) WHERE {
-                        ?city wdt:P31/wdt:P279* wd:Q515 .
-                        ?city p:P6 ?statement .
-                        ?statement v:P6 ?mayor .
-                        ?mayor wdt:P21 wd:Q6581072 .
-                        FILTER NOT EXISTS { ?statement q:P582 ?x }
-                        ?city wdt:P17 ?country  .
-                        SERVICE wikibase:label {
-                        bd:serviceParam wikibase:language &quot;en&quot; .
-                        }
-                        } GROUP BY ?country ?countryLabel ORDER BY DESC(?count) LIMIT 100"
-                        data-sgvizler-chart='google.visualization.GeoChart'
-                        data-sgvizler-chart-options=''
-                        data-sgvizler-endpoint_output_format='json'
-                        data-sgvizler-loglevel='2'
-                        style='width:100%; height:400px;'
-                    &lt;/div&gt;</pre>
-                </div>
-            </div>
-            <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">
-                    &lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
-                    &lt;script&gt;
-   //Draw a chart
-   //sgvizler2.containerDraw('result',{
-   //             googleApiKey : "YOUR_GOOGLE_MAP_API_KEY"
-   //         });
-   //or
-   //$("#result").containerchart({
-   //             googleApiKey : "YOUR_GOOGLE_MAP_API_KEY"
-   //         });
-
-   //Draw all Chart
-   sgvizler2.containerDrawAll({
-                googleApiKey : "YOUR_GOOGLE_MAP_API_KEY"
-   });
-                    &lt;/script&gt;</pre>
-                </div>
-            </div>
-        </div>
-
         <script>
-            //Draw all Chart
-            sgvizler2.containerDrawAll({
+            var options = {
                 googleApiKey : "AIzaSyBro_IlWgOb5o4C80IWZhq0YHhemlRta3Q"
+            };
+            sgvizler2.showTabHtmlAndScript("result",options);
+
+            $(function() {
+                sgvizler2.containerDrawAll(options);
             });
         </script>
     </div>

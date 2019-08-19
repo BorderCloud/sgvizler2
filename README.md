@@ -41,6 +41,22 @@ Add visualisations directly into your webpages like this:
 Generate your chart with [our SPARQL editor](https://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html) and to
 read their docs.
 
+
+It is possible to execute a function when the graph is finished or failed.
+```javascript
+sgvizler2.containerDraw('result',options)
+    .done(
+        function() {
+            console.log("Success!");
+        }
+    )
+    .fail(
+        function() {
+            console.log("There is a problem");
+        }
+    );
+```
+
 ## Download directly Sgvizler2
 
 [Download the last version](https://github.com/BorderCloud/sgvizler2/releases)

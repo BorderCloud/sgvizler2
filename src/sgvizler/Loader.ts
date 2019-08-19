@@ -58,21 +58,24 @@ export class Loader {
     }
 
     private static checkDependenciesToLoad () {
+        //filter doublons
+        Loader._dependenciesToLoad = Loader._dependenciesToLoad.filter((v, i, a) => a.indexOf(v) === i);
         let len = Loader._dependenciesToLoad.length
-        for (let i = 0; i < len ; i++) {
+        for(let i = 0; i < len; i++){
             let dep = Loader._dependenciesToLoad[i]
             if (dep === undefined || Loader.isLoaded(dep)) {
-                this._dependenciesToLoad.splice(i)
-            } else {
-                if (dep instanceof ScriptDependency) {
-                    Loader.loadScript(dep)
-                } else if (dep instanceof ScriptDependency) {
-                    Loader.loadCss(dep)
-                }
+                //this._dependenciesToLoad.splice(i)
+                delete this._dependenciesToLoad[i];
             }
         }
+        Loader._dependenciesToLoad.forEach((dep:Dependency) => {
+            if (dep instanceof ScriptDependency) {
+                Loader.loadScript(dep)
+            } else if (dep instanceof ScriptDependency) {
+                Loader.loadCss(dep)
+            }
+        });
     }
-
     private static getAbsoluteURL (url: string) {
         if (url.match(/^(\/\/|https?)/)) {
             return url
@@ -81,11 +84,11 @@ export class Loader {
         }
     }
 
-    private static loadScript (dep: CssDependency): Promise<any> {
+    private static loadScript (dep: ScriptDependency): Promise<any> {
         let url = dep.url
         return new Promise(function (resolve, reject) {
             if (dep.loadBefore && ! dep.loadBefore.endDownload) {
-                // Logger.logSimple('Waiting : ' + dep.loadBefore.url + ' before ' + dep.url)
+                //Logger.logSimple('Waiting : ' + dep.loadBefore.url + ' before ' + dep.url)
                 Loader._dependenciesToLoad.push(dep)
                 Loader.load(dep.loadBefore)
                 return resolve()
@@ -110,9 +113,9 @@ export class Loader {
             script.onload = function () {
                 Loader._loaded.push(url) // in first
                 dep.callBack()
-                Loader.checkDependenciesToLoad()
                 // remember included script
                 Loader.fireEvent('loaded')
+                Loader.checkDependenciesToLoad()
                 }
 
             // Fire the loading
@@ -125,12 +128,13 @@ export class Loader {
         return new Promise(function (resolve, reject) {
             if (dep.loadBefore && ! dep.loadBefore.endDownload) {
                 Loader._dependenciesToLoad.push(dep)
-                return Loader.load(dep.loadBefore)
+                Loader.load(dep.loadBefore)
+                return resolve()
             }
 
             // include script only once
             if (Loader.isLoad(dep)) {
-                return // false;
+                return resolve() // false;
             } else {
                 Loader._load.push(url)
             }
@@ -147,9 +151,9 @@ export class Loader {
                 Loader._loaded.push(url)
                 Logger.logSimple('Loaded : ' + url)
                 dep.callBack()
-                Loader.checkDependenciesToLoad()
                 // remember included script
                 Loader.fireEvent('loaded')
+                Loader.checkDependenciesToLoad()
             }
 
             // Fire the loading

@@ -102,20 +102,7 @@
             With title and legend
         </h4>
         <p>Options : title= Population | hAxis.title= Year | titleTextStyle.color= red | vAxis.minValue= 0</p>
-        <ul class="nav nav-tabs" role="tablist" id="tab_1">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#htmlTab" role="tab" aria-expanded="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#scriptTab" role="tab" aria-expanded="false">Javascript</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="example" style="padding: 25px;"><div id="result" data-sgvizler-query="
+        <div id="result" data-sgvizler-query="
                     PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
                     PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
                     prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
@@ -131,47 +118,16 @@ data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="google.visualization.AreaChart"
 data-sgvizler-chart-options='title=Population|hAxis.title=Year|titleTextStyle.color=#333|vAxis.minValue=0'
 data-sgvizler-endpoint_output_format='json'
- data-sgvizler-loglevel='2'></div></div>
-            </div>
-            <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
-data-sgvizler-query="
-    PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
-    PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
-    prefix pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
-    prefix ps: &lt;http://www.wikidata.org/prop/statement/&gt;
-    select (YEAR(?date) as ?year) ?population
-    where {
-           wd:Q61816 p:P1082 ?statement .
-            ?statement ps:P1082 ?population ;
-                        pq:P585 ?date .
-          }
-    ORDER BY ?year"
-data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-data-sgvizler-chart="google.visualization.AreaChart"
-data-sgvizler-chart-options='title=Population|hAxis.title:Year|titleTextStyle.color=#333|vAxis.minValue=0'
-&gt;&lt;/div&gt;
-</pre></div>
-            </div>
-            <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-   //Draw a chart
-   //sgvizler2.containerDraw('result');
-   //or
-   //$("#result").containerchart();
-
-   //Draw all Chart
-   sgvizler2.containerDrawAll();
-&lt;/script&gt;</pre></div>
-            </div>
-        </div>
+ data-sgvizler-loglevel='2'></div>
 
 
 
         <!--SCRIPT-->
         <script>
-            sgvizler2.containerDrawAll();
+            sgvizler2.showTabHtmlAndScript("result");
+            $(function() {
+                sgvizler2.containerDrawAll();
+            });
         </script>
     </div>
 </div>

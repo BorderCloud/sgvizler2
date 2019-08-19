@@ -99,20 +99,7 @@
             ScatterChart
         </h4>
         <p>With options : title=Age vs Weight comparison|hAxis.title=Age|hAxis.minValue=0|hAxis.maxValue=15|vAxis.title=Weight|vAxis.minValue= 0|vAxis.maxValue=15|legend=none </p>
-        <ul class="nav nav-tabs" role="tablist" id="tab_1">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#resultTab" role="tab" aria-expanded="true">Result</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#htmlTab" role="tab" aria-expanded="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#scriptTab" role="tab" aria-expanded="false">Javascript</a>
-            </li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane active" id="resultTab" role="tabpanel" aria-expanded="true">
-                <div id="example" style="padding: 25px;"><div id="result"
+        <div id="result"
                     data-sgvizler-query="
 select  DISTINCT ?Age ?Weight
 WHERE {
@@ -132,48 +119,13 @@ WHERE {
                      data-sgvizler-chart-options="title=Age vs Weight comparison|hAxis.title=Age|hAxis.minValue=0|hAxis.maxValue=15|vAxis.title=Weight|vAxis.minValue= 0|vAxis.maxValue=15|legend=none"
                      data-sgvizler-log="2"></div>
 
-                </div>
-            </div>
-            <div class="tab-pane" id="htmlTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleHtml">&lt;div id="result"
-data-sgvizler-query="
-select  DISTINCT ?Age ?Weight
-WHERE {
-values
-    (?Age ?Weight){
-    ( 8 12)
-    ( 4 5.5)
-    ( 11 14)
-    ( 4 5)
-    ( 3 3.5)
-    ( 6.5 7)
-    }
-
-}"
- data-sgvizler-endpoint="https://query.wikidata.org/sparql"
- data-sgvizler-chart="google.visualization.ScatterChart"
- data-sgvizler-chart-options="title=Age vs Weight comparison|hAxis.title=Age|hAxis.minValue=0|hAxis.maxValue=15|vAxis.title=Weight|vAxis.minValue= 0|vAxis.maxValue=15|legend=none"
-&gt;&lt;/div&gt;</pre></div>
-            </div>
-            <div class="tab-pane" id="scriptTab" role="tabpanel" aria-expanded="false">
-                <div class="bg-faded" style="padding: 25px;"><pre lang="html" id="consoleScript">&lt;script src="../browser/sgvizler2.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-   //Draw a chart
-   //sgvizler2.containerDraw('result');
-   //or
-   //$("#result").containerchart();
-
-   //Draw all Chart
-   sgvizler2.containerDrawAll();
-&lt;/script&gt;</pre></div>
-            </div>
-        </div>
-
         <!--SCRIPT-->
         <script>
-            //sgvizler2.containerDraw('result');
-            //sgvizler2.containerDraw('result_2');
-            sgvizler2.containerDrawAll();
+            sgvizler2.showTabHtmlAndScript("result");
+
+            $(function() {
+                sgvizler2.containerDrawAll();
+            });
         </script>
     </div>
 </div>
