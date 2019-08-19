@@ -4,12 +4,23 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [1.3.0](https://github.com/BorderCloud/sgvizler2/compare/v1.2.2...v1.3.0) (2019-08-19)
 
+### Features 
 
-### Features
+* add [PivotTable.js](https://github.com/nicolaskruchten/pivottable) with the lang french. We adapted the PivotTable renderers to support the options width and height.
+* add a callback when the chart is finished and failed 
+* add an icon loading
+* add a new option : language
+* DataTable : add the language fr and buttons with icons
+* there are new functions to generate a tab panel around a chart to show its HTML and its script.
 
-* add a callback when the chart is finished and failed ([0bb8dec](https://github.com/BorderCloud/sgvizler2/commit/0bb8dec))
+([0bb8dec](https://github.com/BorderCloud/sgvizler2/commit/0bb8dec))
 
+### Bug Fixes 
 
+* loader: the order of dependencies to download is fixed
+* docs: remove all redundant code in tutorial pages
+
+([0bb8dec](https://github.com/BorderCloud/sgvizler2/commit/0bb8dec))
 
 ### [1.2.2](https://github.com/BorderCloud/sgvizler2/compare/v1.2.1...v1.2.2) (2019-07-13)
 

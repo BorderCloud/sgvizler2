@@ -59,6 +59,7 @@ Command Development :
 yarn dev:httpd
 
 # Build all
+yarn clean
 yarn docs:all
 ```
 
@@ -85,6 +86,7 @@ The test suite is in the file : test/tests.side
 
 Commands :
 ```
+yarn clean
 yarn docs:all
 #yarn std-version-major
 yarn std-version-minor
