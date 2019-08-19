@@ -99,6 +99,18 @@
  </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<p>Generate your chart with <a href="https://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">our SPARQL editor</a> and to
 				read their docs.</p>
+				<p>It is possible to execute a function when the graph is finished or failed.</p>
+				<pre><code class="language-javascript">sgvizler2.containerDraw(<span class="hljs-string">'result'</span>,options)
+    .done(
+        <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Success!"</span>);
+        }
+    )
+    .fail(
+        <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"There is a problem"</span>);
+        }
+    );</code></pre>
 				<h2 id="download-directly-sgvizler2">Download directly Sgvizler2</h2>
 				<p><a href="https://github.com/BorderCloud/sgvizler2/releases">Download the last version</a></p>
 				<p>The path of Sgvizler2 will be :</p>
@@ -217,6 +229,9 @@ npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
 						<a href="classes/loader.html" class="tsd-kind-icon">Loader</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/loadingicon.html" class="tsd-kind-icon">Loading<wbr>Icon</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/logger.html" class="tsd-kind-icon">Logger</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -230,6 +245,9 @@ npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/pie.html" class="tsd-kind-icon">Pie</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/pivottable.html" class="tsd-kind-icon">Pivot<wbr>Table</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/request.html" class="tsd-kind-icon">Request</a>
@@ -313,7 +331,19 @@ npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
 						<a href="globals.html#create" class="tsd-kind-icon">create</a>
 					</li>
 					<li class=" tsd-kind-function">
+						<a href="globals.html#decodehtml" class="tsd-kind-icon">decode<wbr>Html</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#encodehtml" class="tsd-kind-icon">encode<wbr>Html</a>
+					</li>
+					<li class=" tsd-kind-function">
 						<a href="globals.html#getchartdoc" class="tsd-kind-icon">get<wbr>Chart<wbr>Doc</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#getchartoptions" class="tsd-kind-icon">get<wbr>Chart<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#givehtmlandscript" class="tsd-kind-icon">giveHTMLAnd<wbr>Script</a>
 					</li>
 					<li class=" tsd-kind-function tsd-is-not-exported">
 						<a href="globals.html#readoptions" class="tsd-kind-icon">read<wbr>Options</a>
@@ -323,6 +353,9 @@ npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#selectdrawall" class="tsd-kind-icon">select<wbr>Draw<wbr>All</a>
+					</li>
+					<li class=" tsd-kind-function">
+						<a href="globals.html#showtabhtmlandscript" class="tsd-kind-icon">show<wbr>Tab<wbr>Html<wbr>And<wbr>Script</a>
 					</li>
 				</ul>
 			</nav>
