@@ -181,4 +181,12 @@ export class Tools {
     private static isPlainObject (o: any) {
         return o !== undefined && o.constructor !== undefined && o.constructor.prototype === Object.prototype
     }
+
+    public static sizeConvertInteger(x:string): number|null {
+        var parsed = parseInt(x.replace("px",""), 10);
+        if (isNaN(parsed)) {
+            return null
+        }
+        return parsed
+    }
 }

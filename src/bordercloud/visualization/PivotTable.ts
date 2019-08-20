@@ -3,7 +3,8 @@ import {
     Chart,
     SparqlResultInterface,
     MESSAGES,
-    Logger
+    Logger,
+    Tools
 } from '../../sgvizler'
 
 declare let $: any
@@ -112,8 +113,8 @@ export class PivotTable extends Chart {
                         $.pivotUtilities.export_renderers
                     ),
                     rendererOptions: {
-                        width: PivotTable.pivotConvertInteger(currentChart.width),
-                        height:  PivotTable.pivotConvertInteger(currentChart.height)
+                        width: Tools.sizeConvertInteger(currentChart.width),
+                        height: Tools.sizeConvertInteger(currentChart.height)
                     }
                 }
                 let pivotUIOptions:any = null;
@@ -181,11 +182,4 @@ export class PivotTable extends Chart {
                 )
     }
 
-    private static pivotConvertInteger(x:string): number|null {
-        var parsed = parseInt(x.replace("px",""), 10);
-        if (isNaN(parsed)) {
-            return null
-        }
-        return parsed
-    }
 }

@@ -1,5 +1,7 @@
-import * as S from '../sgvizler'
-import {Dependency} from "../sgvizler";
+import {
+    Container,
+    Tools
+} from '../sgvizler'
 import Timeout = NodeJS.Timeout;
 
 /**
@@ -12,9 +14,9 @@ export class LoadingIcon {
 
     private _processusWaiting:Timeout
     private _rotation:number = 0
-    private _container:S.Container
+    private _container:Container
 
-    public constructor (container: S.Container) {
+    public constructor (container: Container) {
         this._container = container;
     }
 
@@ -26,8 +28,10 @@ export class LoadingIcon {
                 "style='position: relative;top: 50%;left: 50%;transform: translate(-50%, -50%);margin:100px auto;'></canvas>";
 
             let canvas = obj.getElementsByTagName( 'canvas' )[0];
-            canvas.setAttribute('width', "100");
-            canvas.setAttribute('height', "100");
+            let width = Tools.sizeConvertInteger(this._container.chart.width) ;
+            let height = Tools.sizeConvertInteger(this._container.chart.height) ;
+            canvas.setAttribute('width', (width) ? this._container.chart.width : "100");
+            canvas.setAttribute('height', (height) ? this._container.chart.height : "100");
             var image = new Image();
             image.onload = function() {
                 currentLoadingcon._processusWaiting = setInterval(function() {
