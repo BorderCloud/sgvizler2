@@ -79,6 +79,7 @@ export class Container {
     private _id: string = ''
     private _request: Request
     private _state: CONTAINER_STATE
+    private _loadingIcon:LoadingIcon
 
     /**
      * Collects values designated for sgvizler in the given.
@@ -244,7 +245,8 @@ export class Container {
     public static async drawWithElementId (elementID: string, options?: any) {
         let container = new Container(elementID)
         // console.log(container)
-        LoadingIcon.displayLoadingIcon(container)
+        container._loadingIcon = new LoadingIcon(container)
+        container.loadingIcon.show()
         Logger.log(container,'drawing id: ' + elementID)
         await container.draw()
     }
@@ -396,6 +398,15 @@ export class Container {
      */
     get chartName (): string {
         return this._chartName
+    }
+
+
+    /**
+     * Get the loading icon of container.
+     * @returns {string}
+     */
+    get loadingIcon (): LoadingIcon {
+        return this._loadingIcon
     }
 
     ///////////////////////////////////// OPTIONS

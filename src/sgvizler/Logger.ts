@@ -17,7 +17,7 @@ export class Logger {
         return this
     }
     public static fireDoneEvent (container: S.Container): void {
-        LoadingIcon.hideLoadingIcon(container);
+        container.loadingIcon.hide();
         if(this._doneCallEvent){
             this._doneCallEvent(container.id)
         }
@@ -28,7 +28,7 @@ export class Logger {
         return this
     }
     public static fireFailEvent (container: S.Container): void {
-        LoadingIcon.hideLoadingIcon(container);
+        container.loadingIcon.hide();
         if(this._failCallEvent) {
             this._failCallEvent(container.id)
         }
