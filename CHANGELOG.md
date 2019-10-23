@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.3.2](https://github.com/BorderCloud/sgvizler2/compare/v1.3.1...v1.3.2) (2019-10-23)
+
+
+### Bug Fixes
+
+* **loadingIcon:** Center the loading icon in the container ([6469540](https://github.com/BorderCloud/sgvizler2/commit/6469540))
+
+
+
 ### [1.3.1](https://github.com/BorderCloud/sgvizler2/compare/v1.3.0...v1.3.1) (2019-08-20)
 
 
