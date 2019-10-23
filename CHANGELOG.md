@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * **loadingIcon:** Center the loading icon in the container ([6469540](https://github.com/BorderCloud/sgvizler2/commit/6469540))
+* **mediawiki:** mediawiki cannot load bootstrap-select ([4200dbf](https://github.com/BorderCloud/sgvizler2/commit/4200dbf))
 
 
 
