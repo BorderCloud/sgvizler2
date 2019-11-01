@@ -298,10 +298,9 @@ jQuery.fn.extend(
             return $this.each(function (index: any,obj: any) {
                 if (index >= 0 && action === 'render') {
                     if (param && typeof param === 'object') {
-                        S.Container.drawWithElementId($(obj).attr('id') as string,param)
-                    } else {
-                        S.Container.drawWithElementId($(obj).attr('id') as string)
+                        readOptions(param)
                     }
+                    S.Container.drawWithElementId($(obj).attr('id') as string)
                 }
             })
         }

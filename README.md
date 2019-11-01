@@ -66,6 +66,23 @@ The path of Sgvizler2 will be :
 <script src="sgvizler2/sgvizler2.js"></script>
 ```
 
+Dependencies:
+```
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+```
+
+Other dependencies, if you use the select control:
+```
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+<link rel="stylesheet" href="sgvizler2//lib/bootstrap-select/css/bootstrap-select.min.css">
+<script src="sgvizler2/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+<script src="sgvizler2/lib/bootstrap-select/js/i18n/defaults-fr_FR.min.js"></script>
+<script src="sgvizler2/lib/bootstrap-select/js/i18n/defaults-en_US.min.js"></script>
+```
+
 ## Install the package via yarn or npm
 
 With yarn or npm

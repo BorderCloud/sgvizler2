@@ -11,7 +11,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **mediawiki:** mediawiki cannot load bootstrap-select ([4200dbf](https://github.com/BorderCloud/sgvizler2/commit/4200dbf))
 
 
-
 ### [1.3.1](https://github.com/BorderCloud/sgvizler2/compare/v1.3.0...v1.3.1) (2019-08-20)
 
 

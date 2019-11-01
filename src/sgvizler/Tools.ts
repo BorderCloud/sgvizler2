@@ -182,11 +182,16 @@ export class Tools {
         return o !== undefined && o.constructor !== undefined && o.constructor.prototype === Object.prototype
     }
 
-    public static sizeConvertInteger(x:string): number|null {
-        var parsed = parseInt(x.replace("px",""), 10);
-        if (isNaN(parsed)) {
+    public static sizeConvertInteger(x:any): number|null {
+        var val = x;
+        // Fix bug: TypeError: x.replace is not a function
+        if (typeof x !== 'number') {
+            val = parseInt(x.replace("px",""), 10);
+        }
+
+        if (isNaN(val)) {
             return null
         }
-        return parsed
+        return val
     }
 }
