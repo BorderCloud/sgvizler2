@@ -1084,6 +1084,17 @@ class Tools {
     static isPlainObject(o) {
         return o !== undefined && o.constructor !== undefined && o.constructor.prototype === Object.prototype;
     }
+    static sizeConvertInteger(x) {
+        var val = x;
+        // Fix bug: TypeError: x.replace is not a function
+        if (typeof x !== 'number') {
+            val = parseInt(x.replace("px", ""), 10);
+        }
+        if (isNaN(val)) {
+            return null;
+        }
+        return val;
+    }
 }
 
 /**
@@ -1926,8 +1937,10 @@ class LoadingIcon {
             obj.innerHTML = "<canvas class='imageWait' " +
                 "style='position: relative;top: 50%;left: 50%;transform: translate(-50%, -50%);margin:100px auto;'></canvas>";
             let canvas = obj.getElementsByTagName('canvas')[0];
-            canvas.setAttribute('width', "100");
-            canvas.setAttribute('height', "100");
+            let width = Tools.sizeConvertInteger(this._container.chart.width);
+            let height = Tools.sizeConvertInteger(this._container.chart.height);
+            canvas.setAttribute('width', (width) ? this._container.chart.width : "100");
+            canvas.setAttribute('height', (height) ? this._container.chart.height : "100");
             var image = new Image();
             image.onload = function () {
                 currentLoadingcon._processusWaiting = setInterval(function () {
@@ -2362,8 +2375,8 @@ class PivotTable extends Chart {
                 let defaultOptions = {
                     renderers: $.extend($.pivotUtilities.renderers, $.pivotUtilities.plotly_renderers, $.pivotUtilities.d3_renderers, $.pivotUtilities.c3_renderers, $.pivotUtilities.gchart_renderers, $.pivotUtilities.export_renderers),
                     rendererOptions: {
-                        width: PivotTable.pivotConvertInteger(currentChart.width),
-                        height: PivotTable.pivotConvertInteger(currentChart.height)
+                        width: Tools.sizeConvertInteger(currentChart.width),
+                        height: Tools.sizeConvertInteger(currentChart.height)
                     }
                 };
                 let pivotUIOptions = null;
@@ -2410,13 +2423,6 @@ class PivotTable extends Chart {
         let idChart = this.container.id + '-pivot';
         var config = $('#' + idChart).data("pivotUIOptions");
         return JSON.stringify(config, ['rowOrder', 'rows', 'cols', 'aggregatorName', 'vals', 'rendererName', 'showUI']);
-    }
-    static pivotConvertInteger(x) {
-        var parsed = parseInt(x.replace("px", ""), 10);
-        if (isNaN(parsed)) {
-            return null;
-        }
-        return parsed;
     }
 }
 PivotTable._isInit = false;
@@ -5828,11 +5834,9 @@ jQuery.fn.extend({
         return $this.each(function (index, obj) {
             if (index >= 0 && action === 'render') {
                 if (param && typeof param === 'object') {
-                    Container.drawWithElementId($(obj).attr('id'), param);
+                    readOptions(param);
                 }
-                else {
-                    Container.drawWithElementId($(obj).attr('id'));
-                }
+                Container.drawWithElementId($(obj).attr('id'));
             }
         });
     }
