@@ -1,7 +1,7 @@
 // rollup.config.js
-import commonjs from 'rollup-plugin-commonjs';
-import nodeResolve from 'rollup-plugin-node-resolve';
-import alias from 'rollup-plugin-alias';
+import commonjs from '@rollup/plugin-commonjs';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import alias from '@rollup/plugin-alias';
 
 const substituteModulePaths = {
     /*'window': 'build/module/adapters/window.js'
@@ -11,7 +11,6 @@ const substituteModulePaths = {
 
 export default {
     input: 'build/module/index.js',
-    sourcemap: true,
     plugins: [
         alias(substituteModulePaths),
         nodeResolve({
@@ -20,9 +19,11 @@ export default {
         commonjs()
     ],
     external: ['jquery'],
-    globals: {
-        $: 'jquery',
-        jquery: 'jQuery'
+    output: {
+        globals: {
+            $: 'jquery',
+            jquery: 'jQuery'
+        },
+        sourcemap: true
     }
-
 }

@@ -86,7 +86,7 @@
       "command": "waitForElementPresent",
       "target": "css=#result-datatable .sorting_disabled:nth-child(3)",
       "targets": [],
-      "value": ""
+      "value": "5000"
     }, {
       "id": "ce3962b4-f7b2-470e-9609-e9832977c6d7",
       "comment": "",
@@ -105,7 +105,7 @@
       "command": "waitForElementPresent",
       "target": "css=#result_2-datatable .sorting_disabled:nth-child(1)",
       "targets": [],
-      "value": ""
+      "value": "5000"
     }, {
       "id": "431778e9-a6ce-4419-98b2-2136616de361",
       "comment": "",

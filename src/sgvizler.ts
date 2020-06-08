@@ -8,7 +8,7 @@ export const visualization = visualizationNS
 
 export * from './sgvizler/Loader'
 export * from './sgvizler/Dependency'
-export * from './sgvizler/SparqlResultInterface.d'
+export * from './sgvizler/SparqlResultInterface'
 export * from './sgvizler/SparqlError'
 export * from './sgvizler/Select'
 export * from './sgvizler/Messages'

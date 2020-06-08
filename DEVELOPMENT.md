@@ -7,6 +7,12 @@ Please. Read this document before to participate.
 You can fork the project and debug or add a new chart in this project. At the end, you can send a pull request to merge
 your code in this project.
 
+## Update libs
+
+ ```
+yarn upgrade-interactive --latest
+ ```
+
 ## Create a new chart
 
 The class Table is a example of "chart".
@@ -87,7 +93,7 @@ The test suite is in the file : test/tests.side
 Commands :
 ```
 yarn clean
-yarn docs:all
+q
 #yarn std-version-major
 yarn std-version-minor
 # Avoid problems in yarn/npm publish

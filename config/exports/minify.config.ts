@@ -1,9 +1,8 @@
 // rollup.config.js
-import commonjs from 'rollup-plugin-commonjs';
-import nodeResolve from 'rollup-plugin-node-resolve';
-import alias from 'rollup-plugin-alias';
-import minify from 'rollup-plugin-minify-es';
-//import closure from 'rollup-plugin-closure-compiler-js';
+import commonjs from '@rollup/plugin-commonjs';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import alias from '@rollup/plugin-alias';
+import { terser } from "rollup-plugin-terser";
 
 const substituteModulePaths = {
     /*'crypto': 'build/module/adapters/crypto.browser.js',
@@ -12,18 +11,20 @@ const substituteModulePaths = {
 
 export default {
     input: 'build/module/index.js',
-    sourcemap: true,
     plugins: [
         alias(substituteModulePaths),
         nodeResolve({
             browser: true
         }),
-        commonjs(),
-        minify()
+        commonjs()
     ],
     external: ['jquery'],
-    globals: {
-        $: 'jquery',
-        jquery: 'jQuery'
+    output: {
+        globals: {
+            $: 'jquery',
+            jquery: 'jQuery'
+        },
+        sourcemap: true,
+        plugins: [terser()]
     }
 }
