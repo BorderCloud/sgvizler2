@@ -7,7 +7,7 @@ services:
   - docker
 
 before_install:
-  - sudo docker-compose -f ./test/selenium3/docker-compose.yaml up -d
+  - sudo docker-compose -f ./selenium/selenium3/docker-compose.yaml up -d
 install:
   - yarn install
   - sudo chown -R $USER:$USER .
@@ -15,5 +15,6 @@ install:
   - ls -al
   - yarn run docs:all
 script:
-  - selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=chrome" ./test/tests.side
-  - selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=firefox" ./test/tests.side
+  - selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=chrome" ./selenium/tests.side
+  - selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=firefox" ./selenium/tests.side
+  - selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=operablink" ./selenium/tests.side

@@ -43,7 +43,8 @@
 
     "lib" : [
       "es6",
-      "dom"
+      "dom",
+      "es2020.string"
     ],
     "types" : [
       "node"
@@ -54,6 +55,9 @@
     }
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["src/__test__/**","node_modules/**"],
-  "compileOnSave": false
+  "exclude": ["src/testy/**","node_modules/**"],
+  "compileOnSave": false,
+  "typeRoots": [
+    "node_modules/@types"
+  ]
 }

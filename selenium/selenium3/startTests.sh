@@ -12,6 +12,6 @@
 #Selenium hub
 
 cd ~/git/sgvizler2
-selenium-side-runner  --server http://localhost:4444/wd/hub -c 'browserName=chrome' ./test/tests.side
-selenium-side-runner  --server http://localhost:4444/wd/hub -c 'browserName=firefox' ./test/tests.side
+selenium-side-runner  --server http://localhost:4444/wd/hub -c 'browserName=chrome' ./selenium/tests.side
+selenium-side-runner  --server http://localhost:4444/wd/hub -c 'browserName=firefox' ./selenium/tests.side
 
