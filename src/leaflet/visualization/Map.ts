@@ -2,7 +2,13 @@ import {
     Chart,
     SparqlResultInterface,
     Core,
-    WktLiteral, PointWktLiteral, PolygonWktLiteral, LinestringWktLiteral, EnvelopeWktLiteral, ErrorWktLiteral
+    WktLiteral,
+    PointWktLiteral,
+    PolygonWktLiteral,
+    LinestringWktLiteral,
+    EnvelopeWktLiteral,
+    ErrorWktLiteral,
+    SparqlTools, SparqlError
 } from '../../sgvizler'
 
 import { API } from '../API'
@@ -95,6 +101,8 @@ export class Map extends Chart {
             let envelopeWktLiteral
             let polygonWktLiteral
             let polygonPointslatlngs
+            let mapUri
+            let geoJSON
 
             if (currentChart.height !== '') {
                 height = currentChart.height
@@ -155,9 +163,28 @@ export class Map extends Chart {
                     messageError = messageErrorParameters
                 } else {
                     for (let row of rows) {
+                        //check geoJSON
+                        if(row[cols[0]].type === "uri"){
+                            mapUri = row[cols[0]].value
+                            let xhr = new XMLHttpRequest()
+                            //mapUri = "http://commons.wikimedia.org/data/main/Data:Paris.map"
+                            //mapUri = "https://gist.githubusercontent.com/wavded/1200773/raw/e122cf709898c09758aecfef349964a8d73a83f3/sample.json"
+                            xhr.open('GET',mapUri,false)
+                            xhr.send(null);
+
+                            if (xhr.status === 200) {
+                                // @ts-ignore
+                                geoJSON = L.geoJSON(JSON.parse(xhr.response))
+                                geoJSON.addTo(map);
+                                groupArray.push(geoJSON)
+                            }
+                            continue
+                        }
+
+                        //check  wktLiteral
                         wktLiteralType = row[cols[0]].datatype
-                        wktLiteralStr = row[cols[0]].value
                         if (wktLiteralType == "http://www.opengis.net/ont/geosparql#wktLiteral") {
+                            wktLiteralStr = row[cols[0]].value
                             try{
                                 wktLiteral = WktLiteral.create(wktLiteralStr)
                                 if (wktLiteral instanceof PointWktLiteral) {

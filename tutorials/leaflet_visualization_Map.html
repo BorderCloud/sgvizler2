@@ -175,6 +175,48 @@
         </table>
         </div>
 
+
+        <div class="mt-3">
+            <h5>
+                GeoJson
+            </h5>
+            <p>
+                Each row in the table represents a geolocation with a wktLiteral or a GeoJson URI.
+            </p>
+
+            <table  class="table-bordered" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+                <thead>
+                <tr>
+                    <td class="text-center font-weight-bold">0<br/>GeoJson (IRI)</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        &lt;http://commons.wikimedia.org/data/main/Data:Paris.map&gt;
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <b>Details</b>
+            <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+                <thead>
+                <tr>
+                    <th scope="col" class="left">Column</th>
+                    <th scope="col" class="left">Type</th>
+                    <th scope="col" class="left">Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="left">0</td>
+                    <td class="left">GeoJson</td>
+                    <td class="left">URI of data (<a href="https://www.wikidata.org/wiki/Wikidata:Map_data">Wikidata doc</a>)</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
         <h4>
             Chart options
         </h4>
@@ -463,11 +505,44 @@ where {
 
         </div>
 
+        <h4>
+            Example 6 : GeoJson
+        </h4>
+        <div id="result_6"
+             style='width:100%; height:500px;'
+             data-sgvizler-query="
+SELECT  ?geo
+WHERE {
+       VALUES ?geo { <https://gist.githubusercontent.com/wavded/1200773/raw/e122cf709898c09758aecfef349964a8d73a83f3/sample.json> }
+}
+"
+             data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+             data-sgvizler-chart="leaflet.visualization.Map"
+             data-sgvizler-chart-options="height=500px"
+             data-sgvizler-log="2">
+        </div>
+
+        <h4>
+            Example 7 : GeoJson with Wikidata
+        </h4>
+        <div id="result_7"
+             style='width:100%; height:500px;'
+             data-sgvizler-query="
+SELECT  ?geo
+WHERE {
+       wd:Q90 wdt:P3896 ?geo
+}
+"
+             data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+             data-sgvizler-chart="leaflet.visualization.Map"
+             data-sgvizler-chart-options="height=500px"
+             data-sgvizler-log="2">
+        </div>
 
         <h4>
             Test : wktLiteral shapes
         </h4>
-        <div id="result_6"
+        <div id="result_60"
              style='width:100%; height:500px;'
              data-sgvizler-query="select distinct  ?coord ?siteLabel ?siteDescription ?site ?newimage
 where {
@@ -490,7 +565,7 @@ where {
         <h4>
             Test: Leaflet popups
         </h4>
-        <div id="result_7"
+        <div id="result_70"
              style='width:100%; height:500px;'
              data-sgvizler-query="
 select distinct  ?coord ?siteLabel ?siteDescription ?site ?newimage
@@ -567,7 +642,8 @@ where {
 }"
              data-sgvizler-endpoint="https://query.wikidata.org/sparql"
              data-sgvizler-chart="leaflet.visualization.Map"
-             data-sgvizler-chart-options="" data-sgvizler-log="2">
+             data-sgvizler-chart-options=""
+             data-sgvizler-log="2">
 
         </div>
 </div>
