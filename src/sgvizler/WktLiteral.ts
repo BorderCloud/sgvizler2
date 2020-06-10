@@ -1,5 +1,5 @@
-
 // Doc: 11-052r4_OGC_GeoSPARQL_-_A_Geographic_Query_Language_for_RDF_Data.pdf
+
 export abstract class WktLiteral {
 // Doc: 11-052r4_OGC_GeoSPARQL_-_A_Geographic_Query_Language_for_RDF_Data.pdf
 
@@ -10,45 +10,66 @@ export abstract class WktLiteral {
     }
 
     static create(raw: string): any {
-        // Point(LONG LAT): A single point as described above (Note the lack of a comma)
-        const regexPoint = /^(?:\s*<([^>]+)>\s+)?Point\(([^\s]+) +([^\s]+)\)$/i;
-        const resultPoint = raw.match(regexPoint);
-        if(resultPoint != null){
-            return new PointWktLiteral(parseFloat(resultPoint[2]),parseFloat(resultPoint[3]),resultPoint[1]);
-        }
-
-        // Linestring(LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN): A line connecting the specified points (Commas between each point)
-        const regexLinestring = /^(?:\s*<([^>]+)>\s+)?Linestring\((.+)\)$/i;
-        const regexLonLatList = /([^\s,]+?)\s+([^\s,]+)/g;
-        const resultLinestring = raw.match(regexLinestring);
-        if(resultLinestring != null){
-            let resultLinestringList = resultLinestring[2].matchAll(regexLonLatList);
-            const line = new LinestringWktLiteral(resultLinestring[1]);
-            for (const match of resultLinestringList) {
-                line.push(new PointWktLiteral(parseFloat(match[1]),parseFloat(match[2]),resultLinestring[1]))
+        try{
+            // Point(LONG LAT): A single point as described above (Note the lack of a comma)
+            const regexPoint = /^(?:\s*<([^>]+)>\s+)?Point\(([^\s]+) +([^\s]+)\)$/i;
+            const resultPoint = raw.match(regexPoint);
+            if(resultPoint != null){
+                    return new PointWktLiteral(resultPoint[2],resultPoint[3],resultPoint[1]);
             }
-            return line;
-        }
 
-        // Envelope(minLong, maxLong, maxLat, minLat): A rectangle with the specified corners (Note the commas between each and especially note the somewhat odd ordering of (min, max, max, min)).
-        const regexEnvelope = /^(?:\s*<([^>]+)>\s+)?Envelope\(\s*([^\s,]+)\s*,\s*([^\s]+)\s*,\s*([^\s]+)\s*,\s*([^\s]+)\s*\)$/i;
-        const resultEnvelope = raw.match(regexEnvelope);
-        if(resultEnvelope != null){
-            return new EnvelopeWktLiteral(parseFloat(resultEnvelope[2]),parseFloat(resultEnvelope[3]),parseFloat(resultEnvelope[4]),parseFloat(resultEnvelope[5]),resultEnvelope[1]);
-        }
-
-        // Polygon(LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN, LONG1 LAT1): A filled-in shape with the specified points (Note that a polygon must start and end with the same point, i.e., be closed)
-        const regexPolygon = /^(?:\s*<([^>]+)>\s+)?Polygon\((.+)\)$/i;
-        const resultPolygon = raw.match(regexPolygon);
-        if(resultPolygon != null){
-            let resultPolygonList = resultPolygon[2].matchAll(regexLonLatList);
-            const polygon = new PolygonWktLiteral(resultPolygon[1]);
-            for (const match of resultPolygonList) {
-                polygon.push(new PointWktLiteral(parseFloat(match[1]),parseFloat(match[2]),resultPolygon[1]))
+            // Linestring(LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN): A line connecting the specified points (Commas between each point)
+            const regexLinestring = /^(?:\s*<([^>]+)>\s+)?Linestring\((.+)\)$/i;
+            const regexLonLatList = /([^\s,]+?)\s+([^\s,]+)/g;
+            const resultLinestring = raw.match(regexLinestring);
+            if(resultLinestring != null){
+                let resultLinestringList = resultLinestring[2].matchAll(regexLonLatList);
+                const line = new LinestringWktLiteral(resultLinestring[1]);
+                for (const match of resultLinestringList) {
+                    line.push(new PointWktLiteral(match[1],match[2],resultLinestring[1]))
+                }
+                return line;
             }
-            return polygon;
+
+            // Envelope(minLong, maxLong, maxLat, minLat): A rectangle with the specified corners (Note the commas between each and especially note the somewhat odd ordering of (min, max, max, min)).
+            const regexEnvelope = /^(?:\s*<([^>]+)>\s+)?Envelope\(\s*([^\s,]+)\s*,\s*([^\s]+)\s*,\s*([^\s]+)\s*,\s*([^\s]+)\s*\)$/i;
+            const resultEnvelope = raw.match(regexEnvelope);
+            if(resultEnvelope != null){
+                return new EnvelopeWktLiteral(resultEnvelope[2],resultEnvelope[3],resultEnvelope[4],resultEnvelope[5],resultEnvelope[1]);
+            }
+
+            // Polygon(LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN, LONG1 LAT1): A filled-in shape with the specified points (Note that a polygon must start and end with the same point, i.e., be closed)
+            const regexPolygon = /^(?:\s*<([^>]+)>\s+)?Polygon\(\((.+)\)\)$/i;
+            const resultPolygon = raw.match(regexPolygon);
+            if(resultPolygon != null){
+                let resultPolygonList = resultPolygon[2].matchAll(regexLonLatList);
+                const polygon = new PolygonWktLiteral(resultPolygon[1]);
+                for (const match of resultPolygonList) {
+                    polygon.push(new PointWktLiteral(match[1],match[2],resultPolygon[1]))
+                }
+                return polygon;
+            }
+        }catch (e) {
+            if (e instanceof ErrorWktLiteral) {
+                throw new ErrorWktLiteral("Parsing error. " + e.message + ": " + raw)
+            } else {
+                throw e
+            }
         }
-        return null;
+        throw new ErrorWktLiteral("Parsing error. Unknown syntax: " + raw)
+    }
+
+    static getNumber(value: any,parameterName:string): any {
+        if (typeof value === 'number'){
+            return value;
+        }else{
+            const valueNumber = parseFloat(value)
+            if(! isNaN(valueNumber)){
+                return valueNumber;
+            } else {
+                throw new ErrorWktLiteral(parameterName + " is not a number");
+            }
+        }
     }
 }
 
@@ -56,10 +77,10 @@ export class PointWktLiteral extends WktLiteral {
     lat:number;
     long:number;
 
-    constructor(long:number, lat:number,spatialReferenceSystem?:string) {
+    constructor(long:any, lat:any,spatialReferenceSystem?:string) {
         super(spatialReferenceSystem);
-        this.lat = lat;
-        this.long = long;
+        this.long = WktLiteral.getNumber(long,"Point:longitude");
+        this.lat = WktLiteral.getNumber(lat,"Point:latitude");
     }
 
     public equals(obj: any) : boolean {
@@ -85,12 +106,13 @@ export class EnvelopeWktLiteral extends WktLiteral {
     maxLat:number;
     minLat:number;
 
-    constructor(minLong:number, maxLong:number, maxLat:number, minLat:number, spatialReferenceSystem?:string) {
+    constructor(minLong:any, maxLong:any, maxLat:any, minLat:any, spatialReferenceSystem?:string) {
         super(spatialReferenceSystem);
-        this.minLong = minLong;
-        this.maxLong = maxLong;
-        this.maxLat = maxLat;
-        this.minLat = minLat;
+
+        this.minLong = WktLiteral.getNumber(minLong,"Envelope:minLong");
+        this.maxLong = WktLiteral.getNumber(maxLong,"Envelope:maxLong");
+        this.maxLat = WktLiteral.getNumber(maxLat,"Envelope:maxLat");
+        this.minLat = WktLiteral.getNumber(minLat,"Envelope:minLat");
     }
 }
 
@@ -100,3 +122,5 @@ export class PolygonWktLiteral extends WktLiteral {
         this.points.push(pointWktLiteral);
     }
 }
+
+export class ErrorWktLiteral extends Error {}

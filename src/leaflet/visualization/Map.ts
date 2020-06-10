@@ -2,7 +2,7 @@ import {
     Chart,
     SparqlResultInterface,
     Core,
-    WktLiteral, PointWktLiteral, PolygonWktLiteral, LinestringWktLiteral, EnvelopeWktLiteral
+    WktLiteral, PointWktLiteral, PolygonWktLiteral, LinestringWktLiteral, EnvelopeWktLiteral, ErrorWktLiteral
 } from '../../sgvizler'
 
 import { API } from '../API'
@@ -75,7 +75,7 @@ export class Map extends Chart {
             let height = '180px'
             let idChart = currentChart.container.id + '-leaflet'
             let element = document.getElementById(currentChart.container.id)
-            let markerArray: Array<any> = [] // create new markers array
+            let groupArray: Array<any> = [] // create new markers array
             let group
             let markers
             let marker
@@ -84,6 +84,17 @@ export class Map extends Chart {
             let wktLiteralStr
             let wktLiteralType
             let wktLiteral
+            let tileAttributionFinal
+            let polylinelatlngs
+            let polyline
+            let rectangleBounds
+            let rectangle
+            let polygon
+            let pointWktLiteral
+            let linestringWktLiteral
+            let envelopeWktLiteral
+            let polygonWktLiteral
+            let polygonPointslatlngs
 
             if (currentChart.height !== '') {
                 height = currentChart.height
@@ -92,10 +103,12 @@ export class Map extends Chart {
             let opt = Object.assign({
                 width: currentChart.width,
                 height: height,
-                showTooltip: true,
-                showInfoWindow: true,
+                // showTooltip: true,
+                // showInfoWindow: true,
                 tileLayerTemplate: 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
-                tileLayerAttribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
+                tileLayerAttributionHTML: '© <a href="https://www.mapbox.com/about/maps/" target=\'_blank\'>Mapbox</a> © <a href="http://www.openstreetmap.org/copyright" target=\'_blank\'>OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
+                tileLayerAttribution: null,
+                tileLayerAttributionLink: null,
                 tileLayerId: 'mapbox/streets-v11',
                 tileLayerAccessToken: API.osmAccessToken,
                 tileLayerTileSize: 512,
@@ -107,8 +120,17 @@ export class Map extends Chart {
             if (element) {
                 element.innerHTML = "<div id='" + idChart + "' style='width: " + opt.width + '; height: ' + opt.height + ";'></div>"
 
+                if(opt.tileLayerAttribution != null){
+                    if(opt.tileLayerAttributionLink != null){
+                        tileAttributionFinal = "<a href=\""+opt.tileLayerAttributionLink+"\" target='_blank'>"+opt.tileLayerAttribution+"</a>"
+                    }else{
+                        tileAttributionFinal = opt.tileLayerAttribution
+                    }
+                }else{
+                    tileAttributionFinal = opt.tileLayerAttributionHTML;
+                }
                 let tileLayer = new L.tileLayer(opt.tileLayerTemplate, {
-                    attribution: opt.tileLayerAttribution,
+                    attribution: tileAttributionFinal,
                     tileSize: opt.tileLayerTileSize,
                     zoomOffset: opt.tileLayerZoomOffset,
                     maxZoom: 18,
@@ -135,33 +157,74 @@ export class Map extends Chart {
                     for (let row of rows) {
                         wktLiteralType = row[cols[0]].datatype
                         wktLiteralStr = row[cols[0]].value
-                        lat = parseFloat(row[cols[0]].value)
-                        long = parseFloat(row[cols[1]].value)
                         if (wktLiteralType == "http://www.opengis.net/ont/geosparql#wktLiteral") {
-                            wktLiteral = WktLiteral.create(wktLiteralStr);
-                            if (wktLiteral instanceof PointWktLiteral) {
-                                lat = wktLiteral.lat;
-                                long = wktLiteral.long;
+                            try{
+                                wktLiteral = WktLiteral.create(wktLiteralStr)
+                                if (wktLiteral instanceof PointWktLiteral) {
+                                    pointWktLiteral = <PointWktLiteral> wktLiteral
+                                    lat = wktLiteral.lat;
+                                    long = wktLiteral.long;
 
+                                    marker = L.marker([lat, long])
+
+                                    marker = Map.readOtherParametersWithPoint(row, cols.slice(1), marker)
+                                    markers.addLayer(marker)
+                                    groupArray.push(marker)
+                                } else if (wktLiteral instanceof LinestringWktLiteral) {
+                                    linestringWktLiteral = <LinestringWktLiteral> wktLiteral
+
+                                    polylinelatlngs = [];
+                                    for (let point of linestringWktLiteral.points) {
+                                        polylinelatlngs.push([point.lat,point.long])
+                                    }
+
+                                    polyline = L.polyline(polylinelatlngs, {color: 'red'})
+                                    polyline = Map.readOtherParametersWithPoint(row, cols.slice(1), polyline)
+                                    polyline.addTo(map)
+                                    groupArray.push(polyline)
+                                } else if (wktLiteral instanceof EnvelopeWktLiteral) {
+                                    envelopeWktLiteral = <EnvelopeWktLiteral> wktLiteral
+
+                                    rectangleBounds = [[envelopeWktLiteral.minLat,envelopeWktLiteral.minLong], [envelopeWktLiteral.maxLat,envelopeWktLiteral.maxLong]];
+
+                                    rectangle = L.rectangle(rectangleBounds, {color: "#ff7800", weight: 1})
+                                    rectangle = Map.readOtherParametersWithPoint(row, cols.slice(1), rectangle)
+                                    rectangle.addTo(map)
+                                    groupArray.push(rectangle)
+                                } else if (wktLiteral instanceof PolygonWktLiteral) {
+                                    polygonWktLiteral = <PolygonWktLiteral> wktLiteral
+                                    polygonPointslatlngs = [];
+
+                                    for (let point of polygonWktLiteral.points) {
+                                        polygonPointslatlngs.push([point.lat,point.long])
+                                    }
+                                    polygon = L.polygon(polygonPointslatlngs, {color: 'green', weight: 1})
+
+                                    polygon = Map.readOtherParametersWithPoint(row, cols.slice(1), polygon)
+                                    polygon.addTo(map)
+                                    groupArray.push(polygon)
+                                }
+                            }catch (e) {
+                                if (e instanceof ErrorWktLiteral) {
+                                    messageError = e.message
+                                    // console.log("ERROR SGVIZLER2: wktLiteral: "+  e.message)
+                                    // continue //not fail
+                                } else {
+                                    throw e
+                                }
+                            }
+                        } else {
+                            lat = parseFloat(row[cols[0]].value)
+                            long = parseFloat(row[cols[1]].value)
+                            if (!isNaN(lat) && !isNaN(long)) {
                                 marker = L.marker([lat, long])
-                                marker = Map.readOtherParametersWithPoint(row, cols.slice(1), marker);
+                                marker = Map.readOtherParametersWithPoint(row, cols.slice(2), marker);
 
                                 markers.addLayer(marker)
-                                markerArray.push(marker)
-                            } else if (wktLiteral instanceof LinestringWktLiteral) {
-                            } else if (wktLiteral instanceof EnvelopeWktLiteral) {
-                            } else if (wktLiteral instanceof PolygonWktLiteral) {
+                                groupArray.push(marker)
                             } else {
-                                messageError = 'This shape of wktLiteral is unknown. You can create an issue in the project Sgvizler2.';
+                                messageError = messageErrorParameters
                             }
-                        } else if (!isNaN(lat) && !isNaN(long)) {
-                            marker = L.marker([lat, long])
-                            marker = Map.readOtherParametersWithPoint(row, cols.slice(2), marker);
-
-                            markers.addLayer(marker)
-                            markerArray.push(marker)
-                        } else {
-                            messageError = messageErrorParameters
                         }
                     }
                 }
@@ -173,7 +236,7 @@ export class Map extends Chart {
                 if (noRows > 0) {
                     map.addLayer(markers)
                     // zoom on the markers
-                    group = L.featureGroup(markerArray)
+                    group = L.featureGroup(groupArray)
                     map.fitBounds(group.getBounds())
                 } else {
                     map.fitWorld({ reset: true }).zoomIn()
@@ -185,33 +248,115 @@ export class Map extends Chart {
     }
 
     private static readOtherParametersWithPoint(row: any, cols: any, marker: any) {
-        const noCols = cols.length;
-        if (noCols == 4) {
-            // latitude longitude title text link
-            let title = row[cols[0]] !== undefined ? row[cols[0]].value : ''
-            let text = row[cols[1]] !== undefined ? "<p style='margin: 0px'>" + row[cols[1]].value + '</p>' : ''
-            let link = row[cols[2]] !== undefined ? "<a style='font-size: large;font-style: normal;' href='" + row[cols[2]].value + "' target='_blank'>" + title + '</a>' : title
-            let img = row[cols[3]] !== undefined ? "<img src='" + row[cols[3]].value + "' style='margin-left:5px;margin-bottom:5px;width:150px;float:right;'/>" : ''
-            if (row[cols[3]] === undefined || row[cols[3]].value.length === 0) {
-                marker.bindPopup('<div style="display: flow-root;min-width: 150px;min-height:150px;">' + link + '<div>' + img + '</div></div>')
-            } else {
-                marker.bindPopup('<div style="display: flow-root;min-height:150px;">' + link + '<div>' + img + text + '</div></div>')
+        const title = row[cols[0]] !== undefined ? row[cols[0]].value : undefined
+        const text = row[cols[1]] !== undefined ?  row[cols[1]].value : undefined
+        const link = row[cols[2]] !== undefined ? row[cols[2]].value : undefined
+        const img = row[cols[3]] !== undefined ? row[cols[3]].value : undefined
+
+        if (
+            title === undefined
+            && text === undefined
+            && link === undefined
+            && img === undefined
+        ){
+            return marker
+        }
+
+        if ( img !== undefined ){
+            if (
+                title !== undefined
+                && text !== undefined
+                && link !== undefined
+            ) {
+                marker.bindPopup(
+                    '<div style="display: flow-root;min-height:150px;">' +
+                    "<a style='font-size: large;font-style: normal;' href='" + link + "' target='_blank'>" + title + '</a>' +
+                    '<div style="display: table-cell;vertical-align: top">' +
+                    "<p style='margin: 0px'>" + text + '</p>' +
+                    '</div>'+
+                    '<div style="display: table-cell;">' +
+                    "<a href='" + link + "' target='_blank'><img src='" + img + "' style='margin-left:5px;margin-bottom:5px;width:150px;float:right;'/></a>" +
+                    '</div>'+
+                    '</div>'
+                )
+            } else if (
+                title !== undefined
+                && text !== undefined
+            ) {
+                marker.bindPopup(
+                    '<div style="display: flow-root;min-height:150px;min-height:150px;">' +
+                    "<span style='font-size: large;font-style: normal;'>" + title + '</span>' +
+                    '<div style="display: table-cell;vertical-align: top">' +
+                    "<p style='margin: 0px'>" + text + '</p>' +
+                    '</div>'+
+                    '<div style="display: table-cell;">' +
+                    "<a href='" + img + "' target='_blank'><img src='" + img + "' style='margin-left:5px;margin-bottom:5px;width:150px;float:right;'/></a>" +
+                    '</div>'+
+                    '</div>'
+                )
+            } else if (
+                title !== undefined
+                && link !== undefined
+            ) {
+                marker.bindPopup(
+                    '<div style="display: flow-root;min-height:150px;min-height:150px;">' +
+                    "<a style='font-size: large;font-style: normal;' href='" + link + "' target='_blank'>" + title + '</a>' +
+                    '<div style="display: table-cell;">' +
+                    "<a href='" + link + "' target='_blank'><img src='" + img + "' style='margin-left:5px;margin-bottom:5px;width:150px;float:right;'/></a>" +
+                    '</div>'+
+                    '</div>'
+                )
+            }else if (
+                title !== undefined
+            ) {
+                marker.bindPopup(
+                    '<div style="display: flow-root;min-height:150px;min-height:150px;">' +
+                    "<span style='font-size: large;font-style: normal;'>" + title + '</span>' +
+                    '<div style="display: table-cell;">' +
+                    "<a href='" + img + "' target='_blank'><img src='" + img + "' style='margin-left:5px;margin-bottom:5px;width:150px;float:right;'/></a>" +
+                    '</div>'+
+                    '</div>'
+                )
+            }else  {
+                marker.bindPopup(
+                    '<div style="display: table-cell;">' +
+                    "<a href='" + img + "' target='_blank'><img src='" + img + "' style='margin-left:5px;margin-bottom:5px;width:150px;float:right;'/></a>" +
+                    '</div>'
+                )
             }
-        } else if (noCols === 3) {
-            // latitude longitude title introduction link
-            let title = row[cols[0]] !== undefined ? row[cols[0]].value : ''
-            let text = row[cols[1]] !== undefined ? row[cols[1]].value : ''
-            let link = row[cols[2]] !== undefined ? "<a href='" + row[cols[2]].value + "'>" + title + '</a>' : title
-            marker.bindPopup('<b>' + link + '</b><br/>' + text)
-        } else if (noCols === 2) {
-            // latitude longitude title introduction
-            let title = row[cols[0]] !== undefined ? row[cols[0]].value : ''
-            let text = row[cols[1]] !== undefined ? row[cols[1]].value : ''
-            marker.bindPopup('<b>' + title + '</b><br/>' + text)
-        } else if (noCols === 1) {
-            // latitude longitude title
-            let title = row[cols[0]] !== undefined ? row[cols[0]].value : ''
-            marker.bindPopup('<b>' + title + '</br>')
+        }else{
+            if (
+                title !== undefined
+                && text !== undefined
+                && link !== undefined
+            ) {
+                marker.bindPopup(
+                    "<a style='font-size: large;font-style: normal;' href='" + link + "' target='_blank'>" + title + '</a>' +
+                    "<p style='margin: 0px'>" + text + '</p>'
+                )
+            } else if (
+                title !== undefined
+                && text !== undefined
+            ) {
+                marker.bindPopup(
+                    "<span style='font-size: large;font-style: normal;'>" + title + '</span>' +
+                    "<p style='margin: 0px'>" + text + '</p>'
+                )
+            } else if (
+                title !== undefined
+                && link !== undefined
+            ) {
+                marker.bindPopup(
+                    "<a style='font-size: large;font-style: normal;' href='" + link + "' target='_blank'>" + title + '</a>'
+                )
+
+            }else if (
+                title !== undefined
+            ) {
+                marker.bindPopup(
+                    "<span style='font-size: large;font-style: normal;'>" + title + '</span>'
+                )
+            }
         }
         return marker;
     }

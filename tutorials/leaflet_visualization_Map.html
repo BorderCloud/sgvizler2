@@ -19,11 +19,45 @@
         </p>
 
         <h4>
-            Data format
+            Data formats
         </h4>
+        <div>
+        <h5>
+            Geolocation with two numbers : a latitude and a longitude
+        </h5>
         <p>
-            Each row in the table represents a set of data points with the same x-axis location. <a href="https://developers.google.com/chart/interactive/docs/gallery/linechart#data-format">see details</a>
+            Each row in the table represents a geolocation on the earth (by default, see options).
         </p>
+
+        <table  class="table table-bordered" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <td class="text-center font-weight-bold">0<br/>Number<br/>Latitude</td>
+
+                <td class="text-center font-weight-bold">1<br/>Number<br/>Longitude</td>
+
+                <td class="text-center">2<br/>string (Optional)<br/>Title</td>
+
+                <td class="text-center">3<br/>string (Optional)<br/>Description</td>
+
+                <td class="text-center">4<br/>url (Optional)<br/>Link</td>
+
+                <td class="text-center">5<br/>url (Optional)<br/>Image</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>49.1461</td>
+                <td>0.23</td>
+                <td>jardin archéologique de l'hôpital de Lisieux</td>
+                <td>jardin à Lisieux (Calvados)</td>
+                <td>http://www...</td>
+                <td>http://....JPG?width=200</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <b>Details</b>
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
             <thead>
             <tr>
@@ -55,28 +89,97 @@
             </tr>
             <tr>
                 <td class="left">4</td>
-                <td class="left">string (Optional)</td>
-                <td class="left"></td>
-            </tr>
-            <tr>
-                <td class="left">5</td>
                 <td class="left">url (Optional)</td>
                 <td class="left">Link of title</td>
             </tr>
             <tr>
-                <td class="left">6</td>
+                <td class="left">5</td>
                 <td class="left">url (Optional)</td>
                 <td class="left">Image in the popup</td>
             </tr>
             </tbody>
         </table>
+        </div>
+
+        <div class="mt-3">
+        <h5>
+            Geolocation with a wktLiteral
+        </h5>
+        <p>
+            Each row in the table represents a geolocation with a shape (point, line, enveloppe, polygone).
+        </p>
+
+        <table  class="table table-bordered" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <td class="text-center font-weight-bold">0<br/>wktLiteral</td>
+
+                <td class="text-center">1<br/>string (Optional)<br/>Title</td>
+
+                <td class="text-center">2<br/>string (Optional)<br/>Description</td>
+
+                <td class="text-center">3<br/>url (Optional)<br/>Link</td>
+
+                <td class="text-center">4<br/>url (Optional)<br/>Image</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    Point(0.23 49.1461)
+                </td>
+                <td>jardin archéologique de l'hôpital de Lisieux</td>
+                <td>jardin à Lisieux (Calvados)</td>
+                <td>http://www....</td>
+                <td>http://....JPG?width=200</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <b>Details</b>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Column</th>
+                <th scope="col" class="left">Type</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left">0</td>
+                <td class="left">wktLiteral</td>
+                <td class="left">Point(LONG LAT) or Linestring(LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN) or Envelope(minLong, maxLong, maxLat, minLat) or Polygon(LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN, LONG1 LAT1) </td>
+            </tr>
+            <tr>
+                <td class="left">1</td>
+                <td class="left">string (Optional)</td>
+                <td class="left">Title of popup or simple label or HTML</td>
+            </tr>
+            <tr>
+                <td class="left">2</td>
+                <td class="left">string (Optional)</td>
+                <td class="left">Description in the popup</td>
+            </tr>
+            <tr>
+                <td class="left">3</td>
+                <td class="left">url (Optional)</td>
+                <td class="left">Link of title</td>
+            </tr>
+            <tr>
+                <td class="left">4</td>
+                <td class="left">url (Optional)</td>
+                <td class="left">Image in the popup</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
 
         <h4>
             Chart options
         </h4>
         <p>Each option is separated by a '|'  or '!' (for Mediawiki).</p>
         <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
-
 
             <colgroup>
                 <col class="left">
@@ -87,31 +190,88 @@
             </colgroup>
             <thead>
             <tr>
-                <th scope="col" class="left">Name</th>
+                <th scope="col" class="left" style="width: 240px;">Name</th>
                 <th scope="col" class="left">Default</th>
                 <th scope="col" class="left">Description</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-                <td class="left"><code>width</code></td>
-                <td class="left">100%</td>
-                <td class="left">Chart width</td>
+                <td class="left align-text-top"><code>width</code></td>
+                <td class="left align-text-top">100%</td>
+                <td class="left align-text-top">Chart width</td>
             </tr>
             <tr>
-                <td class="left"><code>height</code></td>
-                <td class="left"></td>
-                <td class="left">Chart height</td>
+                <td class="left align-text-top"><code>height</code></td>
+                <td class="left align-text-top"></td>
+                <td class="left align-text-top">Chart height</td>
             </tr>
+            <tr>
+                <td class="left align-text-top"><code>tileLayerTemplate</code></td>
+                <td class="left align-text-top">Earth of OSM</td>
+                <td class="left align-text-top">Used to load and display <a href="https://wiki.openstreetmap.org/wiki/Tiles#Servers" target="_blank">tile layers</a> on the map.<br/>
+                    By default, it's the Earth of OSM : <code>https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}</code><br/>
+                    You can replace it by the <a href="https://www.openplanetary.org/opm/basemaps">Moon, Mars or another map</a> (see examples).
+                </td>
+            </tr>
+            <tr>
+                <td class="left align-text-top"><code>tileLayerAttribution</code></td>
+                <td class="left align-text-top">MapBox & OSM</td>
+                <td class="left align-text-top">The attribution control allows you to display attribution data in a small text box on a map.</td>
+            </tr>
+            <tr>
+                <td class="left align-text-top"><code>tileLayerAttributionLink</code></td>
+                <td class="left align-text-top">MapBox & OSM</td>
+                <td class="left align-text-top">Link on tileLayerAttribution</td>
+            </tr>
+            <tr>
+                <td class="left align-text-top"><code>tileLayerId</code></td>
+                <td class="left align-text-top">mapbox/streets-v11</td>
+                <td class="left align-text-top">You can switch between the MapBox tiles with this parameter.
+                    The following Mapbox styles are available to all accounts using a valid access token:
+                    <ul>
+                        <li>mapbox/streets-v11</li>
+                        <li>mapbox/outdoors-v11</li>
+                        <li>mapbox/light-v10</li>
+                        <li>mapbox/dark-v10</li>
+                        <li>mapbox/satellite-v9</li>
+                        <li>mapbox/satellite-streets-v11</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="left align-text-top"><code>tileLayerAccessToken</code></td>
+                <td class="left align-text-top">Token osmAccessToken</td>
+                <td class="left align-text-top">You can change the token for a specific chart</td>
+            </tr>
+            <tr>
+                <td class="left align-text-top"><code>tileLayerTileSize</code></td>
+                <td class="left align-text-top">512</td>
+                <td class="left align-text-top">Generally, the default value is 256 in Leaflet. You can change this value with this option.</td>
+            </tr>
+            <tr>
+                <td class="left align-text-top"><code>tileLayerZoomOffset</code></td>
+                <td class="left align-text-top">-1</td>
+                <td class="left align-text-top">Generally, the default value is 0 in Leaflet. You can change this value with this option.</td>
+            </tr>
+            <tr>
+                <td class="left align-text-top"><code>tileLayerTms</code></td>
+                <td class="left align-text-top">false</td>
+                <td class="left align-text-top">If true, inverses Y axis numbering for tiles (turn this on for TMS services).</td>
+            </tr>
+            <!--tr>
+                <td class="left align-text-top"><code>tileLayerZoom</code></td>
+                <td class="left align-text-top">13</td>
+                <td class="left align-text-top">Initial map zoom level. But this value is recalculate</td>
+            </tr-->
             </tbody>
         </table>
-
     <h3>
         Examples
     </h3>
 
         <h4>
-            Map example 1 :
+            Example 1 :
         </h4>
         <div id="result"
                      data-sgvizler-endpoint="https://query.wikidata.org/sparql"
@@ -149,7 +309,7 @@ where {
 
 
     <h4>
-        Graph example 2
+        Example 2
     </h4>
     <p>With 6 columns</p>
     <div id="result_2"
@@ -182,17 +342,201 @@ where {
         SERVICE wikibase:label {
              bd:serviceParam wikibase:language 'en,fr' .
                 }
-                }"
+                } LIMIT 100"
 data-sgvizler-endpoint="https://query.wikidata.org/sparql"
 data-sgvizler-chart="leaflet.visualization.Map"
-data-sgvizler-chart-options="headings=false" data-sgvizler-log="0"></div>
+data-sgvizler-chart-options=""
+         data-sgvizler-loglevel='2'
+    ></div>
+
 
     <h4>
-        Graph example 3 : empty result
+        Example 3 : geolocation with wktLiteral
     </h4>
-    <div id="result_3"
-                                      style='width:100%; height:500px;'
-                                      data-sgvizler-query="
+        <div id="result_3"
+             style='width:100%; height:500px;'
+             data-sgvizler-query="
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/&gt;
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+select distinct
+?coord ?siteLabel ?siteDescription
+?site
+(concat(xsd:string(?image),'?width=200') as ?newimage)
+where {
+        ?site wdt:P31/wdt:P279* wd:Q839954 .
+        ?site wdt:P17 wd:Q142 .
+        ?site wdt:P18 ?image .
+   ?site wdt:P625 ?coord .
+
+        SERVICE wikibase:label {
+             bd:serviceParam wikibase:language 'en,fr' .
+                }
+                } LIMIT 100"
+             data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+             data-sgvizler-chart="leaflet.visualization.Map"
+             data-sgvizler-chart-options=""
+             data-sgvizler-log="2">
+
+        </div>
+
+
+        <h4>
+            Example 4 : geolocation on Mars
+        </h4>
+        <div id="result_4"
+             style='width:100%; height:500px;'
+             data-sgvizler-query="
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/&gt;
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+select distinct
+        ?coord ?siteLabel ?siteDescription ?site
+        (concat(xsd:string(?image),'?width=200') as ?newimage)
+where {
+
+   ?site wdt:P376  wd:Q111 .
+   ?site wdt:P18 ?image .
+   ?site wdt:P625 ?coord .
+
+        SERVICE wikibase:label {
+             bd:serviceParam wikibase:language 'en,fr' .
+    }
+} LIMIT 100"
+             data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+             data-sgvizler-chart="leaflet.visualization.Map"
+             data-sgvizler-chart-options="tileLayerTemplate=http://s3-eu-west-1.amazonaws.com/whereonmars.cartodb.net/viking_mdim21_global/{z}/{x}/{y}.png
+             |tileLayerTms=true
+             |tileLayerAttribution=© OpenPlanetary
+             |tileLayerAttributionLink=https://www.openplanetary.org/about
+            "
+             data-sgvizler-log="2">
+
+        </div>
+
+        <h4>
+            Example 5 : geolocation on Moon
+        </h4>
+        <div id="result_5"
+             style='width:100%; height:500px;'
+             data-sgvizler-query="
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/&gt;
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+select distinct
+        ?coord ?siteLabel ?siteDescription ?site
+        (concat(xsd:string(?image),'?width=200') as ?newimage)
+where {
+
+   ?site wdt:P376  wd:Q405 .
+   ?site wdt:P18 ?image .
+   ?site wdt:P625 ?coord .
+
+        SERVICE wikibase:label {
+             bd:serviceParam wikibase:language 'en,fr' .
+    }
+} LIMIT 10"
+             data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+             data-sgvizler-chart="leaflet.visualization.Map"
+             data-sgvizler-chart-options="
+             tileLayerTemplate=https://s3.amazonaws.com/opmbuilder/301_moon/tiles/w/hillshaded-albedo/{z}/{x}/{y}.png
+             |tileLayerTms=true
+             |tileLayerAttribution=© OpenPlanetary
+             |tileLayerAttributionLink=https://www.openplanetary.org/about
+            "
+             data-sgvizler-log="2">
+
+        </div>
+
+
+        <h4>
+            Test : wktLiteral shapes
+        </h4>
+        <div id="result_6"
+             style='width:100%; height:500px;'
+             data-sgvizler-query="select distinct  ?coord ?siteLabel ?siteDescription ?site ?newimage
+where {
+        VALUES (?coord ?siteLabel ?siteDescription ?site ?newimage) {
+
+            ( 'Point(0 0)'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;  'Point'&#9;'test' &lt;http://www.wikidata.org/entity/Q2982097&gt; &lt;http://commons.wikimedia.org/wiki/Special:FilePath/Vista%20Panissars.jpg?width=200&gt;  )
+            ( 'Polygon((-1 -1, 0 0,1 -1,-1 -1))'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt; 'roof of the house''test' UNDEF  UNDEF )
+            ( 'Envelope(-1, 1, -3,-1.5))'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;  'House'   UNDEF UNDEF UNDEF  )
+
+            ( 'LineString(0 -3, 0 -2,  0.5 -2,0.5 -3)'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt; 'Gate' 'test' &lt;http://commons.wikimedia.org/wiki/Special:FilePath/Vista%20Panissars.jpg?width=200&gt; UNDEF  )
+             }
+ }"
+             data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+             data-sgvizler-chart="leaflet.visualization.Map"
+             data-sgvizler-chart-options="height=500px"
+             data-sgvizler-log="2">
+
+        </div>
+
+        <h4>
+            Test: Leaflet popups
+        </h4>
+        <div id="result_7"
+             style='width:100%; height:500px;'
+             data-sgvizler-query="
+select distinct  ?coord ?siteLabel ?siteDescription ?site ?newimage
+where {
+        VALUES (?coord ?siteLabel ?siteDescription ?site ?newimage) {
+            #No popup
+            ( 'Point(0 0)'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;  UNDEF UNDEF UNDEF UNDEF  )
+
+            #With img
+            ( 'Point(0.1 0)'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;  UNDEF UNDEF UNDEF &lt;http://commons.wikimedia.org/wiki/Special:FilePath/Vista%20Panissars.jpg?width=200&gt;  )
+
+            ( 'Point(0.2 0)'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;  'Point'&#9;UNDEF UNDEF  &lt;http://commons.wikimedia.org/wiki/Special:FilePath/Vista%20Panissars.jpg?width=200&gt;  )
+
+            ( 'Point(0.3 0)'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;  'Point'&#9;'test test test test test test test test test test test test test test test test test test test test test test test' UNDEF &lt;http://commons.wikimedia.org/wiki/Special:FilePath/Vista%20Panissars.jpg?width=200&gt;  )
+
+            ( 'Point(0.4 0)'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;  'Point'&#9;'test test test test test test test test test test test' &lt;http://www.wikidata.org/entity/Q2982097&gt; &lt;http://commons.wikimedia.org/wiki/Special:FilePath/Vista%20Panissars.jpg?width=200&gt;  )
+
+            ( 'Point(0.5 0)'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;  'Point'&#9;UNDEF &lt;http://www.wikidata.org/entity/Q2982097&gt; &lt;http://commons.wikimedia.org/wiki/Special:FilePath/Vista%20Panissars.jpg?width=200&gt;  )
+
+            #Without img
+
+            ( 'Point(0.6 0)'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;  'Point'&#9;UNDEF UNDEF UNDEF  )
+
+            ( 'Point(0.7 0)'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;  'Point'&#9;'test test test test test test test test test test test test test test test' UNDEF UNDEF  )
+
+            ( 'Point(0.8 0)'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;  'Point'&#9;UNDEF &lt;http://www.wikidata.org/entity/Q2982097&gt; UNDEF  )
+
+            ( 'Point(0.9 0)'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;  'Point' 'test test test test test test test' &lt;http://www.wikidata.org/entity/Q2982097&gt; UNDEF  )
+    }
+ }"
+             data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+             data-sgvizler-chart="leaflet.visualization.Map"
+             data-sgvizler-chart-options="height=500px"
+             data-sgvizler-log="2">
+
+
+        </div>
+<!-- TEST -->
+
+<div>
+        <h4>
+            Test : empty result
+        </h4>
+        <div id="result_100"
+             style='width:100%; height:500px;'
+             data-sgvizler-query="
 PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
 PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/&gt;
 PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
@@ -209,22 +553,24 @@ where {
         ?site wdt:P31/wdt:P279* wd:Q1 .
         ?site wdt:P17 wd:Q142 .
         ?site wdt:P18 ?image .
-   ?site p:P625 ?coord .
+        ?site p:P625 ?coord .
 
-          ?coord   psv:P625 ?coordValue .
+              ?coord   psv:P625 ?coordValue .
 
-          ?coordValue a wikibase:GlobecoordinateValue ;
-                        wikibase:geoLatitude ?lat ;
-                        wikibase:geoLongitude ?long .
+              ?coordValue a wikibase:GlobecoordinateValue ;
+                            wikibase:geoLatitude ?lat ;
+                            wikibase:geoLongitude ?long .
 
-        SERVICE wikibase:label {
-             bd:serviceParam wikibase:language 'en,fr' .
-                }
-                }"
-                                      data-sgvizler-endpoint="https://query.wikidata.org/sparql"
-                                      data-sgvizler-chart="leaflet.visualization.Map"
-                                      data-sgvizler-chart-options="headings=false" data-sgvizler-log="0"></div>
+            SERVICE wikibase:label {
+                 bd:serviceParam wikibase:language 'en,fr' .
+                    }
+}"
+             data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+             data-sgvizler-chart="leaflet.visualization.Map"
+             data-sgvizler-chart-options="" data-sgvizler-log="2">
 
+        </div>
+</div>
         <!--SCRIPT-->
         <script>
             var options = {
