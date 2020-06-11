@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/BorderCloud/sgvizler2/compare/v1.3.3...v1.4.0) (2020-06-11)
+
+
+### Features
+
+* **Datatables:** support now type uri, xsd:date and xsd:dateTime ([4ce4016](https://github.com/BorderCloud/sgvizler2/commit/4ce40167ab960314cd47f58d3e9061abb916f50e)), closes [#2](https://github.com/BorderCloud/sgvizler2/issues/2)
+* **leaflet:** add GeoJson ([ac4654e](https://github.com/BorderCloud/sgvizler2/commit/ac4654edacfd5527a5d2c3ac826fa644c9d79a95)), closes [#25](https://github.com/BorderCloud/sgvizler2/issues/25)
+* **leaflet:** supported shape of WktLiteral datatype : point, envelope, line and polygon ([2b19c02](https://github.com/BorderCloud/sgvizler2/commit/2b19c0274c3ce6a3472ffb0aacc21e5cde13dcd7)), closes [#24](https://github.com/BorderCloud/sgvizler2/issues/24)
+
+
+### Bug Fixes
+
+* **leaflet:** migrating the modern Static Tiles API of mapbox ([e5868e1](https://github.com/BorderCloud/sgvizler2/commit/e5868e1b7b309ef96c5f04f93e55eaba68c860ab)), closes [#23](https://github.com/BorderCloud/sgvizler2/issues/23) [#24](https://github.com/BorderCloud/sgvizler2/issues/24)
+
 ### [1.3.3](https://github.com/BorderCloud/sgvizler2/compare/v1.3.2...v1.3.3) (2019-11-01)
 
 
