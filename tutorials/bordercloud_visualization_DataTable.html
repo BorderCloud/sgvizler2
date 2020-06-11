@@ -94,7 +94,7 @@
             </tr>
             <tr>
                 <td class="left">Example 2</td>
-                <td class="left"><code>cellspacing=3 ! colstyle=col1_img_display:block; col1_img_max-width:250px;
+                <td class="left"><code><b>cellspacing=</b>3 <br/>! <b>colstyle=</b>col1_img_display:block; col1_img_max-width:250px;
                     col1_img_border-radius:50%; col1_img_margin:auto
                     ;col1_img_opacity:0.5</code></td>
                 <td class="left">1</td>
@@ -105,7 +105,7 @@
             </tr>
             <tr>
                 <td class="left">Example 3</td>
-                <td class="left"><code>colstyle=col0_span_color:#F00; col0_span_font-weight: bold; col1_img_max-width:75px; col1_img_border-radius:50%; col1_img_display:block; col1_img_margin:auto; col2_img_max-width:100px; col2_img_max-height:300px; col1_img_opacity:0.8"</code></td>
+                <td class="left"><code><b>colstyle=</b>col0_span_color:#F00; col0_span_font-weight: bold; col1_img_max-width:75px; col1_img_border-radius:50%; col1_img_display:block; col1_img_margin:auto; col2_img_max-width:100px; col2_img_max-height:300px; col1_img_opacity:0.8"</code></td>
                 <td class="left">0, 1 and 2</td>
                 <td class="left">
                     Column 0 : <code>&lt;span
@@ -119,17 +119,7 @@
 
             <tr>
                 <td class="left">Example 4</td>
-                <td class="left"><code>colstyle=col1_video_max-width:250px;</code></td>
-                <td class="left">1</td>
-                <td class="left">
-                    Column 1 : <code>&lt;video or iframe
-                    style="max-width:250px"/&gt;</code></br>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="left">Example 5</td>
-                <td class="left"><code>colstyle=col2_video_max-width:250px;"</code></td>
+                <td class="left"><code><b>colstyle=</b>col2_video_max-width:250px;"</code></td>
                 <td class="left">2</td>
                 <td class="left">
                     Column 2 : <code>&lt;video or iframe
@@ -285,6 +275,83 @@ select
                 data-sgvizler-chart-options="colstyle=col2_video_max-width:250px;"
                 data-sgvizler-log="2"></div>
 
+        <h4>
+            Test 1 : datatypes without language tag
+        </h4>
+        <p></p>
+        <div id="result_100"
+             data-sgvizler-query="
+select
+     ?example ?result  (datatype(?result) as ?Datatype_detected) (?datatype as ?Datatype_expected)
+where {
+ VALUES (?datatype ?example ?result) {
+            ( 'IRI'	            'wd:Q1'	                                wd:Q1)
+
+            ( 'xsd:string'	    'unicode text or HTML'	                'unicode text or HTML'^^xsd:string)
+            ( 'xsd:string'	    '<b>Be bold!</b>'	                    '<b>Be bold!</b>'^^xsd:string)
+            ( 'rdf:langString'	'unicode text or HTML with tag lang'    'unicode text or HTML'@en)
+            ( 'rdf:langString'	'<b>Be bold!</b> with tag lang'	        '<b>Be bold!</b> with tag lang'@en)
+
+            ( 'xsd:boolean'	    'true'	                                true)
+            ( 'xsd:boolean'	    'false'	                                false)
+
+            ( 'xsd:integer'	    '-1'	                                -1)
+            ( 'xsd:integer'	    '0'	                                    0)
+            ( 'xsd:integer'	    '12678967543233'	                    12678967543233)
+            ( 'xsd:integer'	    '+100000'	                            +100000)
+
+            ( 'xsd:decimal'	    '-1.23'	                                -1.23)
+            ( 'xsd:decimal'	    '12678967.543233'	                    12678967.543233)
+            ( 'xsd:decimal'	    '+100000.00'                            +100000.00)
+            ( 'xsd:decimal'	    '\'210\'^^xsd:decimal'	                '210'^^xsd:decimal)
+
+            ( 'xsd:double'	    '-1E4'                                  -1E4)
+            ( 'xsd:double'	    '1267.43233E12'                         1267.43233E12)
+            ( 'xsd:double'	    '12.78e-2'                              12.78e-2)
+            ( 'xsd:double'	    '\'12\'^^xsd:double'                    '12'^^xsd:double)
+            ( 'xsd:double'	    '\'-0\'^^xsd:double'                    '-0'^^xsd:double)
+            ( 'xsd:double'	    '\'0\'^^xsd:double'	                    '0'^^xsd:double)
+
+            ( 'xsd:date'	    '\'2002-10-11\'^^xsd:date'	            '2002-10-11'^^xsd:date)
+
+            ( 'xsd:dateTime'    '\'2002-10-11T12:00:00Z\'^^xsd:dateTime' '2002-10-11T12:00:00Z'^^xsd:dateTime)
+            ( 'xsd:dateTime'    '\'2002-10-11T12:00:00-05:00\'^^xsd:dateTime' '2002-10-11T12:00:00-05:00'^^xsd:dateTime)
+            ( 'xsd:dateTime'    '\'2002-10-11T12:00:00+01:00\'^^xsd:dateTime' '2002-10-11T12:00:00+01:00'^^xsd:dateTime)
+
+            ( 'xsd:time'    '\'13:20:00\'^^xsd:time'	'13:20:00'^^xsd:time)
+    }
+}
+"
+             data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+             data-sgvizler-chart="bordercloud.visualization.DataTable"
+             data-sgvizler-chart-options=""
+             data-sgvizler-log="2"></div>
+        <h4>
+            Test 2 : datatypes with a language tag (FR)
+        </h4>
+        <p></p>
+        <div id="result_101"
+             data-sgvizler-query="
+select
+     ?example ?result  (datatype(?result) as ?Datatype_detected) (?datatype as ?Datatype_expected)
+where {
+ VALUES (?datatype ?example ?result) {
+
+            ( 'xsd:date'	    '\'2002-10-11\'^^xsd:date'	            '2002-10-11'^^xsd:date)
+
+            ( 'xsd:dateTime'    '\'2002-10-11T12:00:00Z\'^^xsd:dateTime' '2002-10-11T12:00:00Z'^^xsd:dateTime)
+            ( 'xsd:dateTime'    '\'2002-10-11T12:00:00-05:00\'^^xsd:dateTime' '2002-10-11T12:00:00-05:00'^^xsd:dateTime)
+            ( 'xsd:dateTime'    '\'2002-10-11T12:00:00+01:00\'^^xsd:dateTime' '2002-10-11T12:00:00+01:00'^^xsd:dateTime)
+
+            ( 'xsd:time'    '\'13:20:00\'^^xsd:time'	'13:20:00'^^xsd:time)
+    }
+}
+"
+             data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+             data-sgvizler-chart="bordercloud.visualization.DataTable"
+             data-sgvizler-chart-options=""
+             data-sgvizler-log="2"
+             lang="fr"></div>
         <!--SCRIPT-->
         <script>
             sgvizler2.showTabHtmlAndScript("result");

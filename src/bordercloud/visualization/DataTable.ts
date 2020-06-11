@@ -54,6 +54,7 @@ export class DataTable extends Chart {
         let datasetColumnsFunc
         let colOptions: string[][] = []
         let optionCol
+        let isModified
 
         // init
         for (let c = 0; c < noCols; c++) {
@@ -75,6 +76,7 @@ export class DataTable extends Chart {
         }
 
         for (let c = 0; c < noCols; c++) {
+            isModified = true
             switch (colOptions[c][DATATABLE_COL_OPTIONS.TAG]) {
                 case 'img':
                     datasetColumnsFunc = this.getFunctionColumnDefImg(colOptions[c][DATATABLE_COL_OPTIONS.STYLE])
@@ -87,6 +89,7 @@ export class DataTable extends Chart {
                     datasetColumnsFunc = this.getFunctionColumnDefVideo(colOptions[c][DATATABLE_COL_OPTIONS.STYLE])
                     break
                 default:
+                    isModified = false
                     datasetColumnsFunc = this.getFunctionColumnDefDefault()
             }
 
@@ -94,7 +97,8 @@ export class DataTable extends Chart {
             datasetColumnsDefs[c] = {
                 'targets': c,
                 // "data": "description",
-                'render': datasetColumnsFunc
+                'render': datasetColumnsFunc,
+                'isModified' : isModified
             }
         }
         return datasetColumnsDefs
@@ -175,6 +179,17 @@ export class DataTable extends Chart {
      * @param {SparqlResultInterface} result
      * @returns {Promise< any >}
      */
+    /*
+
+    remplacer underscore
+    créer le lien automatiquement
+
+    changer la date en fonction de la lang du navigateur
+    changer la date en fonction du tag lang
+    changer la dateTime en fonction de la lang du navigateur
+    changer la dateTime en fonction du tag lang
+
+     */
      public draw (result: SparqlResultInterface): Promise<any> {
         let currentChart = this
         return new Promise(function (resolve, reject) {
@@ -186,7 +201,7 @@ export class DataTable extends Chart {
             }
 
             try {
-
+                const optionsDateTime = { hour: 'numeric', minute: 'numeric', second: 'numeric' };
                 let lang = currentChart.container.lang
                 let cols = result.head.vars
                 let rows = result.results.bindings
@@ -211,7 +226,7 @@ export class DataTable extends Chart {
                 }, currentChart.options )
 
                 for (let c = 0; c < noCols; c++) {
-                    datasetColumns[c] = { title: cols[c] }
+                    datasetColumns[c] = { title: cols[c].replace("_"," ") }
                 }
 
                 if (opt.colstyle !== undefined ) {
@@ -223,7 +238,28 @@ export class DataTable extends Chart {
                     datasetRow = []
                     // loop cells
                     for (let c = 0; c < noCols; c += 1) {
-                        datasetRow[c] = row[cols[c]] !== undefined ? row[cols[c]].value : ''
+                        if (row[cols[c]] !== undefined) {
+                            if(datasetColumnsDefs === undefined || ! datasetColumnsDefs[c].isModified){
+                                if(row[cols[c]].type === "uri"){
+                                    datasetRow[c] = '<a href="'+row[cols[c]].value+'" target="_blank">' + row[cols[c]].value + '</a>'
+                                }else{ //litteral
+                                    switch (row[cols[c]].datatype) {
+                                        case 'http://www.w3.org/2001/XMLSchema#dateTime':
+                                            datasetRow[c] = (new Date(row[cols[c]].value)).toLocaleDateString(lang,optionsDateTime)
+                                            break
+                                        case 'http://www.w3.org/2001/XMLSchema#date':
+                                            datasetRow[c] = (new Date(row[cols[c]].value)).toLocaleDateString(lang)
+                                            break
+                                        default:
+                                            datasetRow[c] = row[cols[c]].value
+                                    }
+                                }
+                            }else{
+                                datasetRow[c] = row[cols[c]].value
+                            }
+                        } else {
+                            datasetRow[c] = ''
+                        }
                     }
                     dataset[r] = datasetRow
                 }
