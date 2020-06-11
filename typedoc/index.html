@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>sgvizler2</title>
-	<meta name="description" content="">
+	<meta name="description" content="Documentation for sgvizler2">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
@@ -13,7 +13,7 @@
 	<div class="tsd-page-toolbar">
 		<div class="container">
 			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
 					<div class="field">
 						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
 						<input id="tsd-search-field" type="text" />
@@ -56,7 +56,7 @@
 					<a href="globals.html">Globals</a>
 				</li>
 			</ul>
-			<h1> sgvizler2</h1>
+			<h1>sgvizler2</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,9 @@
 					<a href="https://github.com/conventional-changelog/standard-version"><img src="https://img.shields.io/badge/release-standard%20version-brightgreen.svg" alt="Standard Version"></a>
 					<a href="https://david-dm.org/bordercloud/sgvizler2"><img src="https://david-dm.org/bordercloud/sgvizler2/status.svg" alt="dependencies Status"></a>
 				<a href="https://david-dm.org/bordercloud/sgvizler2?type=dev"><img src="https://david-dm.org/bordercloud/sgvizler2/dev-status.svg" alt="devDependencies Status"></a></p>
-				<h1 id="sgvizler2">sgvizler2</h1>
+				<a href="#sgvizler2" id="sgvizler2" style="color: inherit; text-decoration: none;">
+					<h1>sgvizler2</h1>
+				</a>
 				<p>Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin). See <a href="http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">the demo</a> (in the menu &quot;tutorial&quot;, there are examples) and the <a href="http://bordercloud.github.io/sgvizler2/typedoc/index.html">typedoc</a>.</p>
 				<p>This project is the reboot in Typescript of project <a href="https://github.com/mgskjaeveland/sgvizler">Sgvizler</a> of Martin G.
 				Skjæveland.</p>
@@ -78,7 +80,7 @@
      <span class="hljs-attr">data-sgvizler-endpoint</span>=<span class="hljs-string">"https://query.wikidata.org/sparql"</span>
      <span class="hljs-attr">data-sgvizler-chart</span>=<span class="hljs-string">"bordercloud.visualization.DataTable"</span>
      <span class="hljs-attr">data-sgvizler-query</span>=<span class="hljs-string">"
-     PREFIX rdfs: &amp;amp;lt;http://www.w3.org/2000/01/rdf-schema#&amp;amp;gt;
+     PREFIX rdfs: <span class="hljs-symbol">&amp;amp;</span>lt;http://www.w3.org/2000/01/rdf-schema#<span class="hljs-symbol">&amp;amp;</span>gt;
      SELECT  *
      WHERE {
              ?object ?property ?valueOrObject .
@@ -88,7 +90,7 @@
      &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"sgvizler2/sgvizler2.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
  <span class="hljs-comment">&lt;!--script src="node_modules/sgvizler2/build/browser/sgvizler2.js"&gt;&lt;/script--&gt;</span>
- <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="actionscript">
+ <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
     <span class="hljs-comment">//Draw a chart</span>
     <span class="hljs-comment">//sgvizler2.containerDraw('result');</span>
     <span class="hljs-comment">//or</span>
@@ -111,7 +113,9 @@
             <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"There is a problem"</span>);
         }
     );</code></pre>
-				<h2 id="download-directly-sgvizler2">Download directly Sgvizler2</h2>
+				<a href="#download-directly-sgvizler2" id="download-directly-sgvizler2" style="color: inherit; text-decoration: none;">
+					<h2>Download directly Sgvizler2</h2>
+				</a>
 				<p><a href="https://github.com/BorderCloud/sgvizler2/releases">Download the last version</a></p>
 				<p>The path of Sgvizler2 will be :</p>
 				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"sgvizler2/sgvizler2.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
@@ -124,16 +128,23 @@
 &lt;link <span class="hljs-attribute">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attribute">href</span>=<span class="hljs-string">"sgvizler2//lib/bootstrap-select/css/bootstrap-select.min.css"</span>&gt;
 &lt;script <span class="hljs-attribute">src</span>=<span class="hljs-string">"sgvizler2/lib/bootstrap-select/js/bootstrap-select.min.js"</span>&gt;&lt;/script&gt;
 &lt;script <span class="hljs-attribute">src</span>=<span class="hljs-string">"sgvizler2/lib/bootstrap-select/js/i18n/defaults-fr_FR.min.js"</span>&gt;&lt;/script&gt;
-&lt;script <span class="hljs-attribute">src</span>=<span class="hljs-string">"sgvizler2/lib/bootstrap-select/js/i18n/defaults-en_US.min.js"</span>&gt;&lt;/script&gt;</code></pre><h2 id="install-the-package-via-yarn-or-npm">Install the package via yarn or npm</h2>
+&lt;script <span class="hljs-attribute">src</span>=<span class="hljs-string">"sgvizler2/lib/bootstrap-select/js/i18n/defaults-en_US.min.js"</span>&gt;&lt;/script&gt;</code></pre>
+				<a href="#install-the-package-via-yarn-or-npm" id="install-the-package-via-yarn-or-npm" style="color: inherit; text-decoration: none;">
+					<h2>Install the package via yarn or npm</h2>
+				</a>
 				<p>With yarn or npm</p>
-				<pre><code>yarn <span class="hljs-keyword">add</span><span class="bash"> sgvizler2</span>
+				<pre><code><span class="hljs-attribute">yarn</span> add sgvizler<span class="hljs-number">2</span>
 <span class="hljs-comment"># or</span>
-npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
+<span class="hljs-attribute">npm</span> install sgvizler<span class="hljs-number">2</span></code></pre><p>The path of Sgvizler2 will be :</p>
 				<pre><code class="language-html"> <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"node_modules/sgvizler2/build/browser/sgvizler2.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
-				<h2 id="get-started">Get started</h2>
+				<a href="#get-started" id="get-started" style="color: inherit; text-decoration: none;">
+					<h2>Get started</h2>
+				</a>
 				<p>You can use the <a href="http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">SPARQL editor</a> to generate an example
 				with your SPARQL query and see examples for each charts, maps and tables in this project.</p>
-				<h2 id="why-reboot-the-project-">Why reboot the project ?</h2>
+				<a href="#why-reboot-the-project-" id="why-reboot-the-project-" style="color: inherit; text-decoration: none;">
+					<h2>Why reboot the project ?</h2>
+				</a>
 				<p>The project could not be easily extensible and the docs was not automatically generate in the packages for composer,
 					yarn, npm, etc.
 				The project can exist without Google and new libs of charts exist. For example with D3JS,...</p>
@@ -162,7 +173,7 @@ npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
 					<li class=" tsd-kind-enum">
 						<a href="enums/container_state.html" class="tsd-kind-icon">CONTAINER_<wbr>STATE</a>
 					</li>
-					<li class=" tsd-kind-enum tsd-is-not-exported">
+					<li class=" tsd-kind-enum">
 						<a href="enums/datatable_col_options.html" class="tsd-kind-icon">DATATABLE_<wbr>COL_<wbr>OPTIONS</a>
 					</li>
 					<li class=" tsd-kind-enum">
@@ -220,6 +231,12 @@ npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
 						<a href="classes/dependency.html" class="tsd-kind-icon">Dependency</a>
 					</li>
 					<li class=" tsd-kind-class">
+						<a href="classes/envelopewktliteral.html" class="tsd-kind-icon">Envelope<wbr>Wkt<wbr>Literal</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/errorwktliteral.html" class="tsd-kind-icon">Error<wbr>Wkt<wbr>Literal</a>
+					</li>
+					<li class=" tsd-kind-class">
 						<a href="classes/geochart.html" class="tsd-kind-icon">Geo<wbr>Chart</a>
 					</li>
 					<li class=" tsd-kind-class">
@@ -233,6 +250,9 @@ npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/linechart.html" class="tsd-kind-icon">Line<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/linestringwktliteral.html" class="tsd-kind-icon">Linestring<wbr>Wkt<wbr>Literal</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/loader.html" class="tsd-kind-icon">Loader</a>
@@ -257,6 +277,12 @@ npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/pivottable.html" class="tsd-kind-icon">Pivot<wbr>Table</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/pointwktliteral.html" class="tsd-kind-icon">Point<wbr>Wkt<wbr>Literal</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/polygonwktliteral.html" class="tsd-kind-icon">Polygon<wbr>Wkt<wbr>Literal</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/request.html" class="tsd-kind-icon">Request</a>
@@ -294,17 +320,26 @@ npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
 					<li class=" tsd-kind-class">
 						<a href="classes/trendline.html" class="tsd-kind-icon">Trendline</a>
 					</li>
-					<li class=" tsd-kind-interface tsd-is-not-exported">
+					<li class=" tsd-kind-class">
+						<a href="classes/wktliteral.html" class="tsd-kind-icon">Wkt<wbr>Literal</a>
+					</li>
+					<li class=" tsd-kind-interface">
 						<a href="interfaces/jquery.html" class="tsd-kind-icon">JQuery</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/sparqlresultinterface.html" class="tsd-kind-icon">Sparql<wbr>Result<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-variable">
 						<a href="globals.html#_" class="tsd-kind-icon">$</a>
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#homepage" class="tsd-kind-icon">HOMEPAGE</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
+					<li class=" tsd-kind-variable">
 						<a href="globals.html#l" class="tsd-kind-icon">L</a>
+					</li>
+					<li class=" tsd-kind-variable">
+						<a href="globals.html#timeout" class="tsd-kind-icon">Timeout</a>
 					</li>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#version" class="tsd-kind-icon">VERSION</a>
@@ -312,10 +347,10 @@ npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
 					<li class=" tsd-kind-variable">
 						<a href="globals.html#bordercloud" class="tsd-kind-icon">bordercloud</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
+					<li class=" tsd-kind-variable">
 						<a href="globals.html#d3" class="tsd-kind-icon">d3</a>
 					</li>
-					<li class=" tsd-kind-variable tsd-is-not-exported">
+					<li class=" tsd-kind-variable">
 						<a href="globals.html#google" class="tsd-kind-icon">google</a>
 					</li>
 					<li class=" tsd-kind-variable">
@@ -354,7 +389,7 @@ npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#givehtmlandscript" class="tsd-kind-icon">giveHTMLAnd<wbr>Script</a>
 					</li>
-					<li class=" tsd-kind-function tsd-is-not-exported">
+					<li class=" tsd-kind-function">
 						<a href="globals.html#readoptions" class="tsd-kind-icon">read<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-function">
@@ -376,36 +411,10 @@ npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
-				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
-				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
-				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
-				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
 				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
 				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
 				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
-				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
@@ -414,24 +423,26 @@ npm install sgvizler2</code></pre><p>The path of Sgvizler2 will be :</p>
 				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
 				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
 			</ul>
 		</div>
 	</div>
 </footer>
 <div class="container tsd-generator">
-	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
