@@ -40,7 +40,7 @@ export class BarChart extends Chart {
     public constructor () {
         super()
         //this.addCss(Core.path + '/lib/d3/d3.css')
-        let dep = this.addScript(Core.path + '/lib/d3/d3.min.js')
+        let dep = this.addScript(Core.path + 'lib/d3/d3.min.js')
     }
 
     /**

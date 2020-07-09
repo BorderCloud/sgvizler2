@@ -45,7 +45,11 @@ function readOptions (options: any) {
         if (typeof options === 'object') {
             google.API.key = options.googleApiKey ? options.googleApiKey : ''
             leaflet.API.osmAccessToken = options.osmAccessToken ? options.osmAccessToken : ''
-            S.Core.path = options.path ? options.path : ''
+            if (options.path) {
+                S.Core.path = options.path.endsWith('/') ? options.path :  options.path + '/'
+            }else{
+                S.Core.path = ''
+            }
         }
     }
 }

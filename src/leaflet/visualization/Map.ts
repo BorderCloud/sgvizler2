@@ -52,11 +52,11 @@ export class Map extends Chart {
 
     public constructor () {
         super()
-        this.addCss(Core.path + '/lib/leaflet/leaflet.css')
-        this.addCss(Core.path + '/lib/leaflet/MarkerCluster.Default.css')
+        this.addCss(Core.path + 'lib/leaflet/leaflet.css')
+        this.addCss(Core.path + 'lib/leaflet/MarkerCluster.Default.css')
 
-        let dep = this.addScript(Core.path + '/lib/leaflet/leaflet.js')
-        this.addScript(Core.path + '/lib/leaflet/leaflet.markercluster.js',dep)
+        let dep = this.addScript(Core.path + 'lib/leaflet/leaflet.js')
+        this.addScript(Core.path + 'lib/leaflet/leaflet.markercluster.js',dep)
     }
     /**
      * Make a Google map
@@ -148,7 +148,6 @@ export class Map extends Chart {
                     zoom: opt.tileZoom,
                 })
 
-                //map = L.map(idChart, {zoom: 13, layers: [osmLayer]})
                 map = L.map(idChart, {layers: [tileLayer]})
 
                 // todo insert option
