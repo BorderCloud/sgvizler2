@@ -2145,11 +2145,21 @@ var DATATABLE_COL_OPTIONS;
 class DataTable extends Chart {
     constructor() {
         super();
-        this.addCss(Core.path + '/lib/DataTables/datatables.min.css');
-        // this.addCss(Core.path + '/lib/DataTables/DataTables-1.10.15/css/dataTables.bootstrap4.min.css')
-        let depDatatables = this.addScript(Core.path + '/lib/DataTables/datatables.min.js');
-        // this.addScript(Core.path + '/lib/DataTables/Buttons-1.4.0/js/dataTables.buttons.js',depDatatables)
-        // this.addScript(Core.path + '/lib/DataTables/DataTables-1.10.15/js/dataTables.bootstrap4.js',depDatatables)
+        this.addCss(Core.path + 'lib/DataTables/DataTables-1.10.21/css/dataTables.bootstrap4.min.css');
+        this.addCss(Core.path + 'lib/DataTables/Responsive-2.2.5/css/responsive.bootstrap4.min.css');
+        this.addCss(Core.path + 'lib/DataTables/Buttons-1.6.2/css/buttons.bootstrap4.min.css');
+        let jqueryDataTables = this.addScript(Core.path + 'lib/DataTables/DataTables-1.10.21/js/jquery.dataTables.min.js');
+        let dataTablesBootstrap4 = this.addScript(Core.path + 'lib/DataTables/DataTables-1.10.21/js/dataTables.bootstrap4.min.js', jqueryDataTables);
+        let dataTablesResponsive = this.addScript(Core.path + 'lib/DataTables/Responsive-2.2.5/js/dataTables.responsive.js', dataTablesBootstrap4);
+        this.addScript(Core.path + 'lib/DataTables/Responsive-2.2.5/js/responsive.bootstrap4.js', dataTablesResponsive);
+        let dataTablesButtons = this.addScript(Core.path + 'lib/DataTables/Buttons-1.6.2/js/dataTables.buttons.min.js', dataTablesBootstrap4);
+        let buttonsBootstrap4 = this.addScript(Core.path + 'lib/DataTables/Buttons-1.6.2/js/buttons.bootstrap4.min.js', dataTablesButtons);
+        let buttons = this.addScript(Core.path + 'lib/DataTables/Buttons-1.6.2/js/buttons.flash.min.js', buttonsBootstrap4);
+        this.addScript(Core.path + 'lib/DataTables/JSZip-2.5.0/jszip.min.js', buttons);
+        let pdfmake = this.addScript(Core.path + 'lib/DataTables/pdfmake-0.1.36/pdfmake.min.js', buttons);
+        this.addScript(Core.path + 'lib/DataTables/pdfmake-0.1.36/vfs_fonts.js', pdfmake);
+        this.addScript(Core.path + 'lib/DataTables/Buttons-1.6.2/js/buttons.html5.min.js', buttons);
+        this.addScript(Core.path + 'lib/DataTables/Buttons-1.6.2/js/buttons.print.min.js', buttons);
     }
     /**
      * This function parses colStyle option and build the parameter ColumnDef of DataTable
@@ -2280,17 +2290,6 @@ class DataTable extends Chart {
      *
      * @param {SparqlResultInterface} result
      * @returns {Promise< any >}
-     */
-    /*
-
-    remplacer underscore
-    créer le lien automatiquement
-
-    changer la date en fonction de la lang du navigateur
-    changer la date en fonction du tag lang
-    changer la dateTime en fonction de la lang du navigateur
-    changer la dateTime en fonction du tag lang
-
      */
     draw(result) {
         let currentChart = this;
@@ -4582,7 +4581,7 @@ class AreaChart$1 extends Chart {
     constructor() {
         super();
         //this.addCss(Core.path + '/lib/d3/d3.css')
-        let dep = this.addScript(Core.path + '/lib/d3/d3.min.js');
+        let dep = this.addScript(Core.path + 'lib/d3/d3.min.js');
     }
     /**
      * Make a simple line.
@@ -4742,7 +4741,7 @@ class BarChart$1 extends Chart {
     constructor() {
         super();
         //this.addCss(Core.path + '/lib/d3/d3.css')
-        let dep = this.addScript(Core.path + '/lib/d3/d3.min.js');
+        let dep = this.addScript(Core.path + 'lib/d3/d3.min.js');
     }
     /**
      * Make a simple pie.
@@ -4878,7 +4877,7 @@ class BubbleChart$1 extends Chart {
     constructor() {
         super();
         //this.addCss(Core.path + '/lib/d3/d3.css')
-        let dep = this.addScript(Core.path + '/lib/d3/d3.min.js');
+        let dep = this.addScript(Core.path + 'lib/d3/d3.min.js');
     }
     /**
      * Make a simple pie.
@@ -4979,7 +4978,7 @@ class ColumnChart$1 extends Chart {
     constructor() {
         super();
         //this.addCss(Core.path + '/lib/d3/d3.css')
-        let dep = this.addScript(Core.path + '/lib/d3/d3.min.js');
+        let dep = this.addScript(Core.path + 'lib/d3/d3.min.js');
     }
     /**
      * Make a simple ColumnChart.
@@ -5114,7 +5113,7 @@ class Line extends Chart {
     constructor() {
         super();
         //this.addCss(Core.path + '/lib/d3/d3.css')
-        let dep = this.addScript(Core.path + '/lib/d3/d3.min.js');
+        let dep = this.addScript(Core.path + 'lib/d3/d3.min.js');
     }
     /**
      * Make a simple line.
@@ -5239,7 +5238,7 @@ class Pie$1 extends Chart {
     constructor() {
         super();
         //this.addCss(Core.path + '/lib/d3/d3.css')
-        let dep = this.addScript(Core.path + '/lib/d3/d3.min.js');
+        let dep = this.addScript(Core.path + 'lib/d3/d3.min.js');
     }
     /**
      * Make a simple pie.
@@ -5367,7 +5366,7 @@ class ScatterChart$1 extends Chart {
     constructor() {
         super();
         //this.addCss(Core.path + '/lib/d3/d3.css')
-        let dep = this.addScript(Core.path + '/lib/d3/d3.min.js');
+        let dep = this.addScript(Core.path + 'lib/d3/d3.min.js');
     }
     /**
      * Make a simple ScatterChart.
@@ -5632,10 +5631,10 @@ class Map$1 extends Chart {
     }
     constructor() {
         super();
-        this.addCss(Core.path + '/lib/leaflet/leaflet.css');
-        this.addCss(Core.path + '/lib/leaflet/MarkerCluster.Default.css');
-        let dep = this.addScript(Core.path + '/lib/leaflet/leaflet.js');
-        this.addScript(Core.path + '/lib/leaflet/leaflet.markercluster.js', dep);
+        this.addCss(Core.path + 'lib/leaflet/leaflet.css');
+        this.addCss(Core.path + 'lib/leaflet/MarkerCluster.Default.css');
+        let dep = this.addScript(Core.path + 'lib/leaflet/leaflet.js');
+        this.addScript(Core.path + 'lib/leaflet/leaflet.markercluster.js', dep);
     }
     /**
      * Make a Google map
@@ -5723,7 +5722,6 @@ class Map$1 extends Chart {
                     tms: opt.tileLayerTms,
                     zoom: opt.tileZoom,
                 });
-                //map = L.map(idChart, {zoom: 13, layers: [osmLayer]})
                 map = L.map(idChart, { layers: [tileLayer] });
                 // todo insert option
                 markers = L.markerClusterGroup({
@@ -5974,7 +5972,12 @@ function readOptions(options) {
         if (typeof options === 'object') {
             google$1.API.key = options.googleApiKey ? options.googleApiKey : '';
             leaflet.API.osmAccessToken = options.osmAccessToken ? options.osmAccessToken : '';
-            Core.path = options.path ? options.path : '';
+            if (options.path) {
+                Core.path = options.path.endsWith('/') ? options.path : options.path + '/';
+            }
+            else {
+                Core.path = '';
+            }
         }
     }
 }

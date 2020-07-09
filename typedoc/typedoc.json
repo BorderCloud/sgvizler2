@@ -19765,7 +19765,7 @@
 					"sources": [
 						{
 							"fileName": "src/bordercloud/visualization/DataTable.ts",
-							"line": 160,
+							"line": 171,
 							"character": 28
 						}
 					],
@@ -20166,7 +20166,7 @@
 					"sources": [
 						{
 							"fileName": "src/bordercloud/visualization/DataTable.ts",
-							"line": 148,
+							"line": 159,
 							"character": 19
 						}
 					],
@@ -20208,7 +20208,7 @@
 					"sources": [
 						{
 							"fileName": "src/bordercloud/visualization/DataTable.ts",
-							"line": 152,
+							"line": 163,
 							"character": 20
 						}
 					],
@@ -20599,7 +20599,7 @@
 					"sources": [
 						{
 							"fileName": "src/bordercloud/visualization/DataTable.ts",
-							"line": 156,
+							"line": 167,
 							"character": 22
 						}
 					],
@@ -20641,7 +20641,7 @@
 					"sources": [
 						{
 							"fileName": "src/bordercloud/visualization/DataTable.ts",
-							"line": 164,
+							"line": 175,
 							"character": 31
 						}
 					],
@@ -21218,7 +21218,7 @@
 					"sources": [
 						{
 							"fileName": "src/bordercloud/visualization/DataTable.ts",
-							"line": 49,
+							"line": 60,
 							"character": 34
 						}
 					]
@@ -21251,7 +21251,7 @@
 					"sources": [
 						{
 							"fileName": "src/bordercloud/visualization/DataTable.ts",
-							"line": 107,
+							"line": 118,
 							"character": 46
 						}
 					]
@@ -21299,7 +21299,7 @@
 					"sources": [
 						{
 							"fileName": "src/bordercloud/visualization/DataTable.ts",
-							"line": 112,
+							"line": 123,
 							"character": 42
 						}
 					]
@@ -21347,7 +21347,7 @@
 					"sources": [
 						{
 							"fileName": "src/bordercloud/visualization/DataTable.ts",
-							"line": 142,
+							"line": 153,
 							"character": 43
 						}
 					]
@@ -21395,7 +21395,7 @@
 					"sources": [
 						{
 							"fileName": "src/bordercloud/visualization/DataTable.ts",
-							"line": 118,
+							"line": 129,
 							"character": 44
 						}
 					]
@@ -34522,7 +34522,7 @@
 					"sources": [
 						{
 							"fileName": "src/leaflet/visualization/Map.ts",
-							"line": 277,
+							"line": 276,
 							"character": 47
 						}
 					]
@@ -54347,7 +54347,7 @@
 					"sources": [
 						{
 							"fileName": "src/index.ts",
-							"line": 259,
+							"line": 263,
 							"character": 18
 						}
 					]
@@ -54415,7 +54415,7 @@
 					"sources": [
 						{
 							"fileName": "src/index.ts",
-							"line": 251,
+							"line": 255,
 							"character": 15
 						}
 					]
@@ -54434,7 +54434,7 @@
 			"sources": [
 				{
 					"fileName": "src/index.ts",
-					"line": 243,
+					"line": 247,
 					"character": 16
 				}
 			]
@@ -55019,7 +55019,7 @@
 			"sources": [
 				{
 					"fileName": "src/index.ts",
-					"line": 57,
+					"line": 61,
 					"character": 29
 				}
 			]
@@ -55070,7 +55070,7 @@
 			"sources": [
 				{
 					"fileName": "src/index.ts",
-					"line": 67,
+					"line": 71,
 					"character": 32
 				}
 			]
@@ -55337,7 +55337,7 @@
 			"sources": [
 				{
 					"fileName": "src/index.ts",
-					"line": 214,
+					"line": 218,
 					"character": 22
 				}
 			]
@@ -55383,7 +55383,7 @@
 			"sources": [
 				{
 					"fileName": "src/index.ts",
-					"line": 123,
+					"line": 127,
 					"character": 26
 				}
 			]
@@ -55429,7 +55429,7 @@
 			"sources": [
 				{
 					"fileName": "src/index.ts",
-					"line": 120,
+					"line": 124,
 					"character": 26
 				}
 			]
@@ -55504,7 +55504,7 @@
 			"sources": [
 				{
 					"fileName": "src/index.ts",
-					"line": 98,
+					"line": 102,
 					"character": 27
 				}
 			]
@@ -55555,7 +55555,7 @@
 			"sources": [
 				{
 					"fileName": "src/index.ts",
-					"line": 108,
+					"line": 112,
 					"character": 31
 				}
 			]
@@ -55641,7 +55641,7 @@
 			"sources": [
 				{
 					"fileName": "src/index.ts",
-					"line": 127,
+					"line": 131,
 					"character": 33
 				}
 			]
@@ -55737,7 +55737,7 @@
 			"sources": [
 				{
 					"fileName": "src/index.ts",
-					"line": 77,
+					"line": 81,
 					"character": 26
 				}
 			]
@@ -55772,7 +55772,7 @@
 			"sources": [
 				{
 					"fileName": "src/index.ts",
-					"line": 86,
+					"line": 90,
 					"character": 29
 				}
 			]
@@ -55832,7 +55832,7 @@
 			"sources": [
 				{
 					"fileName": "src/index.ts",
-					"line": 174,
+					"line": 178,
 					"character": 36
 				}
 			]
