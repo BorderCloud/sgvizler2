@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.4.1](https://github.com/BorderCloud/sgvizler2/compare/v1.4.0...v1.4.1) (2020-07-09)
+
+
+### Bug Fixes
+
+* **datatable:** problems with the bootstrap libs ([32f5ddc](https://github.com/BorderCloud/sgvizler2/commit/32f5ddc3d21c1716f891a2adffb105c0c62dd612)), closes [#26](https://github.com/BorderCloud/sgvizler2/issues/26)
+
 ## [1.4.0](https://github.com/BorderCloud/sgvizler2/compare/v1.3.3...v1.4.0) (2020-06-11)
 
 
