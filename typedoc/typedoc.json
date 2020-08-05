@@ -245,7 +245,7 @@
 			]
 		},
 		{
-			"id": 2150,
+			"id": 2166,
 			"name": "DATATABLE_COL_OPTIONS",
 			"kind": 4,
 			"kindString": "Enumeration",
@@ -263,7 +263,7 @@
 			},
 			"children": [
 				{
-					"id": 2152,
+					"id": 2168,
 					"name": "STYLE",
 					"kind": 16,
 					"kindString": "Enumeration member",
@@ -279,7 +279,7 @@
 					]
 				},
 				{
-					"id": 2151,
+					"id": 2167,
 					"name": "TAG",
 					"kind": 16,
 					"kindString": "Enumeration member",
@@ -300,8 +300,8 @@
 					"title": "Enumeration members",
 					"kind": 16,
 					"children": [
-						2152,
-						2151
+						2168,
+						2167
 					]
 				}
 			],
@@ -13598,7 +13598,7 @@
 				},
 				{
 					"type": "reference",
-					"id": 2153,
+					"id": 2169,
 					"name": "DataTable"
 				}
 			]
@@ -19607,7 +19607,7 @@
 			]
 		},
 		{
-			"id": 2153,
+			"id": 2169,
 			"name": "DataTable",
 			"kind": 128,
 			"kindString": "Class",
@@ -19625,7 +19625,7 @@
 			},
 			"children": [
 				{
-					"id": 2154,
+					"id": 2170,
 					"name": "constructor",
 					"kind": 512,
 					"kindString": "Constructor",
@@ -19635,7 +19635,7 @@
 					},
 					"signatures": [
 						{
-							"id": 2155,
+							"id": 2171,
 							"name": "new DataTable",
 							"kind": 16384,
 							"kindString": "Constructor signature",
@@ -19644,7 +19644,7 @@
 							},
 							"type": {
 								"type": "reference",
-								"id": 2153,
+								"id": 2169,
 								"name": "DataTable"
 							},
 							"overwrites": {
@@ -19668,7 +19668,7 @@
 					}
 				},
 				{
-					"id": 2188,
+					"id": 2204,
 					"name": "_resultSparql",
 					"kind": 1024,
 					"kindString": "Property",
@@ -19695,7 +19695,7 @@
 					}
 				},
 				{
-					"id": 2187,
+					"id": 2203,
 					"name": "options",
 					"kind": 1024,
 					"kindString": "Property",
@@ -19734,7 +19734,7 @@
 					}
 				},
 				{
-					"id": 2177,
+					"id": 2193,
 					"name": "classFullName",
 					"kind": 262144,
 					"kindString": "Accessor",
@@ -19744,7 +19744,7 @@
 					},
 					"getSignature": [
 						{
-							"id": 2178,
+							"id": 2194,
 							"name": "__get",
 							"kind": 524288,
 							"kindString": "Get signature",
@@ -19776,7 +19776,7 @@
 					}
 				},
 				{
-					"id": 2196,
+					"id": 2212,
 					"name": "classHtml",
 					"kind": 262144,
 					"kindString": "Accessor",
@@ -19800,7 +19800,7 @@
 					},
 					"getSignature": [
 						{
-							"id": 2197,
+							"id": 2213,
 							"name": "__get",
 							"kind": 524288,
 							"kindString": "Get signature",
@@ -19830,7 +19830,7 @@
 					],
 					"setSignature": [
 						{
-							"id": 2198,
+							"id": 2214,
 							"name": "__set",
 							"kind": 1048576,
 							"kindString": "Set signature",
@@ -19849,7 +19849,7 @@
 							},
 							"parameters": [
 								{
-									"id": 2199,
+									"id": 2215,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -19895,7 +19895,7 @@
 					}
 				},
 				{
-					"id": 2204,
+					"id": 2220,
 					"name": "container",
 					"kind": 262144,
 					"kindString": "Accessor",
@@ -19919,7 +19919,7 @@
 					},
 					"getSignature": [
 						{
-							"id": 2205,
+							"id": 2221,
 							"name": "__get",
 							"kind": 524288,
 							"kindString": "Get signature",
@@ -19950,7 +19950,7 @@
 					],
 					"setSignature": [
 						{
-							"id": 2206,
+							"id": 2222,
 							"name": "__set",
 							"kind": 1048576,
 							"kindString": "Set signature",
@@ -19969,7 +19969,7 @@
 							},
 							"parameters": [
 								{
-									"id": 2207,
+									"id": 2223,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -20016,7 +20016,7 @@
 					}
 				},
 				{
-					"id": 2214,
+					"id": 2230,
 					"name": "height",
 					"kind": 262144,
 					"kindString": "Accessor",
@@ -20040,7 +20040,7 @@
 					},
 					"getSignature": [
 						{
-							"id": 2215,
+							"id": 2231,
 							"name": "__get",
 							"kind": 524288,
 							"kindString": "Get signature",
@@ -20070,7 +20070,7 @@
 					],
 					"setSignature": [
 						{
-							"id": 2216,
+							"id": 2232,
 							"name": "__set",
 							"kind": 1048576,
 							"kindString": "Set signature",
@@ -20089,7 +20089,7 @@
 							},
 							"parameters": [
 								{
-									"id": 2217,
+									"id": 2233,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -20135,7 +20135,7 @@
 					}
 				},
 				{
-					"id": 2171,
+					"id": 2187,
 					"name": "icon",
 					"kind": 262144,
 					"kindString": "Accessor",
@@ -20145,7 +20145,7 @@
 					},
 					"getSignature": [
 						{
-							"id": 2172,
+							"id": 2188,
 							"name": "__get",
 							"kind": 524288,
 							"kindString": "Get signature",
@@ -20177,7 +20177,7 @@
 					}
 				},
 				{
-					"id": 2173,
+					"id": 2189,
 					"name": "label",
 					"kind": 262144,
 					"kindString": "Accessor",
@@ -20187,7 +20187,7 @@
 					},
 					"getSignature": [
 						{
-							"id": 2174,
+							"id": 2190,
 							"name": "__get",
 							"kind": 524288,
 							"kindString": "Get signature",
@@ -20219,7 +20219,7 @@
 					}
 				},
 				{
-					"id": 2212,
+					"id": 2228,
 					"name": "newOptionsRaw",
 					"kind": 262144,
 					"kindString": "Accessor",
@@ -20232,7 +20232,7 @@
 					},
 					"getSignature": [
 						{
-							"id": 2213,
+							"id": 2229,
 							"name": "__get",
 							"kind": 524288,
 							"kindString": "Get signature",
@@ -20267,7 +20267,7 @@
 					}
 				},
 				{
-					"id": 2208,
+					"id": 2224,
 					"name": "optionsRaw",
 					"kind": 262144,
 					"kindString": "Accessor",
@@ -20291,7 +20291,7 @@
 					},
 					"getSignature": [
 						{
-							"id": 2209,
+							"id": 2225,
 							"name": "__get",
 							"kind": 524288,
 							"kindString": "Get signature",
@@ -20321,7 +20321,7 @@
 					],
 					"setSignature": [
 						{
-							"id": 2210,
+							"id": 2226,
 							"name": "__set",
 							"kind": 1048576,
 							"kindString": "Set signature",
@@ -20340,7 +20340,7 @@
 							},
 							"parameters": [
 								{
-									"id": 2211,
+									"id": 2227,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -20386,7 +20386,7 @@
 					}
 				},
 				{
-					"id": 2194,
+					"id": 2210,
 					"name": "patternOptions",
 					"kind": 262144,
 					"kindString": "Accessor",
@@ -20406,7 +20406,7 @@
 					},
 					"getSignature": [
 						{
-							"id": 2195,
+							"id": 2211,
 							"name": "__get",
 							"kind": 524288,
 							"kindString": "Get signature",
@@ -20449,7 +20449,7 @@
 					}
 				},
 				{
-					"id": 2200,
+					"id": 2216,
 					"name": "style",
 					"kind": 262144,
 					"kindString": "Accessor",
@@ -20473,7 +20473,7 @@
 					},
 					"getSignature": [
 						{
-							"id": 2201,
+							"id": 2217,
 							"name": "__get",
 							"kind": 524288,
 							"kindString": "Get signature",
@@ -20503,7 +20503,7 @@
 					],
 					"setSignature": [
 						{
-							"id": 2202,
+							"id": 2218,
 							"name": "__set",
 							"kind": 1048576,
 							"kindString": "Set signature",
@@ -20522,7 +20522,7 @@
 							},
 							"parameters": [
 								{
-									"id": 2203,
+									"id": 2219,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -20568,7 +20568,7 @@
 					}
 				},
 				{
-					"id": 2175,
+					"id": 2191,
 					"name": "subtext",
 					"kind": 262144,
 					"kindString": "Accessor",
@@ -20578,7 +20578,7 @@
 					},
 					"getSignature": [
 						{
-							"id": 2176,
+							"id": 2192,
 							"name": "__get",
 							"kind": 524288,
 							"kindString": "Get signature",
@@ -20610,7 +20610,7 @@
 					}
 				},
 				{
-					"id": 2179,
+					"id": 2195,
 					"name": "tutorialFilename",
 					"kind": 262144,
 					"kindString": "Accessor",
@@ -20620,7 +20620,7 @@
 					},
 					"getSignature": [
 						{
-							"id": 2180,
+							"id": 2196,
 							"name": "__get",
 							"kind": 524288,
 							"kindString": "Get signature",
@@ -20652,7 +20652,7 @@
 					}
 				},
 				{
-					"id": 2218,
+					"id": 2234,
 					"name": "width",
 					"kind": 262144,
 					"kindString": "Accessor",
@@ -20676,7 +20676,7 @@
 					},
 					"getSignature": [
 						{
-							"id": 2219,
+							"id": 2235,
 							"name": "__get",
 							"kind": 524288,
 							"kindString": "Get signature",
@@ -20706,7 +20706,7 @@
 					],
 					"setSignature": [
 						{
-							"id": 2220,
+							"id": 2236,
 							"name": "__set",
 							"kind": 1048576,
 							"kindString": "Set signature",
@@ -20725,7 +20725,7 @@
 							},
 							"parameters": [
 								{
-									"id": 2221,
+									"id": 2237,
 									"name": "value",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -20771,7 +20771,7 @@
 					}
 				},
 				{
-					"id": 2228,
+					"id": 2244,
 					"name": "addCss",
 					"kind": 2048,
 					"kindString": "Method",
@@ -20781,7 +20781,7 @@
 					},
 					"signatures": [
 						{
-							"id": 2229,
+							"id": 2245,
 							"name": "addCss",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -20790,7 +20790,7 @@
 							},
 							"parameters": [
 								{
-									"id": 2230,
+									"id": 2246,
 									"name": "url",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -20803,7 +20803,7 @@
 									}
 								},
 								{
-									"id": 2231,
+									"id": 2247,
 									"name": "loadBefore",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -20844,7 +20844,7 @@
 					}
 				},
 				{
-					"id": 2224,
+					"id": 2240,
 					"name": "addScript",
 					"kind": 2048,
 					"kindString": "Method",
@@ -20854,7 +20854,7 @@
 					},
 					"signatures": [
 						{
-							"id": 2225,
+							"id": 2241,
 							"name": "addScript",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -20863,7 +20863,7 @@
 							},
 							"parameters": [
 								{
-									"id": 2226,
+									"id": 2242,
 									"name": "url",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -20876,7 +20876,7 @@
 									}
 								},
 								{
-									"id": 2227,
+									"id": 2243,
 									"name": "loadBefore",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -20917,7 +20917,7 @@
 					}
 				},
 				{
-					"id": 2181,
+					"id": 2197,
 					"name": "draw",
 					"kind": 2048,
 					"kindString": "Method",
@@ -20927,7 +20927,7 @@
 					},
 					"signatures": [
 						{
-							"id": 2182,
+							"id": 2198,
 							"name": "draw",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -20941,7 +20941,7 @@
 							},
 							"parameters": [
 								{
-									"id": 2183,
+									"id": 2199,
 									"name": "result",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -20987,7 +20987,7 @@
 					}
 				},
 				{
-					"id": 2222,
+					"id": 2238,
 					"name": "getHTMLStyleOrClass",
 					"kind": 2048,
 					"kindString": "Method",
@@ -20997,7 +20997,7 @@
 					},
 					"signatures": [
 						{
-							"id": 2223,
+							"id": 2239,
 							"name": "getHTMLStyleOrClass",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -21039,7 +21039,7 @@
 					}
 				},
 				{
-					"id": 2192,
+					"id": 2208,
 					"name": "loadDependencies",
 					"kind": 2048,
 					"kindString": "Method",
@@ -21049,7 +21049,7 @@
 					},
 					"signatures": [
 						{
-							"id": 2193,
+							"id": 2209,
 							"name": "loadDependencies",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -21087,7 +21087,7 @@
 					}
 				},
 				{
-					"id": 2189,
+					"id": 2205,
 					"name": "loadDependenciesAndDraw",
 					"kind": 2048,
 					"kindString": "Method",
@@ -21097,7 +21097,7 @@
 					},
 					"signatures": [
 						{
-							"id": 2190,
+							"id": 2206,
 							"name": "loadDependenciesAndDraw",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -21106,7 +21106,7 @@
 							},
 							"parameters": [
 								{
-									"id": 2191,
+									"id": 2207,
 									"name": "result",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -21151,7 +21151,7 @@
 					}
 				},
 				{
-					"id": 2156,
+					"id": 2172,
 					"name": "buildColumnDefs",
 					"kind": 2048,
 					"kindString": "Method",
@@ -21162,7 +21162,7 @@
 					},
 					"signatures": [
 						{
-							"id": 2157,
+							"id": 2173,
 							"name": "buildColumnDefs",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -21175,7 +21175,7 @@
 							},
 							"parameters": [
 								{
-									"id": 2158,
+									"id": 2174,
 									"name": "codeStyle",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -21189,7 +21189,7 @@
 									}
 								},
 								{
-									"id": 2159,
+									"id": 2175,
 									"name": "noCols",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -21224,7 +21224,7 @@
 					]
 				},
 				{
-					"id": 2160,
+					"id": 2176,
 					"name": "getFunctionColumnDefDefault",
 					"kind": 2048,
 					"kindString": "Method",
@@ -21235,7 +21235,7 @@
 					},
 					"signatures": [
 						{
-							"id": 2161,
+							"id": 2177,
 							"name": "getFunctionColumnDefDefault",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -21257,7 +21257,7 @@
 					]
 				},
 				{
-					"id": 2162,
+					"id": 2178,
 					"name": "getFunctionColumnDefImg",
 					"kind": 2048,
 					"kindString": "Method",
@@ -21268,7 +21268,7 @@
 					},
 					"signatures": [
 						{
-							"id": 2163,
+							"id": 2179,
 							"name": "getFunctionColumnDefImg",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -21277,7 +21277,7 @@
 							},
 							"parameters": [
 								{
-									"id": 2164,
+									"id": 2180,
 									"name": "style",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -21305,7 +21305,7 @@
 					]
 				},
 				{
-					"id": 2168,
+					"id": 2184,
 					"name": "getFunctionColumnDefSpan",
 					"kind": 2048,
 					"kindString": "Method",
@@ -21316,7 +21316,7 @@
 					},
 					"signatures": [
 						{
-							"id": 2169,
+							"id": 2185,
 							"name": "getFunctionColumnDefSpan",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -21325,7 +21325,7 @@
 							},
 							"parameters": [
 								{
-									"id": 2170,
+									"id": 2186,
 									"name": "style",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -21353,7 +21353,7 @@
 					]
 				},
 				{
-					"id": 2165,
+					"id": 2181,
 					"name": "getFunctionColumnDefVideo",
 					"kind": 2048,
 					"kindString": "Method",
@@ -21364,7 +21364,7 @@
 					},
 					"signatures": [
 						{
-							"id": 2166,
+							"id": 2182,
 							"name": "getFunctionColumnDefVideo",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -21373,7 +21373,7 @@
 							},
 							"parameters": [
 								{
-									"id": 2167,
+									"id": 2183,
 									"name": "style",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -21401,7 +21401,7 @@
 					]
 				},
 				{
-					"id": 2184,
+					"id": 2200,
 					"name": "geti18n",
 					"kind": 2048,
 					"kindString": "Method",
@@ -21412,7 +21412,7 @@
 					},
 					"signatures": [
 						{
-							"id": 2185,
+							"id": 2201,
 							"name": "geti18n",
 							"kind": 4096,
 							"kindString": "Call signature",
@@ -21421,7 +21421,7 @@
 							},
 							"parameters": [
 								{
-									"id": 2186,
+									"id": 2202,
 									"name": "lang",
 									"kind": 32768,
 									"kindString": "Parameter",
@@ -21454,52 +21454,52 @@
 					"title": "Constructors",
 					"kind": 512,
 					"children": [
-						2154
+						2170
 					]
 				},
 				{
 					"title": "Properties",
 					"kind": 1024,
 					"children": [
-						2188,
-						2187
+						2204,
+						2203
 					]
 				},
 				{
 					"title": "Accessors",
 					"kind": 262144,
 					"children": [
-						2177,
-						2196,
-						2204,
-						2214,
-						2171,
-						2173,
+						2193,
 						2212,
-						2208,
-						2194,
-						2200,
-						2175,
-						2179,
-						2218
+						2220,
+						2230,
+						2187,
+						2189,
+						2228,
+						2224,
+						2210,
+						2216,
+						2191,
+						2195,
+						2234
 					]
 				},
 				{
 					"title": "Methods",
 					"kind": 2048,
 					"children": [
-						2228,
-						2224,
+						2244,
+						2240,
+						2197,
+						2238,
+						2208,
+						2205,
+						2172,
+						2176,
+						2178,
+						2184,
 						2181,
-						2222,
-						2192,
-						2189,
-						2156,
-						2160,
-						2162,
-						2168,
-						2165,
-						2184
+						2200
 					]
 				}
 			],
@@ -21947,7 +21947,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 107,
+							"line": 126,
 							"character": 18
 						}
 					],
@@ -21968,7 +21968,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 106,
+							"line": 125,
 							"character": 10
 						}
 					],
@@ -21988,7 +21988,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 105,
+							"line": 124,
 							"character": 11
 						}
 					],
@@ -22008,7 +22008,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 107,
+							"line": 126,
 							"character": 10
 						}
 					],
@@ -22028,7 +22028,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 104,
+							"line": 123,
 							"character": 11
 						}
 					],
@@ -22179,7 +22179,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 62,
+							"line": 81,
 							"character": 20
 						}
 					],
@@ -22221,7 +22221,7 @@
 			"sources": [
 				{
 					"fileName": "src/sgvizler/WktLiteral.ts",
-					"line": 103,
+					"line": 122,
 					"character": 31
 				}
 			],
@@ -22234,7 +22234,7 @@
 			]
 		},
 		{
-			"id": 2145,
+			"id": 2161,
 			"name": "ErrorWktLiteral",
 			"kind": 128,
 			"kindString": "Class",
@@ -22243,7 +22243,7 @@
 			},
 			"children": [
 				{
-					"id": 2147,
+					"id": 2163,
 					"name": "message",
 					"kind": 1024,
 					"kindString": "Property",
@@ -22263,12 +22263,12 @@
 					},
 					"inheritedFrom": {
 						"type": "reference",
-						"id": 2147,
+						"id": 2163,
 						"name": "Error.message"
 					}
 				},
 				{
-					"id": 2146,
+					"id": 2162,
 					"name": "name",
 					"kind": 1024,
 					"kindString": "Property",
@@ -22288,12 +22288,12 @@
 					},
 					"inheritedFrom": {
 						"type": "reference",
-						"id": 2146,
+						"id": 2162,
 						"name": "Error.name"
 					}
 				},
 				{
-					"id": 2148,
+					"id": 2164,
 					"name": "stack",
 					"kind": 1024,
 					"kindString": "Property",
@@ -22323,12 +22323,12 @@
 					},
 					"inheritedFrom": {
 						"type": "reference",
-						"id": 2148,
+						"id": 2164,
 						"name": "Error.stack"
 					}
 				},
 				{
-					"id": 2149,
+					"id": 2165,
 					"name": "Error",
 					"kind": 1024,
 					"kindString": "Property",
@@ -22350,7 +22350,7 @@
 					"extendedBy": [
 						{
 							"type": "reference",
-							"id": 2145,
+							"id": 2161,
 							"name": "ErrorWktLiteral"
 						}
 					]
@@ -22361,24 +22361,24 @@
 					"title": "Properties",
 					"kind": 1024,
 					"children": [
-						2147,
-						2146,
-						2148,
-						2149
+						2163,
+						2162,
+						2164,
+						2165
 					]
 				}
 			],
 			"sources": [
 				{
 					"fileName": "src/sgvizler/WktLiteral.ts",
-					"line": 126,
+					"line": 152,
 					"character": 28
 				}
 			],
 			"extendedTypes": [
 				{
 					"type": "reference",
-					"id": 2149,
+					"id": 2165,
 					"name": "Error"
 				}
 			]
@@ -30792,7 +30792,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 97,
+							"line": 116,
 							"character": 10
 						}
 					],
@@ -30876,7 +30876,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 98,
+							"line": 117,
 							"character": 8
 						}
 					]
@@ -30998,7 +30998,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 62,
+							"line": 81,
 							"character": 20
 						}
 					],
@@ -31038,7 +31038,7 @@
 			"sources": [
 				{
 					"fileName": "src/sgvizler/WktLiteral.ts",
-					"line": 96,
+					"line": 115,
 					"character": 33
 				}
 			],
@@ -32714,7 +32714,7 @@
 						},
 						{
 							"fileName": "src/leaflet/visualization/Map.ts",
-							"line": 51,
+							"line": 52,
 							"character": 5
 						}
 					],
@@ -32855,7 +32855,7 @@
 						},
 						{
 							"fileName": "src/leaflet/visualization/Map.ts",
-							"line": 45,
+							"line": 46,
 							"character": 28
 						}
 					],
@@ -33301,7 +33301,7 @@
 						},
 						{
 							"fileName": "src/leaflet/visualization/Map.ts",
-							"line": 33,
+							"line": 34,
 							"character": 19
 						}
 					],
@@ -33343,7 +33343,7 @@
 						},
 						{
 							"fileName": "src/leaflet/visualization/Map.ts",
-							"line": 37,
+							"line": 38,
 							"character": 20
 						}
 					],
@@ -33784,7 +33784,7 @@
 						},
 						{
 							"fileName": "src/leaflet/visualization/Map.ts",
-							"line": 41,
+							"line": 42,
 							"character": 22
 						}
 					],
@@ -33826,7 +33826,7 @@
 						},
 						{
 							"fileName": "src/leaflet/visualization/Map.ts",
-							"line": 49,
+							"line": 50,
 							"character": 31
 						}
 					],
@@ -34216,7 +34216,7 @@
 						},
 						{
 							"fileName": "src/leaflet/visualization/Map.ts",
-							"line": 68,
+							"line": 69,
 							"character": 15
 						}
 					],
@@ -34522,7 +34522,7 @@
 					"sources": [
 						{
 							"fileName": "src/leaflet/visualization/Map.ts",
-							"line": 276,
+							"line": 291,
 							"character": 47
 						}
 					]
@@ -34587,7 +34587,7 @@
 				},
 				{
 					"fileName": "src/leaflet/visualization/Map.ts",
-					"line": 31,
+					"line": 32,
 					"character": 16
 				}
 			],
@@ -34705,6 +34705,351 @@
 					"fileName": "src/sgvizler/Messages.ts",
 					"line": 22,
 					"character": 21
+				}
+			]
+		},
+		{
+			"id": 2145,
+			"name": "MultiPolygonWktLiteral",
+			"kind": 128,
+			"kindString": "Class",
+			"flags": {
+				"isExported": true
+			},
+			"children": [
+				{
+					"id": 2151,
+					"name": "constructor",
+					"kind": 512,
+					"kindString": "Constructor",
+					"flags": {
+						"isExported": true
+					},
+					"signatures": [
+						{
+							"id": 2152,
+							"name": "new MultiPolygonWktLiteral",
+							"kind": 16384,
+							"kindString": "Constructor signature",
+							"flags": {
+								"isExported": true
+							},
+							"parameters": [
+								{
+									"id": 2153,
+									"name": "spatialReferenceSystem",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExported": true,
+										"isOptional": true
+									},
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "intrinsic",
+												"name": "undefined"
+											},
+											{
+												"type": "intrinsic",
+												"name": "string"
+											}
+										]
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 2145,
+								"name": "MultiPolygonWktLiteral"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 2064,
+								"name": "WktLiteral.__constructor"
+							}
+						}
+					],
+					"sources": [
+						{
+							"fileName": "src/sgvizler/WktLiteral.ts",
+							"line": 6,
+							"character": 34
+						}
+					],
+					"inheritedFrom": {
+						"type": "reference",
+						"id": 2064,
+						"name": "WktLiteral.__constructor"
+					}
+				},
+				{
+					"id": 2146,
+					"name": "polygons",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "src/sgvizler/WktLiteral.ts",
+							"line": 146,
+							"character": 12
+						}
+					],
+					"type": {
+						"type": "reference",
+						"typeArguments": [
+							{
+								"type": "reference",
+								"id": 2129,
+								"name": "PolygonWktLiteral"
+							}
+						],
+						"name": "Array"
+					},
+					"defaultValue": "[]"
+				},
+				{
+					"id": 2150,
+					"name": "spatialReferenceSystem",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExported": true
+					},
+					"sources": [
+						{
+							"fileName": "src/sgvizler/WktLiteral.ts",
+							"line": 6,
+							"character": 26
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					},
+					"inheritedFrom": {
+						"type": "reference",
+						"id": 2063,
+						"name": "WktLiteral.spatialReferenceSystem"
+					}
+				},
+				{
+					"id": 2147,
+					"name": "push",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isExported": true
+					},
+					"signatures": [
+						{
+							"id": 2148,
+							"name": "push",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {
+								"isExported": true
+							},
+							"parameters": [
+								{
+									"id": 2149,
+									"name": "polygonWktLiteral",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExported": true
+									},
+									"type": {
+										"type": "reference",
+										"id": 2129,
+										"name": "PolygonWktLiteral"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "void"
+							}
+						}
+					],
+					"sources": [
+						{
+							"fileName": "src/sgvizler/WktLiteral.ts",
+							"line": 147,
+							"character": 8
+						}
+					]
+				},
+				{
+					"id": 2154,
+					"name": "create",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isStatic": true,
+						"isExported": true
+					},
+					"signatures": [
+						{
+							"id": 2155,
+							"name": "create",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {
+								"isExported": true
+							},
+							"parameters": [
+								{
+									"id": 2156,
+									"name": "raw",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExported": true
+									},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "any"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 2067,
+								"name": "WktLiteral.create"
+							}
+						}
+					],
+					"sources": [
+						{
+							"fileName": "src/sgvizler/WktLiteral.ts",
+							"line": 12,
+							"character": 17
+						}
+					],
+					"inheritedFrom": {
+						"type": "reference",
+						"id": 2067,
+						"name": "WktLiteral.create"
+					}
+				},
+				{
+					"id": 2157,
+					"name": "getNumber",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isStatic": true,
+						"isExported": true
+					},
+					"signatures": [
+						{
+							"id": 2158,
+							"name": "getNumber",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {
+								"isExported": true
+							},
+							"parameters": [
+								{
+									"id": 2159,
+									"name": "value",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExported": true
+									},
+									"type": {
+										"type": "intrinsic",
+										"name": "any"
+									}
+								},
+								{
+									"id": 2160,
+									"name": "parameterName",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExported": true
+									},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "any"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"id": 2070,
+								"name": "WktLiteral.getNumber"
+							}
+						}
+					],
+					"sources": [
+						{
+							"fileName": "src/sgvizler/WktLiteral.ts",
+							"line": 81,
+							"character": 20
+						}
+					],
+					"inheritedFrom": {
+						"type": "reference",
+						"id": 2070,
+						"name": "WktLiteral.getNumber"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Constructors",
+					"kind": 512,
+					"children": [
+						2151
+					]
+				},
+				{
+					"title": "Properties",
+					"kind": 1024,
+					"children": [
+						2146,
+						2150
+					]
+				},
+				{
+					"title": "Methods",
+					"kind": 2048,
+					"children": [
+						2147,
+						2154,
+						2157
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "src/sgvizler/WktLiteral.ts",
+					"line": 145,
+					"character": 35
+				}
+			],
+			"extendedTypes": [
+				{
+					"type": "reference",
+					"id": 2062,
+					"name": "WktLiteral"
 				}
 			]
 		},
@@ -40018,7 +40363,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 78,
+							"line": 97,
 							"character": 16
 						}
 					],
@@ -40039,7 +40384,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 77,
+							"line": 96,
 							"character": 7
 						}
 					],
@@ -40059,7 +40404,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 78,
+							"line": 97,
 							"character": 8
 						}
 					],
@@ -40135,7 +40480,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 86,
+							"line": 105,
 							"character": 17
 						}
 					]
@@ -40257,7 +40602,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 62,
+							"line": 81,
 							"character": 20
 						}
 					],
@@ -40298,7 +40643,7 @@
 			"sources": [
 				{
 					"fileName": "src/sgvizler/WktLiteral.ts",
-					"line": 76,
+					"line": 95,
 					"character": 28
 				}
 			],
@@ -40397,7 +40742,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 120,
+							"line": 139,
 							"character": 10
 						}
 					],
@@ -40481,7 +40826,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 121,
+							"line": 140,
 							"character": 8
 						}
 					]
@@ -40603,7 +40948,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 62,
+							"line": 81,
 							"character": 20
 						}
 					],
@@ -40643,7 +40988,7 @@
 			"sources": [
 				{
 					"fileName": "src/sgvizler/WktLiteral.ts",
-					"line": 119,
+					"line": 138,
 					"character": 30
 				}
 			],
@@ -54212,7 +54557,7 @@
 					"sources": [
 						{
 							"fileName": "src/sgvizler/WktLiteral.ts",
-							"line": 62,
+							"line": 81,
 							"character": 20
 						}
 					]
@@ -54269,6 +54614,11 @@
 					"type": "reference",
 					"id": 2129,
 					"name": "PolygonWktLiteral"
+				},
+				{
+					"type": "reference",
+					"id": 2145,
+					"name": "MultiPolygonWktLiteral"
 				}
 			]
 		},
@@ -54533,7 +54883,7 @@
 				},
 				{
 					"fileName": "src/leaflet/visualization/Map.ts",
-					"line": 18,
+					"line": 19,
 					"character": 13
 				},
 				{
@@ -54596,7 +54946,7 @@
 			"sources": [
 				{
 					"fileName": "src/leaflet/visualization/Map.ts",
-					"line": 23,
+					"line": 24,
 					"character": 13
 				}
 			],
@@ -55845,7 +56195,7 @@
 			"children": [
 				1,
 				1988,
-				2150,
+				2166,
 				281,
 				89
 			]
@@ -55868,10 +56218,10 @@
 				1942,
 				235,
 				366,
-				2153,
+				2169,
 				205,
 				2109,
-				2145,
+				2161,
 				902,
 				966,
 				1030,
@@ -55883,6 +56233,7 @@
 				1906,
 				1158,
 				290,
+				2145,
 				1222,
 				1286,
 				295,

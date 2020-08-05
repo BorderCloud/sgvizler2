@@ -76,25 +76,25 @@
 				<p>This project is the reboot in Typescript of project <a href="https://github.com/mgskjaeveland/sgvizler">Sgvizler</a> of Martin G.
 				Skjæveland.</p>
 				<p>Add visualisations directly into your webpages like this:</p>
-				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"result"</span>
-     <span class="hljs-attr">data-sgvizler-endpoint</span>=<span class="hljs-string">"https://query.wikidata.org/sparql"</span>
-     <span class="hljs-attr">data-sgvizler-chart</span>=<span class="hljs-string">"bordercloud.visualization.DataTable"</span>
-     <span class="hljs-attr">data-sgvizler-query</span>=<span class="hljs-string">"
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;result&quot;</span>
+     <span class="hljs-attr">data-sgvizler-endpoint</span>=<span class="hljs-string">&quot;https://query.wikidata.org/sparql&quot;</span>
+     <span class="hljs-attr">data-sgvizler-chart</span>=<span class="hljs-string">&quot;bordercloud.visualization.DataTable&quot;</span>
+     <span class="hljs-attr">data-sgvizler-query</span>=<span class="hljs-string">&quot;
      PREFIX rdfs: <span class="hljs-symbol">&amp;amp;</span>lt;http://www.w3.org/2000/01/rdf-schema#<span class="hljs-symbol">&amp;amp;</span>gt;
      SELECT  *
      WHERE {
              ?object ?property ?valueOrObject .
      }
      LIMIT 4
-     "</span>
+     &quot;</span>
      &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
- <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"sgvizler2/sgvizler2.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
- <span class="hljs-comment">&lt;!--script src="node_modules/sgvizler2/build/browser/sgvizler2.js"&gt;&lt;/script--&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;sgvizler2/sgvizler2.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+ <span class="hljs-comment">&lt;!--script src=&quot;node_modules/sgvizler2/build/browser/sgvizler2.js&quot;&gt;&lt;/script--&gt;</span>
  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
     <span class="hljs-comment">//Draw a chart</span>
-    <span class="hljs-comment">//sgvizler2.containerDraw('result');</span>
+    <span class="hljs-comment">//sgvizler2.containerDraw(&#x27;result&#x27;);</span>
     <span class="hljs-comment">//or</span>
-    <span class="hljs-comment">//$("#result").containerchart();</span>
+    <span class="hljs-comment">//$(&quot;#result&quot;).containerchart();</span>
 
     <span class="hljs-comment">//Draw all Chart</span>
     sgvizler2.containerDrawAll();
@@ -102,15 +102,15 @@
 				<p>Generate your chart with <a href="https://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">our SPARQL editor</a> and to
 				read their docs.</p>
 				<p>It is possible to execute a function when the graph is finished or failed.</p>
-				<pre><code class="language-javascript">sgvizler2.containerDraw(<span class="hljs-string">'result'</span>,options)
+				<pre><code class="language-javascript">sgvizler2.containerDraw(<span class="hljs-string">&#x27;result&#x27;</span>,options)
     .done(
         <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Success!"</span>);
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Success!&quot;</span>);
         }
     )
     .fail(
         <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"There is a problem"</span>);
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;There is a problem&quot;</span>);
         }
     );</code></pre>
 				<a href="#download-directly-sgvizler2" id="download-directly-sgvizler2" style="color: inherit; text-decoration: none;">
@@ -118,17 +118,17 @@
 				</a>
 				<p><a href="https://github.com/BorderCloud/sgvizler2/releases">Download the last version</a></p>
 				<p>The path of Sgvizler2 will be :</p>
-				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"sgvizler2/sgvizler2.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;sgvizler2/sgvizler2.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<p>Dependencies:</p>
-				<pre><code><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://code.jquery.com/jquery-3.4.1.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"</span> &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre><p>Other dependencies, if you use the select control:</p>
-				<pre><code>&lt;link <span class="hljs-attribute">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attribute">href</span>=<span class="hljs-string">"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"</span>&gt;
-&lt;link <span class="hljs-attribute">rel</span>=<span class="hljs-string">"stylesheet"</span> <span class="hljs-attribute">href</span>=<span class="hljs-string">"sgvizler2//lib/bootstrap-select/css/bootstrap-select.min.css"</span>&gt;
-&lt;script <span class="hljs-attribute">src</span>=<span class="hljs-string">"sgvizler2/lib/bootstrap-select/js/bootstrap-select.min.js"</span>&gt;&lt;/script&gt;
-&lt;script <span class="hljs-attribute">src</span>=<span class="hljs-string">"sgvizler2/lib/bootstrap-select/js/i18n/defaults-fr_FR.min.js"</span>&gt;&lt;/script&gt;
-&lt;script <span class="hljs-attribute">src</span>=<span class="hljs-string">"sgvizler2/lib/bootstrap-select/js/i18n/defaults-en_US.min.js"</span>&gt;&lt;/script&gt;</code></pre>
+				<pre><code><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://code.jquery.com/jquery-3.4.1.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js&quot;</span> &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre><p>Other dependencies, if you use the select control:</p>
+				<pre><code>&lt;link <span class="hljs-attribute">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attribute">href</span>=<span class="hljs-string">&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css&quot;</span>&gt;
+&lt;link <span class="hljs-attribute">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attribute">href</span>=<span class="hljs-string">&quot;sgvizler2//lib/bootstrap-select/css/bootstrap-select.min.css&quot;</span>&gt;
+&lt;script <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;sgvizler2/lib/bootstrap-select/js/bootstrap-select.min.js&quot;</span>&gt;&lt;/script&gt;
+&lt;script <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;sgvizler2/lib/bootstrap-select/js/i18n/defaults-fr_FR.min.js&quot;</span>&gt;&lt;/script&gt;
+&lt;script <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;sgvizler2/lib/bootstrap-select/js/i18n/defaults-en_US.min.js&quot;</span>&gt;&lt;/script&gt;</code></pre>
 				<a href="#install-the-package-via-yarn-or-npm" id="install-the-package-via-yarn-or-npm" style="color: inherit; text-decoration: none;">
 					<h2>Install the package via yarn or npm</h2>
 				</a>
@@ -136,7 +136,7 @@
 				<pre><code><span class="hljs-attribute">yarn</span> add sgvizler<span class="hljs-number">2</span>
 <span class="hljs-comment"># or</span>
 <span class="hljs-attribute">npm</span> install sgvizler<span class="hljs-number">2</span></code></pre><p>The path of Sgvizler2 will be :</p>
-				<pre><code class="language-html"> <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"node_modules/sgvizler2/build/browser/sgvizler2.js"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<pre><code class="language-html"> <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;node_modules/sgvizler2/build/browser/sgvizler2.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
 				<a href="#get-started" id="get-started" style="color: inherit; text-decoration: none;">
 					<h2>Get started</h2>
 				</a>
@@ -268,6 +268,9 @@
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/messages.html" class="tsd-kind-icon">Messages</a>
+					</li>
+					<li class=" tsd-kind-class">
+						<a href="classes/multipolygonwktliteral.html" class="tsd-kind-icon">Multi<wbr>Polygon<wbr>Wkt<wbr>Literal</a>
 					</li>
 					<li class=" tsd-kind-class">
 						<a href="classes/orgchart.html" class="tsd-kind-icon">Org<wbr>Chart</a>
@@ -446,6 +449,5 @@
 </div>
 <div class="overlay"></div>
 <script src="assets/js/main.js"></script>
-<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
 </body>
 </html>

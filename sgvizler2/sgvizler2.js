@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (global = global || self, factory(global.sgvizler2 = {}));
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.sgvizler2 = {}));
 }(this, (function (exports) { 'use strict';
 
     var sgvizler2 = /*#__PURE__*/Object.freeze({
@@ -1986,13 +1986,13 @@
         static create(raw) {
             try {
                 // Point(LONG LAT): A single point as described above (Note the lack of a comma)
-                const regexPoint = /^(?:\s*<([^>]+)>\s+)?Point\(([^\s]+) +([^\s]+)\)$/i;
+                const regexPoint = /^(?:\s*<([^>]+)>\s+)?Point\s*\(([^\s]+) +([^\s]+)\)$/i;
                 const resultPoint = raw.match(regexPoint);
                 if (resultPoint != null) {
                     return new PointWktLiteral(resultPoint[2], resultPoint[3], resultPoint[1]);
                 }
                 // Linestring(LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN): A line connecting the specified points (Commas between each point)
-                const regexLinestring = /^(?:\s*<([^>]+)>\s+)?Linestring\((.+)\)$/i;
+                const regexLinestring = /^(?:\s*<([^>]+)>\s+)?Linestring\s*\((.+)\)$/i;
                 const regexLonLatList = /([^\s,]+?)\s+([^\s,]+)/g;
                 const resultLinestring = raw.match(regexLinestring);
                 if (resultLinestring != null) {
@@ -2004,13 +2004,13 @@
                     return line;
                 }
                 // Envelope(minLong, maxLong, maxLat, minLat): A rectangle with the specified corners (Note the commas between each and especially note the somewhat odd ordering of (min, max, max, min)).
-                const regexEnvelope = /^(?:\s*<([^>]+)>\s+)?Envelope\(\s*([^\s,]+)\s*,\s*([^\s]+)\s*,\s*([^\s]+)\s*,\s*([^\s]+)\s*\)$/i;
+                const regexEnvelope = /^(?:\s*<([^>]+)>\s+)?Envelope\s*\(\s*([^\s,]+)\s*,\s*([^\s]+)\s*,\s*([^\s]+)\s*,\s*([^\s]+)\s*\)$/i;
                 const resultEnvelope = raw.match(regexEnvelope);
                 if (resultEnvelope != null) {
                     return new EnvelopeWktLiteral(resultEnvelope[2], resultEnvelope[3], resultEnvelope[4], resultEnvelope[5], resultEnvelope[1]);
                 }
                 // Polygon(LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN, LONG1 LAT1): A filled-in shape with the specified points (Note that a polygon must start and end with the same point, i.e., be closed)
-                const regexPolygon = /^(?:\s*<([^>]+)>\s+)?Polygon\(\((.+)\)\)$/i;
+                const regexPolygon = /^(?:\s*<([^>]+)>\s+)?Polygon\s*\(\((.+)\)\)$/i;
                 const resultPolygon = raw.match(regexPolygon);
                 if (resultPolygon != null) {
                     let resultPolygonList = resultPolygon[2].matchAll(regexLonLatList);
@@ -2019,6 +2019,23 @@
                         polygon.push(new PointWktLiteral(match[1], match[2], resultPolygon[1]));
                     }
                     return polygon;
+                }
+                //https://docs.microsoft.com/fr-fr/sql/relational-databases/spatial/multipolygon?view=sql-server-ver15
+                const regexMultiPolygon = /^(?:\s*<([^>]+)>\s+)?MULTIPOLYGON\s*\((.+)\)$/i;
+                const regexPolygonList = /\(\(?(.+?)\)\)?/g;
+                const resultMultiPolygon = raw.match(regexMultiPolygon);
+                if (resultMultiPolygon != null) {
+                    let resultPolygonList = resultMultiPolygon[2].matchAll(regexPolygonList);
+                    const multipolygon = new MultiPolygonWktLiteral(resultMultiPolygon[1]);
+                    for (const matchPolygon of resultPolygonList) {
+                        let resultPointList = matchPolygon[1].matchAll(regexLonLatList);
+                        let polygon = new PolygonWktLiteral(resultMultiPolygon[1]);
+                        for (const match of resultPointList) {
+                            polygon.push(new PointWktLiteral(match[1], match[2], resultMultiPolygon[1]));
+                        }
+                        multipolygon.push(polygon);
+                    }
+                    return multipolygon;
                 }
             }
             catch (e) {
@@ -2041,7 +2058,7 @@
                     return valueNumber;
                 }
                 else {
-                    throw new ErrorWktLiteral(parameterName + " is not a number");
+                    throw new ErrorWktLiteral("Value " + value + " of " + parameterName + " is not a number");
                 }
             }
         }
@@ -2089,6 +2106,15 @@
             this.points.push(pointWktLiteral);
         }
     }
+    class MultiPolygonWktLiteral extends WktLiteral {
+        constructor() {
+            super(...arguments);
+            this.polygons = [];
+        }
+        push(polygonWktLiteral) {
+            this.polygons.push(polygonWktLiteral);
+        }
+    }
     class ErrorWktLiteral extends Error {
     }
 
@@ -2124,6 +2150,7 @@
         LinestringWktLiteral: LinestringWktLiteral,
         EnvelopeWktLiteral: EnvelopeWktLiteral,
         PolygonWktLiteral: PolygonWktLiteral,
+        MultiPolygonWktLiteral: MultiPolygonWktLiteral,
         ErrorWktLiteral: ErrorWktLiteral
     });
 
@@ -5679,6 +5706,7 @@
                 let linestringWktLiteral;
                 let envelopeWktLiteral;
                 let polygonWktLiteral;
+                let multipolygonWktLiteral;
                 let polygonPointslatlngs;
                 let mapUri;
                 let geoJSON;
@@ -5797,6 +5825,19 @@
                                         polygon = Map$1.readOtherParametersWithPoint(row, cols.slice(1), polygon);
                                         polygon.addTo(map);
                                         groupArray.push(polygon);
+                                    }
+                                    else if (wktLiteral instanceof MultiPolygonWktLiteral) {
+                                        multipolygonWktLiteral = wktLiteral;
+                                        for (let polygonWktLiteral of multipolygonWktLiteral.polygons) {
+                                            polygonPointslatlngs = [];
+                                            for (let point of polygonWktLiteral.points) {
+                                                polygonPointslatlngs.push([point.lat, point.long]);
+                                            }
+                                            polygon = L.polygon(polygonPointslatlngs, { color: 'green', weight: 1 });
+                                            polygon = Map$1.readOtherParametersWithPoint(row, cols.slice(1), polygon);
+                                            polygon.addTo(map);
+                                            groupArray.push(polygon);
+                                        }
                                     }
                                 }
                                 catch (e) {
