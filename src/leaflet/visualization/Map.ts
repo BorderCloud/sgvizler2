@@ -5,6 +5,7 @@ import {
     WktLiteral,
     PointWktLiteral,
     PolygonWktLiteral,
+    MultiPolygonWktLiteral,
     LinestringWktLiteral,
     EnvelopeWktLiteral,
     ErrorWktLiteral,
@@ -100,6 +101,7 @@ export class Map extends Chart {
             let linestringWktLiteral
             let envelopeWktLiteral
             let polygonWktLiteral
+            let multipolygonWktLiteral
             let polygonPointslatlngs
             let mapUri
             let geoJSON
@@ -229,6 +231,19 @@ export class Map extends Chart {
                                     polygon = Map.readOtherParametersWithPoint(row, cols.slice(1), polygon)
                                     polygon.addTo(map)
                                     groupArray.push(polygon)
+                                } else if (wktLiteral instanceof MultiPolygonWktLiteral) {
+                                    multipolygonWktLiteral = <MultiPolygonWktLiteral> wktLiteral
+
+                                    for (let polygonWktLiteral of multipolygonWktLiteral.polygons) {
+                                        polygonPointslatlngs = [];
+                                        for (let point of polygonWktLiteral.points) {
+                                            polygonPointslatlngs.push([point.lat, point.long])
+                                        }
+                                        polygon = L.polygon(polygonPointslatlngs, {color: 'green', weight: 1})
+                                        polygon = Map.readOtherParametersWithPoint(row, cols.slice(1), polygon)
+                                        polygon.addTo(map)
+                                        groupArray.push(polygon)
+                                    }
                                 }
                             }catch (e) {
                                 if (e instanceof ErrorWktLiteral) {

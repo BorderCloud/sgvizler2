@@ -106,7 +106,7 @@
             Geolocation with a wktLiteral
         </h5>
         <p>
-            Each row in the table represents a geolocation with a shape (point, line, enveloppe, polygone).
+            Each row in the table represents a geolocation with a shape (point, line, enveloppe, polygon, multipolygon).
         </p>
 
         <table  class="table table-bordered" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
@@ -149,7 +149,10 @@
             <tr>
                 <td class="left">0</td>
                 <td class="left">wktLiteral</td>
-                <td class="left">Point(LONG LAT) or Linestring(LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN) or Envelope(minLong, maxLong, maxLat, minLat) or Polygon(LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN, LONG1 LAT1) </td>
+                <td class="left">Point(LONG LAT) or Linestring(LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN) or Envelope(minLong, maxLong, maxLat, minLat)
+                    or Polygon((LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN, LONG1 LAT1))
+                    or Multipolygon(((LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN, LONG1 LAT1)), ((LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN, LONG1 LAT1)))
+                </td>
             </tr>
             <tr>
                 <td class="left">1</td>
@@ -550,9 +553,12 @@ where {
 
             ( 'Point(0 0)'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;  'Point'&#9;'test' &lt;http://www.wikidata.org/entity/Q2982097&gt; &lt;http://commons.wikimedia.org/wiki/Special:FilePath/Vista%20Panissars.jpg?width=200&gt;  )
             ( 'Polygon((-1 -1, 0 0,1 -1,-1 -1))'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt; 'roof of the house''test' UNDEF  UNDEF )
-            ( 'Envelope(-1, 1, -3,-1.5))'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;  'House'   UNDEF UNDEF UNDEF  )
 
-            ( 'LineString(0 -3, 0 -2,  0.5 -2,0.5 -3)'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt; 'Gate' 'test' &lt;http://commons.wikimedia.org/wiki/Special:FilePath/Vista%20Panissars.jpg?width=200&gt; UNDEF  )
+            ( 'MultiPolygon(((-0.8 -1.2,  -0.8 -1.5,  -0.5 -1.5,  -0.5 -1.2, -0.8 -1.2)), ((-0.8 -1.5,  -0.8 -1.8,  -0.5 -1.8,  -0.5 -1.5, -0.8 -1.5)), ((-0.5 -1.2,  -0.5 -1.5,  -0.2 -1.5,  -0.2 -1.2, -0.5 -1.2)), ((-0.5 -1.5,  -0.5 -1.8,  -0.2 -1.8,  -0.2 -1.5, -0.5 -1.5)))'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt; 'windows of the house''test' UNDEF  UNDEF )
+
+            ( 'Envelope(-1, 1, -2.5,-1))'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt;  'House'   UNDEF UNDEF UNDEF  )
+
+            ( 'LineString(0 -2.5, 0 -1.5,  0.5 -1.5,0.5 -2.5)'^^&lt;http://www.opengis.net/ont/geosparql#wktLiteral&gt; 'Gate' 'test' &lt;http://commons.wikimedia.org/wiki/Special:FilePath/Vista%20Panissars.jpg?width=200&gt; UNDEF  )
              }
  }"
              data-sgvizler-endpoint="https://query.wikidata.org/sparql"
