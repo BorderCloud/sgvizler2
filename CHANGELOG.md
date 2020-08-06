@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.5.1](https://github.com/BorderCloud/sgvizler2/compare/v1.5.0...v1.5.1) (2020-08-06)
+
+
+### Bug Fixes
+
+* **leaflet:** supported different syntaxes of multipolygon ([40a27e5](https://github.com/BorderCloud/sgvizler2/commit/40a27e5e0c492fb9a001123055192619cb66c7c1))
+
 ## [1.5.0](https://github.com/BorderCloud/sgvizler2/compare/v1.4.1...v1.5.0) (2020-08-05)
 
 
