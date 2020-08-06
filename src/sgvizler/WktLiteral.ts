@@ -39,7 +39,7 @@ export abstract class WktLiteral {
             }
 
             // Polygon(LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN, LONG1 LAT1): A filled-in shape with the specified points (Note that a polygon must start and end with the same point, i.e., be closed)
-            const regexPolygon = /^(?:\s*<([^>]+)>\s+)?Polygon\s*\(\((.+)\)\)$/i;
+            const regexPolygon = /^(?:\s*<([^>]+)>\s+)?Polygon\s*\(\(([^\(\)]+)\)\)$/i;
             const resultPolygon = raw.match(regexPolygon);
             if(resultPolygon != null){
                 let resultPolygonList = resultPolygon[2].matchAll(regexLonLatList);
@@ -51,7 +51,7 @@ export abstract class WktLiteral {
             }
 
             //https://docs.microsoft.com/fr-fr/sql/relational-databases/spatial/multipolygon?view=sql-server-ver15
-            const regexMultiPolygon = /^(?:\s*<([^>]+)>\s+)?MULTIPOLYGON\s*\((.+)\)$/i;
+            const regexMultiPolygon = /^(?:\s*<([^>]+)>\s+)?(?:MULTI)?POLYGON\s*\((.+)\)$/i;
             const regexPolygonList = /\(\(?(.+?)\)\)?/g;
             const resultMultiPolygon = raw.match(regexMultiPolygon);
             if(resultMultiPolygon != null){

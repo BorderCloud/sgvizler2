@@ -93,15 +93,20 @@ The test suite is in the file : test/tests.side
 Commands :
 ```
 yarn clean
-q
-#yarn std-version-major
+yarn docs:all
+
+#MAJOR version when you make incompatible API changes,
+yarn std-version-major
+#MINOR version when you add functionality in a backwards compatible manner, and
 yarn std-version-minor
+#PATCH version when you make backwards compatible bug fixes.
+yarn std-version-patch
+
 # Avoid problems in yarn/npm publish
 yarn pack
 # check the package before to publish
 yarn publish sgvizler2-vVERSION.tgz  --new-version VERSION
 
-yarn docs:all
 yarn docs:publish
 ```
 
