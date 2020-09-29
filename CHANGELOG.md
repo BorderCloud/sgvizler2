@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/BorderCloud/sgvizler2/compare/v1.5.1...v1.6.0) (2020-09-29)
+
+
+### Features
+
+* **leaflet:** Add Virtuoso type http://www.openlinksw.com/schemas/virtrdf#Geometry ([84fa3b1](https://github.com/BorderCloud/sgvizler2/commit/84fa3b135102c0c762d102b68d10fbe82d03e35d))
+
 ### [1.5.1](https://github.com/BorderCloud/sgvizler2/compare/v1.5.0...v1.5.1) (2020-08-06)
 
 
