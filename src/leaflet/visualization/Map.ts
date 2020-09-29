@@ -184,7 +184,10 @@ export class Map extends Chart {
 
                         //check  wktLiteral
                         wktLiteralType = row[cols[0]].datatype
-                        if (wktLiteralType == "http://www.opengis.net/ont/geosparql#wktLiteral") {
+                        if (
+                            wktLiteralType == "http://www.opengis.net/ont/geosparql#wktLiteral"
+                            || wktLiteralType == "http://www.openlinksw.com/schemas/virtrdf#Geometry" // bug in Virtuoso 7
+                        ) {
                             wktLiteralStr = row[cols[0]].value
                             try{
                                 wktLiteral = WktLiteral.create(wktLiteralStr)
