@@ -293,7 +293,7 @@
                 let cols = currentThis._resultSparql.head.vars;
                 let rows = currentThis._resultSparql.results.bindings;
                 let noCols = cols.length;
-                let noRows = rows.length;
+                rows.length;
                 if (noCols === 0) {
                     isEmpty = true;
                 }
@@ -328,7 +328,7 @@
             while ((matchArray = patternOption.exec(raw)) !== null) { // tslint:disable-line
                 // this.options[matchArray[1].toLowerCase()] = matchArray[2].trim()
                 // this.options[matchArray[1]] = matchArray[2].trim()
-                Tools.assignProperty(this.options, matchArray[1], matchArray[2].trim());
+                Tools$1.assignProperty(this.options, matchArray[1], matchArray[2].trim());
                 this._patternOptions = typePattern;
             }
         }
@@ -398,7 +398,7 @@
      * @tutorial sgvizler_visualization_Table
      * @memberof sgvizler.visualization
      */
-    class Table extends Chart {
+    class Table$1 extends Chart {
         get icon() {
             return 'fa fa-table';
         }
@@ -434,8 +434,8 @@
                 let opt = Object.assign({ headings: 'true' }, currentChart.options);
                 let cols = result.head.vars;
                 let rows = result.results.bindings;
-                let noCols = cols.length;
-                let noRows = rows.length;
+                cols.length;
+                rows.length;
                 // console.log(opt)
                 let html = '<table ' + currentChart.getHTMLStyleOrClass() + ' >';
                 if (opt.headings === 'true') {
@@ -467,9 +467,9 @@
      * @namespace sgvizler.visualization
      */
 
-    var visualizationNS = /*#__PURE__*/Object.freeze({
+    var visualizationNS$4 = /*#__PURE__*/Object.freeze({
         __proto__: null,
-        Table: Table
+        Table: Table$1
     });
 
     /**
@@ -730,7 +730,7 @@
          * @returns {string} absolute or relative URL
          */
         static getChartDoc(classFullName, pathDoc) {
-            let chartClass = Tools.getObjectByPath(classFullName);
+            let chartClass = Tools$1.getObjectByPath(classFullName);
             let path = '';
             if (pathDoc !== undefined) {
                 path = pathDoc;
@@ -758,7 +758,7 @@
                 attrLabel.value = optgroup.label;
                 nodeOptgroup.setAttributeNode(attrLabel);
                 for (let chart of optgroup.charts) {
-                    chartClass = Tools.getObjectByPath(chart);
+                    chartClass = Tools$1.getObjectByPath(chart);
                     nodeOption = document.createElement('option');
                     attrIcon = document.createAttribute('data-icon');
                     attrIcon.value = chartClass.icon;
@@ -924,7 +924,7 @@
      * @class sgvizler.Tools
      * @memberof sgvizler
      */
-    class Tools {
+    class Tools$1 {
         // noinspection JSValidateJSDoc
         /**
          * Gets the object located at `path` from `object`. `path`
@@ -963,7 +963,7 @@
             return cursor;
         }
         static assignProperty(obj, path, value) {
-            return Tools.assignJSON(obj, Tools.getJSONByPath(path, value));
+            return Tools$1.assignJSON(obj, Tools$1.getJSONByPath(path, value));
         }
         // public static escapeHtml (str: string): string {
         //     let text = document.createTextNode(str)
@@ -1033,7 +1033,7 @@
             if (positionDot === -1) {
                 propertyName = path.trim();
                 if (Number.isNaN(Number(value))) {
-                    let valueBoolean = Tools.convertToBoolean(value);
+                    let valueBoolean = Tools$1.convertToBoolean(value);
                     if (valueBoolean === undefined) {
                         let str = JSON.stringify(String(value));
                         str = str.substring(1, str.length - 1);
@@ -1050,12 +1050,12 @@
             else {
                 propertyName = path.substring(0, positionDot);
                 nextPath = path.substring(positionDot + 1, path.length);
-                json = '{"' + propertyName.trim() + '": ' + Tools.getJSONByPath(nextPath, value) + ' }';
+                json = '{"' + propertyName.trim() + '": ' + Tools$1.getJSONByPath(nextPath, value) + ' }';
             }
             return json;
         }
         static assignJSON(obj, json) {
-            Tools.mergeInObject(obj, JSON.parse(json));
+            Tools$1.mergeInObject(obj, JSON.parse(json));
             return obj;
         }
         static convertToBoolean(input) {
@@ -1071,11 +1071,11 @@
         }
         // Convert to typescript : https://github.com/gmasmejean/recursiveAssign/blob/master/index.js
         static assign(ref, key, value) {
-            if (Tools.isPlainObject(value)) {
-                if (!Tools.isPlainObject(ref[key])) {
+            if (Tools$1.isPlainObject(value)) {
+                if (!Tools$1.isPlainObject(ref[key])) {
                     ref[key] = {};
                 }
-                Tools.mergeInObject(ref[key], value);
+                Tools$1.mergeInObject(ref[key], value);
             }
             else {
                 ref[key] = value;
@@ -1083,7 +1083,7 @@
         }
         static mergeInObject(dest, data) {
             Object.keys(data).forEach(key => {
-                Tools.assign(dest, key, data[key]);
+                Tools$1.assign(dest, key, data[key]);
             });
         }
         static isPlainObject(o) {
@@ -1614,17 +1614,17 @@
             }
             if (elmAttrs[self.CHART_OPTION_ATTRIBUTE_NAME]) {
                 this._chartOptions =
-                    Tools.decodeHtml(elmAttrs[self.CHART_OPTION_ATTRIBUTE_NAME].value);
+                    Tools$1.decodeHtml(elmAttrs[self.CHART_OPTION_ATTRIBUTE_NAME].value);
             }
             // build request object
             let request = new Request();
             request.container = this;
             this._id = elementID;
             if (elmAttrs[self.QUERY_ATTRIBUTE_NAME]) {
-                request.query = Tools.decodeHtml(elmAttrs[self.QUERY_ATTRIBUTE_NAME].value);
+                request.query = Tools$1.decodeHtml(elmAttrs[self.QUERY_ATTRIBUTE_NAME].value);
             }
             if (elmAttrs[self.ENDPOINT_ATTRIBUTE_NAME]) {
-                request.endpoint = Tools.decodeHtml(elmAttrs[self.ENDPOINT_ATTRIBUTE_NAME].value);
+                request.endpoint = Tools$1.decodeHtml(elmAttrs[self.ENDPOINT_ATTRIBUTE_NAME].value);
             }
             else {
                 this._state = CONTAINER_STATE.FAILED;
@@ -1642,7 +1642,7 @@
             }
             this._request = request;
             // build the chart object
-            let chart = Tools.getObjectByPath(this.chartName);
+            let chart = Tools$1.getObjectByPath(this.chartName);
             if (chart === undefined) {
                 this._state = CONTAINER_STATE.FAILED;
                 Logger.displayFeedback(this, MESSAGES.ERROR_CHART_UNKNOWN, [this.chartName]);
@@ -1677,7 +1677,7 @@
             let index = -1;
             let len = Container.list.length;
             for (let i = 0; i < len; i++) {
-                let dep = Container.list[i];
+                Container.list[i];
                 if (this.id === Container.list[i].id) {
                     //this._dependenciesToLoad.splice(i)
                     index = i;
@@ -1942,8 +1942,8 @@
                 obj.innerHTML = "<canvas class='imageWait' " +
                     "style='position: relative;top: 50%;left: 50%;transform: translate(-50%, -50%);margin:100px auto;'></canvas>";
                 let canvas = obj.getElementsByTagName('canvas')[0];
-                let width = Tools.sizeConvertInteger(this._container.chart.width);
-                let height = Tools.sizeConvertInteger(this._container.chart.height);
+                let width = Tools$1.sizeConvertInteger(this._container.chart.width);
+                let height = Tools$1.sizeConvertInteger(this._container.chart.height);
                 canvas.setAttribute('width', (width) ? this._container.chart.width : "100");
                 canvas.setAttribute('height', (height) ? this._container.chart.height : "100");
                 var image = new Image();
@@ -2121,11 +2121,11 @@
     /**
      * @namespace sgvizler
      */
-    const visualization = visualizationNS;
+    const visualization$4 = visualizationNS$4;
 
     var S = /*#__PURE__*/Object.freeze({
         __proto__: null,
-        visualization: visualization,
+        visualization: visualization$4,
         Loader: Loader,
         Dependency: Dependency,
         ScriptDependency: ScriptDependency,
@@ -2134,7 +2134,7 @@
         Select: Select,
         get MESSAGES () { return MESSAGES; },
         Messages: Messages,
-        Tools: Tools,
+        Tools: Tools$1,
         Logger: Logger,
         Core: Core,
         get CHART_PATTERN_OPTIONS () { return CHART_PATTERN_OPTIONS; },
@@ -2372,6 +2372,7 @@
                                     else { //litteral
                                         switch (row[cols[c]].datatype) {
                                             case 'http://www.w3.org/2001/XMLSchema#dateTime':
+                                                // @ts-ignore
                                                 datasetRow[c] = (new Date(row[cols[c]].value)).toLocaleDateString(lang, optionsDateTime);
                                                 break;
                                             case 'http://www.w3.org/2001/XMLSchema#date':
@@ -2567,8 +2568,8 @@
                     let defaultOptions = {
                         renderers: $.extend($.pivotUtilities.renderers, $.pivotUtilities.plotly_renderers, $.pivotUtilities.d3_renderers, $.pivotUtilities.c3_renderers, $.pivotUtilities.gchart_renderers, $.pivotUtilities.export_renderers),
                         rendererOptions: {
-                            width: Tools.sizeConvertInteger(currentChart.width),
-                            height: Tools.sizeConvertInteger(currentChart.height)
+                            width: Tools$1.sizeConvertInteger(currentChart.width),
+                            height: Tools$1.sizeConvertInteger(currentChart.height)
                         }
                     };
                     let pivotUIOptions = null;
@@ -2623,7 +2624,7 @@
      * @namespace bordercloud.visualization
      */
 
-    var visualizationNS$1 = /*#__PURE__*/Object.freeze({
+    var visualizationNS$3 = /*#__PURE__*/Object.freeze({
         __proto__: null,
         DataTable: DataTable,
         PivotTable: PivotTable
@@ -2632,11 +2633,11 @@
     /**
      * @namespace bordercloud
      */
-    const visualization$1 = visualizationNS$1;
+    const visualization$3 = visualizationNS$3;
 
     var bordercloudNS = /*#__PURE__*/Object.freeze({
         __proto__: null,
-        visualization: visualization$1
+        visualization: visualization$3
     });
 
     /**
@@ -2644,7 +2645,7 @@
      * @class google.Tools
      * @memberof google
      */
-    class Tools$1 {
+    class Tools {
         static decodeFormatSize(value) {
             let result = value;
             if (Number.isNaN(Number(value))) {
@@ -2807,7 +2808,7 @@
     class AnnotationChart extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['annotationchart'] });
@@ -2843,14 +2844,14 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
                 if (!AnnotationChart._isInit) {
@@ -2881,14 +2882,14 @@
      * @tutorial google_visualization_AreaChart
      * @memberof google.visualization
      */
-    class AreaChart extends Chart {
+    class AreaChart$1 extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['corechart'] });
-            AreaChart._isInit = true;
+            AreaChart$1._isInit = true;
         }
         get icon() {
             return 'fas fa-chart-area';
@@ -2920,18 +2921,18 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
-                if (!AreaChart._isInit) {
-                    AreaChart.init();
+                if (!AreaChart$1._isInit) {
+                    AreaChart$1.init();
                 }
                 google.charts.setOnLoadCallback(() => {
                     try {
@@ -2950,7 +2951,7 @@
             });
         }
     }
-    AreaChart._isInit = false;
+    AreaChart$1._isInit = false;
 
     /**
      * Todo BarChart
@@ -2958,14 +2959,14 @@
      * @tutorial google_visualization_BarChart
      * @memberof google.visualization
      */
-    class BarChart extends Chart {
+    class BarChart$1 extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['corechart', 'bar'] });
-            BarChart._isInit = true;
+            BarChart$1._isInit = true;
         }
         get icon() {
             return 'fa fa-align-left';
@@ -2997,18 +2998,18 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
-                if (!BarChart._isInit) {
-                    BarChart.init();
+                if (!BarChart$1._isInit) {
+                    BarChart$1.init();
                 }
                 google.charts.setOnLoadCallback(() => {
                     try {
@@ -3027,7 +3028,7 @@
             });
         }
     }
-    BarChart._isInit = false;
+    BarChart$1._isInit = false;
 
     /**
      * Todo BubbleChart
@@ -3035,14 +3036,14 @@
      * @tutorial google_visualization_BubbleChart
      * @memberof google.visualization
      */
-    class BubbleChart extends Chart {
+    class BubbleChart$1 extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['corechart'] });
-            BubbleChart._isInit = true;
+            BubbleChart$1._isInit = true;
         }
         get icon() {
             return 'fa fa-circle';
@@ -3074,18 +3075,18 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
-                if (!BubbleChart._isInit) {
-                    BubbleChart.init();
+                if (!BubbleChart$1._isInit) {
+                    BubbleChart$1.init();
                 }
                 google.charts.setOnLoadCallback(() => {
                     try {
@@ -3104,7 +3105,7 @@
             });
         }
     }
-    BubbleChart._isInit = false;
+    BubbleChart$1._isInit = false;
 
     /**
      * Todo Calendar
@@ -3115,7 +3116,7 @@
     class Calendar extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['calendar'] });
@@ -3151,14 +3152,14 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
                 if (!Calendar._isInit) {
@@ -3192,7 +3193,7 @@
     class CandlestickChart extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['corechart'] });
@@ -3230,14 +3231,14 @@
                 }
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
                 if (!CandlestickChart._isInit) {
@@ -3268,14 +3269,14 @@
      * @tutorial google_visualization_ColumnChart
      * @memberof google.visualization
      */
-    class ColumnChart extends Chart {
+    class ColumnChart$1 extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['corechart', 'bar'] });
-            ColumnChart._isInit = true;
+            ColumnChart$1._isInit = true;
         }
         get icon() {
             return 'fas fa-chart-bar';
@@ -3307,18 +3308,18 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                     reverseCategories: false
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
-                if (!ColumnChart._isInit) {
-                    ColumnChart.init();
+                if (!ColumnChart$1._isInit) {
+                    ColumnChart$1.init();
                 }
                 google.charts.setOnLoadCallback(() => {
                     try {
@@ -3337,7 +3338,7 @@
             });
         }
     }
-    ColumnChart._isInit = false;
+    ColumnChart$1._isInit = false;
 
     /**
      * Todo ComboChart
@@ -3348,7 +3349,7 @@
     class ComboChart extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['corechart'] });
@@ -3384,14 +3385,14 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
                 if (!ComboChart._isInit) {
@@ -3421,7 +3422,7 @@
      * @class google.API
      * @memberof google
      */
-    class API {
+    class API$1 {
         /**
          * todo
          * @returns {string}
@@ -3442,7 +3443,7 @@
      * @type {string}
      * @private
      */
-    API._key = '';
+    API$1._key = '';
 
     /**
      * Todo GeoChart
@@ -3453,10 +3454,10 @@
     class GeoChart extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
-            google.charts.load('current', { 'packages': ['geochart'], mapsApiKey: API.key });
+            google.charts.load('current', { 'packages': ['geochart'], mapsApiKey: API$1.key });
             GeoChart._isInit = true;
         }
         get icon() {
@@ -3489,14 +3490,14 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
                 if (!GeoChart._isInit) {
@@ -3530,7 +3531,7 @@
     class Histogram extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['corechart'] });
@@ -3566,14 +3567,14 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
                 if (!Histogram._isInit) {
@@ -3607,7 +3608,7 @@
     class IntervalChart extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['corechart', 'line'] });
@@ -3639,14 +3640,14 @@
             return new Promise(function (resolve, reject) {
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
                 if (!IntervalChart._isInit) {
@@ -3685,7 +3686,7 @@
     class LineChart extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['corechart', 'line'] });
@@ -3717,14 +3718,14 @@
             return new Promise(function (resolve, reject) {
                 let height = '500';
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
                 if (!LineChart._isInit) {
@@ -3755,14 +3756,14 @@
      * @tutorial google_visualization_Map
      * @memberof google.visualization
      */
-    class Map extends Chart {
+    class Map$1 extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
-            google.charts.load('current', { 'packages': ['map'], mapsApiKey: API.key });
-            Map._isInit = true;
+            google.charts.load('current', { 'packages': ['map'], mapsApiKey: API$1.key });
+            Map$1._isInit = true;
         }
         get icon() {
             return 'fa fa-map';
@@ -3791,7 +3792,7 @@
             return new Promise(function (resolve, reject) {
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                     showTooltip: false,
@@ -3800,7 +3801,7 @@
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
                 // fix bug in local
@@ -3815,8 +3816,8 @@
                     }, opt);
                 }
                 // init only one time
-                if (!Map._isInit) {
-                    Map.init();
+                if (!Map$1._isInit) {
+                    Map$1.init();
                 }
                 google.charts.setOnLoadCallback(() => {
                     try {
@@ -3921,7 +3922,7 @@
             });
         }
     }
-    Map._isInit = false;
+    Map$1._isInit = false;
 
     /**
      * Todo OrgChart
@@ -3932,7 +3933,7 @@
     class OrgChart extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['orgchart'] });
@@ -3968,14 +3969,14 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                     allowHtml: true
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
                 if (!OrgChart._isInit) {
@@ -4006,7 +4007,7 @@
      * @tutorial google_visualization_Pie
      * @memberof google.visualization
      */
-    class Pie extends Chart {
+    class Pie$1 extends Chart {
         constructor() {
             super();
             this.addScript('https://www.gstatic.com/charts/loader.js');
@@ -4028,7 +4029,7 @@
         }
         static init() {
             google.charts.load('current', { 'packages': ['corechart'] });
-            Pie._isInit = true;
+            Pie$1._isInit = true;
         }
         /**
          * Make a standard simple html pie.
@@ -4045,18 +4046,18 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
-                if (!Pie._isInit) {
-                    Pie.init();
+                if (!Pie$1._isInit) {
+                    Pie$1.init();
                 }
                 google.charts.setOnLoadCallback(() => {
                     try {
@@ -4075,7 +4076,7 @@
             });
         }
     }
-    Pie._isInit = false;
+    Pie$1._isInit = false;
 
     /**
      * Todo ScatterChart
@@ -4083,14 +4084,14 @@
      * @tutorial google_visualization_ScatterChart
      * @memberof google.visualization
      */
-    class ScatterChart extends Chart {
+    class ScatterChart$1 extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['corechart'] });
-            ScatterChart._isInit = true;
+            ScatterChart$1._isInit = true;
         }
         get icon() {
             return 'fa fa-circle';
@@ -4122,18 +4123,18 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
-                if (!ScatterChart._isInit) {
-                    ScatterChart.init();
+                if (!ScatterChart$1._isInit) {
+                    ScatterChart$1.init();
                 }
                 google.charts.setOnLoadCallback(() => {
                     try {
@@ -4152,7 +4153,7 @@
             });
         }
     }
-    ScatterChart._isInit = false;
+    ScatterChart$1._isInit = false;
 
     /**
      * Todo SteppedAreaChart
@@ -4163,7 +4164,7 @@
     class SteppedAreaChart extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['corechart'] });
@@ -4199,14 +4200,14 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
                 if (!SteppedAreaChart._isInit) {
@@ -4237,14 +4238,14 @@
      * @tutorial google_visualization_Table
      * @memberof google.visualization
      */
-    class Table$1 extends Chart {
+    class Table extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['table'] });
-            Table$1._isInit = true;
+            Table._isInit = true;
         }
         get icon() {
             return 'fa fa-table';
@@ -4276,7 +4277,7 @@
                 // console.log(noCols + " x " + noRows)
                 let height = '100%';
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                     raw: true,
@@ -4284,11 +4285,11 @@
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
-                if (!Table$1._isInit) {
-                    Table$1.init();
+                if (!Table._isInit) {
+                    Table.init();
                 }
                 google.charts.setOnLoadCallback(() => {
                     try {
@@ -4307,7 +4308,7 @@
             });
         }
     }
-    Table$1._isInit = false;
+    Table._isInit = false;
 
     /**
      * Todo Timeline
@@ -4318,7 +4319,7 @@
     class Timeline extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['timeline'] });
@@ -4354,14 +4355,14 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
                 if (!Timeline._isInit) {
@@ -4395,7 +4396,7 @@
     class TreeMap extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['treemap'] });
@@ -4431,14 +4432,14 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                 // Default options
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
                 if (!TreeMap._isInit) {
@@ -4472,7 +4473,7 @@
     class Trendline extends Chart {
         constructor() {
             super();
-            let dep = this.addScript('https://www.gstatic.com/charts/loader.js');
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['corechart'] });
@@ -4508,14 +4509,14 @@
                 // console.log(noCols + " x " + noRows)
                 let height = 500;
                 if (currentChart.height !== '') {
-                    height = Tools$1.decodeFormatSize(currentChart.height);
+                    height = Tools.decodeFormatSize(currentChart.height);
                 }
                 let opt = Object.assign({
                     trendlines: { 0: {} }
                 }, currentChart.options);
                 // fix the size
                 opt = Object.assign(opt, {
-                    width: Tools$1.decodeFormatSize(currentChart.width),
+                    width: Tools.decodeFormatSize(currentChart.width),
                     height: height
                 });
                 if (!Trendline._isInit) {
@@ -4550,23 +4551,23 @@
     var visualizationNS$2 = /*#__PURE__*/Object.freeze({
         __proto__: null,
         AnnotationChart: AnnotationChart,
-        AreaChart: AreaChart,
-        BarChart: BarChart,
-        BubbleChart: BubbleChart,
+        AreaChart: AreaChart$1,
+        BarChart: BarChart$1,
+        BubbleChart: BubbleChart$1,
         Calendar: Calendar,
         CandlestickChart: CandlestickChart,
-        ColumnChart: ColumnChart,
+        ColumnChart: ColumnChart$1,
         ComboChart: ComboChart,
         GeoChart: GeoChart,
         Histogram: Histogram,
         IntervalChart: IntervalChart,
         LineChart: LineChart,
-        Map: Map,
+        Map: Map$1,
         OrgChart: OrgChart,
-        Pie: Pie,
-        ScatterChart: ScatterChart,
+        Pie: Pie$1,
+        ScatterChart: ScatterChart$1,
         SteppedAreaChart: SteppedAreaChart,
-        Table: Table$1,
+        Table: Table,
         Timeline: Timeline,
         TreeMap: TreeMap,
         Trendline: Trendline
@@ -4581,8 +4582,8 @@
         __proto__: null,
         visualization: visualization$2,
         Data: Data,
-        Tools: Tools$1,
-        API: API
+        Tools: Tools,
+        API: API$1
     });
 
     /**
@@ -4591,7 +4592,7 @@
      * @tutorial d3_visualization_AreaChart
      * @memberof d3.visualization
      */
-    class AreaChart$1 extends Chart {
+    class AreaChart extends Chart {
         get icon() {
             return 'fas fa-chart-area';
         }
@@ -4610,7 +4611,7 @@
         constructor() {
             super();
             //this.addCss(Core.path + '/lib/d3/d3.css')
-            let dep = this.addScript(Core.path + 'lib/d3/d3.min.js');
+            this.addScript(Core.path + 'lib/d3/d3.min.js');
         }
         /**
          * Make a simple line.
@@ -4630,7 +4631,7 @@
                 if (currentChart.height !== '') {
                     heightOpt = currentChart.height;
                 }
-                let opt = Object.assign({
+                Object.assign({
                     showRowNumber: false,
                     width: currentChart.width,
                     height: heightOpt
@@ -4730,11 +4731,11 @@
                     yScale.domain([0, 100]).range([heightChart, 0]);
                     xAxisCall.scale(xScale);
                     yAxisCall.scale(yScale);
-                    let newX = svg.append('g')
+                    svg.append('g')
                         // .attr('class', 'x axis')
                         .attr('transform', 'translate(' + [margin.left, heightChart + margin.top] + ')')
                         .call(xAxisCall);
-                    let newY = svg.append('g')
+                    svg.append('g')
                         // .attr('class', 'y axis')
                         .attr('transform', 'translate(' + [margin.left, margin.top] + ')')
                         .call(yAxisCall);
@@ -4751,7 +4752,7 @@
      * @tutorial d3_visualization_BarChart
      * @memberof d3.visualization
      */
-    class BarChart$1 extends Chart {
+    class BarChart extends Chart {
         get icon() {
             return 'far fa-chart-bar';
         }
@@ -4770,7 +4771,7 @@
         constructor() {
             super();
             //this.addCss(Core.path + '/lib/d3/d3.css')
-            let dep = this.addScript(Core.path + 'lib/d3/d3.min.js');
+            this.addScript(Core.path + 'lib/d3/d3.min.js');
         }
         /**
          * Make a simple pie.
@@ -4789,7 +4790,7 @@
                 if (currentChart.height !== '') {
                     heightOpt = currentChart.height;
                 }
-                let opt = Object.assign({
+                Object.assign({
                     showRowNumber: false,
                     width: currentChart.width,
                     height: heightOpt
@@ -4797,8 +4798,8 @@
                 // build the datatable
                 let cols = result.head.vars;
                 let rows = result.results.bindings;
-                let noCols = cols.length;
-                let noRows = rows.length;
+                cols.length;
+                rows.length;
                 let dataset = [];
                 let label;
                 let counter;
@@ -4843,7 +4844,7 @@
                         .attr('fill', function (d: any, i: any) {
                             return color(d.data.label)
                         })*/
-                    let bars = svg.selectAll('rect')
+                    svg.selectAll('rect')
                         .data(dataset)
                         .enter()
                         .append('rect')
@@ -4887,7 +4888,7 @@
      * @tutorial d3_visualization_BubbleChart
      * @memberof d3.visualization
      */
-    class BubbleChart$1 extends Chart {
+    class BubbleChart extends Chart {
         get icon() {
             return 'fas fa-chart-pie';
         }
@@ -4906,7 +4907,7 @@
         constructor() {
             super();
             //this.addCss(Core.path + '/lib/d3/d3.css')
-            let dep = this.addScript(Core.path + 'lib/d3/d3.min.js');
+            this.addScript(Core.path + 'lib/d3/d3.min.js');
         }
         /**
          * Make a simple pie.
@@ -4923,7 +4924,7 @@
                 if (currentChart.height !== '') {
                     heightOpt = currentChart.height;
                 }
-                let opt = Object.assign({
+                Object.assign({
                     showRowNumber: false,
                     width: currentChart.width,
                     height: heightOpt
@@ -4931,8 +4932,8 @@
                 // build the datatable
                 let cols = result.head.vars;
                 let rows = result.results.bindings;
-                let noCols = cols.length;
-                let noRows = rows.length;
+                cols.length;
+                rows.length;
                 /*let dataset: Array<any> = []
                 let label
                 let counter
@@ -4967,11 +4968,11 @@
                     yScale.domain([0, 100]).range([heightChart, 0]);
                     xAxisCall.scale(xScale);
                     yAxisCall.scale(yScale);
-                    let newX = svg.append('g')
+                    svg.append('g')
                         // .attr('class', 'x axis')
                         .attr('transform', 'translate(' + [margin.left, heightChart + margin.top] + ')')
                         .call(xAxisCall);
-                    let newY = svg.append('g')
+                    svg.append('g')
                         // .attr('class', 'y axis')
                         .attr('transform', 'translate(' + [margin.left, margin.top] + ')')
                         .call(yAxisCall);
@@ -4988,7 +4989,7 @@
      * @tutorial d3_visualization_ColumnChart
      * @memberof d3.visualization
      */
-    class ColumnChart$1 extends Chart {
+    class ColumnChart extends Chart {
         get icon() {
             return 'far fa-chart-bar';
         }
@@ -5007,7 +5008,7 @@
         constructor() {
             super();
             //this.addCss(Core.path + '/lib/d3/d3.css')
-            let dep = this.addScript(Core.path + 'lib/d3/d3.min.js');
+            this.addScript(Core.path + 'lib/d3/d3.min.js');
         }
         /**
          * Make a simple ColumnChart.
@@ -5026,7 +5027,7 @@
                 if (currentChart.height !== '') {
                     heightOpt = currentChart.height;
                 }
-                let opt = Object.assign({
+                Object.assign({
                     showRowNumber: false,
                     width: currentChart.width,
                     height: heightOpt
@@ -5142,7 +5143,7 @@
         constructor() {
             super();
             //this.addCss(Core.path + '/lib/d3/d3.css')
-            let dep = this.addScript(Core.path + 'lib/d3/d3.min.js');
+            this.addScript(Core.path + 'lib/d3/d3.min.js');
         }
         /**
          * Make a simple line.
@@ -5162,7 +5163,7 @@
                 if (currentChart.height !== '') {
                     heightOpt = currentChart.height;
                 }
-                let opt = Object.assign({
+                Object.assign({
                     showRowNumber: true,
                     width: currentChart.width,
                     height: heightOpt
@@ -5171,8 +5172,8 @@
                 // build the datatable
                 let cols = result.head.vars;
                 let rows = result.results.bindings;
-                let noCols = cols.length;
-                let noRows = rows.length;
+                cols.length;
+                rows.length;
                 let dataset = [];
                 let label;
                 let count;
@@ -5248,7 +5249,7 @@
      * @tutorial d3_visualization_Pie
      * @memberof d3.visualization
      */
-    class Pie$1 extends Chart {
+    class Pie extends Chart {
         get icon() {
             return 'fas fa-chart-pie';
         }
@@ -5267,7 +5268,7 @@
         constructor() {
             super();
             //this.addCss(Core.path + '/lib/d3/d3.css')
-            let dep = this.addScript(Core.path + 'lib/d3/d3.min.js');
+            this.addScript(Core.path + 'lib/d3/d3.min.js');
         }
         /**
          * Make a simple pie.
@@ -5286,7 +5287,7 @@
                 if (currentChart.height !== '') {
                     heightOpt = currentChart.height;
                 }
-                let opt = Object.assign({
+                Object.assign({
                     showRowNumber: false,
                     width: currentChart.width,
                     height: heightOpt
@@ -5294,8 +5295,8 @@
                 // build the datatable
                 let cols = result.head.vars;
                 let rows = result.results.bindings;
-                let noCols = cols.length;
-                let noRows = rows.length;
+                cols.length;
+                rows.length;
                 let dataset = [];
                 let label;
                 let counter;
@@ -5333,7 +5334,7 @@
                     let pie = d3.pie()
                         .value(function (d) { return d.count; })
                         .sort(null);
-                    let path = svg.selectAll('path')
+                    svg.selectAll('path')
                         .data(pie(dataset))
                         .enter()
                         .append('path')
@@ -5376,7 +5377,7 @@
      * @tutorial d3_visualization_ScatterChart
      * @memberof d3.visualization
      */
-    class ScatterChart$1 extends Chart {
+    class ScatterChart extends Chart {
         get icon() {
             return 'fa fa-ScatterChart-chart';
         }
@@ -5395,7 +5396,7 @@
         constructor() {
             super();
             //this.addCss(Core.path + '/lib/d3/d3.css')
-            let dep = this.addScript(Core.path + 'lib/d3/d3.min.js');
+            this.addScript(Core.path + 'lib/d3/d3.min.js');
         }
         /**
          * Make a simple ScatterChart.
@@ -5414,7 +5415,7 @@
                 if (currentChart.height !== '') {
                     heightOpt = currentChart.height;
                 }
-                let opt = Object.assign({
+                Object.assign({
                     showRowNumber: false,
                     width: currentChart.width,
                     height: heightOpt
@@ -5422,8 +5423,8 @@
                 // build the datatable
                 let cols = result.head.lets;
                 let rows = result.results.bindings;
-                let noCols = cols.length;
-                let noRows = rows.length;
+                cols.length;
+                rows.length;
                 let dataset = [];
                 let label;
                 let counter;
@@ -5595,25 +5596,25 @@
      * @namespace bordercloud.visualization
      */
 
-    var visualizationNS$3 = /*#__PURE__*/Object.freeze({
+    var visualizationNS$1 = /*#__PURE__*/Object.freeze({
         __proto__: null,
-        AreaChart: AreaChart$1,
-        BarChart: BarChart$1,
-        BubbleChart: BubbleChart$1,
-        ColumnChart: ColumnChart$1,
+        AreaChart: AreaChart,
+        BarChart: BarChart,
+        BubbleChart: BubbleChart,
+        ColumnChart: ColumnChart,
         Line: Line,
-        Pie: Pie$1,
-        ScatterChart: ScatterChart$1
+        Pie: Pie,
+        ScatterChart: ScatterChart
     });
 
     /**
      * @namespace d3
      */
-    const visualization$3 = visualizationNS$3;
+    const visualization$1 = visualizationNS$1;
 
     var d3NS = /*#__PURE__*/Object.freeze({
         __proto__: null,
-        visualization: visualization$3
+        visualization: visualization$1
     });
 
     /**
@@ -5621,7 +5622,7 @@
      * @class leaflet.API
      * @memberof google
      */
-    class API$1 {
+    class API {
         static get osmAccessToken() {
             return this._osmAccessToken;
         }
@@ -5634,7 +5635,7 @@
      * @type {string}
      * @private
      */
-    API$1._osmAccessToken = '';
+    API._osmAccessToken = '';
 
     /**
      * Todo Table
@@ -5642,7 +5643,7 @@
      * @tutorial leaflet_visualization_Map
      * @memberof leaflet.visualization
      */
-    class Map$1 extends Chart {
+    class Map extends Chart {
         get icon() {
             return 'fa fa-map';
         }
@@ -5673,214 +5674,245 @@
          * @param result
          */
         draw(result) {
-            let currentChart = this;
-            return new Promise(function (resolve, reject) {
-                let messageError = '';
-                let messageErrorParameters = 'Incorrect parameters. Parameters of chart :' +
-                    ' [ wktLiteral(geosparql:wktLiteral) | latitude(xsd:Decimal) longitude(xsd:Decimal)] ' +
-                    ' title(xsd:string optional) introduction(xsd:string optional) link(IRI optional) image(IRI optional). ';
+            return __awaiter(this, void 0, void 0, function* () {
+                let currentChart = this;
                 let cols = result.head.vars;
                 let rows = result.results.bindings;
                 let noCols = cols.length;
                 let noRows = rows.length;
-                let map;
-                let height = '180px';
-                let idChart = currentChart.container.id + '-leaflet';
-                let element = document.getElementById(currentChart.container.id);
-                let groupArray = []; // create new markers array
-                let group;
-                let markers;
-                let marker;
-                let lat;
-                let long;
-                let wktLiteralStr;
-                let wktLiteralType;
-                let wktLiteral;
-                let tileAttributionFinal;
-                let polylinelatlngs;
-                let polyline;
-                let rectangleBounds;
-                let rectangle;
-                let polygon;
-                let pointWktLiteral;
-                let linestringWktLiteral;
-                let envelopeWktLiteral;
-                let polygonWktLiteral;
-                let multipolygonWktLiteral;
-                let polygonPointslatlngs;
-                let mapUri;
-                let geoJSON;
-                if (currentChart.height !== '') {
-                    height = currentChart.height;
-                }
-                let opt = Object.assign({
-                    width: currentChart.width,
-                    height: height,
-                    // showTooltip: true,
-                    // showInfoWindow: true,
-                    tileLayerTemplate: 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
-                    tileLayerAttributionHTML: '© <a href="https://www.mapbox.com/about/maps/" target=\'_blank\'>Mapbox</a> © <a href="http://www.openstreetmap.org/copyright" target=\'_blank\'>OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
-                    tileLayerAttribution: null,
-                    tileLayerAttributionLink: null,
-                    tileLayerId: 'mapbox/streets-v11',
-                    tileLayerAccessToken: API$1.osmAccessToken,
-                    tileLayerTileSize: 512,
-                    tileLayerZoomOffset: -1,
-                    tileLayerTms: false,
-                    tileLayerZoom: 13
-                }, currentChart.options);
-                if (element) {
-                    element.innerHTML = "<div id='" + idChart + "' style='width: " + opt.width + '; height: ' + opt.height + ";'></div>";
-                    if (opt.tileLayerAttribution != null) {
-                        if (opt.tileLayerAttributionLink != null) {
-                            tileAttributionFinal = "<a href=\"" + opt.tileLayerAttributionLink + "\" target='_blank'>" + opt.tileLayerAttribution + "</a>";
+                for (let row of rows) {
+                    //check geoJSON
+                    if (row[cols[0]].type === "uri") {
+                        let mapUri = row[cols[0]].value;
+                        if (mapUri.indexOf('commons.wikimedia.org/data/main/') === -1) {
+                            //         //mapUri = "https://gist.githubusercontent.com/wavded/1200773/raw/e122cf709898c09758aecfef349964a8d73a83f3/sample.json"
+                            try {
+                                let result = yield Map.makeRequest("GET", mapUri);
+                                row[cols[0]].value = JSON.parse(result);
+                                row[cols[0]].type = "geoJSON";
+                            }
+                            catch (error) {
+                                console.error(error);
+                            }
                         }
                         else {
-                            tileAttributionFinal = opt.tileLayerAttribution;
+                            //         //mapUri = "http://commons.wikimedia.org/data/main/Data:Paris.map"
+                            //         //https://commons.wikimedia.org/w/api.php?format=json&formatversion=2&action=jsondata&title=Paris.map&origin=*
+                            try {
+                                let urlRequest = "https://commons.wikimedia.org/w/api.php?format=json&formatversion=2&action=jsondata&title="
+                                    + mapUri.substring(mapUri.lastIndexOf('/Data:') + 6)
+                                    + "&origin=*";
+                                let result = yield Map.makeRequest("GET", urlRequest);
+                                let j = JSON.parse(result);
+                                row[cols[0]].value = j.jsondata.data;
+                                row[cols[0]].type = "geoJSON";
+                            }
+                            catch (error) {
+                                console.error(error);
+                            }
                         }
                     }
-                    else {
-                        tileAttributionFinal = opt.tileLayerAttributionHTML;
+                }
+                return new Promise(function (resolve, reject) {
+                    let messageError = '';
+                    let messageErrorParameters = 'Incorrect parameters. Parameters of chart :' +
+                        ' [ wktLiteral(geosparql:wktLiteral) | latitude(xsd:Decimal) longitude(xsd:Decimal)] ' +
+                        ' title(xsd:string optional) introduction(xsd:string optional) link(IRI optional) image(IRI optional). ';
+                    let map;
+                    let height = '180px';
+                    let idChart = currentChart.container.id + '-leaflet';
+                    let element = document.getElementById(currentChart.container.id);
+                    let groupArray = []; // create new markers array
+                    let group;
+                    let markers;
+                    let marker;
+                    let lat;
+                    let long;
+                    let wktLiteralStr;
+                    let wktLiteralType;
+                    let wktLiteral;
+                    let tileAttributionFinal;
+                    let polylinelatlngs;
+                    let polyline;
+                    let rectangleBounds;
+                    let rectangle;
+                    let polygon;
+                    let pointWktLiteral;
+                    let linestringWktLiteral;
+                    let envelopeWktLiteral;
+                    let polygonWktLiteral;
+                    let multipolygonWktLiteral;
+                    let polygonPointslatlngs;
+                    let geoJSON;
+                    if (currentChart.height !== '') {
+                        height = currentChart.height;
                     }
-                    let tileLayer = new L.tileLayer(opt.tileLayerTemplate, {
-                        attribution: tileAttributionFinal,
-                        tileSize: opt.tileLayerTileSize,
-                        zoomOffset: opt.tileLayerZoomOffset,
-                        maxZoom: 18,
-                        id: opt.tileLayerId,
-                        accessToken: opt.tileLayerAccessToken,
-                        tms: opt.tileLayerTms,
-                        zoom: opt.tileZoom,
-                    });
-                    map = L.map(idChart, { layers: [tileLayer] });
-                    // todo insert option
-                    markers = L.markerClusterGroup({
-                        chunkedLoading: true,
-                        spiderfyOnMaxZoom: true,
-                        showCoverageOnHover: true,
-                        zoomToBoundsOnClick: true
-                    });
-                    if (noCols < 1) {
-                        messageError = messageErrorParameters;
-                    }
-                    else {
-                        for (let row of rows) {
-                            //check geoJSON
-                            if (row[cols[0]].type === "uri") {
-                                mapUri = row[cols[0]].value;
-                                let xhr = new XMLHttpRequest();
-                                //mapUri = "http://commons.wikimedia.org/data/main/Data:Paris.map"
-                                //mapUri = "https://gist.githubusercontent.com/wavded/1200773/raw/e122cf709898c09758aecfef349964a8d73a83f3/sample.json"
-                                xhr.open('GET', mapUri, false);
-                                xhr.send(null);
-                                if (xhr.status === 200) {
-                                    // @ts-ignore
-                                    geoJSON = L.geoJSON(JSON.parse(xhr.response));
+                    let opt = Object.assign({
+                        width: currentChart.width,
+                        height: height,
+                        // showTooltip: true,
+                        // showInfoWindow: true,
+                        tileLayerTemplate: 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}',
+                        tileLayerAttributionHTML: '© <a href="https://www.mapbox.com/about/maps/" target=\'_blank\'>Mapbox</a> © <a href="http://www.openstreetmap.org/copyright" target=\'_blank\'>OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
+                        tileLayerAttribution: null,
+                        tileLayerAttributionLink: null,
+                        tileLayerId: 'mapbox/streets-v11',
+                        tileLayerAccessToken: API.osmAccessToken,
+                        tileLayerTileSize: 512,
+                        tileLayerZoomOffset: -1,
+                        tileLayerTms: false,
+                        tileLayerZoom: 13
+                    }, currentChart.options);
+                    if (element) {
+                        element.innerHTML = "<div id='" + idChart + "' style='width: " + opt.width + '; height: ' + opt.height + ";'></div>";
+                        if (opt.tileLayerAttribution != null) {
+                            if (opt.tileLayerAttributionLink != null) {
+                                tileAttributionFinal = "<a href=\"" + opt.tileLayerAttributionLink + "\" target='_blank'>" + opt.tileLayerAttribution + "</a>";
+                            }
+                            else {
+                                tileAttributionFinal = opt.tileLayerAttribution;
+                            }
+                        }
+                        else {
+                            tileAttributionFinal = opt.tileLayerAttributionHTML;
+                        }
+                        let tileLayer = new L.tileLayer(opt.tileLayerTemplate, {
+                            attribution: tileAttributionFinal,
+                            tileSize: opt.tileLayerTileSize,
+                            zoomOffset: opt.tileLayerZoomOffset,
+                            maxZoom: 18,
+                            id: opt.tileLayerId,
+                            accessToken: opt.tileLayerAccessToken,
+                            tms: opt.tileLayerTms,
+                            zoom: opt.tileZoom,
+                        });
+                        map = L.map(idChart, { layers: [tileLayer] });
+                        // todo insert option
+                        markers = L.markerClusterGroup({
+                            chunkedLoading: true,
+                            spiderfyOnMaxZoom: true,
+                            showCoverageOnHover: true,
+                            zoomToBoundsOnClick: true
+                        });
+                        if (noCols < 1) {
+                            messageError = messageErrorParameters;
+                        }
+                        else {
+                            for (let row of rows) {
+                                if (row[cols[0]].type === "geoJSON") {
+                                    geoJSON = L.geoJSON(row[cols[0]].value);
                                     geoJSON.addTo(map);
                                     groupArray.push(geoJSON);
+                                    continue;
                                 }
-                                continue;
-                            }
-                            //check  wktLiteral
-                            wktLiteralType = row[cols[0]].datatype;
-                            if (wktLiteralType == "http://www.opengis.net/ont/geosparql#wktLiteral") {
-                                wktLiteralStr = row[cols[0]].value;
-                                try {
-                                    wktLiteral = WktLiteral.create(wktLiteralStr);
-                                    if (wktLiteral instanceof PointWktLiteral) {
-                                        pointWktLiteral = wktLiteral;
-                                        lat = wktLiteral.lat;
-                                        long = wktLiteral.long;
-                                        marker = L.marker([lat, long]);
-                                        marker = Map$1.readOtherParametersWithPoint(row, cols.slice(1), marker);
-                                        markers.addLayer(marker);
-                                        groupArray.push(marker);
-                                    }
-                                    else if (wktLiteral instanceof LinestringWktLiteral) {
-                                        linestringWktLiteral = wktLiteral;
-                                        polylinelatlngs = [];
-                                        for (let point of linestringWktLiteral.points) {
-                                            polylinelatlngs.push([point.lat, point.long]);
+                                //check  wktLiteral
+                                wktLiteralType = row[cols[0]].datatype;
+                                if (wktLiteralType == "http://www.opengis.net/ont/geosparql#wktLiteral"
+                                    || wktLiteralType == "http://www.openlinksw.com/schemas/virtrdf#Geometry" // bug in Virtuoso 7
+                                ) {
+                                    wktLiteralStr = row[cols[0]].value;
+                                    try {
+                                        wktLiteral = WktLiteral.create(wktLiteralStr);
+                                        if (wktLiteral instanceof PointWktLiteral) {
+                                            pointWktLiteral = wktLiteral;
+                                            lat = wktLiteral.lat;
+                                            long = wktLiteral.long;
+                                            marker = L.marker([lat, long]);
+                                            marker = Map.readOtherParametersWithPoint(row, cols.slice(1), marker);
+                                            markers.addLayer(marker);
+                                            groupArray.push(marker);
                                         }
-                                        polyline = L.polyline(polylinelatlngs, { color: 'red' });
-                                        polyline = Map$1.readOtherParametersWithPoint(row, cols.slice(1), polyline);
-                                        polyline.addTo(map);
-                                        groupArray.push(polyline);
-                                    }
-                                    else if (wktLiteral instanceof EnvelopeWktLiteral) {
-                                        envelopeWktLiteral = wktLiteral;
-                                        rectangleBounds = [[envelopeWktLiteral.minLat, envelopeWktLiteral.minLong], [envelopeWktLiteral.maxLat, envelopeWktLiteral.maxLong]];
-                                        rectangle = L.rectangle(rectangleBounds, { color: "#ff7800", weight: 1 });
-                                        rectangle = Map$1.readOtherParametersWithPoint(row, cols.slice(1), rectangle);
-                                        rectangle.addTo(map);
-                                        groupArray.push(rectangle);
-                                    }
-                                    else if (wktLiteral instanceof PolygonWktLiteral) {
-                                        polygonWktLiteral = wktLiteral;
-                                        polygonPointslatlngs = [];
-                                        for (let point of polygonWktLiteral.points) {
-                                            polygonPointslatlngs.push([point.lat, point.long]);
+                                        else if (wktLiteral instanceof LinestringWktLiteral) {
+                                            linestringWktLiteral = wktLiteral;
+                                            polylinelatlngs = [];
+                                            for (let point of linestringWktLiteral.points) {
+                                                polylinelatlngs.push([point.lat, point.long]);
+                                            }
+                                            polyline = L.polyline(polylinelatlngs, { color: 'red' });
+                                            polyline = Map.readOtherParametersWithPoint(row, cols.slice(1), polyline);
+                                            polyline.addTo(map);
+                                            groupArray.push(polyline);
                                         }
-                                        polygon = L.polygon(polygonPointslatlngs, { color: 'green', weight: 1 });
-                                        polygon = Map$1.readOtherParametersWithPoint(row, cols.slice(1), polygon);
-                                        polygon.addTo(map);
-                                        groupArray.push(polygon);
-                                    }
-                                    else if (wktLiteral instanceof MultiPolygonWktLiteral) {
-                                        multipolygonWktLiteral = wktLiteral;
-                                        for (let polygonWktLiteral of multipolygonWktLiteral.polygons) {
+                                        else if (wktLiteral instanceof EnvelopeWktLiteral) {
+                                            envelopeWktLiteral = wktLiteral;
+                                            rectangleBounds = [[envelopeWktLiteral.minLat, envelopeWktLiteral.minLong], [envelopeWktLiteral.maxLat, envelopeWktLiteral.maxLong]];
+                                            rectangle = L.rectangle(rectangleBounds, { color: "#ff7800", weight: 1 });
+                                            rectangle = Map.readOtherParametersWithPoint(row, cols.slice(1), rectangle);
+                                            rectangle.addTo(map);
+                                            groupArray.push(rectangle);
+                                        }
+                                        else if (wktLiteral instanceof PolygonWktLiteral) {
+                                            polygonWktLiteral = wktLiteral;
                                             polygonPointslatlngs = [];
                                             for (let point of polygonWktLiteral.points) {
                                                 polygonPointslatlngs.push([point.lat, point.long]);
                                             }
                                             polygon = L.polygon(polygonPointslatlngs, { color: 'green', weight: 1 });
-                                            polygon = Map$1.readOtherParametersWithPoint(row, cols.slice(1), polygon);
+                                            polygon = Map.readOtherParametersWithPoint(row, cols.slice(1), polygon);
                                             polygon.addTo(map);
                                             groupArray.push(polygon);
                                         }
+                                        else if (wktLiteral instanceof MultiPolygonWktLiteral) {
+                                            multipolygonWktLiteral = wktLiteral;
+                                            for (let polygonWktLiteral of multipolygonWktLiteral.polygons) {
+                                                polygonPointslatlngs = [];
+                                                for (let point of polygonWktLiteral.points) {
+                                                    polygonPointslatlngs.push([point.lat, point.long]);
+                                                }
+                                                polygon = L.polygon(polygonPointslatlngs, { color: 'green', weight: 1 });
+                                                polygon = Map.readOtherParametersWithPoint(row, cols.slice(1), polygon);
+                                                polygon.addTo(map);
+                                                groupArray.push(polygon);
+                                            }
+                                        }
                                     }
-                                }
-                                catch (e) {
-                                    if (e instanceof ErrorWktLiteral) {
-                                        messageError = e.message;
-                                        // console.log("ERROR SGVIZLER2: wktLiteral: "+  e.message)
-                                        // continue //not fail
+                                    catch (e) {
+                                        if (e instanceof ErrorWktLiteral) {
+                                            messageError = e.message;
+                                            // console.log("ERROR SGVIZLER2: wktLiteral: "+  e.message)
+                                            // continue //not fail
+                                        }
+                                        else {
+                                            throw e;
+                                        }
                                     }
-                                    else {
-                                        throw e;
-                                    }
-                                }
-                            }
-                            else {
-                                lat = parseFloat(row[cols[0]].value);
-                                long = parseFloat(row[cols[1]].value);
-                                if (!isNaN(lat) && !isNaN(long)) {
-                                    marker = L.marker([lat, long]);
-                                    marker = Map$1.readOtherParametersWithPoint(row, cols.slice(2), marker);
-                                    markers.addLayer(marker);
-                                    groupArray.push(marker);
                                 }
                                 else {
-                                    messageError = messageErrorParameters;
+                                    lat = parseFloat(row[cols[0]].value);
+                                    long = parseFloat(row[cols[1]].value);
+                                    if (!isNaN(lat) && !isNaN(long)) {
+                                        marker = L.marker([lat, long]);
+                                        marker = Map.readOtherParametersWithPoint(row, cols.slice(2), marker);
+                                        markers.addLayer(marker);
+                                        groupArray.push(marker);
+                                    }
+                                    else {
+                                        messageError = messageErrorParameters;
+                                    }
                                 }
                             }
                         }
+                        if (messageError !== '') {
+                            return reject(Error(messageError));
+                        }
+                        if (noRows > 0) {
+                            if (groupArray.length > 0) {
+                                map.addLayer(markers);
+                                // zoom on the markers
+                                group = L.featureGroup(groupArray);
+                                map.fitBounds(group.getBounds());
+                            }
+                            else {
+                                map.fitWorld({ reset: true }).zoomIn();
+                            }
+                        }
+                        else {
+                            map.fitWorld({ reset: true }).zoomIn();
+                        }
+                        // finish
+                        return resolve();
                     }
-                    if (messageError !== '') {
-                        return reject(Error(messageError));
-                    }
-                    if (noRows > 0) {
-                        map.addLayer(markers);
-                        // zoom on the markers
-                        group = L.featureGroup(groupArray);
-                        map.fitBounds(group.getBounds());
-                    }
-                    else {
-                        map.fitWorld({ reset: true }).zoomIn();
-                    }
-                    // finish
-                    return resolve();
-                }
+                });
             });
         }
         static readOtherParametersWithPoint(row, cols, marker) {
@@ -5965,26 +5997,50 @@
             }
             return marker;
         }
+        static makeRequest(method, url) {
+            return new Promise(function (resolve, reject) {
+                let xhr = new XMLHttpRequest();
+                xhr.open(method, url);
+                xhr.onload = function () {
+                    if (this.status >= 200 && this.status < 300) {
+                        resolve(xhr.response);
+                    }
+                    else {
+                        reject({
+                            status: this.status,
+                            statusText: xhr.statusText
+                        });
+                    }
+                };
+                xhr.onerror = function () {
+                    reject({
+                        status: this.status,
+                        statusText: xhr.statusText
+                    });
+                };
+                xhr.send();
+            });
+        }
     }
 
     /**
      * @namespace leaflet.visualization
      */
 
-    var visualizationNS$4 = /*#__PURE__*/Object.freeze({
+    var visualizationNS = /*#__PURE__*/Object.freeze({
         __proto__: null,
-        Map: Map$1
+        Map: Map
     });
 
     /**
      * @namespace leaflet
      */
-    const visualization$4 = visualizationNS$4;
+    const visualization = visualizationNS;
 
     var leafletNS = /*#__PURE__*/Object.freeze({
         __proto__: null,
-        visualization: visualization$4,
-        API: API$1
+        visualization: visualization,
+        API: API
     });
 
     const sgvizler = S;
@@ -6084,10 +6140,10 @@
         return optionsChart;
     }
     function encodeHtml(str) {
-        return Tools.encodeHtml(str);
+        return Tools$1.encodeHtml(str);
     }
     function decodeHtml(str) {
-        return Tools.decodeHtml(str);
+        return Tools$1.decodeHtml(str);
     }
     function giveHTMLAndScript(idDivOfSgvizler, idHtmlOfSgvizler, idScriptOfSgvizler, options) {
         let div = document.getElementById(idDivOfSgvizler);

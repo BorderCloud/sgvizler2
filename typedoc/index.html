@@ -7,6 +7,7 @@
 	<meta name="description" content="Documentation for sgvizler2">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="assets/css/main.css">
+	<script async src="assets/js/search.js" id="search-script"></script>
 </head>
 <body>
 <header>
@@ -40,8 +41,6 @@
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
 							<input type="checkbox" id="tsd-filter-externals" checked />
 							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-							<input type="checkbox" id="tsd-filter-only-exported" />
-							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
 					</div>
 					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
@@ -51,11 +50,6 @@
 	</div>
 	<div class="tsd-page-title">
 		<div class="container">
-			<ul class="tsd-breadcrumb">
-				<li>
-					<a href="globals.html">Globals</a>
-				</li>
-			</ul>
 			<h1>sgvizler2</h1>
 		</div>
 	</div>
@@ -76,67 +70,76 @@
 				<p>This project is the reboot in Typescript of project <a href="https://github.com/mgskjaeveland/sgvizler">Sgvizler</a> of Martin G.
 				Skjæveland.</p>
 				<p>Add visualisations directly into your webpages like this:</p>
-				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;result&quot;</span>
-     <span class="hljs-attr">data-sgvizler-endpoint</span>=<span class="hljs-string">&quot;https://query.wikidata.org/sparql&quot;</span>
-     <span class="hljs-attr">data-sgvizler-chart</span>=<span class="hljs-string">&quot;bordercloud.visualization.DataTable&quot;</span>
-     <span class="hljs-attr">data-sgvizler-query</span>=<span class="hljs-string">&quot;
-     PREFIX rdfs: <span class="hljs-symbol">&amp;amp;</span>lt;http://www.w3.org/2000/01/rdf-schema#<span class="hljs-symbol">&amp;amp;</span>gt;
-     SELECT  *
-     WHERE {
-             ?object ?property ?valueOrObject .
-     }
-     LIMIT 4
-     &quot;</span>
-     &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
- <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;sgvizler2/sgvizler2.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
- <span class="hljs-comment">&lt;!--script src=&quot;node_modules/sgvizler2/build/browser/sgvizler2.js&quot;&gt;&lt;/script--&gt;</span>
- <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-    <span class="hljs-comment">//Draw a chart</span>
-    <span class="hljs-comment">//sgvizler2.containerDraw(&#x27;result&#x27;);</span>
-    <span class="hljs-comment">//or</span>
-    <span class="hljs-comment">//$(&quot;#result&quot;).containerchart();</span>
+				<pre><code class="language-html"><span style="color: #800000">&lt;div</span><span style="color: #000000"> </span><span style="color: #FF0000">id</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;result&quot;</span>
+<span style="color: #000000">     </span><span style="color: #FF0000">data-sgvizler-endpoint</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;https://query.wikidata.org/sparql&quot;</span>
+<span style="color: #000000">     </span><span style="color: #FF0000">data-sgvizler-chart</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;bordercloud.visualization.DataTable&quot;</span>
+<span style="color: #000000">     </span><span style="color: #FF0000">data-sgvizler-query</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;</span>
+<span style="color: #0000FF">     PREFIX rdfs: &amp;amp;lt;http://www.w3.org/2000/01/rdf-schema#&amp;amp;gt;</span>
+<span style="color: #0000FF">     SELECT  *</span>
+<span style="color: #0000FF">     WHERE {</span>
+<span style="color: #0000FF">             ?object ?property ?valueOrObject .</span>
+<span style="color: #0000FF">     }</span>
+<span style="color: #0000FF">     LIMIT 4</span>
+<span style="color: #0000FF">     &quot;</span>
+<span style="color: #000000">     </span><span style="color: #800000">&gt;&lt;/div&gt;</span>
+<span style="color: #000000"> </span><span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">src</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;sgvizler2/sgvizler2.js&quot;</span><span style="color: #800000">&gt;&lt;/script&gt;</span>
+<span style="color: #000000"> </span><span style="color: #008000">&lt;!--script src=&quot;node_modules/sgvizler2/build/browser/sgvizler2.js&quot;&gt;&lt;/script--&gt;</span>
+<span style="color: #000000"> </span><span style="color: #800000">&lt;script&gt;</span>
+<span style="color: #000000FF">    </span><span style="color: #008000">//Draw a chart</span>
+<span style="color: #000000FF">    </span><span style="color: #008000">//sgvizler2.containerDraw(&#039;result&#039;);</span>
+<span style="color: #000000FF">    </span><span style="color: #008000">//or</span>
+<span style="color: #000000FF">    </span><span style="color: #008000">//$(&quot;#result&quot;).containerchart();</span>
 
-    <span class="hljs-comment">//Draw all Chart</span>
-    sgvizler2.containerDrawAll();
- </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+<span style="color: #000000FF">    </span><span style="color: #008000">//Draw all Chart</span>
+<span style="color: #000000FF">    </span><span style="color: #001080">sgvizler2</span><span style="color: #000000FF">.</span><span style="color: #795E26">containerDrawAll</span><span style="color: #000000FF">();</span>
+<span style="color: #000000FF"> </span><span style="color: #800000">&lt;/script&gt;</span>
+</code></pre>
 				<p>Generate your chart with <a href="https://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">our SPARQL editor</a> and to
 				read their docs.</p>
 				<p>It is possible to execute a function when the graph is finished or failed.</p>
-				<pre><code class="language-javascript">sgvizler2.containerDraw(<span class="hljs-string">&#x27;result&#x27;</span>,options)
-    .done(
-        <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Success!&quot;</span>);
-        }
-    )
-    .fail(
-        <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;There is a problem&quot;</span>);
-        }
-    );</code></pre>
+				<pre><code class="language-javascript"><span style="color: #001080">sgvizler2</span><span style="color: #000000">.</span><span style="color: #795E26">containerDraw</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;result&#039;</span><span style="color: #000000">,</span><span style="color: #001080">options</span><span style="color: #000000">)</span>
+<span style="color: #000000">    .</span><span style="color: #795E26">done</span><span style="color: #000000">(</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">function</span><span style="color: #000000">() {</span>
+<span style="color: #000000">            </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Success!&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">    )</span>
+<span style="color: #000000">    .</span><span style="color: #795E26">fail</span><span style="color: #000000">(</span>
+<span style="color: #000000">        </span><span style="color: #0000FF">function</span><span style="color: #000000">() {</span>
+<span style="color: #000000">            </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;There is a problem&quot;</span><span style="color: #000000">);</span>
+<span style="color: #000000">        }</span>
+<span style="color: #000000">    );</span>
+</code></pre>
 				<a href="#download-directly-sgvizler2" id="download-directly-sgvizler2" style="color: inherit; text-decoration: none;">
 					<h2>Download directly Sgvizler2</h2>
 				</a>
 				<p><a href="https://github.com/BorderCloud/sgvizler2/releases">Download the last version</a></p>
 				<p>The path of Sgvizler2 will be :</p>
-				<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;sgvizler2/sgvizler2.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<pre><code class="language-html"><span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">src</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;sgvizler2/sgvizler2.js&quot;</span><span style="color: #800000">&gt;&lt;/script&gt;</span>
+</code></pre>
 				<p>Dependencies:</p>
-				<pre><code><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://code.jquery.com/jquery-3.4.1.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js&quot;</span> &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre><p>Other dependencies, if you use the select control:</p>
-				<pre><code>&lt;link <span class="hljs-attribute">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attribute">href</span>=<span class="hljs-string">&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css&quot;</span>&gt;
-&lt;link <span class="hljs-attribute">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attribute">href</span>=<span class="hljs-string">&quot;sgvizler2//lib/bootstrap-select/css/bootstrap-select.min.css&quot;</span>&gt;
-&lt;script <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;sgvizler2/lib/bootstrap-select/js/bootstrap-select.min.js&quot;</span>&gt;&lt;/script&gt;
-&lt;script <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;sgvizler2/lib/bootstrap-select/js/i18n/defaults-fr_FR.min.js&quot;</span>&gt;&lt;/script&gt;
-&lt;script <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;sgvizler2/lib/bootstrap-select/js/i18n/defaults-en_US.min.js&quot;</span>&gt;&lt;/script&gt;</code></pre>
+				<pre><code><span style="color: #000000">&lt;</span><span style="color: #001080">link</span><span style="color: #000000"> </span><span style="color: #001080">rel</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;stylesheet&quot;</span><span style="color: #000000"> </span><span style="color: #001080">href</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">&lt;</span><span style="color: #001080">script</span><span style="color: #000000"> </span><span style="color: #001080">src</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;https://code.jquery.com/jquery-3.4.1.min.js&quot;</span><span style="color: #000000">&gt;&lt;/</span><span style="color: #267F99">script</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">&lt;</span><span style="color: #001080">script</span><span style="color: #000000"> </span><span style="color: #001080">src</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js&quot;</span><span style="color: #000000"> &gt;&lt;/</span><span style="color: #267F99">script</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">&lt;</span><span style="color: #001080">script</span><span style="color: #000000"> </span><span style="color: #001080">src</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js&quot;</span><span style="color: #000000">&gt;&lt;/</span><span style="color: #267F99">script</span><span style="color: #000000">&gt;</span>
+</code></pre>
+				<p>Other dependencies, if you use the select control:</p>
+				<pre><code><span style="color: #000000">&lt;</span><span style="color: #001080">link</span><span style="color: #000000"> </span><span style="color: #001080">rel</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;stylesheet&quot;</span><span style="color: #000000"> </span><span style="color: #001080">href</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css&quot;</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">&lt;</span><span style="color: #001080">link</span><span style="color: #000000"> </span><span style="color: #001080">rel</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;stylesheet&quot;</span><span style="color: #000000"> </span><span style="color: #001080">href</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;sgvizler2//lib/bootstrap-select/css/bootstrap-select.min.css&quot;</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">&lt;</span><span style="color: #001080">script</span><span style="color: #000000"> </span><span style="color: #001080">src</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;sgvizler2/lib/bootstrap-select/js/bootstrap-select.min.js&quot;</span><span style="color: #000000">&gt;&lt;/</span><span style="color: #267F99">script</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">&lt;</span><span style="color: #001080">script</span><span style="color: #000000"> </span><span style="color: #001080">src</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;sgvizler2/lib/bootstrap-select/js/i18n/defaults-fr_FR.min.js&quot;</span><span style="color: #000000">&gt;&lt;/</span><span style="color: #267F99">script</span><span style="color: #000000">&gt;</span>
+<span style="color: #000000">&lt;</span><span style="color: #001080">script</span><span style="color: #000000"> </span><span style="color: #001080">src</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;sgvizler2/lib/bootstrap-select/js/i18n/defaults-en_US.min.js&quot;</span><span style="color: #000000">&gt;&lt;/</span><span style="color: #267F99">script</span><span style="color: #000000">&gt;</span>
+</code></pre>
 				<a href="#install-the-package-via-yarn-or-npm" id="install-the-package-via-yarn-or-npm" style="color: inherit; text-decoration: none;">
 					<h2>Install the package via yarn or npm</h2>
 				</a>
 				<p>With yarn or npm</p>
-				<pre><code><span class="hljs-attribute">yarn</span> add sgvizler<span class="hljs-number">2</span>
-<span class="hljs-comment"># or</span>
-<span class="hljs-attribute">npm</span> install sgvizler<span class="hljs-number">2</span></code></pre><p>The path of Sgvizler2 will be :</p>
-				<pre><code class="language-html"> <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;node_modules/sgvizler2/build/browser/sgvizler2.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+				<pre><code><span style="color: #001080">yarn</span><span style="color: #000000"> </span><span style="color: #001080">add</span><span style="color: #000000"> </span><span style="color: #001080">sgvizler2</span>
+<span style="color: #000000"># </span><span style="color: #001080">or</span>
+<span style="color: #001080">npm</span><span style="color: #000000"> </span><span style="color: #001080">install</span><span style="color: #000000"> </span><span style="color: #001080">sgvizler2</span>
+</code></pre>
+				<p>The path of Sgvizler2 will be :</p>
+				<pre><code class="language-html"><span style="color: #000000"> </span><span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">src</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;node_modules/sgvizler2/build/browser/sgvizler2.js&quot;</span><span style="color: #800000">&gt;&lt;/script&gt;</span>
+</code></pre>
 				<a href="#get-started" id="get-started" style="color: inherit; text-decoration: none;">
 					<h2>Get started</h2>
 				</a>
@@ -160,250 +163,199 @@
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 			<nav class="tsd-navigation primary">
 				<ul>
-					<li class="globals  ">
-						<a href="globals.html"><em>Globals</em></a>
+					<li class=" ">
+						<a href="modules.html">Exports</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/bordercloud.html">bordercloud</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/bordercloud_visualization.html">bordercloud/visualization</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/bordercloud_visualization_datatable.html">bordercloud/visualization/<wbr>Data<wbr>Table</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/bordercloud_visualization_pivottable.html">bordercloud/visualization/<wbr>Pivot<wbr>Table</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/d3.html">d3</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/d3_visualization.html">d3/visualization</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/d3_visualization_areachart.html">d3/visualization/<wbr>Area<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/d3_visualization_barchart.html">d3/visualization/<wbr>Bar<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/d3_visualization_bubblechart.html">d3/visualization/<wbr>Bubble<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/d3_visualization_columnchart.html">d3/visualization/<wbr>Column<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/d3_visualization_line.html">d3/visualization/<wbr>Line</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/d3_visualization_pie.html">d3/visualization/<wbr>Pie</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/d3_visualization_scatterchart.html">d3/visualization/<wbr>Scatter<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google.html">google</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_api.html">google/API</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_data.html">google/<wbr>Data</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_tools.html">google/<wbr>Tools</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization.html">google/visualization</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_annotationchart.html">google/visualization/<wbr>Annotation<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_areachart.html">google/visualization/<wbr>Area<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_barchart.html">google/visualization/<wbr>Bar<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_bubblechart.html">google/visualization/<wbr>Bubble<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_calendar.html">google/visualization/<wbr>Calendar</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_candlestickchart.html">google/visualization/<wbr>Candlestick<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_columnchart.html">google/visualization/<wbr>Column<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_combochart.html">google/visualization/<wbr>Combo<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_geochart.html">google/visualization/<wbr>Geo<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_histogram.html">google/visualization/<wbr>Histogram</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_intervalchart.html">google/visualization/<wbr>Interval<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_linechart.html">google/visualization/<wbr>Line<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_map.html">google/visualization/<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_orgchart.html">google/visualization/<wbr>Org<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_pie.html">google/visualization/<wbr>Pie</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_scatterchart.html">google/visualization/<wbr>Scatter<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_steppedareachart.html">google/visualization/<wbr>Stepped<wbr>Area<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_table.html">google/visualization/<wbr>Table</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_timeline.html">google/visualization/<wbr>Timeline</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_treemap.html">google/visualization/<wbr>Tree<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/google_visualization_trendline.html">google/visualization/<wbr>Trendline</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/index.html">index</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/leaflet.html">leaflet</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/leaflet_api.html">leaflet/API</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/leaflet_visualization.html">leaflet/visualization</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/leaflet_visualization_map.html">leaflet/visualization/<wbr>Map</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler.html">sgvizler</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_chart.html">sgvizler/<wbr>Chart</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_container.html">sgvizler/<wbr>Container</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_core.html">sgvizler/<wbr>Core</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_dependency.html">sgvizler/<wbr>Dependency</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_loader.html">sgvizler/<wbr>Loader</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_loadingicon.html">sgvizler/<wbr>Loading<wbr>Icon</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_logger.html">sgvizler/<wbr>Logger</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_messages.html">sgvizler/<wbr>Messages</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_request.html">sgvizler/<wbr>Request</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_select.html">sgvizler/<wbr>Select</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_sparqlerror.html">sgvizler/<wbr>Sparql<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_sparqlresultinterface.html">sgvizler/<wbr>Sparql<wbr>Result<wbr>Interface</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_sparqltools.html">sgvizler/<wbr>Sparql<wbr>Tools</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_tools.html">sgvizler/<wbr>Tools</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_wktliteral.html">sgvizler/<wbr>Wkt<wbr>Literal</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_visualization.html">sgvizler/visualization</a>
+					</li>
+					<li class=" tsd-kind-module">
+						<a href="modules/sgvizler_visualization_table.html">sgvizler/visualization/<wbr>Table</a>
 					</li>
 				</ul>
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-enum">
-						<a href="enums/chart_pattern_options.html" class="tsd-kind-icon">CHART_<wbr>PATTERN_<wbr>OPTIONS</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="enums/container_state.html" class="tsd-kind-icon">CONTAINER_<wbr>STATE</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="enums/datatable_col_options.html" class="tsd-kind-icon">DATATABLE_<wbr>COL_<wbr>OPTIONS</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="enums/messages.html" class="tsd-kind-icon">MESSAGES</a>
-					</li>
-					<li class=" tsd-kind-enum">
-						<a href="enums/sparql_result.html" class="tsd-kind-icon">SPARQL_<wbr>RESULT</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/api.html" class="tsd-kind-icon">API</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/annotationchart.html" class="tsd-kind-icon">Annotation<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/areachart.html" class="tsd-kind-icon">Area<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/barchart.html" class="tsd-kind-icon">Bar<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/bubblechart.html" class="tsd-kind-icon">Bubble<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/calendar.html" class="tsd-kind-icon">Calendar</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/candlestickchart.html" class="tsd-kind-icon">Candlestick<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/chart.html" class="tsd-kind-icon">Chart</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/columnchart.html" class="tsd-kind-icon">Column<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/combochart.html" class="tsd-kind-icon">Combo<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/container.html" class="tsd-kind-icon">Container</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/core.html" class="tsd-kind-icon">Core</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/cssdependency.html" class="tsd-kind-icon">Css<wbr>Dependency</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/data.html" class="tsd-kind-icon">Data</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/datatable.html" class="tsd-kind-icon">Data<wbr>Table</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/dependency.html" class="tsd-kind-icon">Dependency</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/envelopewktliteral.html" class="tsd-kind-icon">Envelope<wbr>Wkt<wbr>Literal</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/errorwktliteral.html" class="tsd-kind-icon">Error<wbr>Wkt<wbr>Literal</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/geochart.html" class="tsd-kind-icon">Geo<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/histogram.html" class="tsd-kind-icon">Histogram</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/intervalchart.html" class="tsd-kind-icon">Interval<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/line.html" class="tsd-kind-icon">Line</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/linechart.html" class="tsd-kind-icon">Line<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/linestringwktliteral.html" class="tsd-kind-icon">Linestring<wbr>Wkt<wbr>Literal</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/loader.html" class="tsd-kind-icon">Loader</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/loadingicon.html" class="tsd-kind-icon">Loading<wbr>Icon</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/logger.html" class="tsd-kind-icon">Logger</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/map.html" class="tsd-kind-icon">Map</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/messages.html" class="tsd-kind-icon">Messages</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/multipolygonwktliteral.html" class="tsd-kind-icon">Multi<wbr>Polygon<wbr>Wkt<wbr>Literal</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/orgchart.html" class="tsd-kind-icon">Org<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/pie.html" class="tsd-kind-icon">Pie</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/pivottable.html" class="tsd-kind-icon">Pivot<wbr>Table</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/pointwktliteral.html" class="tsd-kind-icon">Point<wbr>Wkt<wbr>Literal</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/polygonwktliteral.html" class="tsd-kind-icon">Polygon<wbr>Wkt<wbr>Literal</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/request.html" class="tsd-kind-icon">Request</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/scatterchart.html" class="tsd-kind-icon">Scatter<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/scriptdependency.html" class="tsd-kind-icon">Script<wbr>Dependency</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/select.html" class="tsd-kind-icon">Select</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/sparqlerror.html" class="tsd-kind-icon">Sparql<wbr>Error</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/sparqltools.html" class="tsd-kind-icon">Sparql<wbr>Tools</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/steppedareachart.html" class="tsd-kind-icon">Stepped<wbr>Area<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/table.html" class="tsd-kind-icon">Table</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/timeline.html" class="tsd-kind-icon">Timeline</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/tools.html" class="tsd-kind-icon">Tools</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/treemap.html" class="tsd-kind-icon">Tree<wbr>Map</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/trendline.html" class="tsd-kind-icon">Trendline</a>
-					</li>
-					<li class=" tsd-kind-class">
-						<a href="classes/wktliteral.html" class="tsd-kind-icon">Wkt<wbr>Literal</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/jquery.html" class="tsd-kind-icon">JQuery</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/sparqlresultinterface.html" class="tsd-kind-icon">Sparql<wbr>Result<wbr>Interface</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#_" class="tsd-kind-icon">$</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#homepage" class="tsd-kind-icon">HOMEPAGE</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#l" class="tsd-kind-icon">L</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#timeout" class="tsd-kind-icon">Timeout</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#version" class="tsd-kind-icon">VERSION</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#bordercloud" class="tsd-kind-icon">bordercloud</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#d3" class="tsd-kind-icon">d3</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#google" class="tsd-kind-icon">google</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#leaflet" class="tsd-kind-icon">leaflet</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#sgvizler" class="tsd-kind-icon">sgvizler</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#visualization" class="tsd-kind-icon">visualization</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#containerdraw" class="tsd-kind-icon">container<wbr>Draw</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#containerdrawall" class="tsd-kind-icon">container<wbr>Draw<wbr>All</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#containerloadall" class="tsd-kind-icon">container<wbr>Load<wbr>All</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#create" class="tsd-kind-icon">create</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#decodehtml" class="tsd-kind-icon">decode<wbr>Html</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#encodehtml" class="tsd-kind-icon">encode<wbr>Html</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#getchartdoc" class="tsd-kind-icon">get<wbr>Chart<wbr>Doc</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#getchartoptions" class="tsd-kind-icon">get<wbr>Chart<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#givehtmlandscript" class="tsd-kind-icon">giveHTMLAnd<wbr>Script</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#readoptions" class="tsd-kind-icon">read<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#selectdraw" class="tsd-kind-icon">select<wbr>Draw</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#selectdrawall" class="tsd-kind-icon">select<wbr>Draw<wbr>All</a>
-					</li>
-					<li class=" tsd-kind-function">
-						<a href="globals.html#showtabhtmlandscript" class="tsd-kind-icon">show<wbr>Tab<wbr>Html<wbr>And<wbr>Script</a>
-					</li>
 				</ul>
 			</nav>
 		</div>
@@ -414,32 +366,17 @@
 		<h2>Legend</h2>
 		<div class="tsd-legend-group">
 			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
-				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
 			</ul>
 			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
-				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
 			</ul>
 		</div>
 	</div>
