@@ -43,7 +43,7 @@ export class Table extends Chart {
      * @returns {Promise<void>}
      * @param result
      */
-    public draw (result: SparqlResultInterface): Promise<any> {
+    public draw (result: SparqlResultInterface): Promise<void> {
         let currentChart = this
         return new Promise(function (resolve, reject) {
             // transform query

@@ -190,7 +190,7 @@ export class DataTable extends Chart {
      * @param {SparqlResultInterface} result
      * @returns {Promise< any >}
      */
-     public draw (result: SparqlResultInterface): Promise<any> {
+     public draw (result: SparqlResultInterface): Promise<void> {
         let currentChart = this
         return new Promise(function (resolve, reject) {
             // precondition
@@ -245,6 +245,7 @@ export class DataTable extends Chart {
                                 }else{ //litteral
                                     switch (row[cols[c]].datatype) {
                                         case 'http://www.w3.org/2001/XMLSchema#dateTime':
+                                            // @ts-ignore
                                             datasetRow[c] = (new Date(row[cols[c]].value)).toLocaleDateString(lang,optionsDateTime)
                                             break
                                         case 'http://www.w3.org/2001/XMLSchema#date':

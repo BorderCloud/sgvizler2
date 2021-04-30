@@ -81,7 +81,7 @@ export class PivotTable extends Chart {
      * @param {SparqlResultInterface} result
      * @returns {Promise< any >}
      */
-     public draw (result: SparqlResultInterface): Promise<any> {
+     public draw (result: SparqlResultInterface): Promise<void> {
         let currentChart = this
         return new Promise(function (resolve, reject) {
             try {

@@ -66,19 +66,53 @@ export class Map extends Chart {
      * @returns {Promise<void>}
      * @param result
      */
-    public draw (result: SparqlResultInterface): Promise<any> {
+    public async draw (result: SparqlResultInterface): Promise<void> {
         let currentChart = this
+        let cols = result.head.vars
+        let rows = result.results.bindings
+        let noCols = cols.length
+        let noRows = rows.length
+
+        for (let row of rows) {
+            //check geoJSON
+            if (row[cols[0]].type === "uri") {
+                let mapUri = row[cols[0]].value
+                if (mapUri.indexOf('commons.wikimedia.org/data/main/') === -1) {
+                    //         //mapUri = "https://gist.githubusercontent.com/wavded/1200773/raw/e122cf709898c09758aecfef349964a8d73a83f3/sample.json"
+                    try {
+                        let result = await Map.makeRequest("GET", mapUri)
+                        row[cols[0]].value = JSON.parse(result)
+                        row[cols[0]].type = "geoJSON"
+                    } catch (error) {
+                        console.error(error);
+                    }
+                } else {
+                    //         //mapUri = "http://commons.wikimedia.org/data/main/Data:Paris.map"
+                    //         //https://commons.wikimedia.org/w/api.php?format=json&formatversion=2&action=jsondata&title=Paris.map&origin=*
+                    try {
+                        let urlRequest = "https://commons.wikimedia.org/w/api.php?format=json&formatversion=2&action=jsondata&title="
+                            + mapUri.substring(mapUri.lastIndexOf('/Data:') + 6)
+                            + "&origin=*"
+                        let result = await Map.makeRequest("GET", urlRequest)
+                        let j = JSON.parse(result)
+                        row[cols[0]].value = j.jsondata.data
+                        row[cols[0]].type = "geoJSON"
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+            }
+        }
+
+
         return new Promise(function (resolve, reject) {
             let messageError = ''
             let messageErrorParameters = 'Incorrect parameters. Parameters of chart :' +
                 ' [ wktLiteral(geosparql:wktLiteral) | latitude(xsd:Decimal) longitude(xsd:Decimal)] '+
                 ' title(xsd:string optional) introduction(xsd:string optional) link(IRI optional) image(IRI optional). '
-            let cols = result.head.vars
-            let rows = result.results.bindings
-            let noCols = cols.length
-            let noRows = rows.length
 
-            let map
+
+            let map : any
             let height = '180px'
             let idChart = currentChart.container.id + '-leaflet'
             let element = document.getElementById(currentChart.container.id)
@@ -164,21 +198,11 @@ export class Map extends Chart {
                     messageError = messageErrorParameters
                 } else {
                     for (let row of rows) {
-                        //check geoJSON
-                        if(row[cols[0]].type === "uri"){
-                            mapUri = row[cols[0]].value
-                            let xhr = new XMLHttpRequest()
-                            //mapUri = "http://commons.wikimedia.org/data/main/Data:Paris.map"
-                            //mapUri = "https://gist.githubusercontent.com/wavded/1200773/raw/e122cf709898c09758aecfef349964a8d73a83f3/sample.json"
-                            xhr.open('GET',mapUri,false)
-                            xhr.send(null);
+                        if(row[cols[0]].type === "geoJSON"){
+                            geoJSON = L.geoJSON(row[cols[0]].value)
+                            geoJSON.addTo(map);
+                            groupArray.push(geoJSON)
 
-                            if (xhr.status === 200) {
-                                // @ts-ignore
-                                geoJSON = L.geoJSON(JSON.parse(xhr.response))
-                                geoJSON.addTo(map);
-                                groupArray.push(geoJSON)
-                            }
                             continue
                         }
 
@@ -278,10 +302,14 @@ export class Map extends Chart {
                 }
 
                 if (noRows > 0) {
-                    map.addLayer(markers)
-                    // zoom on the markers
-                    group = L.featureGroup(groupArray)
-                    map.fitBounds(group.getBounds())
+                    if (groupArray.length > 0) {
+                        map.addLayer(markers)
+                        // zoom on the markers
+                        group = L.featureGroup(groupArray)
+                        map.fitBounds(group.getBounds())
+                    } else {
+                        map.fitWorld({ reset: true }).zoomIn()
+                    }
                 } else {
                     map.fitWorld({ reset: true }).zoomIn()
                 }
@@ -403,5 +431,29 @@ export class Map extends Chart {
             }
         }
         return marker;
+    }
+
+    private static makeRequest(method:any, url:any):Promise<string> {
+        return new Promise(function (resolve, reject) {
+            let xhr = new XMLHttpRequest();
+            xhr.open(method, url);
+            xhr.onload = function () {
+                if (this.status >= 200 && this.status < 300) {
+                    resolve(xhr.response);
+                } else {
+                    reject({
+                        status: this.status,
+                        statusText: xhr.statusText
+                    });
+                }
+            };
+            xhr.onerror = function () {
+                reject({
+                    status: this.status,
+                    statusText: xhr.statusText
+                });
+            };
+            xhr.send();
+        })
     }
 }

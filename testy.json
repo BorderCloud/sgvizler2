@@ -1,3 +1,4 @@
 {
+  "setupFile": "src/testy/test-setup.ts",
   "include":["src/testy/**/*.spec.ts"]
 }

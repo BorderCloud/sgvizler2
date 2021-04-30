@@ -181,10 +181,10 @@
 
         <div class="mt-3">
             <h5>
-                GeoJson
+                GeoJson (or Jsondata of Wiki Commons)
             </h5>
             <p>
-                Each row in the table has a GeoJson URI.
+                Each row in the table has a URI.
             </p>
 
             <table  class="table-bordered" border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
@@ -197,6 +197,9 @@
                 <tr>
                     <td>
                         &lt;http://commons.wikimedia.org/data/main/Data:Paris.map&gt;
+                    </td>
+                    <td>
+                        &lt;https://gist.githubusercontent.com/wavded/1200773/raw/e122cf709898c09758aecfef349964a8d73a83f3/sample.json&gt;
                     </td>
                 </tr>
                 </tbody>
@@ -490,7 +493,7 @@ where {
 
    ?site wdt:P376  wd:Q405 .
    ?site wdt:P18 ?image .
-   ?site wdt:P625 ?coord .
+   ?site wdt:P8981 ?coord .
 
         SERVICE wikibase:label {
              bd:serviceParam wikibase:language 'en,fr' .
@@ -525,7 +528,7 @@ WHERE {
              data-sgvizler-log="2">
         </div>
 
-        <!--h4>
+        <h4>
             Example 7 : GeoJson with Wikidata
         </h4>
         <div id="result_7"
@@ -540,7 +543,7 @@ WHERE {
              data-sgvizler-chart="leaflet.visualization.Map"
              data-sgvizler-chart-options="height=500px"
              data-sgvizler-log="2">
-        </div-->
+        </div>
 
         <h4>
             Test : wktLiteral shapes
@@ -664,6 +667,7 @@ where {
             sgvizler2.showTabHtmlAndScript("result_4",options);
             sgvizler2.showTabHtmlAndScript("result_5",options);
             sgvizler2.showTabHtmlAndScript("result_6",options);
+            sgvizler2.showTabHtmlAndScript("result_7",options);
             sgvizler2.showTabHtmlAndScript("result_60",options);
             sgvizler2.showTabHtmlAndScript("result_70",options);
             sgvizler2.showTabHtmlAndScript("result_100",options);

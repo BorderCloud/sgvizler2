@@ -11,7 +11,7 @@ export class ChartTestSuite {
     @Test() // @ts-ignore
     async doParseOptionsRawWithoutOption() { // ERROR An error occured while executing the following command: /usr/bin/node /home/karima/git/sgvizler2/node_modules/.bin/testyts. Error: "jQuery is not defined"
      // Chart : function doParseOptionsRaw : without option
-     //let c = new sgvizler.visualization.Table();
+     // let c = new sgvizler.visualization.Table();
      // expect.toBeEqual(c.width, '100%');
      // expect.toBeEqual(c.height, '');
      // expect.toBeEqual(c.optionsRaw, '');

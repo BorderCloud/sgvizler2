@@ -90,8 +90,6 @@ export class WktLiteralTestSuite {
         expect.toBeEqual((<EnvelopeWktLiteral> envelope).spatialReferenceSystem, "http://www.wikidata.org/entity/Q111");
     }
 
-
-
     @Test() // @ts-ignore
     async polygon1Test() {
         // Polygon(LONG1 LAT1, LONG2 LAT2, ..., LONGN LATN, LONG1 LAT1): A filled-in shape with the specified points (Note that a polygon must start and end with the same point, i.e., be closed)
@@ -121,8 +119,6 @@ export class WktLiteralTestSuite {
         expect.toBeTrue(points[3].equals(new PointWktLiteral(1.5,1.6)));
         expect.toBeEqual(points[3].spatialReferenceSystem, "http://www.wikidata.org/entity/Q111");
     }
-
-
 
     @Test() // @ts-ignore
     async multipolygon1Test() {

@@ -84,7 +84,7 @@ export class Loader {
         }
     }
 
-    private static loadScript (dep: ScriptDependency): Promise<any> {
+    private static loadScript (dep: ScriptDependency): Promise<void> {
         let url = dep.url
         return new Promise(function (resolve, reject) {
             if (dep.loadBefore && ! dep.loadBefore.endDownload) {
@@ -123,7 +123,7 @@ export class Loader {
         })
     }
 
-    private static loadCss (dep: CssDependency): Promise<any> {
+    private static loadCss (dep: CssDependency): Promise<void> {
         let url = dep.url
         return new Promise(function (resolve, reject) {
             if (dep.loadBefore && ! dep.loadBefore.endDownload) {
