@@ -11,6 +11,13 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '16'
+      - name: Install sgvizler2
+        run: |
+          ls -al
+          npm install
+          sudo chown -R $USER:$USER .
+          mkdir -p build
+          npm run docs:all
       - name: Start Selenium Hub
         working-directory: ./selenium/selenium3/build
         run: docker-compose -f docker-compose.yaml up -d
@@ -18,13 +25,6 @@ jobs:
       - name: Install selenium-side-runner & drivers
         run: |
           sudo npm install -g selenium-side-runner
-      - name: Install sgvizler2
-        run: |
-          npm install
-          sudo chown -R $USER:$USER .
-          mkdir -p build
-          ls -al
-          npm run docs:all
       - name: Install sgvizler2
         run: |
           npm run test:testy
