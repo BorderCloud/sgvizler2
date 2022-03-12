@@ -1,390 +1,63 @@
-<!doctype html>
-<html class="default no-js">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>sgvizler2</title>
-	<meta name="description" content="Documentation for sgvizler2">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="assets/css/main.css">
-	<script async src="assets/js/search.js" id="search-script"></script>
-</head>
-<body>
-<header>
-	<div class="tsd-page-toolbar">
-		<div class="container">
-			<div class="table-wrap">
-				<div class="table-cell" id="tsd-search" data-index="assets/js/search.json" data-base=".">
-					<div class="field">
-						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
-						<input id="tsd-search-field" type="text" />
-					</div>
-					<ul class="results">
-						<li class="state loading">Preparing search index...</li>
-						<li class="state failure">The search index is not available</li>
-					</ul>
-					<a href="index.html" class="title">sgvizler2</a>
-				</div>
-				<div class="table-cell" id="tsd-widgets">
-					<div id="tsd-filter">
-						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
-						<div class="tsd-filter-group">
-							<div class="tsd-select" id="tsd-filter-visibility">
-								<span class="tsd-select-label">All</span>
-								<ul class="tsd-select-list">
-									<li data-value="public">Public</li>
-									<li data-value="protected">Public/Protected</li>
-									<li data-value="private" class="selected">All</li>
-								</ul>
-							</div>
-							<input type="checkbox" id="tsd-filter-inherited" checked />
-							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
-						</div>
-					</div>
-					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="tsd-page-title">
-		<div class="container">
-			<h1>sgvizler2</h1>
-		</div>
-	</div>
-</header>
-<div class="container container-main">
-	<div class="row">
-		<div class="col-8 col-content">
-			<div class="tsd-panel tsd-typography">
-				<p><a href="https://travis-ci.org/BorderCloud/sgvizler2"><img src="https://travis-ci.org/BorderCloud/sgvizler2.svg?branch=master" alt="Build Status"></a>
-					<a href="https://www.npmjs.com/package/sgvizler2"><img src="https://img.shields.io/npm/v/sgvizler2.svg" alt="NPM version"></a>
-					<a href="https://github.com/conventional-changelog/standard-version"><img src="https://img.shields.io/badge/release-standard%20version-brightgreen.svg" alt="Standard Version"></a>
-					<a href="https://david-dm.org/bordercloud/sgvizler2"><img src="https://david-dm.org/bordercloud/sgvizler2/status.svg" alt="dependencies Status"></a>
-				<a href="https://david-dm.org/bordercloud/sgvizler2?type=dev"><img src="https://david-dm.org/bordercloud/sgvizler2/dev-status.svg" alt="devDependencies Status"></a></p>
-				<a href="#sgvizler2" id="sgvizler2" style="color: inherit; text-decoration: none;">
-					<h1>sgvizler2</h1>
-				</a>
-				<p>Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin). See <a href="http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">the demo</a> (in the menu &quot;tutorial&quot;, there are examples) and the <a href="http://bordercloud.github.io/sgvizler2/typedoc/index.html">typedoc</a>.</p>
-				<p>This project is the reboot in Typescript of project <a href="https://github.com/mgskjaeveland/sgvizler">Sgvizler</a> of Martin G.
-				Skjæveland.</p>
-				<p>Add visualisations directly into your webpages like this:</p>
-				<pre><code class="language-html"><span style="color: #800000">&lt;div</span><span style="color: #000000"> </span><span style="color: #FF0000">id</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;result&quot;</span>
-<span style="color: #000000">     </span><span style="color: #FF0000">data-sgvizler-endpoint</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;https://query.wikidata.org/sparql&quot;</span>
-<span style="color: #000000">     </span><span style="color: #FF0000">data-sgvizler-chart</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;bordercloud.visualization.DataTable&quot;</span>
-<span style="color: #000000">     </span><span style="color: #FF0000">data-sgvizler-query</span><span style="color: #000000">=</span><span style="color: #0000FF">&quot;</span>
-<span style="color: #0000FF">     PREFIX rdfs: &amp;amp;lt;http://www.w3.org/2000/01/rdf-schema#&amp;amp;gt;</span>
-<span style="color: #0000FF">     SELECT  *</span>
-<span style="color: #0000FF">     WHERE {</span>
-<span style="color: #0000FF">             ?object ?property ?valueOrObject .</span>
-<span style="color: #0000FF">     }</span>
-<span style="color: #0000FF">     LIMIT 4</span>
-<span style="color: #0000FF">     &quot;</span>
-<span style="color: #000000">     </span><span style="color: #800000">&gt;&lt;/div&gt;</span>
-<span style="color: #000000"> </span><span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">src</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;sgvizler2/sgvizler2.js&quot;</span><span style="color: #800000">&gt;&lt;/script&gt;</span>
-<span style="color: #000000"> </span><span style="color: #008000">&lt;!--script src=&quot;node_modules/sgvizler2/build/browser/sgvizler2.js&quot;&gt;&lt;/script--&gt;</span>
-<span style="color: #000000"> </span><span style="color: #800000">&lt;script&gt;</span>
-<span style="color: #000000FF">    </span><span style="color: #008000">//Draw a chart</span>
-<span style="color: #000000FF">    </span><span style="color: #008000">//sgvizler2.containerDraw(&#039;result&#039;);</span>
-<span style="color: #000000FF">    </span><span style="color: #008000">//or</span>
-<span style="color: #000000FF">    </span><span style="color: #008000">//$(&quot;#result&quot;).containerchart();</span>
+<!DOCTYPE html><html class="default"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>sgvizler2</title><meta name="description" content="Documentation for sgvizler2"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script async src="assets/search.js" id="search-script"></script></head><body><script>document.body.classList.add(localStorage.getItem("tsd-theme") || "os")</script><header><div class="tsd-page-toolbar"><div class="container"><div class="table-wrap"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget search no-caption">Search</label><input type="text" id="tsd-search-field"/></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">sgvizler2</a></div><div class="table-cell" id="tsd-widgets"><div id="tsd-filter"><a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a><div class="tsd-filter-group"><div class="tsd-select" id="tsd-filter-visibility"><span class="tsd-select-label">All</span><ul class="tsd-select-list"><li data-value="public">Public</li><li data-value="protected">Public/Protected</li><li data-value="private" class="selected">All</li></ul></div> <input type="checkbox" id="tsd-filter-inherited" checked/><label class="tsd-widget" for="tsd-filter-inherited">Inherited</label><input type="checkbox" id="tsd-filter-externals" checked/><label class="tsd-widget" for="tsd-filter-externals">Externals</label></div></div><a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a></div></div></div></div><div class="tsd-page-title"><div class="container"><h1>sgvizler2</h1></div></div></header><div class="container container-main"><div class="row"><div class="col-8 col-content"><div class="tsd-panel tsd-typography"><p><a href="https://github.com/BorderCloud/sgvizler2/actions/workflows/tests.yml"><img src="https://github.com/BorderCloud/sgvizler2/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
+<a href="https://www.npmjs.com/package/sgvizler2"><img src="https://img.shields.io/npm/v/sgvizler2.svg" alt="NPM version"></a>
+<a href="https://github.com/conventional-changelog/standard-version"><img src="https://img.shields.io/badge/release-standard%20version-brightgreen.svg" alt="Standard Version"></a></p>
 
-<span style="color: #000000FF">    </span><span style="color: #008000">//Draw all Chart</span>
-<span style="color: #000000FF">    </span><span style="color: #001080">sgvizler2</span><span style="color: #000000FF">.</span><span style="color: #795E26">containerDrawAll</span><span style="color: #000000FF">();</span>
-<span style="color: #000000FF"> </span><span style="color: #800000">&lt;/script&gt;</span>
+<a href="#sgvizler2" id="sgvizler2" style="color: inherit; text-decoration: none;">
+  <h1>sgvizler2</h1>
+</a>
+<p>Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin). See <a href="http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">the demo</a> (in the menu &quot;tutorial&quot;, there are examples) and the <a href="http://bordercloud.github.io/sgvizler2/typedoc/index.html">typedoc</a>.</p>
+<p>This project is the reboot in Typescript of project <a href="https://github.com/mgskjaeveland/sgvizler">Sgvizler</a> of Martin G.
+Skjæveland.</p>
+<p>Add visualisations directly into your webpages like this:</p>
+<pre><code class="language-html"><span class="hl-0">&lt;</span><span class="hl-1">div</span><span class="hl-2"> </span><span class="hl-3">id</span><span class="hl-2">=</span><span class="hl-4">&quot;result&quot;</span><br/><span class="hl-2">     </span><span class="hl-3">data-sgvizler-endpoint</span><span class="hl-2">=</span><span class="hl-4">&quot;https://query.wikidata.org/sparql&quot;</span><br/><span class="hl-2">     </span><span class="hl-3">data-sgvizler-chart</span><span class="hl-2">=</span><span class="hl-4">&quot;bordercloud.visualization.DataTable&quot;</span><br/><span class="hl-2">     </span><span class="hl-3">data-sgvizler-query</span><span class="hl-2">=</span><span class="hl-4">&quot;</span><br/><span class="hl-4">     PREFIX rdfs: </span><span class="hl-5">&amp;amp;</span><span class="hl-4">lt;http://www.w3.org/2000/01/rdf-schema#</span><span class="hl-5">&amp;amp;</span><span class="hl-4">gt;</span><br/><span class="hl-4">     SELECT  *</span><br/><span class="hl-4">     WHERE {</span><br/><span class="hl-4">             ?object ?property ?valueOrObject .</span><br/><span class="hl-4">     }</span><br/><span class="hl-4">     LIMIT 4</span><br/><span class="hl-4">     &quot;</span><br/><span class="hl-2">     </span><span class="hl-0">&gt;&lt;/</span><span class="hl-1">div</span><span class="hl-0">&gt;</span><br/><span class="hl-2"> </span><span class="hl-0">&lt;</span><span class="hl-1">script</span><span class="hl-6"> </span><span class="hl-3">src</span><span class="hl-6">=</span><span class="hl-4">&quot;sgvizler2/sgvizler2.js&quot;</span><span class="hl-0">&gt;&lt;/</span><span class="hl-1">script</span><span class="hl-0">&gt;</span><br/><span class="hl-2"> </span><span class="hl-7">&lt;!--script src=&quot;node_modules/sgvizler2/build/browser/sgvizler2.js&quot;&gt;&lt;/script--&gt;</span><br/><span class="hl-2"> </span><span class="hl-0">&lt;</span><span class="hl-1">script</span><span class="hl-0">&gt;</span><br/><span class="hl-6">    </span><span class="hl-7">//Draw a chart</span><br/><span class="hl-6">    </span><span class="hl-7">//sgvizler2.containerDraw(&#39;result&#39;);</span><br/><span class="hl-6">    </span><span class="hl-7">//or</span><br/><span class="hl-6">    </span><span class="hl-7">//$(&quot;#result&quot;).containerchart();</span><br/><br/><span class="hl-6">    </span><span class="hl-7">//Draw all Chart</span><br/><span class="hl-6">    </span><span class="hl-8">sgvizler2</span><span class="hl-6">.</span><span class="hl-9">containerDrawAll</span><span class="hl-6">();</span><br/><span class="hl-6"> </span><span class="hl-0">&lt;/</span><span class="hl-1">script</span><span class="hl-0">&gt;</span>
 </code></pre>
-				<p>Generate your chart with <a href="https://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">our SPARQL editor</a> and to
-				read their docs.</p>
-				<p>It is possible to execute a function when the graph is finished or failed.</p>
-				<pre><code class="language-javascript"><span style="color: #001080">sgvizler2</span><span style="color: #000000">.</span><span style="color: #795E26">containerDraw</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;result&#039;</span><span style="color: #000000">,</span><span style="color: #001080">options</span><span style="color: #000000">)</span>
-<span style="color: #000000">    .</span><span style="color: #795E26">done</span><span style="color: #000000">(</span>
-<span style="color: #000000">        </span><span style="color: #0000FF">function</span><span style="color: #000000">() {</span>
-<span style="color: #000000">            </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;Success!&quot;</span><span style="color: #000000">);</span>
-<span style="color: #000000">        }</span>
-<span style="color: #000000">    )</span>
-<span style="color: #000000">    .</span><span style="color: #795E26">fail</span><span style="color: #000000">(</span>
-<span style="color: #000000">        </span><span style="color: #0000FF">function</span><span style="color: #000000">() {</span>
-<span style="color: #000000">            </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&quot;There is a problem&quot;</span><span style="color: #000000">);</span>
-<span style="color: #000000">        }</span>
-<span style="color: #000000">    );</span>
+<p>Generate your chart with <a href="https://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">our SPARQL editor</a> and to
+read their docs.</p>
+<p>It is possible to execute a function when the graph is finished or failed.</p>
+<pre><code class="language-javascript"><span class="hl-8">sgvizler2</span><span class="hl-2">.</span><span class="hl-9">containerDraw</span><span class="hl-2">(</span><span class="hl-10">&#39;result&#39;</span><span class="hl-2">,</span><span class="hl-8">options</span><span class="hl-2">)</span><br/><span class="hl-2">    .</span><span class="hl-9">done</span><span class="hl-2">(</span><br/><span class="hl-2">        </span><span class="hl-5">function</span><span class="hl-2">() {</span><br/><span class="hl-2">            </span><span class="hl-8">console</span><span class="hl-2">.</span><span class="hl-9">log</span><span class="hl-2">(</span><span class="hl-10">&quot;Success!&quot;</span><span class="hl-2">);</span><br/><span class="hl-2">        }</span><br/><span class="hl-2">    )</span><br/><span class="hl-2">    .</span><span class="hl-9">fail</span><span class="hl-2">(</span><br/><span class="hl-2">        </span><span class="hl-5">function</span><span class="hl-2">() {</span><br/><span class="hl-2">            </span><span class="hl-8">console</span><span class="hl-2">.</span><span class="hl-9">log</span><span class="hl-2">(</span><span class="hl-10">&quot;There is a problem&quot;</span><span class="hl-2">);</span><br/><span class="hl-2">        }</span><br/><span class="hl-2">    );</span>
 </code></pre>
-				<a href="#download-directly-sgvizler2" id="download-directly-sgvizler2" style="color: inherit; text-decoration: none;">
-					<h2>Download directly Sgvizler2</h2>
-				</a>
-				<p><a href="https://github.com/BorderCloud/sgvizler2/releases">Download the last version</a></p>
-				<p>The path of Sgvizler2 will be :</p>
-				<pre><code class="language-html"><span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">src</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;sgvizler2/sgvizler2.js&quot;</span><span style="color: #800000">&gt;&lt;/script&gt;</span>
+
+<a href="#download-directly-sgvizler2" id="download-directly-sgvizler2" style="color: inherit; text-decoration: none;">
+  <h2>Download directly Sgvizler2</h2>
+</a>
+<p><a href="https://github.com/BorderCloud/sgvizler2/releases">Download the last version</a></p>
+<p>The path of Sgvizler2 will be :</p>
+<pre><code class="language-html"><span class="hl-0">&lt;</span><span class="hl-1">script</span><span class="hl-6"> </span><span class="hl-3">src</span><span class="hl-6">=</span><span class="hl-4">&quot;sgvizler2/sgvizler2.js&quot;</span><span class="hl-0">&gt;&lt;/</span><span class="hl-1">script</span><span class="hl-0">&gt;</span>
 </code></pre>
-				<p>Dependencies:</p>
-				<pre><code><span style="color: #000000">&lt;</span><span style="color: #001080">link</span><span style="color: #000000"> </span><span style="color: #001080">rel</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;stylesheet&quot;</span><span style="color: #000000"> </span><span style="color: #001080">href</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;</span><span style="color: #000000">&gt;</span>
-<span style="color: #000000">&lt;</span><span style="color: #001080">script</span><span style="color: #000000"> </span><span style="color: #001080">src</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;https://code.jquery.com/jquery-3.4.1.min.js&quot;</span><span style="color: #000000">&gt;&lt;/</span><span style="color: #267F99">script</span><span style="color: #000000">&gt;</span>
-<span style="color: #000000">&lt;</span><span style="color: #001080">script</span><span style="color: #000000"> </span><span style="color: #001080">src</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js&quot;</span><span style="color: #000000"> &gt;&lt;/</span><span style="color: #267F99">script</span><span style="color: #000000">&gt;</span>
-<span style="color: #000000">&lt;</span><span style="color: #001080">script</span><span style="color: #000000"> </span><span style="color: #001080">src</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js&quot;</span><span style="color: #000000">&gt;&lt;/</span><span style="color: #267F99">script</span><span style="color: #000000">&gt;</span>
+<p>Dependencies:</p>
+<pre><code><span class="hl-2">&lt;</span><span class="hl-8">link</span><span class="hl-2"> </span><span class="hl-8">rel</span><span class="hl-2">=</span><span class="hl-10">&quot;stylesheet&quot;</span><span class="hl-2"> </span><span class="hl-8">href</span><span class="hl-2">=</span><span class="hl-10">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css&quot;</span><span class="hl-2">&gt;</span><br/><span class="hl-2">&lt;</span><span class="hl-8">script</span><span class="hl-2"> </span><span class="hl-8">src</span><span class="hl-2">=</span><span class="hl-10">&quot;https://code.jquery.com/jquery-3.4.1.min.js&quot;</span><span class="hl-2">&gt;&lt;/</span><span class="hl-11">script</span><span class="hl-2">&gt;</span><br/><span class="hl-2">&lt;</span><span class="hl-8">script</span><span class="hl-2"> </span><span class="hl-8">src</span><span class="hl-2">=</span><span class="hl-10">&quot;https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js&quot;</span><span class="hl-2"> &gt;&lt;/</span><span class="hl-11">script</span><span class="hl-2">&gt;</span><br/><span class="hl-2">&lt;</span><span class="hl-8">script</span><span class="hl-2"> </span><span class="hl-8">src</span><span class="hl-2">=</span><span class="hl-10">&quot;https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js&quot;</span><span class="hl-2">&gt;&lt;/</span><span class="hl-11">script</span><span class="hl-2">&gt;</span>
 </code></pre>
-				<p>Other dependencies, if you use the select control:</p>
-				<pre><code><span style="color: #000000">&lt;</span><span style="color: #001080">link</span><span style="color: #000000"> </span><span style="color: #001080">rel</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;stylesheet&quot;</span><span style="color: #000000"> </span><span style="color: #001080">href</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css&quot;</span><span style="color: #000000">&gt;</span>
-<span style="color: #000000">&lt;</span><span style="color: #001080">link</span><span style="color: #000000"> </span><span style="color: #001080">rel</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;stylesheet&quot;</span><span style="color: #000000"> </span><span style="color: #001080">href</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;sgvizler2//lib/bootstrap-select/css/bootstrap-select.min.css&quot;</span><span style="color: #000000">&gt;</span>
-<span style="color: #000000">&lt;</span><span style="color: #001080">script</span><span style="color: #000000"> </span><span style="color: #001080">src</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;sgvizler2/lib/bootstrap-select/js/bootstrap-select.min.js&quot;</span><span style="color: #000000">&gt;&lt;/</span><span style="color: #267F99">script</span><span style="color: #000000">&gt;</span>
-<span style="color: #000000">&lt;</span><span style="color: #001080">script</span><span style="color: #000000"> </span><span style="color: #001080">src</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;sgvizler2/lib/bootstrap-select/js/i18n/defaults-fr_FR.min.js&quot;</span><span style="color: #000000">&gt;&lt;/</span><span style="color: #267F99">script</span><span style="color: #000000">&gt;</span>
-<span style="color: #000000">&lt;</span><span style="color: #001080">script</span><span style="color: #000000"> </span><span style="color: #001080">src</span><span style="color: #000000">=</span><span style="color: #A31515">&quot;sgvizler2/lib/bootstrap-select/js/i18n/defaults-en_US.min.js&quot;</span><span style="color: #000000">&gt;&lt;/</span><span style="color: #267F99">script</span><span style="color: #000000">&gt;</span>
+<p>Other dependencies, if you use the select control:</p>
+<pre><code><span class="hl-2">&lt;</span><span class="hl-8">link</span><span class="hl-2"> </span><span class="hl-8">rel</span><span class="hl-2">=</span><span class="hl-10">&quot;stylesheet&quot;</span><span class="hl-2"> </span><span class="hl-8">href</span><span class="hl-2">=</span><span class="hl-10">&quot;https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css&quot;</span><span class="hl-2">&gt;</span><br/><span class="hl-2">&lt;</span><span class="hl-8">link</span><span class="hl-2"> </span><span class="hl-8">rel</span><span class="hl-2">=</span><span class="hl-10">&quot;stylesheet&quot;</span><span class="hl-2"> </span><span class="hl-8">href</span><span class="hl-2">=</span><span class="hl-10">&quot;sgvizler2//lib/bootstrap-select/css/bootstrap-select.min.css&quot;</span><span class="hl-2">&gt;</span><br/><span class="hl-2">&lt;</span><span class="hl-8">script</span><span class="hl-2"> </span><span class="hl-8">src</span><span class="hl-2">=</span><span class="hl-10">&quot;sgvizler2/lib/bootstrap-select/js/bootstrap-select.min.js&quot;</span><span class="hl-2">&gt;&lt;/</span><span class="hl-11">script</span><span class="hl-2">&gt;</span><br/><span class="hl-2">&lt;</span><span class="hl-8">script</span><span class="hl-2"> </span><span class="hl-8">src</span><span class="hl-2">=</span><span class="hl-10">&quot;sgvizler2/lib/bootstrap-select/js/i18n/defaults-fr_FR.min.js&quot;</span><span class="hl-2">&gt;&lt;/</span><span class="hl-11">script</span><span class="hl-2">&gt;</span><br/><span class="hl-2">&lt;</span><span class="hl-8">script</span><span class="hl-2"> </span><span class="hl-8">src</span><span class="hl-2">=</span><span class="hl-10">&quot;sgvizler2/lib/bootstrap-select/js/i18n/defaults-en_US.min.js&quot;</span><span class="hl-2">&gt;&lt;/</span><span class="hl-11">script</span><span class="hl-2">&gt;</span>
 </code></pre>
-				<a href="#install-the-package-via-yarn-or-npm" id="install-the-package-via-yarn-or-npm" style="color: inherit; text-decoration: none;">
-					<h2>Install the package via yarn or npm</h2>
-				</a>
-				<p>With yarn or npm</p>
-				<pre><code><span style="color: #001080">yarn</span><span style="color: #000000"> </span><span style="color: #001080">add</span><span style="color: #000000"> </span><span style="color: #001080">sgvizler2</span>
-<span style="color: #000000"># </span><span style="color: #001080">or</span>
-<span style="color: #001080">npm</span><span style="color: #000000"> </span><span style="color: #001080">install</span><span style="color: #000000"> </span><span style="color: #001080">sgvizler2</span>
+
+<a href="#install-the-package-via-yarn-or-npm" id="install-the-package-via-yarn-or-npm" style="color: inherit; text-decoration: none;">
+  <h2>Install the package via yarn or npm</h2>
+</a>
+<p>With yarn or npm</p>
+<pre><code><span class="hl-8">yarn</span><span class="hl-2"> </span><span class="hl-8">add</span><span class="hl-2"> </span><span class="hl-8">sgvizler2</span><br/><span class="hl-2"># </span><span class="hl-8">or</span><br/><span class="hl-8">npm</span><span class="hl-2"> </span><span class="hl-8">install</span><span class="hl-2"> </span><span class="hl-8">sgvizler2</span>
 </code></pre>
-				<p>The path of Sgvizler2 will be :</p>
-				<pre><code class="language-html"><span style="color: #000000"> </span><span style="color: #800000">&lt;script</span><span style="color: #000000FF"> </span><span style="color: #FF0000">src</span><span style="color: #000000FF">=</span><span style="color: #0000FF">&quot;node_modules/sgvizler2/build/browser/sgvizler2.js&quot;</span><span style="color: #800000">&gt;&lt;/script&gt;</span>
+<p>The path of Sgvizler2 will be :</p>
+<pre><code class="language-html"><span class="hl-2"> </span><span class="hl-0">&lt;</span><span class="hl-1">script</span><span class="hl-6"> </span><span class="hl-3">src</span><span class="hl-6">=</span><span class="hl-4">&quot;node_modules/sgvizler2/build/browser/sgvizler2.js&quot;</span><span class="hl-0">&gt;&lt;/</span><span class="hl-1">script</span><span class="hl-0">&gt;</span>
 </code></pre>
-				<a href="#get-started" id="get-started" style="color: inherit; text-decoration: none;">
-					<h2>Get started</h2>
-				</a>
-				<p>You can use the <a href="http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">SPARQL editor</a> to generate an example
-				with your SPARQL query and see examples for each charts, maps and tables in this project.</p>
-				<a href="#why-reboot-the-project-" id="why-reboot-the-project-" style="color: inherit; text-decoration: none;">
-					<h2>Why reboot the project ?</h2>
-				</a>
-				<p>The project could not be easily extensible and the docs was not automatically generate in the packages for composer,
-					yarn, npm, etc.
-				The project can exist without Google and new libs of charts exist. For example with D3JS,...</p>
-				<p>And why with Typescript ? The project is now too complex and there are hard problems to debug with
-					several charts of Google. I search solutions... but finally, I have to reboot with
-					the <a href="https://github.com/bitjson/typescript-starter">start project typescript</a>.
-					It&#39;s possible to generate a compatible lib in Javascript with unit test and coverage of code. So...
-					There are only a problem with JSDoc that not support several token of Typescript. I try TypeDoc but it do not generate
-				tutorials like JSDoc :( The JSDoc of project generates only tutorials for the moment.</p>
-				<p>If you want to participate at this project, <a href="https://github.com/BorderCloud/sgvizler2/blob/master/DEVELOPMENT.md">read this doc</a>.</p>
-			</div>
-		</div>
-		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
-			<nav class="tsd-navigation primary">
-				<ul>
-					<li class=" ">
-						<a href="modules.html">Exports</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/bordercloud.html">bordercloud</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/bordercloud_visualization.html">bordercloud/visualization</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/bordercloud_visualization_datatable.html">bordercloud/visualization/<wbr>Data<wbr>Table</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/bordercloud_visualization_pivottable.html">bordercloud/visualization/<wbr>Pivot<wbr>Table</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/d3.html">d3</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/d3_visualization.html">d3/visualization</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/d3_visualization_areachart.html">d3/visualization/<wbr>Area<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/d3_visualization_barchart.html">d3/visualization/<wbr>Bar<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/d3_visualization_bubblechart.html">d3/visualization/<wbr>Bubble<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/d3_visualization_columnchart.html">d3/visualization/<wbr>Column<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/d3_visualization_line.html">d3/visualization/<wbr>Line</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/d3_visualization_pie.html">d3/visualization/<wbr>Pie</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/d3_visualization_scatterchart.html">d3/visualization/<wbr>Scatter<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google.html">google</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_api.html">google/API</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_data.html">google/<wbr>Data</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_tools.html">google/<wbr>Tools</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization.html">google/visualization</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_annotationchart.html">google/visualization/<wbr>Annotation<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_areachart.html">google/visualization/<wbr>Area<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_barchart.html">google/visualization/<wbr>Bar<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_bubblechart.html">google/visualization/<wbr>Bubble<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_calendar.html">google/visualization/<wbr>Calendar</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_candlestickchart.html">google/visualization/<wbr>Candlestick<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_columnchart.html">google/visualization/<wbr>Column<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_combochart.html">google/visualization/<wbr>Combo<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_geochart.html">google/visualization/<wbr>Geo<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_histogram.html">google/visualization/<wbr>Histogram</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_intervalchart.html">google/visualization/<wbr>Interval<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_linechart.html">google/visualization/<wbr>Line<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_map.html">google/visualization/<wbr>Map</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_orgchart.html">google/visualization/<wbr>Org<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_pie.html">google/visualization/<wbr>Pie</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_scatterchart.html">google/visualization/<wbr>Scatter<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_steppedareachart.html">google/visualization/<wbr>Stepped<wbr>Area<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_table.html">google/visualization/<wbr>Table</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_timeline.html">google/visualization/<wbr>Timeline</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_treemap.html">google/visualization/<wbr>Tree<wbr>Map</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/google_visualization_trendline.html">google/visualization/<wbr>Trendline</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/index.html">index</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/leaflet.html">leaflet</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/leaflet_api.html">leaflet/API</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/leaflet_visualization.html">leaflet/visualization</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/leaflet_visualization_map.html">leaflet/visualization/<wbr>Map</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler.html">sgvizler</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_chart.html">sgvizler/<wbr>Chart</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_container.html">sgvizler/<wbr>Container</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_core.html">sgvizler/<wbr>Core</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_dependency.html">sgvizler/<wbr>Dependency</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_loader.html">sgvizler/<wbr>Loader</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_loadingicon.html">sgvizler/<wbr>Loading<wbr>Icon</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_logger.html">sgvizler/<wbr>Logger</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_messages.html">sgvizler/<wbr>Messages</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_request.html">sgvizler/<wbr>Request</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_select.html">sgvizler/<wbr>Select</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_sparqlerror.html">sgvizler/<wbr>Sparql<wbr>Error</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_sparqlresultinterface.html">sgvizler/<wbr>Sparql<wbr>Result<wbr>Interface</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_sparqltools.html">sgvizler/<wbr>Sparql<wbr>Tools</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_tools.html">sgvizler/<wbr>Tools</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_wktliteral.html">sgvizler/<wbr>Wkt<wbr>Literal</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_visualization.html">sgvizler/visualization</a>
-					</li>
-					<li class=" tsd-kind-module">
-						<a href="modules/sgvizler_visualization_table.html">sgvizler/visualization/<wbr>Table</a>
-					</li>
-				</ul>
-			</nav>
-			<nav class="tsd-navigation secondary menu-sticky">
-				<ul class="before-current">
-				</ul>
-			</nav>
-		</div>
-	</div>
-</div>
-<footer class="with-border-bottom">
-	<div class="container">
-		<h2>Legend</h2>
-		<div class="tsd-legend-group">
-			<ul class="tsd-legend">
-				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
-				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
-			</ul>
-			<ul class="tsd-legend">
-				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
-			</ul>
-		</div>
-	</div>
-</footer>
-<div class="container tsd-generator">
-	<p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p>
-</div>
-<div class="overlay"></div>
-<script src="assets/js/main.js"></script>
-</body>
-</html>
+
+<a href="#get-started" id="get-started" style="color: inherit; text-decoration: none;">
+  <h2>Get started</h2>
+</a>
+<p>You can use the <a href="http://bordercloud.github.io/sgvizler2/tutorial-A_Editor.html">SPARQL editor</a> to generate an example
+with your SPARQL query and see examples for each charts, maps and tables in this project.</p>
+
+<a href="#why-reboot-the-project-" id="why-reboot-the-project-" style="color: inherit; text-decoration: none;">
+  <h2>Why reboot the project ?</h2>
+</a>
+<p>The project could not be easily extensible and the docs was not automatically generate in the packages for composer,
+yarn, npm, etc.
+The project can exist without Google and new libs of charts exist. For example with D3JS,...</p>
+<p>And why with Typescript ? The project is now too complex and there are hard problems to debug with
+several charts of Google. I search solutions... but finally, I have to reboot with
+the <a href="https://github.com/bitjson/typescript-starter">start project typescript</a>.
+It&#39;s possible to generate a compatible lib in Javascript with unit test and coverage of code. So...
+There are only a problem with JSDoc that not support several token of Typescript. I try TypeDoc but it do not generate
+tutorials like JSDoc :( The JSDoc of project generates only tutorials for the moment.</p>
+<p>If you want to participate at this project, <a href="https://github.com/BorderCloud/sgvizler2/blob/master/DEVELOPMENT.md">read this doc</a>.</p>
+</div></div><div class="col-4 col-menu menu-sticky-wrap menu-highlight"><nav class="tsd-navigation primary"><ul><li class="current"><a href="modules.html">Exports</a></li></ul></nav><nav class="tsd-navigation secondary menu-sticky"><ul><li class="tsd-kind-variable"><a href="modules.html#HOMEPAGE" class="tsd-kind-icon">HOMEPAGE</a></li><li class="tsd-kind-variable"><a href="modules.html#VERSION" class="tsd-kind-icon">VERSION</a></li><li class="tsd-kind-variable"><a href="modules.html#bordercloud" class="tsd-kind-icon">bordercloud</a></li><li class="tsd-kind-variable"><a href="modules.html#d3" class="tsd-kind-icon">d3</a></li><li class="tsd-kind-variable"><a href="modules.html#google" class="tsd-kind-icon">google</a></li><li class="tsd-kind-variable"><a href="modules.html#leaflet" class="tsd-kind-icon">leaflet</a></li><li class="tsd-kind-variable"><a href="modules.html#sgvizler" class="tsd-kind-icon">sgvizler</a></li><li class="tsd-kind-function"><a href="modules.html#containerDraw" class="tsd-kind-icon">container<wbr/>Draw</a></li><li class="tsd-kind-function"><a href="modules.html#containerDrawAll" class="tsd-kind-icon">container<wbr/>Draw<wbr/>All</a></li><li class="tsd-kind-function"><a href="modules.html#containerLoadAll" class="tsd-kind-icon">container<wbr/>Load<wbr/>All</a></li><li class="tsd-kind-function"><a href="modules.html#create" class="tsd-kind-icon">create</a></li><li class="tsd-kind-function"><a href="modules.html#decodeHtml" class="tsd-kind-icon">decode<wbr/>Html</a></li><li class="tsd-kind-function"><a href="modules.html#encodeHtml" class="tsd-kind-icon">encode<wbr/>Html</a></li><li class="tsd-kind-function"><a href="modules.html#getChartDoc" class="tsd-kind-icon">get<wbr/>Chart<wbr/>Doc</a></li><li class="tsd-kind-function"><a href="modules.html#getChartOptions" class="tsd-kind-icon">get<wbr/>Chart<wbr/>Options</a></li><li class="tsd-kind-function"><a href="modules.html#giveHTMLAndScript" class="tsd-kind-icon">giveHTMLAnd<wbr/>Script</a></li><li class="tsd-kind-function"><a href="modules.html#selectDraw" class="tsd-kind-icon">select<wbr/>Draw</a></li><li class="tsd-kind-function"><a href="modules.html#selectDrawAll" class="tsd-kind-icon">select<wbr/>Draw<wbr/>All</a></li><li class="tsd-kind-function"><a href="modules.html#showTabHtmlAndScript" class="tsd-kind-icon">show<wbr/>Tab<wbr/>Html<wbr/>And<wbr/>Script</a></li></ul></nav></div></div></div><footer class="with-border-bottom"><div class="container"><h2>Settings</h2><p>Theme <select id="theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></p></div></footer><div class="container tsd-generator"><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div><div class="overlay"></div><script src="assets/main.js"></script></body></html>
