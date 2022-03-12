@@ -3,7 +3,7 @@
 version: "3"
 services:
   selenium-hub:
-    image: selenium/hub:3.141.59-20200525
+    image: selenium/hub:3
     container_name: selenium-hub
     ports:
       - "4444:4444"
@@ -11,7 +11,7 @@ services:
       selenium_net:
         ipv4_address: 172.29.0.2
   chrome:
-    image: selenium/node-chrome:3.141.59-20200525
+    image: selenium/node-chrome:3
     extra_hosts:
       - "serverdev:172.29.0.16"
     volumes:
@@ -25,7 +25,7 @@ services:
       selenium_net:
         ipv4_address: 172.29.0.3
   firefox:
-    image: selenium/node-firefox:3.141.59-20200525
+    image: selenium/node-firefox:3
     extra_hosts:
       - "serverdev:172.29.0.16"
     volumes:
@@ -39,7 +39,7 @@ services:
       selenium_net:
         ipv4_address: 172.29.0.4
   opera:
-    image: selenium/node-opera:3.141.59-20200525
+    image: selenium/node-opera:3
     extra_hosts:
       - "serverdev:172.29.0.16"
     volumes:
