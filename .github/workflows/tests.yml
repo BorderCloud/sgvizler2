@@ -19,7 +19,7 @@ jobs:
           mkdir -p build
           npm run docs:all
       - name: Start Selenium Hub
-        working-directory: ./selenium/selenium3/build
+        working-directory: ../selenium/selenium3/build
         run: docker-compose -f docker-compose.yaml up -d
 
       - name: Install selenium-side-runner & drivers
