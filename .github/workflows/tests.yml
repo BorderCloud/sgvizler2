@@ -1,0 +1,35 @@
+name: Tests
+
+on: [push]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Start Selenium Hub
+        working-directory: ./selenium/build
+        run: docker-compose -f docker-compose.yaml up -d
+
+      - name: Install selenium-side-runner & drivers
+        run: |
+          sudo npm install -g selenium-side-runner
+      - name: Install sgvizler2
+        run: |
+          npm install
+          sudo chown -R $USER:$USER .
+          mkdir -p build
+          ls -al
+          npm run docs:all
+      - name: Install sgvizler2
+        run: |
+          npm run test:testy
+      - name: Check Selenium
+        run: |
+          selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=chrome" ./selenium/tests.side
+          selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=firefox" ./selenium/tests.side
+          selenium-side-runner  --server http://localhost:4444/wd/hub -c "browserName=operablink" ./selenium/tests.side
