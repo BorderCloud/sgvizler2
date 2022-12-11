@@ -15,11 +15,16 @@
 				"isConst": true
 			},
 			"comment": {
-				"shortText": "Todo",
-				"tags": [
+				"summary": [
 					{
-						"tag": "const",
-						"text": "\n"
+						"kind": "text",
+						"text": "Todo"
+					}
+				],
+				"blockTags": [
+					{
+						"tag": "@const",
+						"content": []
 					}
 				]
 			},
@@ -27,7 +32,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 33,
-					"character": 13
+					"character": 13,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L33"
 				}
 			],
 			"type": {
@@ -45,11 +51,16 @@
 				"isConst": true
 			},
 			"comment": {
-				"shortText": "Todo",
-				"tags": [
+				"summary": [
 					{
-						"tag": "const",
-						"text": "\n\n"
+						"kind": "text",
+						"text": "Todo"
+					}
+				],
+				"blockTags": [
+					{
+						"tag": "@const",
+						"content": []
 					}
 				]
 			},
@@ -57,7 +68,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 27,
-					"character": 13
+					"character": 13,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L27"
 				}
 			],
 			"type": {
@@ -78,7 +90,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 11,
-					"character": 13
+					"character": 13,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L11"
 				}
 			],
 			"type": {
@@ -99,7 +112,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 17,
-					"character": 13
+					"character": 13,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L17"
 				}
 			],
 			"type": {
@@ -120,7 +134,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 14,
-					"character": 13
+					"character": 13,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L14"
 				}
 			],
 			"type": {
@@ -141,7 +156,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 20,
-					"character": 13
+					"character": 13,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L20"
 				}
 			],
 			"type": {
@@ -162,7 +178,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 8,
-					"character": 13
+					"character": 13,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L8"
 				}
 			],
 			"type": {
@@ -181,7 +198,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 61,
-					"character": 16
+					"character": 16,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L61"
 				}
 			],
 			"signatures": [
@@ -192,7 +210,12 @@
 					"kindString": "Call signature",
 					"flags": {},
 					"comment": {
-						"shortText": "Draws the sgvizler-containers with the given element id."
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Draws the sgvizler-containers with the given element id."
+							}
+						]
 					},
 					"parameters": [
 						{
@@ -201,9 +224,6 @@
 							"kind": 32768,
 							"kindString": "Parameter",
 							"flags": {},
-							"comment": {
-								"shortText": "\n"
-							},
 							"type": {
 								"type": "intrinsic",
 								"name": "string"
@@ -238,7 +258,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 71,
-					"character": 16
+					"character": 16,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L71"
 				}
 			],
 			"signatures": [
@@ -249,7 +270,12 @@
 					"kindString": "Call signature",
 					"flags": {},
 					"comment": {
-						"shortText": "Todo."
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Todo."
+							}
+						]
 					},
 					"parameters": [
 						{
@@ -283,7 +309,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 39,
-					"character": 16
+					"character": 16,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L39"
 				}
 			],
 			"signatures": [
@@ -294,7 +321,12 @@
 					"kindString": "Call signature",
 					"flags": {},
 					"comment": {
-						"shortText": "Draws the sgvizler-containers with the given element id."
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Draws the sgvizler-containers with the given element id."
+							}
+						]
 					},
 					"type": {
 						"type": "intrinsic",
@@ -313,7 +345,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 218,
-					"character": 16
+					"character": 16,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L218"
 				}
 			],
 			"signatures": [
@@ -324,8 +357,18 @@
 					"kindString": "Call signature",
 					"flags": {},
 					"comment": {
-						"shortText": "Todo",
-						"returns": "\n"
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Todo"
+							}
+						],
+						"blockTags": [
+							{
+								"tag": "@returns",
+								"content": []
+							}
+						]
 					},
 					"parameters": [
 						{
@@ -334,7 +377,6 @@
 							"kind": 32768,
 							"kindString": "Parameter",
 							"flags": {},
-							"comment": {},
 							"type": {
 								"type": "intrinsic",
 								"name": "string"
@@ -346,7 +388,6 @@
 							"kind": 32768,
 							"kindString": "Parameter",
 							"flags": {},
-							"comment": {},
 							"type": {
 								"type": "intrinsic",
 								"name": "string"
@@ -358,7 +399,6 @@
 							"kind": 32768,
 							"kindString": "Parameter",
 							"flags": {},
-							"comment": {},
 							"type": {
 								"type": "intrinsic",
 								"name": "string"
@@ -370,7 +410,6 @@
 							"kind": 32768,
 							"kindString": "Parameter",
 							"flags": {},
-							"comment": {},
 							"type": {
 								"type": "intrinsic",
 								"name": "string"
@@ -384,7 +423,6 @@
 							"flags": {
 								"isOptional": true
 							},
-							"comment": {},
 							"type": {
 								"type": "intrinsic",
 								"name": "string"
@@ -398,7 +436,6 @@
 							"flags": {
 								"isOptional": true
 							},
-							"comment": {},
 							"type": {
 								"type": "intrinsic",
 								"name": "string"
@@ -474,7 +511,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 127,
-					"character": 16
+					"character": 16,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L127"
 				}
 			],
 			"signatures": [
@@ -514,7 +552,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 124,
-					"character": 16
+					"character": 16,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L124"
 				}
 			],
 			"signatures": [
@@ -554,7 +593,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 102,
-					"character": 16
+					"character": 16,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L102"
 				}
 			],
 			"signatures": [
@@ -565,8 +605,18 @@
 					"kindString": "Call signature",
 					"flags": {},
 					"comment": {
-						"shortText": "Todo.",
-						"returns": "\n"
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Todo."
+							}
+						],
+						"blockTags": [
+							{
+								"tag": "@returns",
+								"content": []
+							}
+						]
 					},
 					"parameters": [
 						{
@@ -575,7 +625,6 @@
 							"kind": 32768,
 							"kindString": "Parameter",
 							"flags": {},
-							"comment": {},
 							"type": {
 								"type": "intrinsic",
 								"name": "string"
@@ -589,7 +638,6 @@
 							"flags": {
 								"isOptional": true
 							},
-							"comment": {},
 							"type": {
 								"type": "intrinsic",
 								"name": "string"
@@ -613,7 +661,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 112,
-					"character": 16
+					"character": 16,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L112"
 				}
 			],
 			"signatures": [
@@ -624,8 +673,18 @@
 					"kindString": "Call signature",
 					"flags": {},
 					"comment": {
-						"shortText": "Todo.",
-						"returns": "\n"
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Todo."
+							}
+						],
+						"blockTags": [
+							{
+								"tag": "@returns",
+								"content": []
+							}
+						]
 					},
 					"parameters": [
 						{
@@ -657,7 +716,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 131,
-					"character": 16
+					"character": 16,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L131"
 				}
 			],
 			"signatures": [
@@ -732,7 +792,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 81,
-					"character": 16
+					"character": 16,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L81"
 				}
 			],
 			"signatures": [
@@ -743,7 +804,12 @@
 					"kindString": "Call signature",
 					"flags": {},
 					"comment": {
-						"shortText": "Todo."
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Todo."
+							}
+						]
 					},
 					"parameters": [
 						{
@@ -775,7 +841,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 90,
-					"character": 16
+					"character": 16,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L90"
 				}
 			],
 			"signatures": [
@@ -786,7 +853,12 @@
 					"kindString": "Call signature",
 					"flags": {},
 					"comment": {
-						"shortText": "Todo."
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Todo."
+							}
+						]
 					},
 					"type": {
 						"type": "reference",
@@ -805,7 +877,8 @@
 				{
 					"fileName": "index.ts",
 					"line": 178,
-					"character": 16
+					"character": 16,
+					"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L178"
 				}
 			],
 			"signatures": [
@@ -852,7 +925,6 @@
 	"groups": [
 		{
 			"title": "Variables",
-			"kind": 32,
 			"children": [
 				56,
 				55,
@@ -865,7 +937,6 @@
 		},
 		{
 			"title": "Functions",
-			"kind": 64,
 			"children": [
 				3,
 				7,
@@ -886,7 +957,8 @@
 		{
 			"fileName": "index.ts",
 			"line": 1,
-			"character": 0
+			"character": 0,
+			"url": "https://github.com/BorderCloud/sgvizler2/blob/aa0bb79/src/index.ts#L1"
 		}
 	]
 }

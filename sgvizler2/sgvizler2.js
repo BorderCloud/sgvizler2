@@ -27,7 +27,7 @@
         get create () { return create; }
     });
 
-    /*! *****************************************************************************
+    /******************************************************************************
     Copyright (c) Microsoft Corporation.
 
     Permission to use, copy, modify, and/or distribute this software for any
@@ -398,7 +398,7 @@
      * @tutorial sgvizler_visualization_Table
      * @memberof sgvizler.visualization
      */
-    class Table$1 extends Chart {
+    let Table$1 = class Table extends Chart {
         get icon() {
             return 'fa fa-table';
         }
@@ -461,7 +461,7 @@
                 resolve();
             });
         }
-    }
+    };
 
     /**
      * @namespace sgvizler.visualization
@@ -924,7 +924,7 @@
      * @class sgvizler.Tools
      * @memberof sgvizler
      */
-    class Tools$1 {
+    let Tools$1 = class Tools {
         // noinspection JSValidateJSDoc
         /**
          * Gets the object located at `path` from `object`. `path`
@@ -1100,7 +1100,7 @@
             }
             return val;
         }
-    }
+    };
 
     /**
      * Handles all logging, either to console or designated HTML
@@ -1332,14 +1332,6 @@
      * @memberof sgvizler
      */
     class Request {
-        constructor() {
-            this._query = '';
-            this._endpoint = '';
-            this._endpointOutputFormat = SPARQL_RESULT.json;
-            this._method = 'GET';
-            this._queryParameter = 'query';
-            this.listeners = {};
-        }
         // private _endpointResultsUrlPart: string
         // // private _chartPathFunction: string
         // private _endpointURL: string
@@ -1445,6 +1437,14 @@
          */
         set queryParameter(value) {
             this._queryParameter = value;
+        }
+        constructor() {
+            this._query = '';
+            this._endpoint = '';
+            this._endpointOutputFormat = SPARQL_RESULT.json;
+            this._method = 'GET';
+            this._queryParameter = 'query';
+            this.listeners = {};
         }
         sendRequest() {
             let myRequest = this;
@@ -2882,7 +2882,7 @@
      * @tutorial google_visualization_AreaChart
      * @memberof google.visualization
      */
-    class AreaChart$1 extends Chart {
+    let AreaChart$1 = class AreaChart extends Chart {
         constructor() {
             super();
             this.addScript('https://www.gstatic.com/charts/loader.js');
@@ -2950,7 +2950,7 @@
                 return resolve();
             });
         }
-    }
+    };
     AreaChart$1._isInit = false;
 
     /**
@@ -2959,7 +2959,7 @@
      * @tutorial google_visualization_BarChart
      * @memberof google.visualization
      */
-    class BarChart$1 extends Chart {
+    let BarChart$1 = class BarChart extends Chart {
         constructor() {
             super();
             this.addScript('https://www.gstatic.com/charts/loader.js');
@@ -3027,7 +3027,7 @@
                 return resolve();
             });
         }
-    }
+    };
     BarChart$1._isInit = false;
 
     /**
@@ -3036,7 +3036,7 @@
      * @tutorial google_visualization_BubbleChart
      * @memberof google.visualization
      */
-    class BubbleChart$1 extends Chart {
+    let BubbleChart$1 = class BubbleChart extends Chart {
         constructor() {
             super();
             this.addScript('https://www.gstatic.com/charts/loader.js');
@@ -3104,7 +3104,7 @@
                 return resolve();
             });
         }
-    }
+    };
     BubbleChart$1._isInit = false;
 
     /**
@@ -3269,7 +3269,7 @@
      * @tutorial google_visualization_ColumnChart
      * @memberof google.visualization
      */
-    class ColumnChart$1 extends Chart {
+    let ColumnChart$1 = class ColumnChart extends Chart {
         constructor() {
             super();
             this.addScript('https://www.gstatic.com/charts/loader.js');
@@ -3337,7 +3337,7 @@
                 return resolve();
             });
         }
-    }
+    };
     ColumnChart$1._isInit = false;
 
     /**
@@ -3422,7 +3422,7 @@
      * @class google.API
      * @memberof google
      */
-    class API$1 {
+    let API$1 = class API {
         /**
          * todo
          * @returns {string}
@@ -3437,7 +3437,7 @@
         static set key(value) {
             this._key = value;
         }
-    }
+    };
     /**
      * todo
      * @type {string}
@@ -3756,7 +3756,7 @@
      * @tutorial google_visualization_Map
      * @memberof google.visualization
      */
-    class Map$1 extends Chart {
+    let Map$1 = class Map extends Chart {
         constructor() {
             super();
             this.addScript('https://www.gstatic.com/charts/loader.js');
@@ -3921,7 +3921,7 @@
                 return resolve();
             });
         }
-    }
+    };
     Map$1._isInit = false;
 
     /**
@@ -4007,11 +4007,7 @@
      * @tutorial google_visualization_Pie
      * @memberof google.visualization
      */
-    class Pie$1 extends Chart {
-        constructor() {
-            super();
-            this.addScript('https://www.gstatic.com/charts/loader.js');
-        }
+    let Pie$1 = class Pie extends Chart {
         get icon() {
             return 'fas fa-chart-pie';
         }
@@ -4026,6 +4022,10 @@
         }
         get tutorialFilename() {
             return 'tutorial-google_visualization_Pie.html';
+        }
+        constructor() {
+            super();
+            this.addScript('https://www.gstatic.com/charts/loader.js');
         }
         static init() {
             google.charts.load('current', { 'packages': ['corechart'] });
@@ -4075,7 +4075,7 @@
                 return resolve();
             });
         }
-    }
+    };
     Pie$1._isInit = false;
 
     /**
@@ -4084,7 +4084,7 @@
      * @tutorial google_visualization_ScatterChart
      * @memberof google.visualization
      */
-    class ScatterChart$1 extends Chart {
+    let ScatterChart$1 = class ScatterChart extends Chart {
         constructor() {
             super();
             this.addScript('https://www.gstatic.com/charts/loader.js');
@@ -4152,7 +4152,7 @@
                 return resolve();
             });
         }
-    }
+    };
     ScatterChart$1._isInit = false;
 
     /**
@@ -6297,8 +6297,6 @@
     exports.selectDrawAll = selectDrawAll;
     exports.sgvizler = sgvizler;
     exports.showTabHtmlAndScript = showTabHtmlAndScript;
-
-    Object.defineProperty(exports, '__esModule', { value: true });
 
 }));
 //# sourceMappingURL=sgvizler2.js.map

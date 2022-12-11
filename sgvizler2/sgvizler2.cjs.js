@@ -1,7 +1,5 @@
 'use strict';
 
-Object.defineProperty(exports, '__esModule', { value: true });
-
 var sgvizler2 = /*#__PURE__*/Object.freeze({
     __proto__: null,
     get sgvizler () { return sgvizler; },
@@ -25,7 +23,7 @@ var sgvizler2 = /*#__PURE__*/Object.freeze({
     get create () { return create; }
 });
 
-/*! *****************************************************************************
+/******************************************************************************
 Copyright (c) Microsoft Corporation.
 
 Permission to use, copy, modify, and/or distribute this software for any
@@ -396,7 +394,7 @@ class Chart {
  * @tutorial sgvizler_visualization_Table
  * @memberof sgvizler.visualization
  */
-class Table$1 extends Chart {
+let Table$1 = class Table extends Chart {
     get icon() {
         return 'fa fa-table';
     }
@@ -459,7 +457,7 @@ class Table$1 extends Chart {
             resolve();
         });
     }
-}
+};
 
 /**
  * @namespace sgvizler.visualization
@@ -922,7 +920,7 @@ class Messages {
  * @class sgvizler.Tools
  * @memberof sgvizler
  */
-class Tools$1 {
+let Tools$1 = class Tools {
     // noinspection JSValidateJSDoc
     /**
      * Gets the object located at `path` from `object`. `path`
@@ -1098,7 +1096,7 @@ class Tools$1 {
         }
         return val;
     }
-}
+};
 
 /**
  * Handles all logging, either to console or designated HTML
@@ -1330,14 +1328,6 @@ class SparqlTools {
  * @memberof sgvizler
  */
 class Request {
-    constructor() {
-        this._query = '';
-        this._endpoint = '';
-        this._endpointOutputFormat = SPARQL_RESULT.json;
-        this._method = 'GET';
-        this._queryParameter = 'query';
-        this.listeners = {};
-    }
     // private _endpointResultsUrlPart: string
     // // private _chartPathFunction: string
     // private _endpointURL: string
@@ -1443,6 +1433,14 @@ class Request {
      */
     set queryParameter(value) {
         this._queryParameter = value;
+    }
+    constructor() {
+        this._query = '';
+        this._endpoint = '';
+        this._endpointOutputFormat = SPARQL_RESULT.json;
+        this._method = 'GET';
+        this._queryParameter = 'query';
+        this.listeners = {};
     }
     sendRequest() {
         let myRequest = this;
@@ -2880,7 +2878,7 @@ AnnotationChart._isInit = false;
  * @tutorial google_visualization_AreaChart
  * @memberof google.visualization
  */
-class AreaChart$1 extends Chart {
+let AreaChart$1 = class AreaChart extends Chart {
     constructor() {
         super();
         this.addScript('https://www.gstatic.com/charts/loader.js');
@@ -2948,7 +2946,7 @@ class AreaChart$1 extends Chart {
             return resolve();
         });
     }
-}
+};
 AreaChart$1._isInit = false;
 
 /**
@@ -2957,7 +2955,7 @@ AreaChart$1._isInit = false;
  * @tutorial google_visualization_BarChart
  * @memberof google.visualization
  */
-class BarChart$1 extends Chart {
+let BarChart$1 = class BarChart extends Chart {
     constructor() {
         super();
         this.addScript('https://www.gstatic.com/charts/loader.js');
@@ -3025,7 +3023,7 @@ class BarChart$1 extends Chart {
             return resolve();
         });
     }
-}
+};
 BarChart$1._isInit = false;
 
 /**
@@ -3034,7 +3032,7 @@ BarChart$1._isInit = false;
  * @tutorial google_visualization_BubbleChart
  * @memberof google.visualization
  */
-class BubbleChart$1 extends Chart {
+let BubbleChart$1 = class BubbleChart extends Chart {
     constructor() {
         super();
         this.addScript('https://www.gstatic.com/charts/loader.js');
@@ -3102,7 +3100,7 @@ class BubbleChart$1 extends Chart {
             return resolve();
         });
     }
-}
+};
 BubbleChart$1._isInit = false;
 
 /**
@@ -3267,7 +3265,7 @@ CandlestickChart._isInit = false;
  * @tutorial google_visualization_ColumnChart
  * @memberof google.visualization
  */
-class ColumnChart$1 extends Chart {
+let ColumnChart$1 = class ColumnChart extends Chart {
     constructor() {
         super();
         this.addScript('https://www.gstatic.com/charts/loader.js');
@@ -3335,7 +3333,7 @@ class ColumnChart$1 extends Chart {
             return resolve();
         });
     }
-}
+};
 ColumnChart$1._isInit = false;
 
 /**
@@ -3420,7 +3418,7 @@ ComboChart._isInit = false;
  * @class google.API
  * @memberof google
  */
-class API$1 {
+let API$1 = class API {
     /**
      * todo
      * @returns {string}
@@ -3435,7 +3433,7 @@ class API$1 {
     static set key(value) {
         this._key = value;
     }
-}
+};
 /**
  * todo
  * @type {string}
@@ -3754,7 +3752,7 @@ LineChart._isInit = false;
  * @tutorial google_visualization_Map
  * @memberof google.visualization
  */
-class Map$1 extends Chart {
+let Map$1 = class Map extends Chart {
     constructor() {
         super();
         this.addScript('https://www.gstatic.com/charts/loader.js');
@@ -3919,7 +3917,7 @@ class Map$1 extends Chart {
             return resolve();
         });
     }
-}
+};
 Map$1._isInit = false;
 
 /**
@@ -4005,11 +4003,7 @@ OrgChart._isInit = false;
  * @tutorial google_visualization_Pie
  * @memberof google.visualization
  */
-class Pie$1 extends Chart {
-    constructor() {
-        super();
-        this.addScript('https://www.gstatic.com/charts/loader.js');
-    }
+let Pie$1 = class Pie extends Chart {
     get icon() {
         return 'fas fa-chart-pie';
     }
@@ -4024,6 +4018,10 @@ class Pie$1 extends Chart {
     }
     get tutorialFilename() {
         return 'tutorial-google_visualization_Pie.html';
+    }
+    constructor() {
+        super();
+        this.addScript('https://www.gstatic.com/charts/loader.js');
     }
     static init() {
         google.charts.load('current', { 'packages': ['corechart'] });
@@ -4073,7 +4071,7 @@ class Pie$1 extends Chart {
             return resolve();
         });
     }
-}
+};
 Pie$1._isInit = false;
 
 /**
@@ -4082,7 +4080,7 @@ Pie$1._isInit = false;
  * @tutorial google_visualization_ScatterChart
  * @memberof google.visualization
  */
-class ScatterChart$1 extends Chart {
+let ScatterChart$1 = class ScatterChart extends Chart {
     constructor() {
         super();
         this.addScript('https://www.gstatic.com/charts/loader.js');
@@ -4150,7 +4148,7 @@ class ScatterChart$1 extends Chart {
             return resolve();
         });
     }
-}
+};
 ScatterChart$1._isInit = false;
 
 /**
