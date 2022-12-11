@@ -95,12 +95,9 @@ Commands :
 yarn clean
 yarn docs:all
 
-#MAJOR version when you make incompatible API changes,
-yarn std-version-major
-#MINOR version when you add functionality in a backwards compatible manner, and
-yarn std-version-minor
-#PATCH version when you make backwards compatible bug fixes.
-yarn std-version-patch
+#increment version in package.json
+yarn changelog
+# clean changelog.md
 
 # Avoid problems in yarn/npm publish
 yarn pack

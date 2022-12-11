@@ -2,6 +2,7 @@
 import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import alias from '@rollup/plugin-alias';
+import typescript from '@rollup/plugin-typescript';
 
 const substituteModulePaths = {
     /*'window': 'build/module/adapters/window.js'
@@ -16,6 +17,11 @@ export default {
         nodeResolve({
             browser: true
         }),
+        typescript({ compilerOptions: {lib: [
+            "es6",
+            "dom",
+            "es2020.string"
+        ], target: "es6"}}),
         commonjs()
     ],
     external: ['jquery'],

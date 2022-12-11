@@ -2,7 +2,8 @@
 import commonjs from '@rollup/plugin-commonjs';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import alias from '@rollup/plugin-alias';
-import { terser } from "rollup-plugin-terser";
+import typescript from '@rollup/plugin-typescript';
+import terser from '@rollup/plugin-terser';
 
 const substituteModulePaths = {
     /*'crypto': 'build/module/adapters/crypto.browser.js',
@@ -16,6 +17,11 @@ export default {
         nodeResolve({
             browser: true
         }),
+        typescript({ compilerOptions: {lib: [
+            "es6",
+            "dom",
+            "es2020.string"
+        ], target: "es6"}}),
         commonjs()
     ],
     external: ['jquery'],
