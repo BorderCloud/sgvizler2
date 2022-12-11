@@ -1,6 +1,21 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+#### 1.7.3 (2022-12-11)
+Update all libs in package.json (not in /lib)
+
+##### Chores
+
+* **deps:**
+  *  bump qs from 6.5.2 to 6.5.3 (b1ec2721)
+  *  bump decode-uri-component from 0.2.0 to 0.2.2 (601a7234)
+  *  bump minimatch from 3.0.4 to 3.1.2 (21c64710)
+  *  bump terser from 5.7.0 to 5.14.2 (b50b93c8)
+  *  bump shell-quote from 1.7.2 to 1.7.3 (81c483cb)
+* **deps-dev:**
+  *  bump moment from 2.29.2 to 2.29.4 (2a73d82b)
+  *  bump moment from 2.29.1 to 2.29.2 (a4a58085)
+
+-----
 
 ### [1.7.2](https://github.com/BorderCloud/sgvizler2/compare/v1.7.1...v1.7.2) (2022-03-12)
 

@@ -99,6 +99,9 @@ yarn docs:all
 yarn changelog
 # clean changelog.md
 
+git tag -a v1.7.3 -m "v1.7.3"
+git push --tags
+
 # Avoid problems in yarn/npm publish
 yarn pack
 # check the package before to publish
