@@ -76,7 +76,7 @@
     "@types/node": "^18.11.13",
     "ansi-regex": "^6.0.1",
     "browserify": "^17.0.0",
-    "chromedriver": "^108.0.0",
+    "chromedriver": "^119.0.1",
     "cz-conventional-changelog": "^3.2.0",
     "geckodriver": "^3.2.0",
     "generate-changelog": "^1.8.0",
