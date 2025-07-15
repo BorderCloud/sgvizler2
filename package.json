@@ -1,6 +1,6 @@
 {
   "name": "sgvizler2",
-  "version": "1.7.3",
+  "version": "1.7.4",
   "description": "Sgvizler2 is a javascript wrapper for easy visualisation of SPARQL result sets (and a jQuery plugin).",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
@@ -41,8 +41,8 @@
     "!!reset": "git clean -dfx && git reset --hard && npm i",
     "prepare-release": "run-s all version doc:publish",
     "release": "run-s build docs:html && yarn docs:publish && yarn changelog",
-    "test:start": "docker-compose -f ./selenium/selenium3/docker-compose.yaml up -d",
-    "test:stop": "docker-compose -f ./selenium/selenium3/docker-compose.yaml down -v",
+    "test:start": "docker compose -f ./selenium/selenium3/docker-compose.yaml up -d",
+    "test:stop": "docker compose -f ./selenium/selenium3/docker-compose.yaml down -v",
     "test:chrome": "selenium-side-runner  --server http://localhost:4444/wd/hub -c 'browserName=chrome' ./selenium/tests.side",
     "test:firefox": "selenium-side-runner  --server http://localhost:4444/wd/hub -c 'browserName=firefox' ./selenium/tests.side",
     "test:opera": "selenium-side-runner  --server http://localhost:4444/wd/hub -c 'browserName=operablink' ./selenium/tests.side",
