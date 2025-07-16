@@ -2,12 +2,12 @@
   "extends": "./config/tsconfig.flexible", // also available: "./config/tsconfig.strict"
   "compilerOptions": {
     "target": "es6",
-//    "outDir": "build/main",
+    "outDir": "build/browser",
     "rootDir": "src",
     "moduleResolution": "node",
     "module": "esnext",
-//    "declarationDir": "build/main",
-    "declaration": false,
+    "declaration": true,
+    "composite": false,
     "importHelpers": true,
     "inlineSourceMap": true,
     "experimentalDecorators": true,
