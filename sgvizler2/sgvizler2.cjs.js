@@ -2,25 +2,25 @@
 
 var sgvizler2 = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    get sgvizler () { return sgvizler; },
-    get bordercloud () { return bordercloud; },
-    get google () { return google$1; },
-    get d3 () { return d3$1; },
-    get leaflet () { return leaflet; },
-    get VERSION () { return VERSION; },
     get HOMEPAGE () { return HOMEPAGE; },
-    get containerLoadAll () { return containerLoadAll; },
+    get VERSION () { return VERSION; },
+    get bordercloud () { return bordercloud; },
     get containerDraw () { return containerDraw; },
     get containerDrawAll () { return containerDrawAll; },
-    get selectDraw () { return selectDraw; },
-    get selectDrawAll () { return selectDrawAll; },
+    get containerLoadAll () { return containerLoadAll; },
+    get create () { return create; },
+    get d3 () { return d3$1; },
+    get decodeHtml () { return decodeHtml; },
+    get encodeHtml () { return encodeHtml; },
     get getChartDoc () { return getChartDoc; },
     get getChartOptions () { return getChartOptions; },
-    get encodeHtml () { return encodeHtml; },
-    get decodeHtml () { return decodeHtml; },
     get giveHTMLAndScript () { return giveHTMLAndScript; },
-    get showTabHtmlAndScript () { return showTabHtmlAndScript; },
-    get create () { return create; }
+    get google () { return google$1; },
+    get leaflet () { return leaflet; },
+    get selectDraw () { return selectDraw; },
+    get selectDrawAll () { return selectDrawAll; },
+    get sgvizler () { return sgvizler; },
+    get showTabHtmlAndScript () { return showTabHtmlAndScript; }
 });
 
 /******************************************************************************
@@ -37,6 +37,8 @@ LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
 OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
 PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
+/* global Reflect, Promise, SuppressedError, Symbol, Iterator */
+
 
 function __awaiter(thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -47,6 +49,11 @@ function __awaiter(thisArg, _arguments, P, generator) {
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 }
+
+typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
+    var e = new Error(message);
+    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
+};
 
 /**
  * Define the type of patterns for the options
@@ -959,7 +966,7 @@ let Tools$1 = class Tools {
         return cursor;
     }
     static assignProperty(obj, path, value) {
-        return Tools$1.assignJSON(obj, Tools$1.getJSONByPath(path, value));
+        return Tools.assignJSON(obj, Tools.getJSONByPath(path, value));
     }
     // public static escapeHtml (str: string): string {
     //     let text = document.createTextNode(str)
@@ -1029,7 +1036,7 @@ let Tools$1 = class Tools {
         if (positionDot === -1) {
             propertyName = path.trim();
             if (Number.isNaN(Number(value))) {
-                let valueBoolean = Tools$1.convertToBoolean(value);
+                let valueBoolean = Tools.convertToBoolean(value);
                 if (valueBoolean === undefined) {
                     let str = JSON.stringify(String(value));
                     str = str.substring(1, str.length - 1);
@@ -1046,12 +1053,12 @@ let Tools$1 = class Tools {
         else {
             propertyName = path.substring(0, positionDot);
             nextPath = path.substring(positionDot + 1, path.length);
-            json = '{"' + propertyName.trim() + '": ' + Tools$1.getJSONByPath(nextPath, value) + ' }';
+            json = '{"' + propertyName.trim() + '": ' + Tools.getJSONByPath(nextPath, value) + ' }';
         }
         return json;
     }
     static assignJSON(obj, json) {
-        Tools$1.mergeInObject(obj, JSON.parse(json));
+        Tools.mergeInObject(obj, JSON.parse(json));
         return obj;
     }
     static convertToBoolean(input) {
@@ -1067,11 +1074,11 @@ let Tools$1 = class Tools {
     }
     // Convert to typescript : https://github.com/gmasmejean/recursiveAssign/blob/master/index.js
     static assign(ref, key, value) {
-        if (Tools$1.isPlainObject(value)) {
-            if (!Tools$1.isPlainObject(ref[key])) {
+        if (Tools.isPlainObject(value)) {
+            if (!Tools.isPlainObject(ref[key])) {
                 ref[key] = {};
             }
-            Tools$1.mergeInObject(ref[key], value);
+            Tools.mergeInObject(ref[key], value);
         }
         else {
             ref[key] = value;
@@ -1079,7 +1086,7 @@ let Tools$1 = class Tools {
     }
     static mergeInObject(dest, data) {
         Object.keys(data).forEach(key => {
-            Tools$1.assign(dest, key, data[key]);
+            Tools.assign(dest, key, data[key]);
         });
     }
     static isPlainObject(o) {
@@ -1947,13 +1954,13 @@ class LoadingIcon {
                 currentLoadingcon._processusWaiting = setInterval(function () {
                     let ctx = canvas.getContext('2d');
                     if (ctx) {
-                        let xcenter = ctx.canvas.width / 2, ycenter = ctx.canvas.height / 2, sourceWidth = 65, sourceHeight = 65;
+                        let xcenter = ctx.canvas.width / 2, ycenter = ctx.canvas.height / 2;
                         ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
                         ctx.save();
                         ctx.translate(xcenter, ycenter); // to get it in the origin
                         currentLoadingcon._rotation += 2;
                         ctx.rotate(currentLoadingcon._rotation * Math.PI / 64); //rotate in origin
-                        ctx.drawImage(image, -sourceWidth / 2, -sourceHeight / 2);
+                        ctx.drawImage(image, -65 / 2, -65 / 2);
                         ctx.restore();
                     }
                 }, 20);
@@ -2121,33 +2128,33 @@ const visualization$4 = visualizationNS$4;
 
 var S = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    visualization: visualization$4,
-    Loader: Loader,
-    Dependency: Dependency,
-    ScriptDependency: ScriptDependency,
+    get CHART_PATTERN_OPTIONS () { return CHART_PATTERN_OPTIONS; },
+    get CONTAINER_STATE () { return CONTAINER_STATE; },
+    Chart: Chart,
+    Container: Container,
+    Core: Core,
     CssDependency: CssDependency,
-    SparqlError: SparqlError,
-    Select: Select,
+    Dependency: Dependency,
+    EnvelopeWktLiteral: EnvelopeWktLiteral,
+    ErrorWktLiteral: ErrorWktLiteral,
+    LinestringWktLiteral: LinestringWktLiteral,
+    Loader: Loader,
+    LoadingIcon: LoadingIcon,
+    Logger: Logger,
     get MESSAGES () { return MESSAGES; },
     Messages: Messages,
-    Tools: Tools$1,
-    Logger: Logger,
-    Core: Core,
-    get CHART_PATTERN_OPTIONS () { return CHART_PATTERN_OPTIONS; },
-    Chart: Chart,
-    get SPARQL_RESULT () { return SPARQL_RESULT; },
-    SparqlTools: SparqlTools,
-    Request: Request,
-    get CONTAINER_STATE () { return CONTAINER_STATE; },
-    Container: Container,
-    LoadingIcon: LoadingIcon,
-    WktLiteral: WktLiteral,
-    PointWktLiteral: PointWktLiteral,
-    LinestringWktLiteral: LinestringWktLiteral,
-    EnvelopeWktLiteral: EnvelopeWktLiteral,
-    PolygonWktLiteral: PolygonWktLiteral,
     MultiPolygonWktLiteral: MultiPolygonWktLiteral,
-    ErrorWktLiteral: ErrorWktLiteral
+    PointWktLiteral: PointWktLiteral,
+    PolygonWktLiteral: PolygonWktLiteral,
+    Request: Request,
+    get SPARQL_RESULT () { return SPARQL_RESULT; },
+    ScriptDependency: ScriptDependency,
+    Select: Select,
+    SparqlError: SparqlError,
+    SparqlTools: SparqlTools,
+    Tools: Tools$1,
+    WktLiteral: WktLiteral,
+    visualization: visualization$4
 });
 
 /**
@@ -2885,7 +2892,7 @@ let AreaChart$1 = class AreaChart extends Chart {
     }
     static init() {
         google.charts.load('current', { 'packages': ['corechart'] });
-        AreaChart$1._isInit = true;
+        AreaChart._isInit = true;
     }
     get icon() {
         return 'fas fa-chart-area';
@@ -2927,8 +2934,8 @@ let AreaChart$1 = class AreaChart extends Chart {
                 width: Tools.decodeFormatSize(currentChart.width),
                 height: height
             });
-            if (!AreaChart$1._isInit) {
-                AreaChart$1.init();
+            if (!AreaChart._isInit) {
+                AreaChart.init();
             }
             google.charts.setOnLoadCallback(() => {
                 try {
@@ -2962,7 +2969,7 @@ let BarChart$1 = class BarChart extends Chart {
     }
     static init() {
         google.charts.load('current', { 'packages': ['corechart', 'bar'] });
-        BarChart$1._isInit = true;
+        BarChart._isInit = true;
     }
     get icon() {
         return 'fa fa-align-left';
@@ -3004,8 +3011,8 @@ let BarChart$1 = class BarChart extends Chart {
                 width: Tools.decodeFormatSize(currentChart.width),
                 height: height
             });
-            if (!BarChart$1._isInit) {
-                BarChart$1.init();
+            if (!BarChart._isInit) {
+                BarChart.init();
             }
             google.charts.setOnLoadCallback(() => {
                 try {
@@ -3039,7 +3046,7 @@ let BubbleChart$1 = class BubbleChart extends Chart {
     }
     static init() {
         google.charts.load('current', { 'packages': ['corechart'] });
-        BubbleChart$1._isInit = true;
+        BubbleChart._isInit = true;
     }
     get icon() {
         return 'fa fa-circle';
@@ -3081,8 +3088,8 @@ let BubbleChart$1 = class BubbleChart extends Chart {
                 width: Tools.decodeFormatSize(currentChart.width),
                 height: height
             });
-            if (!BubbleChart$1._isInit) {
-                BubbleChart$1.init();
+            if (!BubbleChart._isInit) {
+                BubbleChart.init();
             }
             google.charts.setOnLoadCallback(() => {
                 try {
@@ -3272,7 +3279,7 @@ let ColumnChart$1 = class ColumnChart extends Chart {
     }
     static init() {
         google.charts.load('current', { 'packages': ['corechart', 'bar'] });
-        ColumnChart$1._isInit = true;
+        ColumnChart._isInit = true;
     }
     get icon() {
         return 'fas fa-chart-bar';
@@ -3314,8 +3321,8 @@ let ColumnChart$1 = class ColumnChart extends Chart {
                 width: Tools.decodeFormatSize(currentChart.width),
                 height: height
             });
-            if (!ColumnChart$1._isInit) {
-                ColumnChart$1.init();
+            if (!ColumnChart._isInit) {
+                ColumnChart.init();
             }
             google.charts.setOnLoadCallback(() => {
                 try {
@@ -3759,7 +3766,7 @@ let Map$1 = class Map extends Chart {
     }
     static init() {
         google.charts.load('current', { 'packages': ['map'], mapsApiKey: API$1.key });
-        Map$1._isInit = true;
+        Map._isInit = true;
     }
     get icon() {
         return 'fa fa-map';
@@ -3812,8 +3819,8 @@ let Map$1 = class Map extends Chart {
                 }, opt);
             }
             // init only one time
-            if (!Map$1._isInit) {
-                Map$1.init();
+            if (!Map._isInit) {
+                Map.init();
             }
             google.charts.setOnLoadCallback(() => {
                 try {
@@ -4025,7 +4032,7 @@ let Pie$1 = class Pie extends Chart {
     }
     static init() {
         google.charts.load('current', { 'packages': ['corechart'] });
-        Pie$1._isInit = true;
+        Pie._isInit = true;
     }
     /**
      * Make a standard simple html pie.
@@ -4052,8 +4059,8 @@ let Pie$1 = class Pie extends Chart {
                 width: Tools.decodeFormatSize(currentChart.width),
                 height: height
             });
-            if (!Pie$1._isInit) {
-                Pie$1.init();
+            if (!Pie._isInit) {
+                Pie.init();
             }
             google.charts.setOnLoadCallback(() => {
                 try {
@@ -4087,7 +4094,7 @@ let ScatterChart$1 = class ScatterChart extends Chart {
     }
     static init() {
         google.charts.load('current', { 'packages': ['corechart'] });
-        ScatterChart$1._isInit = true;
+        ScatterChart._isInit = true;
     }
     get icon() {
         return 'fa fa-circle';
@@ -4129,8 +4136,8 @@ let ScatterChart$1 = class ScatterChart extends Chart {
                 width: Tools.decodeFormatSize(currentChart.width),
                 height: height
             });
-            if (!ScatterChart$1._isInit) {
-                ScatterChart$1.init();
+            if (!ScatterChart._isInit) {
+                ScatterChart.init();
             }
             google.charts.setOnLoadCallback(() => {
                 try {
@@ -4540,6 +4547,8 @@ Trendline._isInit = false;
 /**
  * @namespace google.visualization
  */
+// Annotation Chart
+// https://developers.google.com/chart/interactive/docs/gallery/annotationchart
 // Word Trees
 // https://developers.google.com/chart/interactive/docs/gallery/wordtree
 // todo
@@ -4576,10 +4585,10 @@ const visualization$2 = visualizationNS$2;
 
 var googleNS = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    visualization: visualization$2,
+    API: API$1,
     Data: Data,
     Tools: Tools,
-    API: API$1
+    visualization: visualization$2
 });
 
 /**
@@ -6035,8 +6044,8 @@ const visualization = visualizationNS;
 
 var leafletNS = /*#__PURE__*/Object.freeze({
     __proto__: null,
-    visualization: visualization,
-    API: API
+    API: API,
+    visualization: visualization
 });
 
 const sgvizler = S;

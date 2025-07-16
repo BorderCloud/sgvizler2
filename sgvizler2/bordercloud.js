@@ -1,0 +1,6 @@
+/**
+ * @namespace bordercloud
+ */
+import * as visualizationNS from './bordercloud/visualization';
+export const visualization = visualizationNS;
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiYm9yZGVyY2xvdWQuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi9zcmMvYm9yZGVyY2xvdWQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7O0dBRUc7QUFDSCxPQUFPLEtBQUssZUFBZSxNQUFNLDZCQUE2QixDQUFBO0FBQzlELE1BQU0sQ0FBQyxNQUFNLGFBQWEsR0FBRyxlQUFlLENBQUEifQ==
