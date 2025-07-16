@@ -2,11 +2,12 @@
   "extends": "./config/tsconfig.flexible", // also available: "./config/tsconfig.strict"
   "compilerOptions": {
     "target": "es6",
-    "outDir": "build/main",
+//    "outDir": "build/main",
     "rootDir": "src",
     "moduleResolution": "node",
-    "module": "commonjs",
-    "declaration": true,
+    "module": "esnext",
+//    "declarationDir": "build/main",
+    "declaration": false,
     "importHelpers": true,
     "inlineSourceMap": true,
 
@@ -44,7 +45,8 @@
     "lib" : [
       "es6",
       "dom",
-      "es2020.string"
+      "es2020.string",
+      "esnext"
     ],
     "types" : [
       "node"
@@ -55,7 +57,7 @@
     }
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["src/testy/**","node_modules/**"],
+  "exclude": ["src/testy/**","node_modules/**","build"],
   "compileOnSave": false,
   "typeRoots": [
     "node_modules/@types"

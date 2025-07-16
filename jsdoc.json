@@ -31,17 +31,11 @@
     "systemName":
     "<div style='position: relative;top: -20px;font:bold;color: black;font-size: 31pt;font-weight: bolder;'><img style='vertical-align: sub;' src='img/mr.sgvizler.png' width='55px'/>Sgvizler 2</div>",
     "systemTitle":  "Sgvizler 2"
-    /*"logoFile":"img/mr.sgvizler.png"*/
   },
   "source": {
-    "include": "build/main",
-    "exclude":  "build/main/__test__",
+    "include": "build/module",
+    "exclude":  "build/module/__test__",
     "includePattern": ".+\\.js(doc|x)?$",
-// TODO : resolve : Error token with Jsdoc
-//    "include": "./src",
-//    "exclude":  "./src/__test__",
-//    "includePattern": ".+\\.ts(doc|x)?$",
-
     "excludePattern": "(^|\\/|\\\\)_"
   }
 }

@@ -11,17 +11,15 @@ const substituteModulePaths = {
 }
 
 export default {
-    input: 'build/module/index.js',
+    input: 'src/index.ts',
     plugins: [
         alias(substituteModulePaths),
         nodeResolve({
             browser: true
         }),
-        typescript({ compilerOptions: {lib: [
-            "es6",
-            "dom",
-            "es2020.string"
-        ], target: "es6"}}),
+        typescript({
+            tsconfig: 'tsconfig.json',
+        }),
         commonjs()
     ],
     external: ['jquery'],
@@ -30,6 +28,7 @@ export default {
             $: 'jquery',
             jquery: 'jQuery'
         },
-        sourcemap: true
+        sourcemap: true,
+        file: "./build/browser/sgvizler2.js",
     }
 }
