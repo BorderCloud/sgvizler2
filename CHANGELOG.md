@@ -1,3 +1,24 @@
+#### 1.7.4 (2025-07-16)
+Update all libs in package.json (not in /lib)
+
+##### Chores
+
+* **deps:**
+  *  bump follow-redirects from 1.15.2 to 1.15.4 (baf883d5)
+  *  bump browserify-sign from 4.2.1 to 4.2.2 (f30cd311)
+  *  bump @babel/traverse from 7.20.5 to 7.23.2 (1fa4b681)
+  *  bump tough-cookie from 4.1.2 to 4.1.3 (e0aa5c33)
+  *  bump postcss from 8.4.19 to 8.4.31 (2eab5a3f)
+  *  bump semver from 5.7.1 to 5.7.2 (888fa3d1)
+  *  bump word-wrap from 1.2.3 to 1.2.5 (92006794)
+  *  bump http-cache-semantics from 4.1.0 to 4.1.1 (2be24ac7)
+  *  bump json5 from 1.0.1 to 1.0.2 (5bd9b2de)
+* **deps-dev:**  bump chromedriver from 108.0.0 to 119.0.1 (63bb7fa8)
+
+##### Other Changes
+
+* BorderCloud/sgvizler2 (a7983f03)
+
 # Changelog
 
 #### 1.7.3 (2022-12-11)
