@@ -1,4 +1,4 @@
-import {TestSuite} from "testyts/build/lib/decorators/testSuite.decorator";
+import {TestSuite} from "testyts/build/lib/decorators/testSuite.decorator.js";
 
 @TestSuite() // @ts-ignore
 export class ChartTestSuite {

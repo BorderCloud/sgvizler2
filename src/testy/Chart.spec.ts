@@ -1,5 +1,5 @@
-import {TestSuite} from "testyts/build/lib/decorators/testSuite.decorator";
-import {Test} from "testyts/build/lib/decorators/test.decorator";
+import {TestSuite} from "testyts/build/lib/decorators/testSuite.decorator.js";
+import {Test} from "testyts/build/lib/decorators/test.decorator.js";
 
 import {expect} from "testyts/build/testyCore"
 import {Table} from "../sgvizler/visualization/Table";

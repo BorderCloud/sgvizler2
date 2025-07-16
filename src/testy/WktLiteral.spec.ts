@@ -1,14 +1,14 @@
-import {TestSuite} from "testyts/build/lib/decorators/testSuite.decorator";
-import {AfterAll, AfterEach, BeforeAll, BeforeEach} from "testyts/build/lib/decorators/afterAndBefore.decorator";
-import {Test} from "testyts/build/lib/decorators/test.decorator";
-import {expect} from "testyts/build/testyCore"
+import {TestSuite} from "testyts/build/lib/decorators/testSuite.decorator.js";
+import {AfterAll, AfterEach, BeforeAll, BeforeEach} from "testyts/build/lib/decorators/afterAndBefore.decorator.js";
+import {Test} from "testyts/build/lib/decorators/test.decorator.js";
+import {expect} from "testyts/build/testyCore.js"
 import {
     EnvelopeWktLiteral, ErrorWktLiteral,
     LinestringWktLiteral, MultiPolygonWktLiteral,
     PointWktLiteral,
     PolygonWktLiteral,
     WktLiteral
-} from "../sgvizler/WktLiteral";
+} from "../sgvizler/WktLiteral.js";
 import instantiate = WebAssembly.instantiate;
 
 @TestSuite() // @ts-ignore
