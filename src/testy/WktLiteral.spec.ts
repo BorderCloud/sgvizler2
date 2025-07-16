@@ -8,7 +8,7 @@ import {
     PointWktLiteral,
     PolygonWktLiteral,
     WktLiteral
-} from "../sgvizler/WktLiteral.js";
+} from "../../build/browser/sgvizler/WktLiteral.js";
 import instantiate = WebAssembly.instantiate;
 
 @TestSuite() // @ts-ignore
