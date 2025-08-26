@@ -2411,7 +2411,7 @@
                     obj.appendChild(tableElement);
                     $.fn.dataTable.Buttons.defaults.dom.button.className = "btn btn-outline-dark btn-sm";
                     $('#' + idChart).DataTable({
-                        bSort: false,
+                        ordering: true,
                         data: dataset,
                         columns: datasetColumns,
                         columnDefs: datasetColumnsDefs,
