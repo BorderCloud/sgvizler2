@@ -1,3 +1,6 @@
+#### 1.7.5 (2025-08-26)
+Patch to resolve a bug  in DataTables 1.10.21 -> 1.10.25
+
 #### 1.7.4 (2025-07-16)
 Update all libs in package.json (not in /lib)
 
