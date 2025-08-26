@@ -1,3 +1,6 @@
+#### 1.7.6 (2025-08-26)
+Enable control ordering in DataTables
+
 #### 1.7.5 (2025-08-26)
 Patch to resolve a bug  in DataTables 1.10.21 -> 1.10.25
 
